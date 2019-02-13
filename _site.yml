@@ -1,0 +1,8 @@
+name: "Data DavidZ"
+navbar:
+  title: "Data DavidZ"
+  left:
+  - text: "Home"
+    href: index.html
+  - text: "Lords Stats"
+    href: lords.html
