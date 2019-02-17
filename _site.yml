@@ -1,9 +1,17 @@
 name: "Data DavidZ"
-output_dir: .  #necessary for hosting on Github
+output_dir: "."  #necessary for hosting on Github
 navbar:
-  title: "Data DavidZ"
+  title: "[datadavidz]"
   left:
   - text: "Home"
     href: index.html
-  - text: "Lords Stats"
-    href: lords.html
+  - text: "Blog"
+    href: blog.html
+  - text: "About"
+    href: about.html
+  right:
+  - icon: fa-github fa-lg
+    href: http://github.com/datadavidz
+output:
+  html_document:
+    theme: cosmo

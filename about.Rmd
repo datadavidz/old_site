@@ -1,0 +1,8 @@
+---
+title: "Lords Stats"
+author: "datadavidz"
+date: "February 13, 2019"
+output: html_document
+---
+
+I can't publish work related to my job so I do some analyses on Lords Mobile.

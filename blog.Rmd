@@ -1,0 +1,30 @@
+---
+output: html_document
+---
+<br>
+
+##**[datadavidz] blog**
+
+<br><br>
+
+###**What's the trouble, yo?  It's a troubledough!**
+*Posted on February 13, 2019*
+
+A recent event in the Lords Mobile game was a monster hunting event with a new type of monster: the Troubledough.  The event was concurrent with the release of new background music for the game.  Slaying the troubledoughs rewards the player with a "Chest of Echoes".  This post analyzes the chest rewards.  Were the rewards worth the effort?
+
+[Full post](2019-02-13_Troubledough.html)
+
+***
+<!--- put in r chunk to float an image to the right.
+out.extra='style="float:right; padding:10px"'
+--->
+
+###**What is Lords Mobile?**
+*Posted on January 30, 2019*
+
+In this post, I provide a brief introduction to Lords Mobile game.  I take various aspects of the gameplay in Lords Mobile as a source for discussions in many of my posts.  The purpose of this post is to give readers an overview for those who are unfamiliar with the game.  Perhaps, you will want to join and build your own kingdom?
+
+
+[Full post](2019-01-30_LordsOverview.html)
+
+
