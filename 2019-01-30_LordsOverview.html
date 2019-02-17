@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="what-is-lords-mobile" class="section level2">
+<h2><strong>What is Lords Mobile?</strong></h2>
+<p><em>Posted on January 30, 2019</em></p>
+<p>Lords Mobile is a game you can download and play on your mobile device (i.e. smartphone or tablet). The game was developed by IGG Inc. (<a href="www.igg.com" class="uri">www.igg.com</a>) and released on February 2016. Lords Mobile is one of many games in the massive multi-player online strategy genre. The core of the game is to build your own castle and army to battle against other players. You cannot get very far in the game without joining a guild with up to 99 other players in your kingdom. The best way to learn more about the game is to go to your Apple or Google Play store and download the game for free. If you have no interest at this time, please read on.</p>
+<div id="development" class="section level3">
+<h3><strong>Development</strong></h3>
+<p>There are four main developmental aspects to the game: building, research, training and heroes.</p>
+<div id="building" class="section level4">
+<h4>Building</h4>
+<p>You begin the game with a level 1 castle building. There are several spaces on your turf for constructing other types of buildings. You can build resource buildings to grow food, stone, wood and ore. You need resources to level up your buildings, perform research and train troops. You also need a barracks to house your troops, an academy to perform research, a castle wall for defense as well as many other types of buildings. You can keep upgrading your buildings to make them more productive. Each upgrade advances the building level to a maximum of level 25. Besides the resource requirements, the upgrades also take time. The first few levels may take only a few hours and the next few levels take a couple of days and then you get into weeks at the upper levels. You can acquire speed-ups from various quests and events which can be applied to complete the upgrades more quickly.</p>
+</div>
+<div id="research" class="section level4">
+<h4>Research</h4>
+<p>You can perform research at the academy to build faster, produce more resources and train a more powerful army. Similar to building, resources and time are required to complete a research and only one research can be studied at a time. Also, the researches have different levels with higher levels offering better boosts but also requiring much more time. Researches can be performed in several different trees for Military, Economy and Defense to name a few. Certain researches have to be completed before other research can begin as defined by the tree.</p>
+</div>
+<div id="training" class="section level4">
+<h4>Training</h4>
+<p>At some point in the game, you will want to battle other players and, for this, you will need to build an army. There are four types of troops: infantry, range, cavalry and siege. The troops also can be from 1 of 4 different tiers. You begin with tier 1 troops and then you need to complete research to unlock the other tiers with tier 4 being the most powerful troops. You train your troops in the barracks building and it requires, you guessed it, resources and time. The level of your barracks building(s) largely determines how many troops you can train at a time. The level of your castle determines the upper limit on how many troops you can send into combat in each attack.</p>
+</div>
+<div id="heroes" class="section level4">
+<h4>Heroes</h4>
+<p>Heroes are characters you recruit to hunt monsters and lead your troops into battle. You recruit heroes by collecting their medals which can be done by completing hero stages. Once you have recruited a hero, you can level up the hero to increase its abilities by collecting more medals. Different heroes have different abilities which can increase troop power as well as your development speed. You assign a hero as your leader and can equip him with gear (e.g. helmet, armor, weapons) to give further boosts. Gear is crafted using special materials found when gathering and monster hunting.</p>
+</div>
+</div>
+<div id="supporting-activities" class="section level3">
+<h3><strong>Supporting activities</strong></h3>
+<p>So, what do you do in the game while waiting for all of your building, research and training to complete? Well, you can chat with your guildmates about what is going on in their part of the world or talk smack with rival guilds in the kingdom chat. You can attack other castles with what troops you have already trained however this can take your development backwards especially if your troops are constantly ending up dead or wounded. Other ways to support your development are gathering, monster hunting, quests and events.</p>
+<div id="gathering" class="section level4">
+<h4>Gathering</h4>
+<p>On the kingdom map outside your castle, many locations exist (i.e. tiles) where there are resources which can be gathered by your troops and brought back to your castle. You send an army out to the tile and they gather until they reach their limit or until all resources have been gathered from the tile. A lot of players find the gathering aspect of the game very boring. You can get by without gathering however you will need to find a way to supplement your resources either by attacking other players and stealing their resources or purchasing packs with your real, hard-earned money. A downside to gathering is that your tile can be attacked by another player which typically sends your troops to your hospital and you then need resources to heal them.</p>
+</div>
+<div id="monster-hunting" class="section level4">
+<h4>Monster hunting</h4>
+<p>Monsters also lurk on the kingdom map outside your castle. You can send your heroes out to fight the monster. Each attack reduces the monster’s health by a percentage and gives you some rewards. When you reduce the monster’s health to zero, every member of your guild gets a chest containing a reward. The rewards are items such as resource packs, speed-ups, guild coins and special materials. Each time you hunt a monster, you lose some energy however this energy continually rebuilds with time.</p>
+</div>
+<div id="quests" class="section level4">
+<h4>Quests</h4>
+<p>At the beginning of the game, you are presented with turf quests which give you resources, experience points and speed-ups (sometimes) for completing research, buildings and various other tasks. Completing these quests can speed up your development. You also can complete admin and guild quests which just require you to push a button and wait and provide the same types of rewards as turf quests along with special materials.</p>
+</div>
+<div id="events" class="section level4">
+<h4>Events</h4>
+<p>One of the ways I think Lords Mobile separates itself from other games in this genre is its events. Events occur for a specific period of time and require players to perform specific actions to earn rewards. Events can involve combat such as in kingdom vs. kingdom (KvK) or have special monsters to hunt or require you to work with your guild to earn points. Certain events like KvK and guildfest occur on a regular schedule while others are special for a particular holiday or time of year. You can get great rewards by participating in the events and it breaks up some of the monotony of the daily quests and development. There are also events occuring every few hours (solo and hell events) where you can earn rewards for completing certain developments.</p>
+</div>
+</div>
+<div id="thats-all-folks" class="section level3">
+<h3><strong>That’s all folks!</strong></h3>
+<p>This short introduction ends my overview of Lords Mobile. There are so many more aspects and strategy to the game but I have shared the basics. You can find loads of information about the game in wikis, guides and on Youtube but, again, the best way to learn is to actually try it out. I have been casually playing since November 2016 and have had a lot of fun with it!</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

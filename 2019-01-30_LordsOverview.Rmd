@@ -1,0 +1,48 @@
+---
+output: html_document
+---
+<br>
+
+##**What is Lords Mobile?**
+*Posted on January 30, 2019*
+
+Lords Mobile is a game you can download and play on your mobile device (i.e. smartphone or tablet).  The game was developed by IGG Inc. ([www.igg.com](www.igg.com)) and released on February 2016.  Lords Mobile is one of many games in the massive multi-player online strategy genre.  The core of the game is to build your own castle and army to battle against other players.  You cannot get very far in the game without joining a guild with up to 99 other players in your kingdom.  The best way to learn more about the game is to go to your Apple or Google Play store and download the game for free.  If you have no interest at this time, please read on.  
+
+###**Development**
+There are four main developmental aspects to the game: building, research, training and heroes.
+
+####Building
+You begin the game with a level 1 castle building.  There are several spaces on your turf for constructing other types of buildings.  You can build resource buildings to grow food, stone, wood and ore.  You need resources to level up your buildings, perform research and train troops.  You also need a barracks to house your troops, an academy to perform research, a castle wall for defense as well as many other types of buildings.  You can keep upgrading your buildings to make them more productive.  Each upgrade advances the building level to a maximum of level 25.  Besides the resource requirements, the upgrades also take time.  The first few levels may take only a few hours and the next few levels take a couple of days and then you get into weeks at the upper levels.  You can acquire speed-ups from various quests and events which can be applied to complete the upgrades more quickly.
+
+####Research
+You can perform research at the academy to build faster, produce more resources and train a more powerful army.  Similar to building, resources and time are required to complete a research and only one research can be studied at a time.  Also, the researches have different levels with higher levels offering better boosts but also requiring much more time.  Researches can be performed in several different trees for Military, Economy and Defense to name a few.  Certain researches have to be completed before other research can begin as defined by the tree.
+
+####Training
+At some point in the game, you will want to battle other players and, for this, you will need to build an army.  There are four types of troops: infantry, range, cavalry and siege.  The troops also can be from 1 of 4 different tiers.  You begin with tier 1 troops and then you need to complete research to unlock the other tiers with tier 4 being the most powerful troops.  You train your troops in the barracks building and it requires, you guessed it, resources and time.  The level of your barracks building(s) largely determines how many troops you can train at a time.  The level of your castle determines the upper limit on how many troops you can send into combat in each attack.
+
+####Heroes
+Heroes are characters you recruit to hunt monsters and lead your troops into battle.  You recruit heroes by collecting their medals which can be done by completing hero stages.  Once you have recruited a hero, you can level up the hero to increase its abilities by collecting more medals.  Different heroes have different abilities which can increase troop power as well as your development speed.  You assign a hero as your leader and can equip him with gear (e.g. helmet, armor, weapons) to give further boosts.  Gear is crafted using special materials found when gathering and monster hunting.
+
+###**Supporting activities**
+So, what do you do in the game while waiting for all of your building, research and training to complete?  Well, you can chat with your guildmates about what is going on in their part of the world or talk smack with rival guilds in the kingdom chat.  You can attack other castles with what troops you have already trained however this can take your development backwards especially if your troops are constantly ending up dead or wounded.  Other ways to support your development are gathering, monster hunting, quests and events.
+
+####Gathering
+On the kingdom map outside your castle, many locations exist (i.e. tiles) where there are resources which can be gathered by your troops and brought back to your castle.  You send an army out to the tile and they gather until they reach their limit or until all resources have been gathered from the tile.  A lot of players find the gathering aspect of the game very boring.  You can get by without gathering however you will need to find a way to supplement your resources either by attacking other players and stealing their resources or purchasing packs with your real, hard-earned money.  A downside to gathering is that your tile can be attacked by another player which typically sends your troops to your hospital and you then need resources to heal them.
+
+####Monster hunting
+Monsters also lurk on the kingdom map outside your castle.  You can send your heroes out to fight the monster.  Each attack reduces the monster's health by a percentage and gives you some rewards.  When you reduce the monster's health to zero, every member of your guild gets a chest containing a reward.  The rewards are items such as resource packs, speed-ups, guild coins and special materials.  Each time you hunt a monster, you lose some energy however this energy continually rebuilds with time.
+
+####Quests
+At the beginning of the game, you are presented with turf quests which give you resources, experience points and speed-ups (sometimes) for completing research, buildings and various other tasks.  Completing these quests can speed up your development.  You also can complete admin and guild quests which just require you to push a button and wait and provide the same types of rewards as turf quests along with special materials.
+
+####Events
+One of the ways I think Lords Mobile separates itself from other games in this genre is its events.  Events occur for a specific period of time and require players to perform specific actions to earn rewards.  Events can involve combat such as in kingdom vs. kingdom (KvK) or have special monsters to hunt or require you to work with your guild to earn points.  Certain events like KvK and guildfest occur on a regular schedule while others are special for a particular holiday or time of year.  You can get great rewards by participating in the events and it breaks up some of the monotony of the daily quests and development.  There are also events occuring every few hours (solo and hell events) where you can earn rewards for completing certain developments.
+
+###**That's all folks!**
+This short introduction ends my overview of Lords Mobile.  There are so many more aspects and strategy to the game but I have shared the basics.  You can find loads of information about the game in wikis, guides and on Youtube but, again, the best way to learn is to actually try it out.  I have been casually playing since November 2016 and have had a lot of fun with it!
+
+
+
+
+
+

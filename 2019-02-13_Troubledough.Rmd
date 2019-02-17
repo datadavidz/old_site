@@ -1,0 +1,82 @@
+---
+output: html_document
+---
+<br>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##**What’s the trouble, yo?  It’s a troubledough!**
+*Posted on February 13, 2019*
+
+A recent event in the Lords Mobile game (see [previous post](2019-01-30_LordsOverview.html)) was a monster hunting event with a new type of monster: the Troubledough.  The event was concurrent with the release of new background music for the game.  The Troubledough resembled a cross between a stereotypical pizza maker and a portly violinist.  He seemed rather jolly playing his music however we send our heroes out to slash him with a sword and send him back to another dimension.  As our reward for this heroic feat, we obtain a “Chest of Echoes” which contains one of seven possible rewards.
+
+The event costs basically nothing except your valuable time to find Troubledoughs when every 3 hours when they appear on the kingdom map and then send your heroes out to slay them.  There was no energy cost to hunt (well, 1 energy unit which takes about 1 second to build back).
+Of the seven possible rewards, 5 rewards were various amount of resources.  All resources with the exception of gold are rather easily obtained and the resource amounts offered from the chest were fairly insignificant for my account.  One reward was for 15 min of speed-ups.  Speed-ups are very important in the game however 15 min is a small amount relative to the typical time required to complete researches (weeks) or build troops (days).  The final reward was the real gem, in fact, 300 of them.  Gems are flexible currency in the Lords Mobile game and can be used to buy speed-ups, special materials, chests, combat boosts etc.  300 gems is the equivalent of a 3 hour speed-up which is miles better than just 15 min.
+
+So, what kind of drop rate are we to expect for the 300 gems reward from the “Chest of Echoes”?  If we assume the same drop-rate for all 7 rewards, the 300 gems would be received about 14.3% of the time.  Lords Mobile players however have come to expect a much lower drop-rate for the top item in a chest compared to the lesser items.  Many times the drop-rate for the top item is less than 5%.  This event was actually the second time the Troubledoughs had appeared and I had remembered receiving a good deal of gems from the previous event (~25,000 gems).  I decided to go “all-in” on this event to see how many chests I could acquire over the next few days.
+
+```{r, include=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+```{r, include=FALSE}
+chest_of_echoes <- tibble(
+                          Rewards = c("300 gems", "15 min speedup", "150k food", "50k stones",
+                                      "50k timber", "50k ore", "15k gold"),
+                          Count = c(275, 402, 169, 160,
+                                    132, 139, 141)
+)
+```
+
+After several days of valiant Troubledough slaying, I was able to collect 1418 chests of echoes.  I recorded the rewards as I opened the chests.  I can confirm there was one reward per chest.  The distribution of rewards is shown in the figure below.
+
+```{r, echo=FALSE, fig.height=6, fig.width=8}
+chest_of_echoes$Rewards <- factor(chest_of_echoes$Rewards, levels = chest_of_echoes$Rewards[order(-chest_of_echoes$Count)])
+
+g1 <- ggplot(data=chest_of_echoes, aes(x=Rewards, y=Count)) +
+        geom_bar(stat="identity", width=0.7, fill="steelblue") +
+        geom_text(aes(label=Count), vjust=-0.3, size=3.5) +
+        ggtitle("Troubledough Event Rewards", subtitle="Rewards obtained from 1418 chests of echoes") +
+        xlab("") + ylab("# of Items Obtained") +
+        theme_classic()
+g1
+```
+
+The distribution of rewards did not appear to be uniform.  If all rewards were equally likely, each rewards would appear about 203 times.  The 15 minute speed-ups showed up about 2 times more often.  The highly-desired reward of 300 gems was also received more frequently than one would expect from a uniform distribution of rewards.
+
+The chi-square goodness of fit test is used to compare the observed distribution to an expected distribution in a situation where we have two or more categories in a discrete dataset.  In other words, it compares multiple observed proportions to expected probabilities.
+
+Null hypothesis (Ho): There is no significant difference between the observed and the expected value.
+
+Alternative hypothesis (Ha): There is a significant different between the observed and the expected value.
+
+```{r}
+res <- chisq.test(chest_of_echoes$Count, p = rep(1/7, 7))
+res
+```
+
+The p-value of the test is less than the significance level alpha = 0.05.  We can conclude that the rewards are significantly not uniformly distributed with a p-value of < 2.2e-16.
+
+The actual drop rate % for the 1418 chests was calculated.  The drop rates were close to 20% for 300 gems and 30% for the 15 min speed-up.  One could assume the rest of the resource awards were equally likely with 10% drop rate.
+
+```{r, echo=FALSE}
+total_chests <- sum(chest_of_echoes$Count)
+chest_of_echoes <- chest_of_echoes %>%
+                    mutate(Actual = paste0(round(Count / total_chests * 100, 1), "%")) %>%
+                    mutate(Assumed = c("20%", "30%", "10%", "10%", "10%", "10%", "10%"))
+kable(chest_of_echoes, align='lccc', caption="Chest of Echoes Drop Rates")
+```
+
+Redo the analysis to test the assumed drop rates for the 1418 chest sample.
+```{r}
+assumed_drop_rates <- c(0.2, 0.3, 0.1, 0.1, 0.1, 0.1, 0.1)
+res <- chisq.test(chest_of_echoes$Count, p = assumed_drop_rates)
+res
+```
+From this sample, we cannot conclude that the drop rates are significantly different from our assumption (p-value > 0.05).
+
+###**Conclusion**
+So, there you have it!  The drop rate for the 300 gem reward from the chest of echoes was ~20% which was awesome.  From the 1418 chests collected during the event, I was able to collect 82,500 gems which is equivalent to about 60 days of speedups!  Another 4 days of speed-ups were obtained from the 15 min speed-up items.  If this event comes up a third time, be sure to hunt those Troubledoughs!
+
