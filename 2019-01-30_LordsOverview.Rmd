@@ -2,6 +2,15 @@
 output: html_document
 ---
 <br>
+```{r, include=FALSE}
+library(jpeg)
+library(knitr)
+```
+
+```{r, echo=FALSE, out.width="400px"}
+include_graphics("img/190130_LordsMobile.jpg")
+```
+
 
 ##**What is Lords Mobile?**
 *Posted on January 30, 2019*
