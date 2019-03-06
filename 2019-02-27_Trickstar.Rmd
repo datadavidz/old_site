@@ -13,8 +13,8 @@ library(jpeg)
 library(knitr)
 ```
 
-```{r, echo=FALSE, out.width="400px"}
-include_graphics("img/.jpg")
+```{r, echo=FALSE}
+include_graphics("img/190227_Trickstar.jpg")
 ```
 
 ##**Was I fooled by the Trickstar?**
