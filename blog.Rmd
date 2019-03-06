@@ -7,6 +7,15 @@ output: html_document
 
 <br><br>
 
+###**Was I fooled by the Trickstar?**
+*Posted on February 27, 2019*
+
+A recent event in Lords Mobile for Valentine's day was a Trickstar monster kill.  The Trickstar looks like an evil version of Cupid so I suppose it was an appropriate way to celebrate the holiday.  This post calculates the drop rate for the different holy star rewards and analyzes whether there was any significant dependency between the previous and next reward.
+
+[Full post](2019-02-27_Trickstar.html)
+
+***
+
 ###**What's the trouble, yo?  It's a troubledough!**
 *Posted on February 13, 2019*
 
