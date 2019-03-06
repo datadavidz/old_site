@@ -1,0 +1,90 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<br>
+```{r, include=FALSE}
+library(tidyverse)
+library(jpeg)
+library(knitr)
+```
+
+```{r, echo=FALSE, out.width="400px"}
+include_graphics("img/.jpg")
+```
+
+##**Was I fooled by the Trickstar?**
+*Posted on February 27, 2019*
+
+A recent event in Lords Mobile for Valentine's day was a Trickstar monster kill.  The Trickstar looks like an evil version of Cupid so I suppose it was an appropriate way to celebrate the holiday.  Trickstars appeared on the map every 3 hours for a period of 3 days.  The Trickstars can be slayed with 1 energy (basically free).  The rewards were holy stars which can be used in the Labyrinth to obtain gems, special materials, gold and other items.  Each Trickstar kill produced an immediate rewards of either 50, 100, 200 or 1000 holy stars.  I was able to participate in 11 rounds over the first two days.  On the third day, I was too busy with the Kingdom vs. Kingdom event to do any dedicated Trickstar hunting.
+
+So, how did the Trickstar event go?  Overall, I was able to kill about 32 trickstars per round for a grand total of 350.  The total rewards were 43,150 holy stars which was a pretty good haul with an equivalent cost of about 86,300 gems.  I was able to use some of these holy stars in the Labyrinth to obtain special materials which allowed me to upgrade my Dragon's Talon boots to rare (blue) grade.
+
+The overall drop rate for the 1000 holy stars reward was unfortunately quite low (~1%).  The following table summarizes the drop rates for each of the holy star rewards.
+
+```{r, echo=FALSE}
+trickstar_kills <- tibble(Rewards = c("50 stars", "100 stars", "200 stars", "1000 stars"),
+                          Count =   c(        79,         182,          85,           4))
+total_kills <- sum(trickstar_kills$Count)
+trickstar_kills <- trickstar_kills %>%
+                    mutate(DropRate = paste0(round(Count / total_kills * 100, 1), "%"))
+kable(trickstar_kills, align='lccc', caption="Trickstar/Holy Star Drop Rates")
+```
+
+###Does the next reward depend on previous rewards?
+One of the questions which arose during the Trickstar hunting was: "Is it more likely to receive certain rewards after a particular drop?".  It felt at times like you would get a string of 100 holy star rewards and at other times it would seem to alternate between 50 holy stars and 200 holy stars.  One way to analyze whether this dependency exists is by Markov Chain analysis.  I have used the markovchain package in R to perform the analyses.
+
+The ordered sequence of rewards were first loaded into R.
+```{r}
+filename <- "trickstar_sequence.csv"
+folder <- "./data/"
+numberCols <- 6 #total number of columns in spreadsheet
+
+colTypes <- str_c(str_dup("i", numberCols))
+trickstarSequence <- read_csv(paste0(folder, filename), col_types = colTypes)
+```
+
+```{r}
+rewardSequence <- trickstarSequence %>%
+                    gather("Reward", "Count", HS50:HS1000) %>%
+                    filter(!is.na(Count)) %>%
+                    arrange(Order)
+```
+
+```{r, message=FALSE, warning=FALSE}
+library(markovchain)
+```
+The function verifyMarkovProperty analyzes the sequence to determine whether the sequence satisfies the Markov property.  In this case, a p-value > 0.05 indicates one should not reject the null hypothesis that the Markov property holds for a specific transition.
+```{r, warning=FALSE}
+vmp <- verifyMarkovProperty(rewardSequence$Reward)
+```
+The transition matrix for the sequence of Trickstar rewards is given below.  The row label is the previous reward drop and the column label is the next reward drop.  For example, a 100 holy stars reward was received 99 times when the previous reward was also 100 holy stars.  A 1000 holy stars reward was obtained 3 times when the previous rewards was 100 holy stars.  The 1000 holy star drops were quite rare (only 4 out of 350) and was never obtained back-to-back nor after a 50 holy stars drop.  This observation is likely due to the limited sample size.
+
+```{r}
+createSequenceMatrix(stringchar = rewardSequence$Reward)
+```
+
+As calculated previously, the drop rates for the different holy star rewards are:
+```{r}
+mcRewards <- markovchainFit(data=rewardSequence$Reward)$estimate
+steadyStates(mcRewards)
+```
+###Analysis of the transitional probabilities
+
+The transitional probabilities are given in the following table:
+```{r}
+mcRewards
+```
+The columns of the transition matrix should be close to the steady state probabilities (drop rates) if there is no dependency between the current reward and the next reward.  A more detailed analysis including the 95% confidence intervals around the transitional probabilities shows that they include the drop rates.  Therefore, we cannot say there is a dependency between current and next rewards and the sequence could be randomly generated from the listed drop rates.
+
+```{r}
+markovchainFit(data=rewardSequence$Reward)
+```
+
+###Summary
+So, I don't feel I was fooled by Trickstar in this event.  In fact, the event was well-worth the effort with 43,150 holy stars obtained over two days of hunting.  The drop rate was highest for the 100 holy star rewards (~52%) and the 1000 holy star reward was quite rare (~ 1% drop rate).  The rewards appear to be randomly generated based on the drop rates and I could not statistically conclude using Markov Chain analysis that any dependency exists between the previous reward and the next reward.
+
