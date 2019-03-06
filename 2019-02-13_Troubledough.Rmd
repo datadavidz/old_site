@@ -6,6 +6,15 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r, include=FALSE}
+library(jpeg)
+library(knitr)
+```
+
+```{r, echo=FALSE}
+include_graphics("img/190213_Troubledough.jpg")
+```
+
 ##**What’s the trouble, yo?  It’s a troubledough!**
 *Posted on February 13, 2019*
 
