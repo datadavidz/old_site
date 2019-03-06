@@ -12,7 +12,7 @@ library(knitr)
 ```
 
 ```{r, echo=FALSE}
-include_graphics("img/190213_Troubledough.jpg")
+include_graphics("img/190213_troubledough.jpg")
 ```
 
 ##**What’s the trouble, yo?  It’s a troubledough!**
