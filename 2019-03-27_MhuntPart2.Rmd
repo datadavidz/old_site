@@ -1,0 +1,315 @@
+---
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(jpeg)
+library(knitr)
+```
+
+```{r, echo=FALSE}
+include_graphics("img/.jpg")
+```
+
+##**Monster Hunting Part 2: Guild Gifts**
+*Posted on March 27, 2019*
+
+The [previous post](2019-03-13_MhuntPart1.html) focused on the rewards obtained in Lords Mobile from your personal monster hunts.  Analysis of monster hunt data showed that the best rewards were obtained by hunting level 3 and 4 monsters.  This analysis runs counter to my guild's advice to only hunt level 1 and 2 monsters to maximize our rewards.  What was missing in the previous analysis was the effect that hunting different level monsters has on the guild gifts you receive.  In this post, I examine the potential daily rewards obtained from guild gifts.  As you will see, in a full and active guild, the rewards obtained from guild gifts can easily dwarf the rewards obtained from your personal monster hunting.
+
+The data for the guild gifts from monster hunting was obtained from the same spreadsheet used in part 1.  Again, I don't know the exact source of this data but kudos to the person who did this in such great detail.  There are several differences between the rewards obtained from personal monster hunting vs. guild gifts.  First, guild gifts are only obtained when someone in your guild kills the monster (i.e. reduces the monster's energy to zero) whereas rewards from personal monster hunting are obtained with each hit.  You only receive one item from a guild gift.  Also, guild gifts from monster hunting do not contain holy stars.  Keeping these factors in mind, let's begin the analysis!
+
+
+```{r, include=FALSE}
+library(tidyverse)
+library(readxl)
+```
+
+```{r, include=FALSE}
+#Read in data from spreadsheet and convert to tibble
+filename <- "lm_gg_raw_190218.xlsx"
+folder <- "./data/"
+numberCols <- 1 #total number of columns in spreadsheet
+
+colTypes <- rep("text", numberCols)
+raw1x <- read_excel(path = paste0(folder, filename), col_types = colTypes, col_names = FALSE)
+
+#Parse the raw data
+raw1x <- mutate(raw1x, id = rownames(raw1x))
+temp <- raw1x %>% separate(X__1, c("mon", "lvl", "reward", "quantity"), " ")
+```
+
+###Guild Gifts by Monster Level
+```{r, echo=FALSE}
+#Summary of hunts per level
+hunts_per_level <- temp %>% 
+                    select(id, lvl) %>%
+                    distinct() %>%
+                    count(lvl)
+
+g3 <- ggplot(hunts_per_level, aes(x=lvl, y=n)) +
+        geom_bar(stat = "identity", fill="steelblue") +
+        geom_text(aes(label = n), vjust=-0.3, size=3.5) +
+        xlab("Monster Level") + ylab("No. of Monster Chests") +
+        ggtitle("Distribution of Guild Gifts by Level") +
+        theme_classic()
+g3
+```
+
+As shown in the figure above, guild gift data was available for level 1 through 5 monsters.  You may remember that the personal monster hunting data did not contain level 5 data.  A total of 30,798 guild gifts were available in this dataset.  About 3/4 of the data was from guild gifts for level 1 and 2 monsters although a decent number of level 3 and 4 gifts were also available.
+
+###Guild Gifts by Monster Type
+
+Guild gifts are available for all 18 different types of monsters.  The figure below shows the distribution of guild gifts by monster type in the monster hunting dataset.  Once again, I am displaying the bars in the signature color for each monster!  But seriously, the figure would probably be more clear if I didn't display it this way.
+
+```{r, include=FALSE}
+giftsByType <- temp %>%
+            select(id, mon, lvl) %>%
+            distinct() %>%
+            select(mon, lvl) %>%
+            group_by(mon) %>%
+            count(lvl) %>%
+            ungroup() %>%
+            group_by(mon) %>%
+            summarize(kills = sum(n)) %>%
+            ungroup()
+            
+mnames <- c( "Bon Appeti", "Blackwing",  "Frostwing",   "Gargantuan",     "Gryphon", "Grim Reaper",  
+            "Hell Drider",   "Hardrox",  "Jade Wyrm", "Mecha Trojan", "Mega Maggot", "Noceros",
+              "Queen Bee", "Saberfang", "Snow Beast",  "Terrorthorn", "Tidal Titan", "Voodoo Shaman")
+mcolor <- c(    "#FFCC99",   "#6600CC",   "#66FFFF",       "#996633",     "#33CCFF", "#FF6600", 
+                "#CC0000",   "#CCCCCC",   "#33FF00",       "#CC9966",     "#CC9999", "#006600",
+                "#FFFF33",   "#FFCC00",   "#FF0066",       "#CCFF33",     "#00CC99", "#00CC66")
+
+giftsByType <- bind_cols(giftsByType, tibble(mnames = mnames, mcolors = mcolor)) %>%
+                arrange(kills) %>%
+                mutate(mnames = fct_reorder(mnames, kills)) %>%
+                mutate(mcolors = fct_reorder(mcolors, kills))
+```
+
+```{r, echo=FALSE}
+g2 <- ggplot(giftsByType, aes(x=mnames, y=kills, fill = mnames)) +
+        geom_bar(stat = "identity") +
+        scale_fill_manual(values = as.character(giftsByType$mcolors)) +
+        coord_flip() +
+        theme_minimal() +
+        theme(legend.position = "none") +
+        xlab("Monster") + ylab("# of Gifts") +
+        ggtitle("Distribution of Monster Chests in Guild Gifts")
+g2
+```
+
+The distribution of guild gifts is a bit more balanced with respect to monster than the personal monster hunting data.  The personal monster hunting data was skewed significantly to Voodoo Shaman hunts.  In this dataset, the distribution is not as skewed but does seem to trend with the difficulty to kill a particular monster.  Grim Reaper and Frostwing are the easiest level 1 monsters to "one-shot" meaning kill in one hunt.  Noceros, Hardrox and Tidal Titan are more difficult to "one-shot".  Even in  many strong guilds, some guild members do not have their monster hunting research complete or do not invest in monster hunting gear which leads to fewer kills per energy on these stronger monsters.
+
+###Drop Rate for Good Rewards from Guild Gifts by Monster Level
+
+The next analysis looks at how frequently the most desired rewards are received from different level guild gifts.  The most desired rewards, in my view, are regular and research speedups, gems and ultra-rare materials.  Unfortunately, holy stars are not available from guild gifts.
+
+```{r, include=FALSE}
+#Define ultra-rare materials
+ultrarare <- c("heart", "gcore", "bell", "orb", "seed", "eye",
+               "toxin", "brain", "skull", "vial", "sucker", "geye",
+               "blueprint", "venom", "halo", "pearl", "doll", "keystone")
+#Classify the rewards
+ggifts <- temp %>%
+          mutate(Category = case_when(is.na(reward) ~ "missing",
+                                      reward %in% ultrarare ~ "Ultra-rare",
+                                      str_detect(reward, "^[0-9].*[mh]$") ~ "Speedup",
+                                      str_detect(reward, "^[0-9].*[mh]r$") ~ "Speedup",
+                                      str_detect(reward, "^[0-9].*wall$") ~ "Wall Speedup",
+                                      str_detect(reward, "^[0-9].*heal$") ~ "Heal Speedup",
+                                      str_detect(reward, "gems$") ~ "Gems",
+                                      #str_detect(reward, "star$") ~ "Holy Stars",   not in guild gifts
+                                      str_detect(reward, "food$") ~ "Rss",
+                                      str_detect(reward, "stone$") ~ "Rss",
+                                      str_detect(reward, "wood$") ~ "Rss",
+                                      str_detect(reward, "ore$") ~ "Rss",
+                                      str_detect(reward, "gold$") ~ "Gold",
+                                      str_detect(reward, "shield$") ~ "Shield",
+                                      str_detect(reward, "^chest") ~ "Hero Chest",
+                                      str_detect(reward, "relocator$") ~ "Relocator",
+                                      TRUE ~ "others"))
+#Create table with only good rewards
+good_rewards <- c("Speedup", "Gems", "Ultra-rare")
+goodRewards <- ggifts %>%
+                  filter(Category %in% good_rewards) %>%
+                  select(id, lvl, Category) %>%
+                  distinct() %>%
+                  group_by(lvl) %>%
+                  count(Category) %>%
+                  rename(Count = n) %>%
+                  ungroup() %>%
+                  left_join(., hunts_per_level, by = "lvl") %>%
+                  mutate(droprate = round(Count/n * 100, 1))
+goodRewards <- bind_rows(goodRewards, tibble(lvl="5", Category="Ultra-rare", Count=0, n=217, droprate=0))
+goodRewards$Category <- fct_relevel(goodRewards$Category, c("Speedup", "Gems", "Ultra-rare"))
+```
+
+```{r, echo=FALSE}
+g4 <- ggplot(goodRewards, aes(x=lvl, y=droprate, fill=Category)) +
+        geom_bar(stat = "identity", position = "dodge") +
+        geom_text(aes(label=paste0(droprate, "%")), position=position_dodge(width=0.9), vjust=-0.25, size=3) +
+        theme_minimal() +
+        scale_fill_hue(l=50) +
+        xlab("Monster Level") + ylab("Drop Rate per Gift (%)") +
+        ggtitle("Drop rate of most desired rewards per gift")
+g4
+```
+
+Similar to the personal hunting dataset, the drop rate for the most desired rewards generally increases with increasing monster level.  Unfortunately, the ultra-rare materials are still very rare.  In fact, no ultra-rare materials were obtained from the 217 level 5 monster chests.  You can obtain ultra-rares from level 5 monsters (and potentially higher grade ones) however you will need to be very, very lucky.
+
+###Average Expected Daily Rewards from Guild Gifts
+
+The next analysis looks at the speedups and gems expected from guild gifts, if the entire guild hunted a specific level monster.  To perform this analysis, a few assumptions need to be made as to the number of guild members and the average amount of energy they will expend daily.  For the figure below, I assumed a full guild of 100 active members using an average amount of energy equivalent to 40 level 1 hits (~69,000 energy).  This assumption is close to the best-case situation.  Also, there is an assumption regarding how many hits are required to slay each monster.  I used the following estimates: level 1 takes 1 hits, level 2 takes 4 hits, level 3 takes 10 hits, level 4 takes 22 hits and level 5 takes 40 hits.  Again, these estimates are closer to the best-case situation.
+
+
+```{r, include=FALSE}
+#Set parameters for guild gifts
+hits_per_member <- 40
+total_members <- 100
+
+#Regular speedups
+speed <- temp %>%
+          filter(str_detect(reward, "^[0-9].*[mh]$")) %>%
+          mutate(id = as.numeric(id)) %>%
+          arrange(id)
+
+#Convert to speedup mins per energy
+speed <- speed %>%
+          separate(reward, into = c("time", "unit"), "(?<=[0-9])(?=[a-z])") %>%
+          mutate(time = as.numeric(time)) %>%
+          mutate(quantity = as.numeric(quantity)) %>%
+          mutate(timefactor = case_when(unit == "m" ~ 1,
+                                       unit == "h" ~ 60,
+                                       TRUE ~ NA_real_)) %>%
+          mutate(mins = time * timefactor * quantity) %>%
+          mutate(levelfactor = case_when(lvl == "1" ~ 1,
+                                         lvl == "2" ~ 1.667,
+                                         lvl == "3" ~ 2.667,
+                                         lvl == "4" ~ 4.667,
+                                         lvl == "5" ~ 6,
+                                         TRUE ~ NA_real_)) %>%
+          mutate(killfactor = case_when(lvl == "1" ~ 1,
+                                        lvl == "2" ~ 4,
+                                        lvl == "3" ~ 10,
+                                        lvl == "4" ~ 22,
+                                        lvl == "5" ~ 40,
+                                        TRUE ~ NA_real_)) %>%
+          mutate(MinsPerEnergy = mins/levelfactor/killfactor)
+
+#Regular speedups per day for XX lvl 1 equivalent hits by YY guild members
+speed_summary <- speed %>%
+                  group_by(lvl) %>%
+                  summarize(TotalMins = sum(MinsPerEnergy)) %>%
+                  ungroup()
+
+speed_summary <- left_join(speed_summary, hunts_per_level, by = "lvl") %>%
+                  mutate(MinsPerDay = TotalMins / n * hits_per_member * total_members)
+```
+
+
+```{r, include=FALSE}
+#Research speedups
+research <- temp %>%
+              filter(str_detect(reward, "^[0-9].*[mh]r$")) %>%
+              mutate(id = as.numeric(id)) %>%
+              arrange(id)
+
+#Convert research speedup mins per energy
+research <- research %>%
+          separate(reward, into = c("time", "unit"), "(?<=[0-9])(?=[a-z])") %>%
+          mutate(time = as.numeric(time)) %>%
+          mutate(quantity = as.numeric(quantity)) %>%
+          mutate(timefactor = case_when(unit == "mr" ~ 1,
+                                       unit == "hr" ~ 60,
+                                       TRUE ~ NA_real_)) %>%
+          mutate(mins = time * timefactor * quantity) %>%
+          mutate(levelfactor = case_when(lvl == "1" ~ 1,
+                                         lvl == "2" ~ 1.667,
+                                         lvl == "3" ~ 2.667,
+                                         lvl == "4" ~ 4.667,
+                                         lvl == "5" ~ 6,
+                                         TRUE ~ NA_real_)) %>%
+          mutate(killfactor = case_when(lvl == "1" ~ 1,
+                                        lvl == "2" ~ 4,
+                                        lvl == "3" ~ 10,
+                                        lvl == "4" ~ 22,
+                                        lvl == "5" ~ 40,
+                                        TRUE ~ NA_real_)) %>%
+          mutate(MinsPerGift = mins/levelfactor/killfactor)
+
+#Research speedups per day for XX lvl 1 equivalent hits by YY guild members
+research_summary <- research  %>%
+                      group_by(lvl) %>%
+                      summarize(TotalMins = sum(MinsPerGift)) %>%
+                      ungroup()
+
+research_summary <- left_join(research_summary, hunts_per_level, by = "lvl") %>%
+                      mutate(MinsPerDay = TotalMins / n * hits_per_member * total_members)
+```
+
+```{r, include=FALSE}
+#Gems
+gems <- temp %>%
+          filter(str_detect(reward, "gems$")) %>%
+          mutate(id = as.numeric(id)) %>%
+          arrange(id)
+
+#Convert to gems per level 1 equivalent energy
+gems <- gems %>%
+          separate(reward, into = c("amount", "unit"), "(?<=[0-9])(?=[a-z])") %>%
+          mutate(amount = as.numeric(amount)) %>%
+          mutate(quantity = as.numeric(quantity)) %>%
+          mutate(levelfactor = case_when(lvl == "1" ~ 1,
+                                         lvl == "2" ~ 1.667,
+                                         lvl == "3" ~ 2.667,
+                                         lvl == "4" ~ 4.667,
+                                         lvl == "5" ~ 6,
+                                         TRUE ~ NA_real_)) %>%
+          mutate(killfactor = case_when(lvl == "1" ~ 1,
+                                        lvl == "2" ~ 4,
+                                        lvl == "3" ~ 10,
+                                        lvl == "4" ~ 22,
+                                        lvl == "5" ~ 40,
+                                        TRUE ~ NA_real_)) %>%
+          mutate(GemsPerGift = amount*quantity/levelfactor/killfactor)
+
+#Research speedups per day for XX lvl 1 equivalent hits by YY guild members
+gems_summary <- gems %>%
+                  group_by(lvl) %>%
+                  summarize(TotalGems = sum(GemsPerGift)) %>%
+                  ungroup()
+
+gems_summary <- left_join(gems_summary, hunts_per_level, by = "lvl") %>%
+                  mutate(GemsPerDay = TotalGems / n * hits_per_member * total_members)
+```
+
+```{r, include=FALSE}
+perDay <- tibble(lvl = speed_summary$lvl,
+           RegSpeeds = speed_summary$MinsPerDay,
+           ResSpeeds = research_summary$MinsPerDay,
+           Gems = gems_summary$GemsPerDay
+                     ) %>%
+          gather("Item", "Quantity", 2:4)
+```
+
+```{r, echo=FALSE}
+g5 <- ggplot(perDay, aes(x=Item, y=Quantity, fill=lvl)) +
+        geom_bar(stat = "identity", position = "dodge") +
+        scale_x_discrete(labels = str_wrap(c("Gems", "Regular Speedups (min)", "Research Speedups (min)"), width = 10)) +
+        geom_text(aes(label=round(Quantity, 0)), position=position_dodge(width=0.9), vjust=-0.25, size=3) +
+        theme_minimal() +
+        scale_fill_hue(l=50) +
+        ggtitle("Average rewards per day from guild gifts") +
+        xlab("") + ylab("Average rewards")
+g5
+```
+
+The figure above shows that the most speedups per day from guild gifts are obtained by hunting only level 1 monsters.  The most gems per day from guild gifts are obtained by hunting level 2 monsters although level 1 is not too far behind.  There is a steep drop off in guild gift rewards from hunting only level 3 or 4 monsters.  The amount of these rewards obtained from guild gifts for level 1 and 2 monsters is at least an order of magnitude higher than the rewards obtained from personal loot.  The total speedups (regular + research) obtained from personal loot ranged from 4.5 hours/day for level 1 monsters to 15 hours/day for level 4 monsters.  Here we see that the total speedups from guild gifts for level 1 monsters is 255 hours (over 10 days!).  The gems from personal loot ranged from 111 gems for level 1 to 377 gems for level 4.  Here we see the average gems from guild gifts for level 1 monsters is 6304 gems!  Clearly, any reduction in personal loot from hitting level 1 monsters is made up and greatly exceeded by the increased guild gifts.
+
+###Summary
+Hunting only level 1 monsters is clearly the right way to maximize your speedup and gem rewards.  A practical issue exists in that, if the guild members are close together on the map, the level 1 monsters may be hard to find since everyone is focused on killing them.  Adding level 2 monsters as acceptable can help address this issue and may increase gem rewards slightly.  Also, the guild could spread out more on the map however this can have repercussions in other activities (e.g. rallying Darknests). In the next post, I intend to look at various ways a guild could optimize their monster hunting based upon their availability and needs.
+
