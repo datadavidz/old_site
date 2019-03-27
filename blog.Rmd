@@ -7,6 +7,24 @@ output: html_document
 
 <br><br>
 
+###**Monster Hunting Part 2: Guild Gifts**
+*Posted on March 27, 2019*
+
+In this post, I examine the potential daily rewards obtained from guild gifts.  As you will see, in a full and active guild, the rewards obtained from guild gifts can easily dwarf the rewards obtained from your personal monster hunting.
+
+[Full post](2019-03-27_MhuntPart2.html)
+
+***
+
+###**Monster Hunting Part 1: Personal Loot**
+*Posted on March 13, 2019*
+
+One of the long running debates in my Lords Mobile guild has been how to best benefit the entire guild when monster hunting.  In this post, I look at the average personal loot you would expect from using all of your daily energy to hunt a specific level of monster.
+
+[Full post](2019-03-13_MhuntPart1.html)
+
+***
+
 ###**Was I fooled by the Trickstar?**
 *Posted on February 27, 2019*
 
