@@ -3,10 +3,11 @@ output: html_document
 ---
 <br>
 
-##**[datadavidz] blog**
+## **[datadavidz] blog**
 
 <br><br>
-###**Concrete Dataset Part 3: Predictive Modeling using GLMnet**
+
+### **Concrete Dataset Part 3: Predictive Modeling using GLMnet**
 
 A model to predict the compressive strength of different concrete formulations is built using GLMnet.  A tidymodels approach is used to build and analyze the predictive model.
 
@@ -14,14 +15,14 @@ A model to predict the compressive strength of different concrete formulations i
 
 ***
 
-###**Concrete Dataset Part 2: Exploratory Data Analysis**
+### **Concrete Dataset Part 2: Exploratory Data Analysis**
 In this post, I use several EDA tools to analyze the Concrete dataset.  More specifically, the distributions of the variables and correlations between the variables are explored using packages such as skimr, GGally and correlationfunnel.
 
 [Full post](2020-03-17_ConcreteEDA.html)
 
 ***
 
-###**Concrete Dataset Part 1: Introduction**
+### **Concrete Dataset Part 1: Introduction**
 
 A brief introduction to the Concrete dataset available on the UCI repository.  This dataset is interesting for those persons interested in predicting material properties from formulations.
 
@@ -29,7 +30,7 @@ A brief introduction to the Concrete dataset available on the UCI repository.  T
 
 ***
 
-###**Monster Hunting Part 2: Guild Gifts**
+### **Monster Hunting Part 2: Guild Gifts**
 *Posted on March 27, 2019*
 
 In this post, I examine the potential daily rewards obtained from guild gifts.  As you will see, in a full and active guild, the rewards obtained from guild gifts can easily dwarf the rewards obtained from your personal monster hunting.
@@ -38,7 +39,7 @@ In this post, I examine the potential daily rewards obtained from guild gifts.  
 
 ***
 
-###**Monster Hunting Part 1: Personal Loot**
+### **Monster Hunting Part 1: Personal Loot**
 *Posted on March 13, 2019*
 
 One of the long running debates in my Lords Mobile guild has been how to best benefit the entire guild when monster hunting.  In this post, I look at the average personal loot you would expect from using all of your daily energy to hunt a specific level of monster.
@@ -47,7 +48,7 @@ One of the long running debates in my Lords Mobile guild has been how to best be
 
 ***
 
-###**Was I fooled by the Trickstar?**
+### **Was I fooled by the Trickstar?**
 *Posted on February 27, 2019*
 
 A recent event in Lords Mobile for Valentine's day was a Trickstar monster kill.  The Trickstar looks like an evil version of Cupid so I suppose it was an appropriate way to celebrate the holiday.  This post calculates the drop rate for the different holy star rewards and analyzes whether there was any significant dependency between the previous and next reward.
@@ -56,7 +57,7 @@ A recent event in Lords Mobile for Valentine's day was a Trickstar monster kill.
 
 ***
 
-###**What's the trouble, yo?  It's a troubledough!**
+### **What's the trouble, yo?  It's a troubledough!**
 *Posted on February 13, 2019*
 
 A recent event in the Lords Mobile game was a monster hunting event with a new type of monster: the Troubledough.  The event was concurrent with the release of new background music for the game.  Slaying the troubledoughs rewards the player with a "Chest of Echoes".  This post analyzes the chest rewards.  Were the rewards worth the effort?
@@ -68,7 +69,7 @@ A recent event in the Lords Mobile game was a monster hunting event with a new t
 out.extra='style="float:right; padding:10px"'
 --->
 
-###**What is Lords Mobile?**
+### **What is Lords Mobile?**
 *Posted on January 30, 2019*
 
 In this post, I provide a brief introduction to Lords Mobile game.  I take various aspects of the gameplay in Lords Mobile as a source for discussions in many of my posts.  The purpose of this post is to give readers an overview for those who are unfamiliar with the game.  Perhaps, you will want to join and build your own kingdom?
