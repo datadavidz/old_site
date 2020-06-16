@@ -57,13 +57,13 @@ concrete_tbl <- concrete_tbl %>%
 
 We will utilize the 3-stage machine learning approach promoted by Matt Dancho at Business-Science.io.  He posted an excellent tutorial "Product Price Prediction: A Tidy Hyperparamter Tuning and Cross Validation Tutorial".  I haven't found a better example of applying the tidymodel packages to develop a predictive model.
 
-The 3-stage hyperparameter tuning process:
-1. **Find Parameters:** Use hyperparameter tuning on a "training dataset" that sections your training data into cross validation folds.  The output of stage 1 is the parameter set.
-2. **Compare and Select the Best Model:** Evaluate the performance on a hidden "test dataset".  The output at Stage 2 is what we determined as the best model.
-3. **Train Final Model:** Once we have selected the best model, we train the full dataset.  This model goes into production.
+The 3-stage hyperparameter tuning process:  
+1. **Find Parameters:** Use hyperparameter tuning on a "training dataset" that sections your training data into cross validation folds.  The output of stage 1 is the parameter set.  
+2. **Compare and Select the Best Model:** Evaluate the performance on a hidden "test dataset".  The output at Stage 2 is what we determined as the best model.  
+3. **Train Final Model:** Once we have selected the best model, we train the full dataset.  This model goes into production.  
 
 
-###Stage 1: Find Parameters
+### Stage 1: Find Parameters
 Here we want to make different machine learning models and try them out by performing the following steps:
 - Initial Splitting: Separate into random training and test datasets
 - Preprocessing: Make a pipeline to transform raw data into a dataset ready for machine learning
@@ -157,7 +157,7 @@ Identify the best hyperparameter values using the show_best() function.
 glmnet_stage_1_cv_results_tbl %>% show_best("mae", n = 10, maximize = FALSE)
 ```
 
-###Stage 2: Compare and Select the Best Model
+### Stage 2: Compare and Select the Best Model
 
 Select the best parameters based on the lowest mean absolute error.
 ```{r}
@@ -207,7 +207,7 @@ glmnet_stage_2_metrics <- calc_test_metrics(
 glmnet_stage_2_metrics
 ```
 
-###Stage 3: Train Final Model
+### Stage 3: Train Final Model
 ```{r}
 model_final <- glmnet_stage_2_model %>%
   fit(compressive_strength ~ ., data = bake(preprocessing_recipe, new_data = concrete_tbl))

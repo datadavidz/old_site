@@ -8,6 +8,7 @@ output: html_document
 <br><br>
 
 ### **Concrete Dataset Part 3: Predictive Modeling using GLMnet**
+*Posted on March 26, 2020*
 
 A model to predict the compressive strength of different concrete formulations is built using GLMnet.  A tidymodels approach is used to build and analyze the predictive model.
 
@@ -16,6 +17,8 @@ A model to predict the compressive strength of different concrete formulations i
 ***
 
 ### **Concrete Dataset Part 2: Exploratory Data Analysis**
+*Posted on March 17, 2020*
+
 In this post, I use several EDA tools to analyze the Concrete dataset.  More specifically, the distributions of the variables and correlations between the variables are explored using packages such as skimr, GGally and correlationfunnel.
 
 [Full post](2020-03-17_ConcreteEDA.html)
@@ -23,6 +26,7 @@ In this post, I use several EDA tools to analyze the Concrete dataset.  More spe
 ***
 
 ### **Concrete Dataset Part 1: Introduction**
+*Posted on February 14, 2020*
 
 A brief introduction to the Concrete dataset available on the UCI repository.  This dataset is interesting for those persons interested in predicting material properties from formulations.
 
