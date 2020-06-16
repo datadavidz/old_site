@@ -1,0 +1,92 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+<br>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(knitr)
+library(readxl)
+library(tidyverse)
+
+#EDA
+library(skimr)
+library(DataExplorer)
+library(GGally)
+library(correlationfunnel)
+```
+
+## **Exploratory Analysis of the Concrete Compressive Strength Dataset**
+*Posted on March 17, 2020*
+
+The previous post focused on building a model for predicting the compressive strength of concrete using a conventional material modeling process.  The models were built using the age of the concrete before testing and the water-to-cement or water-to-binder ratio.  In this post, we look more broadly at all of the variables in the concrete dataset using exploratory analysis techniques.
+
+First, let's take another look at the dataset.
+```{r cars}
+filename <- "Concrete_Data.xls"
+
+folder <- "./data/"
+numberCols <- 9 #total number of columns in spreadsheet
+
+colTypes <- rep("numeric", numberCols)
+concrete_tbl <- read_excel(path = paste0(folder, filename), col_types = colTypes)
+
+concrete_tbl <- concrete_tbl %>%
+  rename(cement = starts_with("Cement")) %>%
+  rename(blast_furnace_slag = starts_with("Blast")) %>%
+  rename(fly_ash = starts_with("Fly Ash")) %>%
+  rename(water = starts_with("Water")) %>%
+  rename(superplasticizer = starts_with("Super")) %>%
+  rename(coarse_aggregate = starts_with("Coarse")) %>%
+  rename(fine_aggregate = starts_with("Fine")) %>%
+  rename(age = starts_with("Age")) %>%
+  rename(compressive_strength = starts_with("Concrete"))
+
+kable(head(concrete_tbl, 5), caption = "First 5 Rows of Concrete Dataset")
+```
+
+```{r pressure, echo=FALSE}
+skim(concrete_tbl)
+```
+
+The good news is that there were no missing data points in the concrete dataset.  There are concrete compositions with no blast furnace slag, fly ash or superplasticizer.  The age before testing is skewed to lower age before testing.  These observations are further supported looking at the histograms shown below using the plot_histogram function in the DataExplorer package.
+
+```{r}
+concrete_tbl %>% plot_histogram()
+```
+
+### Variable correlations
+
+Next, we analyze the correlations between variables.  When the amount of one ingredient is increased, we expect one or more of the other ingredients in the concrete mixture to decrease.  So, some correlation between the concrete ingredients is expected.
+
+```{r}
+ggcorr(concrete_tbl)
+```
+
+The correlation analysis showed a strong, positive correlation with cement content and compressive strength and less strong correlations with age with compressive strength and superplasticizer with compressive strength.  An inverse correlation between water and superplasticizer was detected perhaps due to the water content of the superplasticizer requiring less additional water in the formulation.
+
+Another way of visualizing the correlation of variables with the property you wish to predict is the called a "correlation funnel".
+
+```{r}
+#correlationfunnel 3-step process
+concrete_tbl %>%
+  #drop_na(engine_hp, engine_cylinders, number_of_doors, engine_fuel_type) %>%
+  binarize(n_bins = 5) %>%
+  correlate(`compressive_strength__50.5141833496_Inf`) %>%
+  plot_correlation_funnel(interactive = TRUE)
+```
+The correlation funnel shows some degree of correlation between the cement, water, superplasticizer and age with compressive strength.  The fly ash, coarse and fine aggregate and blast furnace slag showed very little correlation with compressive strength.
+
+This article has shown several techniques for exploring the concrete dataset.  The next article will use a generalized linear modeling approach to predict concrete compressive strength and compare the results with the conventional material modeling approach.  Subsequent articles will use machine learning techniques such as artificial neural networks and extreme gradient boosting.
+
+Conventional Material Modeling Approach
+Exploratory Data Analysis
+Generalized Linear Model
+Artificial Neural Network Model
+Extreme Gradient Boosting (XGBoost) Model

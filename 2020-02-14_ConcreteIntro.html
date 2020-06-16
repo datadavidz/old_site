@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2020-02-14_ConcreteIntro.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="modeling-the-strength-of-high-performance-concrete" class="section level2">
+<h2><strong>Modeling the Strength of High Performance Concrete</strong></h2>
+<p><em>Posted on February 14, 2020</em></p>
+<p>I have a particular interest in the ability of machine learning algorithms to predict formulations and I am always searching for these types of datasets. One such dataset is the <a href="http://archive.ics.uci.edu/ml/datasets/Concrete+Compressive+Strength">Concrete Compressive Strength Dataset</a> found on the UCI Machine Learning Repository. Many thanks to the original owner, Prof. I-Cheng Yeh for making this dataset available to the public!</p>
+<p>Conventional concrete contains cement, fine and coarse aggregates and water. High performance concrete incorporates additional ingredients such as fly ash, blast furnace slag and chemical additives like superplasticizer. The compressive strength of concrete has been empirically found to have an inverse relationship to the water-to-cement ratio also known as the Abrams’ rule. High performance concrete is a more complex material and experimental data does not always support this general rule. This dataset contains over 1000 high performance concrete formulations containing the ingredients described above along with the compressive strength of each formulation. In addition, the age of the concrete before testing is also recorded.</p>
+<div id="basic-analysis-of-the-concrete-dataset" class="section level3">
+<h3>Basic Analysis of the Concrete Dataset</h3>
+<p>The concrete dataset was downloaded from the UCI repository as an Excel file and imported into R using the readxl package without further modification. Once the dataset was loaded into R, the column names were cleaned up into a format more amenable to data analysis.</p>
+<pre class="r"><code>kable(head(concrete_tbl, 5))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">cement</th>
+<th align="right">blast_furnace_slag</th>
+<th align="right">fly_ash</th>
+<th align="right">water</th>
+<th align="right">superplasticizer</th>
+<th align="right">coarse_aggregate</th>
+<th align="right">fine_aggregate</th>
+<th align="right">age</th>
+<th align="right">compressive_strength</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">540.0</td>
+<td align="right">0.0</td>
+<td align="right">0</td>
+<td align="right">162</td>
+<td align="right">2.5</td>
+<td align="right">1040.0</td>
+<td align="right">676.0</td>
+<td align="right">28</td>
+<td align="right">79.98611</td>
+</tr>
+<tr class="even">
+<td align="right">540.0</td>
+<td align="right">0.0</td>
+<td align="right">0</td>
+<td align="right">162</td>
+<td align="right">2.5</td>
+<td align="right">1055.0</td>
+<td align="right">676.0</td>
+<td align="right">28</td>
+<td align="right">61.88737</td>
+</tr>
+<tr class="odd">
+<td align="right">332.5</td>
+<td align="right">142.5</td>
+<td align="right">0</td>
+<td align="right">228</td>
+<td align="right">0.0</td>
+<td align="right">932.0</td>
+<td align="right">594.0</td>
+<td align="right">270</td>
+<td align="right">40.26954</td>
+</tr>
+<tr class="even">
+<td align="right">332.5</td>
+<td align="right">142.5</td>
+<td align="right">0</td>
+<td align="right">228</td>
+<td align="right">0.0</td>
+<td align="right">932.0</td>
+<td align="right">594.0</td>
+<td align="right">365</td>
+<td align="right">41.05278</td>
+</tr>
+<tr class="odd">
+<td align="right">198.6</td>
+<td align="right">132.4</td>
+<td align="right">0</td>
+<td align="right">192</td>
+<td align="right">0.0</td>
+<td align="right">978.4</td>
+<td align="right">825.5</td>
+<td align="right">360</td>
+<td align="right">44.29608</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KI2xpYnJhcnkoanBlZykNCmxpYnJhcnkoa25pdHIpDQpgYGANCg0KIyMgKipNb2RlbGluZyB0aGUgU3RyZW5ndGggb2YgSGlnaCBQZXJmb3JtYW5jZSBDb25jcmV0ZSoqDQoqUG9zdGVkIG9uIEZlYnJ1YXJ5IDE0LCAyMDIwKg0KDQpJIGhhdmUgYSBwYXJ0aWN1bGFyIGludGVyZXN0IGluIHRoZSBhYmlsaXR5IG9mIG1hY2hpbmUgbGVhcm5pbmcgYWxnb3JpdGhtcyB0byBwcmVkaWN0IGZvcm11bGF0aW9ucyBhbmQgSSBhbSBhbHdheXMgc2VhcmNoaW5nIGZvciB0aGVzZSB0eXBlcyBvZiBkYXRhc2V0cy4gIE9uZSBzdWNoIGRhdGFzZXQgaXMgdGhlIFtDb25jcmV0ZSBDb21wcmVzc2l2ZSBTdHJlbmd0aCBEYXRhc2V0XShodHRwOi8vYXJjaGl2ZS5pY3MudWNpLmVkdS9tbC9kYXRhc2V0cy9Db25jcmV0ZStDb21wcmVzc2l2ZStTdHJlbmd0aCkgZm91bmQgb24gdGhlIFVDSSBNYWNoaW5lIExlYXJuaW5nIFJlcG9zaXRvcnkuICBNYW55IHRoYW5rcyB0byB0aGUgb3JpZ2luYWwgb3duZXIsIFByb2YuIEktQ2hlbmcgWWVoIGZvciBtYWtpbmcgdGhpcyBkYXRhc2V0IGF2YWlsYWJsZSB0byB0aGUgcHVibGljIQ0KDQpDb252ZW50aW9uYWwgY29uY3JldGUgY29udGFpbnMgY2VtZW50LCBmaW5lIGFuZCBjb2Fyc2UgYWdncmVnYXRlcyBhbmQgd2F0ZXIuICBIaWdoIHBlcmZvcm1hbmNlIGNvbmNyZXRlIGluY29ycG9yYXRlcyBhZGRpdGlvbmFsIGluZ3JlZGllbnRzIHN1Y2ggYXMgZmx5IGFzaCwgYmxhc3QgZnVybmFjZSBzbGFnIGFuZCBjaGVtaWNhbCBhZGRpdGl2ZXMgbGlrZSBzdXBlcnBsYXN0aWNpemVyLiAgVGhlIGNvbXByZXNzaXZlIHN0cmVuZ3RoIG9mIGNvbmNyZXRlIGhhcyBiZWVuIGVtcGlyaWNhbGx5IGZvdW5kIHRvIGhhdmUgYW4gaW52ZXJzZSByZWxhdGlvbnNoaXAgdG8gdGhlIHdhdGVyLXRvLWNlbWVudCByYXRpbyBhbHNvIGtub3duIGFzIHRoZSBBYnJhbXMnIHJ1bGUuICBIaWdoIHBlcmZvcm1hbmNlIGNvbmNyZXRlIGlzIGEgbW9yZSBjb21wbGV4IG1hdGVyaWFsIGFuZCBleHBlcmltZW50YWwgZGF0YSBkb2VzIG5vdCBhbHdheXMgc3VwcG9ydCB0aGlzIGdlbmVyYWwgcnVsZS4gIFRoaXMgZGF0YXNldCBjb250YWlucyBvdmVyIDEwMDAgaGlnaCBwZXJmb3JtYW5jZSBjb25jcmV0ZSBmb3JtdWxhdGlvbnMgY29udGFpbmluZyB0aGUgaW5ncmVkaWVudHMgZGVzY3JpYmVkIGFib3ZlIGFsb25nIHdpdGggdGhlIGNvbXByZXNzaXZlIHN0cmVuZ3RoIG9mIGVhY2ggZm9ybXVsYXRpb24uICBJbiBhZGRpdGlvbiwgdGhlIGFnZSBvZiB0aGUgY29uY3JldGUgYmVmb3JlIHRlc3RpbmcgaXMgYWxzbyByZWNvcmRlZC4NCg0KIyMjIEJhc2ljIEFuYWx5c2lzIG9mIHRoZSBDb25jcmV0ZSBEYXRhc2V0DQoNClRoZSBjb25jcmV0ZSBkYXRhc2V0IHdhcyBkb3dubG9hZGVkIGZyb20gdGhlIFVDSSByZXBvc2l0b3J5IGFzIGFuIEV4Y2VsIGZpbGUgYW5kIGltcG9ydGVkIGludG8gUiB1c2luZyB0aGUgcmVhZHhsIHBhY2thZ2Ugd2l0aG91dCBmdXJ0aGVyIG1vZGlmaWNhdGlvbi4gIE9uY2UgdGhlIGRhdGFzZXQgd2FzIGxvYWRlZCBpbnRvIFIsIHRoZSBjb2x1bW4gbmFtZXMgd2VyZSBjbGVhbmVkIHVwIGludG8gYSBmb3JtYXQgbW9yZSBhbWVuYWJsZSB0byBkYXRhIGFuYWx5c2lzLg0KDQpgYGB7ciwgaW5jbHVkZT1GQUxTRX0NCmxpYnJhcnkocmVhZHhsKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQoNCmZpbGVuYW1lIDwtICJDb25jcmV0ZV9EYXRhLnhscyINCg0KZm9sZGVyIDwtICIuL2RhdGEvIg0KbnVtYmVyQ29scyA8LSA5ICN0b3RhbCBudW1iZXIgb2YgY29sdW1ucyBpbiBzcHJlYWRzaGVldA0KDQpjb2xUeXBlcyA8LSByZXAoIm51bWVyaWMiLCBudW1iZXJDb2xzKQ0KY29uY3JldGVfdGJsIDwtIHJlYWRfZXhjZWwocGF0aCA9IHBhc3RlMChmb2xkZXIsIGZpbGVuYW1lKSwgY29sX3R5cGVzID0gY29sVHlwZXMpDQoNCmNvbmNyZXRlX3RibCA8LSBjb25jcmV0ZV90YmwgJT4lDQogIHJlbmFtZShjZW1lbnQgPSBzdGFydHNfd2l0aCgiQ2VtZW50IikpICU+JQ0KICByZW5hbWUoYmxhc3RfZnVybmFjZV9zbGFnID0gc3RhcnRzX3dpdGgoIkJsYXN0IikpICU+JQ0KICByZW5hbWUoZmx5X2FzaCA9IHN0YXJ0c193aXRoKCJGbHkgQXNoIikpICU+JQ0KICByZW5hbWUod2F0ZXIgPSBzdGFydHNfd2l0aCgiV2F0ZXIiKSkgJT4lDQogIHJlbmFtZShzdXBlcnBsYXN0aWNpemVyID0gc3RhcnRzX3dpdGgoIlN1cGVyIikpICU+JQ0KICByZW5hbWUoY29hcnNlX2FnZ3JlZ2F0ZSA9IHN0YXJ0c193aXRoKCJDb2Fyc2UiKSkgJT4lDQogIHJlbmFtZShmaW5lX2FnZ3JlZ2F0ZSA9IHN0YXJ0c193aXRoKCJGaW5lIikpICU+JQ0KICByZW5hbWUoYWdlID0gc3RhcnRzX3dpdGgoIkFnZSIpKSAlPiUNCiAgcmVuYW1lKGNvbXByZXNzaXZlX3N0cmVuZ3RoID0gc3RhcnRzX3dpdGgoIkNvbmNyZXRlIikpDQpgYGANCg0KYGBge3J9DQprYWJsZShoZWFkKGNvbmNyZXRlX3RibCwgNSkpDQpgYGANCg0KDQoNCg==</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2020-02-14_ConcreteIntro.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

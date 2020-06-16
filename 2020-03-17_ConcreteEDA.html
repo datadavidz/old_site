@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2020-03-17_ConcreteEDA.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.9.2/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="site_libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="exploratory-analysis-of-the-concrete-compressive-strength-dataset" class="section level2">
+<h2><strong>Exploratory Analysis of the Concrete Compressive Strength Dataset</strong></h2>
+<p><em>Posted on March 17, 2020</em></p>
+<p>The previous post focused on building a model for predicting the compressive strength of concrete using a conventional material modeling process. The models were built using the age of the concrete before testing and the water-to-cement or water-to-binder ratio. In this post, we look more broadly at all of the variables in the concrete dataset using exploratory analysis techniques.</p>
+<p>First, let’s take another look at the dataset.</p>
+<pre class="r"><code>filename &lt;- &quot;Concrete_Data.xls&quot;
+
+folder &lt;- &quot;./data/&quot;
+numberCols &lt;- 9 #total number of columns in spreadsheet
+
+colTypes &lt;- rep(&quot;numeric&quot;, numberCols)
+concrete_tbl &lt;- read_excel(path = paste0(folder, filename), col_types = colTypes)
+
+concrete_tbl &lt;- concrete_tbl %&gt;%
+  rename(cement = starts_with(&quot;Cement&quot;)) %&gt;%
+  rename(blast_furnace_slag = starts_with(&quot;Blast&quot;)) %&gt;%
+  rename(fly_ash = starts_with(&quot;Fly Ash&quot;)) %&gt;%
+  rename(water = starts_with(&quot;Water&quot;)) %&gt;%
+  rename(superplasticizer = starts_with(&quot;Super&quot;)) %&gt;%
+  rename(coarse_aggregate = starts_with(&quot;Coarse&quot;)) %&gt;%
+  rename(fine_aggregate = starts_with(&quot;Fine&quot;)) %&gt;%
+  rename(age = starts_with(&quot;Age&quot;)) %&gt;%
+  rename(compressive_strength = starts_with(&quot;Concrete&quot;))
+
+kable(head(concrete_tbl, 5), caption = &quot;First 5 Rows of Concrete Dataset&quot;)</code></pre>
+<table>
+<caption>First 5 Rows of Concrete Dataset</caption>
+<thead>
+<tr class="header">
+<th align="right">cement</th>
+<th align="right">blast_furnace_slag</th>
+<th align="right">fly_ash</th>
+<th align="right">water</th>
+<th align="right">superplasticizer</th>
+<th align="right">coarse_aggregate</th>
+<th align="right">fine_aggregate</th>
+<th align="right">age</th>
+<th align="right">compressive_strength</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">540.0</td>
+<td align="right">0.0</td>
+<td align="right">0</td>
+<td align="right">162</td>
+<td align="right">2.5</td>
+<td align="right">1040.0</td>
+<td align="right">676.0</td>
+<td align="right">28</td>
+<td align="right">79.98611</td>
+</tr>
+<tr class="even">
+<td align="right">540.0</td>
+<td align="right">0.0</td>
+<td align="right">0</td>
+<td align="right">162</td>
+<td align="right">2.5</td>
+<td align="right">1055.0</td>
+<td align="right">676.0</td>
+<td align="right">28</td>
+<td align="right">61.88737</td>
+</tr>
+<tr class="odd">
+<td align="right">332.5</td>
+<td align="right">142.5</td>
+<td align="right">0</td>
+<td align="right">228</td>
+<td align="right">0.0</td>
+<td align="right">932.0</td>
+<td align="right">594.0</td>
+<td align="right">270</td>
+<td align="right">40.26954</td>
+</tr>
+<tr class="even">
+<td align="right">332.5</td>
+<td align="right">142.5</td>
+<td align="right">0</td>
+<td align="right">228</td>
+<td align="right">0.0</td>
+<td align="right">932.0</td>
+<td align="right">594.0</td>
+<td align="right">365</td>
+<td align="right">41.05278</td>
+</tr>
+<tr class="odd">
+<td align="right">198.6</td>
+<td align="right">132.4</td>
+<td align="right">0</td>
+<td align="right">192</td>
+<td align="right">0.0</td>
+<td align="right">978.4</td>
+<td align="right">825.5</td>
+<td align="right">360</td>
+<td align="right">44.29608</td>
+</tr>
+</tbody>
+</table>
+<table>
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">concrete_tbl</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">1030</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">9</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">numeric</td>
+<td align="left">9</td>
+</tr>
+<tr class="odd">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">cement</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">281.17</td>
+<td align="right">104.51</td>
+<td align="right">102.00</td>
+<td align="right">192.38</td>
+<td align="right">272.90</td>
+<td align="right">350.00</td>
+<td align="right">540.0</td>
+<td align="left">▆▇▇▃▂</td>
+</tr>
+<tr class="even">
+<td align="left">blast_furnace_slag</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">73.90</td>
+<td align="right">86.28</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">22.00</td>
+<td align="right">142.95</td>
+<td align="right">359.4</td>
+<td align="left">▇▂▃▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">fly_ash</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">54.19</td>
+<td align="right">64.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">118.27</td>
+<td align="right">200.1</td>
+<td align="left">▇▁▂▂▁</td>
+</tr>
+<tr class="even">
+<td align="left">water</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">181.57</td>
+<td align="right">21.36</td>
+<td align="right">121.75</td>
+<td align="right">164.90</td>
+<td align="right">185.00</td>
+<td align="right">192.00</td>
+<td align="right">247.0</td>
+<td align="left">▁▅▇▂▁</td>
+</tr>
+<tr class="odd">
+<td align="left">superplasticizer</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6.20</td>
+<td align="right">5.97</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">6.35</td>
+<td align="right">10.16</td>
+<td align="right">32.2</td>
+<td align="left">▇▆▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">coarse_aggregate</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">972.92</td>
+<td align="right">77.75</td>
+<td align="right">801.00</td>
+<td align="right">932.00</td>
+<td align="right">968.00</td>
+<td align="right">1029.40</td>
+<td align="right">1145.0</td>
+<td align="left">▃▅▇▅▂</td>
+</tr>
+<tr class="odd">
+<td align="left">fine_aggregate</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">773.58</td>
+<td align="right">80.18</td>
+<td align="right">594.00</td>
+<td align="right">730.95</td>
+<td align="right">779.51</td>
+<td align="right">824.00</td>
+<td align="right">992.6</td>
+<td align="left">▂▃▇▃▁</td>
+</tr>
+<tr class="even">
+<td align="left">age</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">45.66</td>
+<td align="right">63.17</td>
+<td align="right">1.00</td>
+<td align="right">7.00</td>
+<td align="right">28.00</td>
+<td align="right">56.00</td>
+<td align="right">365.0</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="odd">
+<td align="left">compressive_strength</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">35.82</td>
+<td align="right">16.71</td>
+<td align="right">2.33</td>
+<td align="right">23.71</td>
+<td align="right">34.44</td>
+<td align="right">46.14</td>
+<td align="right">82.6</td>
+<td align="left">▅▇▇▃▁</td>
+</tr>
+</tbody>
+</table>
+<p>The good news is that there were no missing data points in the concrete dataset. There are concrete compositions with no blast furnace slag, fly ash or superplasticizer. The age before testing is skewed to lower age before testing. These observations are further supported looking at the histograms shown below using the plot_histogram function in the DataExplorer package.</p>
+<pre class="r"><code>concrete_tbl %&gt;% plot_histogram()</code></pre>
+<p><img src="2020-03-17_ConcreteEDA_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<div id="variable-correlations" class="section level3">
+<h3>Variable correlations</h3>
+<p>Next, we analyze the correlations between variables. When the amount of one ingredient is increased, we expect one or more of the other ingredients in the concrete mixture to decrease. So, some correlation between the concrete ingredients is expected.</p>
+<pre class="r"><code>ggcorr(concrete_tbl)</code></pre>
+<p><img src="2020-03-17_ConcreteEDA_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>The correlation analysis showed a strong, positive correlation with cement content and compressive strength and less strong correlations with age with compressive strength and superplasticizer with compressive strength. An inverse correlation between water and superplasticizer was detected perhaps due to the water content of the superplasticizer requiring less additional water in the formulation.</p>
+<p>Another way of visualizing the correlation of variables with the property you wish to predict is the called a “correlation funnel”.</p>
+<pre class="r"><code>#correlationfunnel 3-step process
+concrete_tbl %&gt;%
+  #drop_na(engine_hp, engine_cylinders, number_of_doors, engine_fuel_type) %&gt;%
+  binarize(n_bins = 5) %&gt;%
+  correlate(`compressive_strength__50.5141833496_Inf`) %&gt;%
+  plot_correlation_funnel(interactive = TRUE)</code></pre>
+<p><div id="htmlwidget-f823d89bf195026f30dd" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f823d89bf195026f30dd">{"x":{"data":[{"x":[0,0],"y":[0.4,9.6],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(255,0,0,1)","dash":"dash"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,0.321539920249058,0.297017026686009,0.292747106554886,0.271965387886002,-0.25,-0.25,-0.25,-0.25,-0.236305924220877,-0.19880961074365,-0.190251630507431,0.18773481537066,-0.160825188481885,-0.1552683265081,-0.150097805272226,-0.134289540066409,0.125843526429395,-0.115502053299212,0.112659511184829,0.111519797037458,0.108009708737864,0.101941747572816,-0.100507234730118,-0.100251990343813,-0.0943142560103393,0.0931093196474073,-0.091312988741296,0.0898058252427184,-0.0874967727027196,-0.0822264121561519,0.0811496946086211,-0.0663952046797809,0.0655339805825243,-0.0629924148560336,-0.0436893203883495,-0.0231429383218698,-0.0221742148495906,0.022006534465715],"y":[9,8,7,6,5,9,9,9,9,5,8,6,5,7,7,8,6,4,3,3,7,3,2,2,7,5,8,1,1,4,3,6,4,2,8,2,3,2,1],"text":["compressive_strength<br />Bin: 50.5141833496_Inf<br />Correlation: 1","cement<br />Bin: 376_Inf<br />Correlation: 0.322","water<br />Bin: -Inf_162<br />Correlation: 0.297","superplasticizer<br />Bin: 11.1_Inf<br />Correlation: 0.293","age<br />Bin: 28_56<br />Correlation: 0.272","compressive_strength<br />Bin: -Inf_20.957312496<br />Correlation: -0.25","compressive_strength<br />Bin: 20.957312496_30.927135456<br />Correlation: -0.25","compressive_strength<br />Bin: 30.927135456_39.0235536268376<br />Correlation: -0.25","compressive_strength<br />Bin: 39.0235536268376_50.5141833496<br />Correlation: -0.25","age<br />Bin: -Inf_7<br />Correlation: -0.236","cement<br />Bin: -Inf_173.81<br />Correlation: -0.199","superplasticizer<br />Bin: -Inf_4.084<br />Correlation: -0.19","age<br />Bin: 56_Inf<br />Correlation: 0.188","water<br />Bin: 188.45_195.47<br />Correlation: -0.161","water<br />Bin: 178_188.45<br />Correlation: -0.155","cement<br />Bin: 173.81_238<br />Correlation: -0.15","superplasticizer<br />Bin: 4.084_8<br />Correlation: -0.134","fly_ash<br />Bin: -Inf_89.76<br />Correlation: 0.126","coarse_aggregate<br />Bin: 947.04_991.52<br />Correlation: -0.116","coarse_aggregate<br />Bin: 913.98_947.04<br />Correlation: 0.113","water<br />Bin: 162_178<br />Correlation: 0.112","coarse_aggregate<br />Bin: -Inf_913.98<br />Correlation: 0.108","fine_aggregate<br />Bin: -Inf_709.94<br />Correlation: 0.102","fine_aggregate<br />Bin: 794.08_845<br />Correlation: -0.101","water<br />Bin: 195.47_Inf<br />Correlation: -0.1","age<br />Bin: 7_28<br />Correlation: -0.094","cement<br />Bin: 302_376<br />Correlation: 0.093","blast_furnace_slag<br />Bin: -Inf_97.1<br />Correlation: -0.091","blast_furnace_slag<br />Bin: 163.18_Inf<br />Correlation: 0.09","fly_ash<br />Bin: 89.76_123<br />Correlation: -0.087","coarse_aggregate<br />Bin: 991.52_1047<br />Correlation: -0.082","superplasticizer<br />Bin: 8_11.1<br />Correlation: 0.081","fly_ash<br />Bin: 123_Inf<br />Correlation: -0.066","fine_aggregate<br />Bin: 709.94_758.836<br />Correlation: 0.066","cement<br />Bin: 238_302<br />Correlation: -0.063","fine_aggregate<br />Bin: 758.836_794.08<br />Correlation: -0.044","coarse_aggregate<br />Bin: 1047_Inf<br />Correlation: -0.023","fine_aggregate<br />Bin: 845_Inf<br />Correlation: -0.022","blast_furnace_slag<br />Bin: 97.1_163.18<br />Correlation: 0.022"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(44,62,80,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(44,62,80,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.7625570776256,"r":7.30593607305936,"b":40.1826484018265,"l":142.465753424658},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187},"title":{"text":"Correlation Funnel","font":{"color":"rgba(44,62,80,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-1.1,1.1],"tickmode":"array","ticktext":["-1.0","-0.5","0.0","0.5","1.0"],"tickvals":[-1,-0.5,0,0.5,1],"categoryorder":"array","categoryarray":["-1.0","-0.5","0.0","0.5","1.0"],"nticks":null,"ticks":"outside","tickcolor":"rgba(204,204,204,1)","ticklen":3.65296803652968,"tickwidth":0.22139200221392,"showticklabels":true,"tickfont":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.22139200221392,"zeroline":false,"anchor":"y","title":{"text":"correlation","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,9.6],"tickmode":"array","ticktext":["blast_furnace_slag","fine_aggregate","coarse_aggregate","fly_ash","age","superplasticizer","water","cement","compressive_strength"],"tickvals":[1,2,3,4,5,6,7,8,9],"categoryorder":"array","categoryarray":["blast_furnace_slag","fine_aggregate","coarse_aggregate","fly_ash","age","superplasticizer","water","cement","compressive_strength"],"nticks":null,"ticks":"outside","tickcolor":"rgba(204,204,204,1)","ticklen":3.65296803652968,"tickwidth":0.22139200221392,"showticklabels":true,"tickfont":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.22139200221392,"zeroline":false,"anchor":"x","title":{"text":"feature","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(44,62,80,1)","width":0.33208800332088,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"b9c1b9418bb":{"xintercept":{},"type":"scatter"},"b9c202b4752":{"x":{},"y":{},"text":{}}},"cur_data":"b9c1b9418bb","visdat":{"b9c1b9418bb":["function (y) ","x"],"b9c202b4752":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script> The correlation funnel shows some degree of correlation between the cement, water, superplasticizer and age with compressive strength. The fly ash, coarse and fine aggregate and blast furnace slag showed very little correlation with compressive strength.</p>
+<p>This article has shown several techniques for exploring the concrete dataset. The next article will use a generalized linear modeling approach to predict concrete compressive strength and compare the results with the conventional material modeling approach. Subsequent articles will use machine learning techniques such as artificial neural networks and extreme gradient boosting.</p>
+<p>Conventional Material Modeling Approach Exploratory Data Analysis Generalized Linear Model Artificial Neural Network Model Extreme Gradient Boosting (XGBoost) Model</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KbGlicmFyeShrbml0cikNCmxpYnJhcnkocmVhZHhsKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQoNCiNFREENCmxpYnJhcnkoc2tpbXIpDQpsaWJyYXJ5KERhdGFFeHBsb3JlcikNCmxpYnJhcnkoR0dhbGx5KQ0KbGlicmFyeShjb3JyZWxhdGlvbmZ1bm5lbCkNCmBgYA0KDQojIyAqKkV4cGxvcmF0b3J5IEFuYWx5c2lzIG9mIHRoZSBDb25jcmV0ZSBDb21wcmVzc2l2ZSBTdHJlbmd0aCBEYXRhc2V0KioNCipQb3N0ZWQgb24gTWFyY2ggMTcsIDIwMjAqDQoNClRoZSBwcmV2aW91cyBwb3N0IGZvY3VzZWQgb24gYnVpbGRpbmcgYSBtb2RlbCBmb3IgcHJlZGljdGluZyB0aGUgY29tcHJlc3NpdmUgc3RyZW5ndGggb2YgY29uY3JldGUgdXNpbmcgYSBjb252ZW50aW9uYWwgbWF0ZXJpYWwgbW9kZWxpbmcgcHJvY2Vzcy4gIFRoZSBtb2RlbHMgd2VyZSBidWlsdCB1c2luZyB0aGUgYWdlIG9mIHRoZSBjb25jcmV0ZSBiZWZvcmUgdGVzdGluZyBhbmQgdGhlIHdhdGVyLXRvLWNlbWVudCBvciB3YXRlci10by1iaW5kZXIgcmF0aW8uICBJbiB0aGlzIHBvc3QsIHdlIGxvb2sgbW9yZSBicm9hZGx5IGF0IGFsbCBvZiB0aGUgdmFyaWFibGVzIGluIHRoZSBjb25jcmV0ZSBkYXRhc2V0IHVzaW5nIGV4cGxvcmF0b3J5IGFuYWx5c2lzIHRlY2huaXF1ZXMuDQoNCkZpcnN0LCBsZXQncyB0YWtlIGFub3RoZXIgbG9vayBhdCB0aGUgZGF0YXNldC4NCmBgYHtyIGNhcnN9DQpmaWxlbmFtZSA8LSAiQ29uY3JldGVfRGF0YS54bHMiDQoNCmZvbGRlciA8LSAiLi9kYXRhLyINCm51bWJlckNvbHMgPC0gOSAjdG90YWwgbnVtYmVyIG9mIGNvbHVtbnMgaW4gc3ByZWFkc2hlZXQNCg0KY29sVHlwZXMgPC0gcmVwKCJudW1lcmljIiwgbnVtYmVyQ29scykNCmNvbmNyZXRlX3RibCA8LSByZWFkX2V4Y2VsKHBhdGggPSBwYXN0ZTAoZm9sZGVyLCBmaWxlbmFtZSksIGNvbF90eXBlcyA9IGNvbFR5cGVzKQ0KDQpjb25jcmV0ZV90YmwgPC0gY29uY3JldGVfdGJsICU+JQ0KICByZW5hbWUoY2VtZW50ID0gc3RhcnRzX3dpdGgoIkNlbWVudCIpKSAlPiUNCiAgcmVuYW1lKGJsYXN0X2Z1cm5hY2Vfc2xhZyA9IHN0YXJ0c193aXRoKCJCbGFzdCIpKSAlPiUNCiAgcmVuYW1lKGZseV9hc2ggPSBzdGFydHNfd2l0aCgiRmx5IEFzaCIpKSAlPiUNCiAgcmVuYW1lKHdhdGVyID0gc3RhcnRzX3dpdGgoIldhdGVyIikpICU+JQ0KICByZW5hbWUoc3VwZXJwbGFzdGljaXplciA9IHN0YXJ0c193aXRoKCJTdXBlciIpKSAlPiUNCiAgcmVuYW1lKGNvYXJzZV9hZ2dyZWdhdGUgPSBzdGFydHNfd2l0aCgiQ29hcnNlIikpICU+JQ0KICByZW5hbWUoZmluZV9hZ2dyZWdhdGUgPSBzdGFydHNfd2l0aCgiRmluZSIpKSAlPiUNCiAgcmVuYW1lKGFnZSA9IHN0YXJ0c193aXRoKCJBZ2UiKSkgJT4lDQogIHJlbmFtZShjb21wcmVzc2l2ZV9zdHJlbmd0aCA9IHN0YXJ0c193aXRoKCJDb25jcmV0ZSIpKQ0KDQprYWJsZShoZWFkKGNvbmNyZXRlX3RibCwgNSksIGNhcHRpb24gPSAiRmlyc3QgNSBSb3dzIG9mIENvbmNyZXRlIERhdGFzZXQiKQ0KYGBgDQoNCmBgYHtyIHByZXNzdXJlLCBlY2hvPUZBTFNFfQ0Kc2tpbShjb25jcmV0ZV90YmwpDQpgYGANCg0KVGhlIGdvb2QgbmV3cyBpcyB0aGF0IHRoZXJlIHdlcmUgbm8gbWlzc2luZyBkYXRhIHBvaW50cyBpbiB0aGUgY29uY3JldGUgZGF0YXNldC4gIFRoZXJlIGFyZSBjb25jcmV0ZSBjb21wb3NpdGlvbnMgd2l0aCBubyBibGFzdCBmdXJuYWNlIHNsYWcsIGZseSBhc2ggb3Igc3VwZXJwbGFzdGljaXplci4gIFRoZSBhZ2UgYmVmb3JlIHRlc3RpbmcgaXMgc2tld2VkIHRvIGxvd2VyIGFnZSBiZWZvcmUgdGVzdGluZy4gIFRoZXNlIG9ic2VydmF0aW9ucyBhcmUgZnVydGhlciBzdXBwb3J0ZWQgbG9va2luZyBhdCB0aGUgaGlzdG9ncmFtcyBzaG93biBiZWxvdyB1c2luZyB0aGUgcGxvdF9oaXN0b2dyYW0gZnVuY3Rpb24gaW4gdGhlIERhdGFFeHBsb3JlciBwYWNrYWdlLg0KDQpgYGB7cn0NCmNvbmNyZXRlX3RibCAlPiUgcGxvdF9oaXN0b2dyYW0oKQ0KYGBgDQoNCiMjIyBWYXJpYWJsZSBjb3JyZWxhdGlvbnMNCg0KTmV4dCwgd2UgYW5hbHl6ZSB0aGUgY29ycmVsYXRpb25zIGJldHdlZW4gdmFyaWFibGVzLiAgV2hlbiB0aGUgYW1vdW50IG9mIG9uZSBpbmdyZWRpZW50IGlzIGluY3JlYXNlZCwgd2UgZXhwZWN0IG9uZSBvciBtb3JlIG9mIHRoZSBvdGhlciBpbmdyZWRpZW50cyBpbiB0aGUgY29uY3JldGUgbWl4dHVyZSB0byBkZWNyZWFzZS4gIFNvLCBzb21lIGNvcnJlbGF0aW9uIGJldHdlZW4gdGhlIGNvbmNyZXRlIGluZ3JlZGllbnRzIGlzIGV4cGVjdGVkLg0KDQpgYGB7cn0NCmdnY29ycihjb25jcmV0ZV90YmwpDQpgYGANCg0KVGhlIGNvcnJlbGF0aW9uIGFuYWx5c2lzIHNob3dlZCBhIHN0cm9uZywgcG9zaXRpdmUgY29ycmVsYXRpb24gd2l0aCBjZW1lbnQgY29udGVudCBhbmQgY29tcHJlc3NpdmUgc3RyZW5ndGggYW5kIGxlc3Mgc3Ryb25nIGNvcnJlbGF0aW9ucyB3aXRoIGFnZSB3aXRoIGNvbXByZXNzaXZlIHN0cmVuZ3RoIGFuZCBzdXBlcnBsYXN0aWNpemVyIHdpdGggY29tcHJlc3NpdmUgc3RyZW5ndGguICBBbiBpbnZlcnNlIGNvcnJlbGF0aW9uIGJldHdlZW4gd2F0ZXIgYW5kIHN1cGVycGxhc3RpY2l6ZXIgd2FzIGRldGVjdGVkIHBlcmhhcHMgZHVlIHRvIHRoZSB3YXRlciBjb250ZW50IG9mIHRoZSBzdXBlcnBsYXN0aWNpemVyIHJlcXVpcmluZyBsZXNzIGFkZGl0aW9uYWwgd2F0ZXIgaW4gdGhlIGZvcm11bGF0aW9uLg0KDQpBbm90aGVyIHdheSBvZiB2aXN1YWxpemluZyB0aGUgY29ycmVsYXRpb24gb2YgdmFyaWFibGVzIHdpdGggdGhlIHByb3BlcnR5IHlvdSB3aXNoIHRvIHByZWRpY3QgaXMgdGhlIGNhbGxlZCBhICJjb3JyZWxhdGlvbiBmdW5uZWwiLg0KDQpgYGB7cn0NCiNjb3JyZWxhdGlvbmZ1bm5lbCAzLXN0ZXAgcHJvY2Vzcw0KY29uY3JldGVfdGJsICU+JQ0KICAjZHJvcF9uYShlbmdpbmVfaHAsIGVuZ2luZV9jeWxpbmRlcnMsIG51bWJlcl9vZl9kb29ycywgZW5naW5lX2Z1ZWxfdHlwZSkgJT4lDQogIGJpbmFyaXplKG5fYmlucyA9IDUpICU+JQ0KICBjb3JyZWxhdGUoYGNvbXByZXNzaXZlX3N0cmVuZ3RoX181MC41MTQxODMzNDk2X0luZmApICU+JQ0KICBwbG90X2NvcnJlbGF0aW9uX2Z1bm5lbChpbnRlcmFjdGl2ZSA9IFRSVUUpDQpgYGANClRoZSBjb3JyZWxhdGlvbiBmdW5uZWwgc2hvd3Mgc29tZSBkZWdyZWUgb2YgY29ycmVsYXRpb24gYmV0d2VlbiB0aGUgY2VtZW50LCB3YXRlciwgc3VwZXJwbGFzdGljaXplciBhbmQgYWdlIHdpdGggY29tcHJlc3NpdmUgc3RyZW5ndGguICBUaGUgZmx5IGFzaCwgY29hcnNlIGFuZCBmaW5lIGFnZ3JlZ2F0ZSBhbmQgYmxhc3QgZnVybmFjZSBzbGFnIHNob3dlZCB2ZXJ5IGxpdHRsZSBjb3JyZWxhdGlvbiB3aXRoIGNvbXByZXNzaXZlIHN0cmVuZ3RoLg0KDQpUaGlzIGFydGljbGUgaGFzIHNob3duIHNldmVyYWwgdGVjaG5pcXVlcyBmb3IgZXhwbG9yaW5nIHRoZSBjb25jcmV0ZSBkYXRhc2V0LiAgVGhlIG5leHQgYXJ0aWNsZSB3aWxsIHVzZSBhIGdlbmVyYWxpemVkIGxpbmVhciBtb2RlbGluZyBhcHByb2FjaCB0byBwcmVkaWN0IGNvbmNyZXRlIGNvbXByZXNzaXZlIHN0cmVuZ3RoIGFuZCBjb21wYXJlIHRoZSByZXN1bHRzIHdpdGggdGhlIGNvbnZlbnRpb25hbCBtYXRlcmlhbCBtb2RlbGluZyBhcHByb2FjaC4gIFN1YnNlcXVlbnQgYXJ0aWNsZXMgd2lsbCB1c2UgbWFjaGluZSBsZWFybmluZyB0ZWNobmlxdWVzIHN1Y2ggYXMgYXJ0aWZpY2lhbCBuZXVyYWwgbmV0d29ya3MgYW5kIGV4dHJlbWUgZ3JhZGllbnQgYm9vc3RpbmcuDQoNCkNvbnZlbnRpb25hbCBNYXRlcmlhbCBNb2RlbGluZyBBcHByb2FjaA0KRXhwbG9yYXRvcnkgRGF0YSBBbmFseXNpcw0KR2VuZXJhbGl6ZWQgTGluZWFyIE1vZGVsDQpBcnRpZmljaWFsIE5ldXJhbCBOZXR3b3JrIE1vZGVsDQpFeHRyZW1lIEdyYWRpZW50IEJvb3N0aW5nIChYR0Jvb3N0KSBNb2RlbA0K</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2020-03-17_ConcreteEDA.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

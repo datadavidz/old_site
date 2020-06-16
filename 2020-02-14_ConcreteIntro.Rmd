@@ -1,0 +1,147 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+<br>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+#library(jpeg)
+library(knitr)
+```
+
+## **Modeling the Strength of High Performance Concrete**
+*Posted on February 14, 2020*
+
+I have a particular interest in the ability of machine learning algorithms to predict formulations and I am always searching for these types of datasets.  One such dataset is the [Concrete Compressive Strength Dataset](http://archive.ics.uci.edu/ml/datasets/Concrete+Compressive+Strength) found on the UCI Machine Learning Repository.  Many thanks to the original owner, Prof. I-Cheng Yeh for making this dataset available to the public!
+
+Conventional concrete contains cement, fine and coarse aggregates and water.  High performance concrete incorporates additional ingredients such as fly ash, blast furnace slag and chemical additives like superplasticizer.  The compressive strength of concrete has been empirically found to have an inverse relationship to the water-to-cement ratio also known as the Abrams' rule.  High performance concrete is a more complex material and experimental data does not always support this general rule.  This dataset contains over 1000 high performance concrete formulations containing the ingredients described above along with the compressive strength of each formulation.  In addition, the age of the concrete before testing is also recorded.
+
+### Basic Analysis of the Concrete Dataset
+
+The concrete dataset was downloaded from the UCI repository as an Excel file and imported into R using the readxl package without further modification.  Once the dataset was loaded into R, the column names were cleaned up into a format more amenable to data analysis.  The complete dataset contains 1030 rows of concrete formulations of which the first 5 are shown below.
+
+```{r, include=FALSE}
+library(readxl)
+library(tidyverse)
+
+filename <- "Concrete_Data.xls"
+
+folder <- "./data/"
+numberCols <- 9 #total number of columns in spreadsheet
+
+colTypes <- rep("numeric", numberCols)
+concrete_tbl <- read_excel(path = paste0(folder, filename), col_types = colTypes)
+
+concrete_tbl <- concrete_tbl %>%
+  rename(cement = starts_with("Cement")) %>%
+  rename(blast_furnace_slag = starts_with("Blast")) %>%
+  rename(fly_ash = starts_with("Fly Ash")) %>%
+  rename(water = starts_with("Water")) %>%
+  rename(superplasticizer = starts_with("Super")) %>%
+  rename(coarse_aggregate = starts_with("Coarse")) %>%
+  rename(fine_aggregate = starts_with("Fine")) %>%
+  rename(age = starts_with("Age")) %>%
+  rename(compressive_strength = starts_with("Concrete"))
+```
+
+```{r, echo=FALSE}
+kable(head(concrete_tbl, 5), caption = "First 5 Rows of Concrete Dataset")
+```
+The formulation ingredients are in units of kg/m^3^.  Age before testing in units of days.  Compressive strength is in MPa.
+
+We'll begin by plotting the compressive strength vs. water-to-cement ratio for the entire dataset.  The Abrams' rule suggests that the compressive strength should decrease with increasing water:cement.
+
+```{r, echo=FALSE}
+concrete_plot_data_tbl <- concrete_tbl %>%
+    mutate(water_cement = water / cement) %>%
+    select(compressive_strength, water_cement)
+
+concrete_plot_data_tbl %>%
+  ggplot(aes(water_cement, compressive_strength)) +
+  geom_point(color = "black", alpha = 0.15) +
+  geom_smooth(method = "lm") +
+  #scale_y_log10(label = scales::dollar_format()) +
+  theme_classic() +
+  labs(title = "Concrete Compressive Strength vs. Water:Cement",
+       x = "Water:Cement", y = "Compressive Strength (MPa)")
+```
+
+The plot does show a decreasing trend however there is a lot of scatter of the actual datapoints around the trendline.
+
+### Conventional material modeling process
+
+A regression analysis was used to build a model for compressive strength as a function of time based on the water-to-cement or water-to-binder ratio and the following regression formula.
+
+f'(t) = aX^b^ * [c ln(t) + (d)]
+
+where t = age at test, X = water-to-cement or water-to-binder ratio and a, b, c and d are regression coefficients.
+
+```{r}
+wc <- concrete_tbl$water / concrete_tbl$cement
+wb <- concrete_tbl$water / (concrete_tbl$cement + concrete_tbl$blast_furnace_slag + concrete_tbl$fly_ash)
+age <- concrete_tbl$age
+cs <- concrete_tbl$compressive_strength
+
+csFunc <- function(wc, age, a, b, c, d) { (a * wc^b) + (c * log(age) + d)}
+```
+
+The data was fit using the nls (nonlinear least-squares) function in the stats R package.  The first model was fit using the water-to-cement ratio.
+```{r}
+csFit <- nls(cs ~ csFunc(wc, age, a, b, c, d), start=list(a=30, b=-0.6, c=0.3, d=0.1))
+
+summary(csFit)
+```
+
+A plot of the predicted vs. actual compressive strength is shown below.  The reference line shows the correlation for a perfect fit.  The predicted values based on age and water-to-cement ratio, in general, follows along this reference line however there is also significant scatter both above and below the line.  The R^2^ value for the correlation between predicted and actual was 0.65.
+```{r}
+csPred <- tibble(cs = cs, csfit = predict(csFit))
+
+ggplot(csPred, aes(cs, csfit)) +
+  geom_point(color = "black") +
+  geom_abline(slope = 1, intercept = 0) +
+  theme_classic() +
+  labs(title = "Conventional Model Using Water:Cement",
+       x = "Actual Compressive Strength (MPa)", y = "Predicted Compressive Strength (MPa)")
+```
+
+Calculate R-squared for water:cement
+```{r}
+cor(cs, predict(csFit)) ^ 2
+```
+
+A second model was fit using the water-to-binder ratio instead of the water-to-cement ratio.
+```{r}
+csFit2 <- nls(cs ~ csFunc(wb, age, a, b, c, d), start=list(a=10, b=-0.5, c=10, d=10))
+
+summary(csFit2)
+```
+
+The plot for the actual vs. predicted compressive strength for the model using water-to-binder ratio is shown below.  This model showed predicted values in better agreement with actual values as compared to the water-to-cement ratio.  The R^2^ for the water-to-binder model was 0.78 as compared to 0.65 for the water-to-cement model.
+```{r}
+csPred <- bind_cols(csPred, csfit2 = predict(csFit2))
+
+ggplot(csPred, aes(cs, csfit2)) +
+  geom_point(color = "black") +
+  geom_abline(slope = 1, intercept = 0) +
+  theme_classic() +
+  labs(title = "Conventional Model Using Water:Binder",
+       x = "Actual Compressive Strength (MPa)", y = "Predicted Compressive Strength (MPa)")
+```
+
+Calculate R-squared for water:binder
+```{r}
+cor(cs, predict(csFit2)) ^ 2
+```
+This article has shown the predictive abilities of models for the concrete dataset using a conventional material model process.  The next article will take a closer look at the data using exploratory data analysis techniques.  Additional articles will compare the performance of several machine learning models to the conventional material modeling process.
+
+Conventional Material Modeling Approach
+Exploratory Data Analysis
+Generalized Linear Model
+Artificial Neural Network Model
+Extreme Gradient Boosting (XGBoost) Model

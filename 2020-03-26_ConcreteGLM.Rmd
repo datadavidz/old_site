@@ -1,0 +1,222 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+<br>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(knitr)
+library(readxl)
+library(tidyverse)
+
+#Tidymodels
+library(tune)
+library(dials)
+library(parsnip)
+library(rsample)
+library(recipes)
+#library(textrecipes)
+library(yardstick)
+library(vip)
+```
+
+## **Generalized Linear Modeling of the Concrete Compressive Strength Dataset**
+*Posted on March 26, 2020*
+
+In this post, we will begin to use machine learning techniques for predicting compressive strength of formulations using the concrete dataset.  In a previous post, we created a model using a conventional material modeling approach which resulted in an R^2^ of 0.78.  Here we will use a generalized linear model to predict compressive strength and compare the results with the conventional material model.
+
+```{r, include=FALSE}
+library(readxl)
+library(tidyverse)
+
+filename <- "Concrete_Data.xls"
+
+folder <- "./data/"
+numberCols <- 9 #total number of columns in spreadsheet
+
+colTypes <- rep("numeric", numberCols)
+concrete_tbl <- read_excel(path = paste0(folder, filename), col_types = colTypes)
+
+concrete_tbl <- concrete_tbl %>%
+  rename(cement = starts_with("Cement")) %>%
+  rename(blast_furnace_slag = starts_with("Blast")) %>%
+  rename(fly_ash = starts_with("Fly Ash")) %>%
+  rename(water = starts_with("Water")) %>%
+  rename(superplasticizer = starts_with("Super")) %>%
+  rename(coarse_aggregate = starts_with("Coarse")) %>%
+  rename(fine_aggregate = starts_with("Fine")) %>%
+  rename(age = starts_with("Age")) %>%
+  rename(compressive_strength = starts_with("Concrete"))
+```
+
+We will utilize the 3-stage machine learning approach promoted by Matt Dancho at Business-Science.io.  He posted an excellent tutorial "Product Price Prediction: A Tidy Hyperparamter Tuning and Cross Validation Tutorial".  I haven't found a better example of applying the tidymodel packages to develop a predictive model.
+
+The 3-stage hyperparameter tuning process:
+1. **Find Parameters:** Use hyperparameter tuning on a "training dataset" that sections your training data into cross validation folds.  The output of stage 1 is the parameter set.
+2. **Compare and Select the Best Model:** Evaluate the performance on a hidden "test dataset".  The output at Stage 2 is what we determined as the best model.
+3. **Train Final Model:** Once we have selected the best model, we train the full dataset.  This model goes into production.
+
+
+###Stage 1: Find Parameters
+Here we want to make different machine learning models and try them out by performing the following steps:
+- Initial Splitting: Separate into random training and test datasets
+- Preprocessing: Make a pipeline to transform raw data into a dataset ready for machine learning
+- Cross Validation Specification: Sample the training data into splits
+- Model Specification: Select model algorithms and identify key tuning parameters
+- Grid Specification: Set up a grid using wise parameter choices
+- Hyperparameter Tuning: Implement the tuning process
+
+Initial splitting of the dataset into Training and Test Dataset  Here we use the rsample package to create an 80/20 split.  The concrete dataset contains 1030 formulations of which 825 are randomly assigned to training and 205 are randomly assigned to testing.
+```{r}
+set.seed(123)
+concrete_initial_split <- initial_split(concrete_tbl, prop = 0.80)
+concrete_initial_split
+```
+
+Preprocessing is accomplished by using the recipe package.  The recipe provides the steps required to transform our raw data into a dataset suitable for machine learning.  The Concrete dataset actually doesn't require much reformatting.  The major issue was the lengthy column names which was addressed immediately after the dataset was imported.  The dataset contained all numerical values and no missing data.  Initially we will just center and scale the predictors before sending to the glmnet model.
+```{r}
+preprocessing_recipe <- recipe(compressive_strength ~ ., data = training(concrete_initial_split)) %>%
+  
+  #center and scale all numerical predictors
+  step_center(all_predictors()) %>%
+  step_scale(all_predictors()) %>%
+  
+  # #Remove unnecessary columns
+  # step_rm(model) %>%
+  prep()
+
+preprocessing_recipe
+```
+
+The recipe is not actually applied to the dataset until you "bake" it.  Here we apply the preprocessing pipeline and save it to a new tibble.
+```{r}
+concrete_training_preprocessed_tbl <- preprocessing_recipe %>% bake(training(concrete_initial_split))
+```
+
+Cross validation folds are created in order to assess the performance of the model parameters.  Here we use 5-fold cross validation to create splits from our training dataset and also using the preprocessing pipeline specified above.
+```{r}
+set.seed(123)
+concrete_cv_folds <- training(concrete_initial_split) %>%
+  bake(preprocessing_recipe, new_data = .) %>%
+  vfold_cv(v = 5)
+
+concrete_cv_folds
+```
+
+Model specifications are created using the parsnip package.  Here we specify a linear regression model using the glmnet engine.  glmnet uses an Elastic Net which combines LASSO and Ridge Regression techniques.  This is a linear algorithm which may have difficulty with the skewed numeric data which is present in the Concrete dataset.  Notice that the penalty and mixture parameters have been specified to be tuned.
+```{r}
+glmnet_model <- linear_reg(
+  mode = "regression",
+  penalty = tune(),
+  mixture = tune()
+) %>%
+  set_engine("glmnet")
+
+glmnet_model
+```
+
+Grid specifications sets up a variety of parameter values used with our model to find which combination yields the lowest prediction error (or best accuracy).  Here we specify the parameter ranges and grid function using the dials package.
+```{r}
+glmnet_params <- parameters(penalty(), mixture())
+glmnet_params
+```
+
+Specify the grid function (max entropy, hypercube etc.).  Here we make a grid of 20 values using the grid_max_entropy() function in the dials package.  Since there are just 2 tuning parameters in this case, we can visualize the grid selections.  Note the penalty parameter is on the log base 10 scale by default.  The dials package helps us make smarter choices for the critical tuning parameters.
+```{r}
+set.seed(123)
+glmnet_grid <- grid_max_entropy(glmnet_params, size = 20)
+
+glmnet_grid %>%
+  ggplot(aes(penalty, mixture)) +
+  geom_point(color = "steelblue", size = 3) +
+  scale_x_log10() +
+  theme_light() +
+  labs(title = "Max Entropy Grid", x = "Penalty (log scale)", y = "Mixture")
+```
+
+Hyperparameter tuning is now performed using the tune_grid() function from the tune package.  Here we specific the formula, model, resamples, grid and metrics.  The metrics come from the yardstick package. For regression problems, we can specify multiple metrics such as mae, mape, rmse and rsq into a metric_set().
+```{r}
+glmnet_stage_1_cv_results_tbl <- tune_grid(
+  formula = compressive_strength ~ .,
+  model = glmnet_model,
+  resamples = concrete_cv_folds,
+  grid = glmnet_grid,
+  metrics = metric_set(mae, mape, rmse, rsq)#,
+  #control = control_grid(verbose = TRUE)
+)
+```
+
+Identify the best hyperparameter values using the show_best() function.
+```{r}
+glmnet_stage_1_cv_results_tbl %>% show_best("mae", n = 10, maximize = FALSE)
+```
+
+###Stage 2: Compare and Select the Best Model
+
+Select the best parameters based on the lowest mean absolute error.
+```{r}
+params_glmnet_best <- glmnet_stage_1_cv_results_tbl %>% select_best("mae", maximize = FALSE)
+params_glmnet_best
+```
+
+Finalize the model with the best parameters.
+```{r}
+glmnet_stage_2_model <- glmnet_model %>%
+  finalize_model(parameters = params_glmnet_best)
+
+glmnet_stage_2_model
+```
+
+Define a helper function to calculate the performance on the test dataset
+```{r}
+calc_test_metrics <- function(formula, model_spec, recipe, split) {
+  
+  train_processed <- training(split) %>% bake(recipe, new_data = .)
+  test_processed <- testing(split) %>% bake(recipe, new_data = .)
+  
+  target_expr <- recipe %>%
+    pluck("last_term_info") %>%
+    filter(role == "outcome") %>%
+    pull(variable) %>%
+    sym()
+  
+  model_spec %>%
+    fit(formula = as.formula(formula),
+        data = train_processed) %>%
+    predict(new_data = test_processed) %>%
+    bind_cols(testing(split)) %>%
+    metrics(!! target_expr, .pred)
+}
+```
+
+Calculate the test performance on the glmnet model.
+```{r}
+glmnet_stage_2_metrics <- calc_test_metrics(
+  formula = compressive_strength ~ .,
+  model_spec = glmnet_stage_2_model,
+  recipe = preprocessing_recipe,
+  split = concrete_initial_split
+)
+
+glmnet_stage_2_metrics
+```
+
+###Stage 3: Train Final Model
+```{r}
+model_final <- glmnet_stage_2_model %>%
+  fit(compressive_strength ~ ., data = bake(preprocessing_recipe, new_data = concrete_tbl))
+```
+
+Which Features are most important?
+```{r}
+vip(model_final, aesthetics = list(fill = "steelblue")) +
+  labs(title = "GLMNET Model Importance - Compressive Strength (MPa) Prediction") +
+  theme_bw()
+```
+
