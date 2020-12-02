@@ -7,6 +7,15 @@ output: html_document
 
 <br><br>
 
+### **Concrete Dataset Part 5: Single-Layer Neural Network Model using nnet**
+*Posted on December 2, 2020*
+
+A simple neural network is fit to predict the compressive strength of concrete formulation using a tidymodels approach.  This single-layer neural network showed significantly better performance than both the conventional model and the GLMnet model.
+
+[Full post](2020-12-02_ConcreteMLP.html)
+
+***
+
 ### **Concrete Dataset Part 4: Conventional Material Model using nls**
 *Posted on June 16, 2020*
 
