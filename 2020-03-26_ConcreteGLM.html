@@ -333,21 +333,15 @@ $(document).ready(function () {
 <p>Here we want to make different machine learning models and try them out by performing the following steps: - Initial Splitting: Separate into random training and test datasets - Preprocessing: Make a pipeline to transform raw data into a dataset ready for machine learning - Cross Validation Specification: Sample the training data into splits - Model Specification: Select model algorithms and identify key tuning parameters - Grid Specification: Set up a grid using wise parameter choices - Hyperparameter Tuning: Implement the tuning process</p>
 <p>Initial splitting of the dataset into Training and Test Dataset Here we use the rsample package to create an 80/20 split. The concrete dataset contains 1030 formulations of which 825 are randomly assigned to training and 205 are randomly assigned to testing.</p>
 <pre class="r"><code>set.seed(123)
-concrete_initial_split &lt;- initial_split(concrete_tbl, prop = 0.80)
-concrete_initial_split</code></pre>
-<pre><code>## &lt;825/205/1030&gt;</code></pre>
+concrete_split &lt;- initial_split(concrete_tbl, prop = 0.80)
+concrete_train &lt;- training(concrete_split)
+concrete_test &lt;- testing(concrete_split)</code></pre>
 <p>Preprocessing is accomplished by using the recipe package. The recipe provides the steps required to transform our raw data into a dataset suitable for machine learning. The Concrete dataset actually doesn’t require much reformatting. The major issue was the lengthy column names which was addressed immediately after the dataset was imported. The dataset contained all numerical values and no missing data. Initially we will just center and scale the predictors before sending to the glmnet model.</p>
-<pre class="r"><code>preprocessing_recipe &lt;- recipe(compressive_strength ~ ., data = training(concrete_initial_split)) %&gt;%
-  
-  #center and scale all numerical predictors
+<pre class="r"><code>concrete_rec &lt;- recipe(compressive_strength ~ ., data = concrete_train) %&gt;%
   step_center(all_predictors()) %&gt;%
-  step_scale(all_predictors()) %&gt;%
-  
-  # #Remove unnecessary columns
-  # step_rm(model) %&gt;%
-  prep()
+  step_scale(all_predictors())
 
-preprocessing_recipe</code></pre>
+concrete_rec</code></pre>
 <pre><code>## Data Recipe
 ## 
 ## Inputs:
@@ -356,39 +350,33 @@ preprocessing_recipe</code></pre>
 ##    outcome          1
 ##  predictor          8
 ## 
-## Training data contained 825 data points and no missing data.
-## 
 ## Operations:
 ## 
-## Centering for cement, blast_furnace_slag, fly_ash, ... [trained]
-## Scaling for cement, blast_furnace_slag, fly_ash, ... [trained]</code></pre>
-<p>The recipe is not actually applied to the dataset until you “bake” it. Here we apply the preprocessing pipeline and save it to a new tibble.</p>
-<pre class="r"><code>concrete_training_preprocessed_tbl &lt;- preprocessing_recipe %&gt;% bake(training(concrete_initial_split))</code></pre>
+## Centering for all_predictors()
+## Scaling for all_predictors()</code></pre>
 <p>Cross validation folds are created in order to assess the performance of the model parameters. Here we use 5-fold cross validation to create splits from our training dataset and also using the preprocessing pipeline specified above.</p>
-<pre class="r"><code>set.seed(123)
-concrete_cv_folds &lt;- training(concrete_initial_split) %&gt;%
-  bake(preprocessing_recipe, new_data = .) %&gt;%
-  vfold_cv(v = 5)
+<pre class="r"><code>set.seed(234)
+concrete_folds &lt;- vfold_cv(concrete_train, v = 5)
 
-concrete_cv_folds</code></pre>
+concrete_folds</code></pre>
 <pre><code>## #  5-fold cross-validation 
 ## # A tibble: 5 x 2
 ##   splits            id   
-##   &lt;named list&gt;      &lt;chr&gt;
+##   &lt;list&gt;            &lt;chr&gt;
 ## 1 &lt;split [660/165]&gt; Fold1
 ## 2 &lt;split [660/165]&gt; Fold2
 ## 3 &lt;split [660/165]&gt; Fold3
 ## 4 &lt;split [660/165]&gt; Fold4
 ## 5 &lt;split [660/165]&gt; Fold5</code></pre>
 <p>Model specifications are created using the parsnip package. Here we specify a linear regression model using the glmnet engine. glmnet uses an Elastic Net which combines LASSO and Ridge Regression techniques. This is a linear algorithm which may have difficulty with the skewed numeric data which is present in the Concrete dataset. Notice that the penalty and mixture parameters have been specified to be tuned.</p>
-<pre class="r"><code>glmnet_model &lt;- linear_reg(
-  mode = &quot;regression&quot;,
+<pre class="r"><code>glmnet_spec &lt;- linear_reg(
   penalty = tune(),
   mixture = tune()
 ) %&gt;%
-  set_engine(&quot;glmnet&quot;)
+  set_engine(&quot;glmnet&quot;) %&gt;%
+  set_mode(&quot;regression&quot;)
 
-glmnet_model</code></pre>
+glmnet_spec</code></pre>
 <pre><code>## Linear Regression Model Specification (regression)
 ## 
 ## Main Arguments:
@@ -397,16 +385,9 @@ glmnet_model</code></pre>
 ## 
 ## Computational engine: glmnet</code></pre>
 <p>Grid specifications sets up a variety of parameter values used with our model to find which combination yields the lowest prediction error (or best accuracy). Here we specify the parameter ranges and grid function using the dials package.</p>
-<pre class="r"><code>glmnet_params &lt;- parameters(penalty(), mixture())
-glmnet_params</code></pre>
-<pre><code>## Collection of 2 parameters for tuning
-## 
-##       id parameter type object class
-##  penalty        penalty    nparam[+]
-##  mixture        mixture    nparam[+]</code></pre>
 <p>Specify the grid function (max entropy, hypercube etc.). Here we make a grid of 20 values using the grid_max_entropy() function in the dials package. Since there are just 2 tuning parameters in this case, we can visualize the grid selections. Note the penalty parameter is on the log base 10 scale by default. The dials package helps us make smarter choices for the critical tuning parameters.</p>
-<pre class="r"><code>set.seed(123)
-glmnet_grid &lt;- grid_max_entropy(glmnet_params, size = 20)
+<pre class="r"><code>set.seed(345)
+glmnet_grid &lt;- grid_max_entropy(penalty(), mixture(), size = 20)
 
 glmnet_grid %&gt;%
   ggplot(aes(penalty, mixture)) +
@@ -414,101 +395,98 @@ glmnet_grid %&gt;%
   scale_x_log10() +
   theme_light() +
   labs(title = &quot;Max Entropy Grid&quot;, x = &quot;Penalty (log scale)&quot;, y = &quot;Mixture&quot;)</code></pre>
-<p><img src="2020-03-26_ConcreteGLM_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="2020-03-26_ConcreteGLM_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>concrete_wf &lt;- workflow() %&gt;%
+  add_recipe(concrete_rec) %&gt;%
+  add_model(glmnet_spec)</code></pre>
 <p>Hyperparameter tuning is now performed using the tune_grid() function from the tune package. Here we specific the formula, model, resamples, grid and metrics. The metrics come from the yardstick package. For regression problems, we can specify multiple metrics such as mae, mape, rmse and rsq into a metric_set().</p>
-<pre class="r"><code>glmnet_stage_1_cv_results_tbl &lt;- tune_grid(
-  formula = compressive_strength ~ .,
-  model = glmnet_model,
-  resamples = concrete_cv_folds,
+<pre class="r"><code>doParallel::registerDoParallel()
+
+glmnet_res &lt;- tune_grid(
+  concrete_wf,
+  resamples = concrete_folds,
   grid = glmnet_grid,
-  metrics = metric_set(mae, mape, rmse, rsq)#,
-  #control = control_grid(verbose = TRUE)
+  metrics = metric_set(rmse, rsq, mae),
+  control = control_grid(save_pred = TRUE)
 )</code></pre>
 <p>Identify the best hyperparameter values using the show_best() function.</p>
-<pre class="r"><code>glmnet_stage_1_cv_results_tbl %&gt;% show_best(&quot;mae&quot;, n = 10, maximize = FALSE)</code></pre>
-<pre><code>## # A tibble: 10 x 7
-##     penalty mixture .metric .estimator  mean     n std_err
-##       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
-##  1 2.47e-10  0.666  mae     standard    8.42     5   0.135
-##  2 1.31e- 7  0.546  mae     standard    8.42     5   0.135
-##  3 1.48e- 4  0.996  mae     standard    8.42     5   0.135
-##  4 4.95e- 8  0.753  mae     standard    8.42     5   0.135
-##  5 1.70e- 3  0.590  mae     standard    8.42     5   0.135
-##  6 1.49e- 6  0.973  mae     standard    8.42     5   0.135
-##  7 2.31e- 9  0.921  mae     standard    8.42     5   0.135
-##  8 1.10e- 5  0.699  mae     standard    8.42     5   0.135
-##  9 1.69e- 9  0.0491 mae     standard    8.42     5   0.135
-## 10 7.49e- 7  0.0747 mae     standard    8.42     5   0.135</code></pre>
+<pre class="r"><code>glmnet_res %&gt;% show_best(&quot;mae&quot;, n = 5, maximize = FALSE)</code></pre>
+<pre><code>## Warning: The `maximize` argument is no longer needed. This value was ignored.</code></pre>
+<pre><code>## # A tibble: 5 x 8
+##    penalty mixture .metric .estimator  mean     n std_err .config
+##      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1 1.08e-10   0.694 mae     standard    8.32     5   0.151 Model16
+## 2 1.65e- 3   0.991 mae     standard    8.32     5   0.151 Model20
+## 3 1.00e- 9   0.918 mae     standard    8.32     5   0.151 Model18
+## 4 3.58e- 5   0.692 mae     standard    8.32     5   0.151 Model15
+## 5 2.39e- 5   0.505 mae     standard    8.32     5   0.151 Model11</code></pre>
+<p>Visualize the tuning results</p>
+<pre class="r"><code>autoplot(glmnet_res)</code></pre>
+<p><img src="2020-03-26_ConcreteGLM_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
 <div id="stage-2-compare-and-select-the-best-model" class="section level3">
 <h3>Stage 2: Compare and Select the Best Model</h3>
 <p>Select the best parameters based on the lowest mean absolute error.</p>
-<pre class="r"><code>params_glmnet_best &lt;- glmnet_stage_1_cv_results_tbl %&gt;% select_best(&quot;mae&quot;, maximize = FALSE)
-params_glmnet_best</code></pre>
-<pre><code>## # A tibble: 1 x 2
-##    penalty mixture
-##      &lt;dbl&gt;   &lt;dbl&gt;
-## 1 2.47e-10   0.666</code></pre>
+<pre class="r"><code>params_glmnet_best &lt;- glmnet_res %&gt;% select_best(&quot;mae&quot;, maximize = FALSE)</code></pre>
+<pre><code>## Warning: The `maximize` argument is no longer needed. This value was ignored.</code></pre>
+<pre class="r"><code>params_glmnet_best</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##    penalty mixture .config
+##      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1 1.08e-10   0.694 Model16</code></pre>
 <p>Finalize the model with the best parameters.</p>
-<pre class="r"><code>glmnet_stage_2_model &lt;- glmnet_model %&gt;%
-  finalize_model(parameters = params_glmnet_best)
+<pre class="r"><code>final_glmnet &lt;- finalize_workflow(concrete_wf, params_glmnet_best)
 
-glmnet_stage_2_model</code></pre>
-<pre><code>## Linear Regression Model Specification (regression)
+final_glmnet</code></pre>
+<pre><code>## == Workflow ==============================================================
+## Preprocessor: Recipe
+## Model: linear_reg()
+## 
+## -- Preprocessor ----------------------------------------------------------
+## 2 Recipe Steps
+## 
+## * step_center()
+## * step_scale()
+## 
+## -- Model -----------------------------------------------------------------
+## Linear Regression Model Specification (regression)
 ## 
 ## Main Arguments:
-##   penalty = 2.46944747219784e-10
-##   mixture = 0.666244992753491
+##   penalty = 1.08029663028015e-10
+##   mixture = 0.693621997023001
 ## 
 ## Computational engine: glmnet</code></pre>
-<p>Define a helper function to calculate the performance on the test dataset</p>
-<pre class="r"><code>calc_test_metrics &lt;- function(formula, model_spec, recipe, split) {
-  
-  train_processed &lt;- training(split) %&gt;% bake(recipe, new_data = .)
-  test_processed &lt;- testing(split) %&gt;% bake(recipe, new_data = .)
-  
-  target_expr &lt;- recipe %&gt;%
-    pluck(&quot;last_term_info&quot;) %&gt;%
-    filter(role == &quot;outcome&quot;) %&gt;%
-    pull(variable) %&gt;%
-    sym()
-  
-  model_spec %&gt;%
-    fit(formula = as.formula(formula),
-        data = train_processed) %&gt;%
-    predict(new_data = test_processed) %&gt;%
-    bind_cols(testing(split)) %&gt;%
-    metrics(!! target_expr, .pred)
-}</code></pre>
-<p>Calculate the test performance on the glmnet model.</p>
-<pre class="r"><code>glmnet_stage_2_metrics &lt;- calc_test_metrics(
-  formula = compressive_strength ~ .,
-  model_spec = glmnet_stage_2_model,
-  recipe = preprocessing_recipe,
-  split = concrete_initial_split
-)
-
-glmnet_stage_2_metrics</code></pre>
+<p>Which Features are most important?</p>
+<pre class="r"><code>final_glmnet %&gt;%
+  fit(data = concrete_train) %&gt;%
+  pull_workflow_fit() %&gt;%
+  vip(aesthetics = list(fill = &quot;steelblue&quot;)) +
+  labs(title = &quot;GLMNET Model Importance - Compressive Strength (MPa) Prediction&quot;)</code></pre>
+<p><img src="2020-03-26_ConcreteGLM_files/figure-html/unnamed-chunk-14-1.png" width="672" /> ### Stage 3: Train Final Model</p>
+<p>Fit model on train and evaluate on test.</p>
+<pre class="r"><code>final_res &lt;- last_fit(final_glmnet, concrete_split, metrics = metric_set(rmse, rsq, mae))</code></pre>
+<p>Assess final model performance metrics.</p>
+<pre class="r"><code>collect_metrics(final_res)</code></pre>
 <pre><code>## # A tibble: 3 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
 ## 1 rmse    standard      10.3  
 ## 2 rsq     standard       0.609
 ## 3 mae     standard       8.12</code></pre>
-</div>
-<div id="stage-3-train-final-model" class="section level3">
-<h3>Stage 3: Train Final Model</h3>
-<pre class="r"><code>model_final &lt;- glmnet_stage_2_model %&gt;%
-  fit(compressive_strength ~ ., data = bake(preprocessing_recipe, new_data = concrete_tbl))</code></pre>
-<p>Which Features are most important?</p>
-<pre class="r"><code>vip(model_final, aesthetics = list(fill = &quot;steelblue&quot;)) +
-  labs(title = &quot;GLMNET Model Importance - Compressive Strength (MPa) Prediction&quot;) +
-  theme_bw()</code></pre>
+<p>Visualize actual vs. predicted compressive strength for final model.</p>
+<pre class="r"><code>collect_predictions(final_res) %&gt;%
+  ggplot(aes(compressive_strength, .pred)) +
+  geom_abline(slope = 1, lty = 2, color = &quot;gray50&quot;, alpha = 0.5) +
+  geom_point(alpha = 0.6, color = &quot;midnightblue&quot;) +
+  ylim(0, NA) +
+  labs(title = &quot;GLMnet Model Performance for Concrete Dataset&quot;, 
+       x = &quot;Actual Compressive Strength (MPa)&quot;, 
+       y = &quot;Predicted Compressive Strength (MPa)&quot;)</code></pre>
 <p><img src="2020-03-26_ConcreteGLM_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KbGlicmFyeShrbml0cikNCmxpYnJhcnkocmVhZHhsKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQoNCiNUaWR5bW9kZWxzDQpsaWJyYXJ5KHR1bmUpDQpsaWJyYXJ5KGRpYWxzKQ0KbGlicmFyeShwYXJzbmlwKQ0KbGlicmFyeShyc2FtcGxlKQ0KbGlicmFyeShyZWNpcGVzKQ0KI2xpYnJhcnkodGV4dHJlY2lwZXMpDQpsaWJyYXJ5KHlhcmRzdGljaykNCmxpYnJhcnkodmlwKQ0KYGBgDQoNCiMjICoqR2VuZXJhbGl6ZWQgTGluZWFyIE1vZGVsaW5nIG9mIHRoZSBDb25jcmV0ZSBDb21wcmVzc2l2ZSBTdHJlbmd0aCBEYXRhc2V0KioNCipQb3N0ZWQgb24gTWFyY2ggMjYsIDIwMjAqDQoNCkluIHRoaXMgcG9zdCwgd2Ugd2lsbCBiZWdpbiB0byB1c2UgbWFjaGluZSBsZWFybmluZyB0ZWNobmlxdWVzIGZvciBwcmVkaWN0aW5nIGNvbXByZXNzaXZlIHN0cmVuZ3RoIG9mIGZvcm11bGF0aW9ucyB1c2luZyB0aGUgY29uY3JldGUgZGF0YXNldC4gIEluIGEgcHJldmlvdXMgcG9zdCwgd2UgY3JlYXRlZCBhIG1vZGVsIHVzaW5nIGEgY29udmVudGlvbmFsIG1hdGVyaWFsIG1vZGVsaW5nIGFwcHJvYWNoIHdoaWNoIHJlc3VsdGVkIGluIGFuIFJeMl4gb2YgMC43OC4gIEhlcmUgd2Ugd2lsbCB1c2UgYSBnZW5lcmFsaXplZCBsaW5lYXIgbW9kZWwgdG8gcHJlZGljdCBjb21wcmVzc2l2ZSBzdHJlbmd0aCBhbmQgY29tcGFyZSB0aGUgcmVzdWx0cyB3aXRoIHRoZSBjb252ZW50aW9uYWwgbWF0ZXJpYWwgbW9kZWwuDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KbGlicmFyeShyZWFkeGwpDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCg0KZmlsZW5hbWUgPC0gIkNvbmNyZXRlX0RhdGEueGxzIg0KDQpmb2xkZXIgPC0gIi4vZGF0YS8iDQpudW1iZXJDb2xzIDwtIDkgI3RvdGFsIG51bWJlciBvZiBjb2x1bW5zIGluIHNwcmVhZHNoZWV0DQoNCmNvbFR5cGVzIDwtIHJlcCgibnVtZXJpYyIsIG51bWJlckNvbHMpDQpjb25jcmV0ZV90YmwgPC0gcmVhZF9leGNlbChwYXRoID0gcGFzdGUwKGZvbGRlciwgZmlsZW5hbWUpLCBjb2xfdHlwZXMgPSBjb2xUeXBlcykNCg0KY29uY3JldGVfdGJsIDwtIGNvbmNyZXRlX3RibCAlPiUNCiAgcmVuYW1lKGNlbWVudCA9IHN0YXJ0c193aXRoKCJDZW1lbnQiKSkgJT4lDQogIHJlbmFtZShibGFzdF9mdXJuYWNlX3NsYWcgPSBzdGFydHNfd2l0aCgiQmxhc3QiKSkgJT4lDQogIHJlbmFtZShmbHlfYXNoID0gc3RhcnRzX3dpdGgoIkZseSBBc2giKSkgJT4lDQogIHJlbmFtZSh3YXRlciA9IHN0YXJ0c193aXRoKCJXYXRlciIpKSAlPiUNCiAgcmVuYW1lKHN1cGVycGxhc3RpY2l6ZXIgPSBzdGFydHNfd2l0aCgiU3VwZXIiKSkgJT4lDQogIHJlbmFtZShjb2Fyc2VfYWdncmVnYXRlID0gc3RhcnRzX3dpdGgoIkNvYXJzZSIpKSAlPiUNCiAgcmVuYW1lKGZpbmVfYWdncmVnYXRlID0gc3RhcnRzX3dpdGgoIkZpbmUiKSkgJT4lDQogIHJlbmFtZShhZ2UgPSBzdGFydHNfd2l0aCgiQWdlIikpICU+JQ0KICByZW5hbWUoY29tcHJlc3NpdmVfc3RyZW5ndGggPSBzdGFydHNfd2l0aCgiQ29uY3JldGUiKSkNCmBgYA0KDQpXZSB3aWxsIHV0aWxpemUgdGhlIDMtc3RhZ2UgbWFjaGluZSBsZWFybmluZyBhcHByb2FjaCBwcm9tb3RlZCBieSBNYXR0IERhbmNobyBhdCBCdXNpbmVzcy1TY2llbmNlLmlvLiAgSGUgcG9zdGVkIGFuIGV4Y2VsbGVudCB0dXRvcmlhbCAiUHJvZHVjdCBQcmljZSBQcmVkaWN0aW9uOiBBIFRpZHkgSHlwZXJwYXJhbXRlciBUdW5pbmcgYW5kIENyb3NzIFZhbGlkYXRpb24gVHV0b3JpYWwiLiAgSSBoYXZlbid0IGZvdW5kIGEgYmV0dGVyIGV4YW1wbGUgb2YgYXBwbHlpbmcgdGhlIHRpZHltb2RlbCBwYWNrYWdlcyB0byBkZXZlbG9wIGEgcHJlZGljdGl2ZSBtb2RlbC4NCg0KVGhlIDMtc3RhZ2UgaHlwZXJwYXJhbWV0ZXIgdHVuaW5nIHByb2Nlc3M6ICANCjEuICoqRmluZCBQYXJhbWV0ZXJzOioqIFVzZSBoeXBlcnBhcmFtZXRlciB0dW5pbmcgb24gYSAidHJhaW5pbmcgZGF0YXNldCIgdGhhdCBzZWN0aW9ucyB5b3VyIHRyYWluaW5nIGRhdGEgaW50byBjcm9zcyB2YWxpZGF0aW9uIGZvbGRzLiAgVGhlIG91dHB1dCBvZiBzdGFnZSAxIGlzIHRoZSBwYXJhbWV0ZXIgc2V0LiAgDQoyLiAqKkNvbXBhcmUgYW5kIFNlbGVjdCB0aGUgQmVzdCBNb2RlbDoqKiBFdmFsdWF0ZSB0aGUgcGVyZm9ybWFuY2Ugb24gYSBoaWRkZW4gInRlc3QgZGF0YXNldCIuICBUaGUgb3V0cHV0IGF0IFN0YWdlIDIgaXMgd2hhdCB3ZSBkZXRlcm1pbmVkIGFzIHRoZSBiZXN0IG1vZGVsLiAgDQozLiAqKlRyYWluIEZpbmFsIE1vZGVsOioqIE9uY2Ugd2UgaGF2ZSBzZWxlY3RlZCB0aGUgYmVzdCBtb2RlbCwgd2UgdHJhaW4gdGhlIGZ1bGwgZGF0YXNldC4gIFRoaXMgbW9kZWwgZ29lcyBpbnRvIHByb2R1Y3Rpb24uICANCg0KDQojIyMgU3RhZ2UgMTogRmluZCBQYXJhbWV0ZXJzDQpIZXJlIHdlIHdhbnQgdG8gbWFrZSBkaWZmZXJlbnQgbWFjaGluZSBsZWFybmluZyBtb2RlbHMgYW5kIHRyeSB0aGVtIG91dCBieSBwZXJmb3JtaW5nIHRoZSBmb2xsb3dpbmcgc3RlcHM6DQotIEluaXRpYWwgU3BsaXR0aW5nOiBTZXBhcmF0ZSBpbnRvIHJhbmRvbSB0cmFpbmluZyBhbmQgdGVzdCBkYXRhc2V0cw0KLSBQcmVwcm9jZXNzaW5nOiBNYWtlIGEgcGlwZWxpbmUgdG8gdHJhbnNmb3JtIHJhdyBkYXRhIGludG8gYSBkYXRhc2V0IHJlYWR5IGZvciBtYWNoaW5lIGxlYXJuaW5nDQotIENyb3NzIFZhbGlkYXRpb24gU3BlY2lmaWNhdGlvbjogU2FtcGxlIHRoZSB0cmFpbmluZyBkYXRhIGludG8gc3BsaXRzDQotIE1vZGVsIFNwZWNpZmljYXRpb246IFNlbGVjdCBtb2RlbCBhbGdvcml0aG1zIGFuZCBpZGVudGlmeSBrZXkgdHVuaW5nIHBhcmFtZXRlcnMNCi0gR3JpZCBTcGVjaWZpY2F0aW9uOiBTZXQgdXAgYSBncmlkIHVzaW5nIHdpc2UgcGFyYW1ldGVyIGNob2ljZXMNCi0gSHlwZXJwYXJhbWV0ZXIgVHVuaW5nOiBJbXBsZW1lbnQgdGhlIHR1bmluZyBwcm9jZXNzDQoNCkluaXRpYWwgc3BsaXR0aW5nIG9mIHRoZSBkYXRhc2V0IGludG8gVHJhaW5pbmcgYW5kIFRlc3QgRGF0YXNldCAgSGVyZSB3ZSB1c2UgdGhlIHJzYW1wbGUgcGFja2FnZSB0byBjcmVhdGUgYW4gODAvMjAgc3BsaXQuICBUaGUgY29uY3JldGUgZGF0YXNldCBjb250YWlucyAxMDMwIGZvcm11bGF0aW9ucyBvZiB3aGljaCA4MjUgYXJlIHJhbmRvbWx5IGFzc2lnbmVkIHRvIHRyYWluaW5nIGFuZCAyMDUgYXJlIHJhbmRvbWx5IGFzc2lnbmVkIHRvIHRlc3RpbmcuDQpgYGB7cn0NCnNldC5zZWVkKDEyMykNCmNvbmNyZXRlX2luaXRpYWxfc3BsaXQgPC0gaW5pdGlhbF9zcGxpdChjb25jcmV0ZV90YmwsIHByb3AgPSAwLjgwKQ0KY29uY3JldGVfaW5pdGlhbF9zcGxpdA0KYGBgDQoNClByZXByb2Nlc3NpbmcgaXMgYWNjb21wbGlzaGVkIGJ5IHVzaW5nIHRoZSByZWNpcGUgcGFja2FnZS4gIFRoZSByZWNpcGUgcHJvdmlkZXMgdGhlIHN0ZXBzIHJlcXVpcmVkIHRvIHRyYW5zZm9ybSBvdXIgcmF3IGRhdGEgaW50byBhIGRhdGFzZXQgc3VpdGFibGUgZm9yIG1hY2hpbmUgbGVhcm5pbmcuICBUaGUgQ29uY3JldGUgZGF0YXNldCBhY3R1YWxseSBkb2Vzbid0IHJlcXVpcmUgbXVjaCByZWZvcm1hdHRpbmcuICBUaGUgbWFqb3IgaXNzdWUgd2FzIHRoZSBsZW5ndGh5IGNvbHVtbiBuYW1lcyB3aGljaCB3YXMgYWRkcmVzc2VkIGltbWVkaWF0ZWx5IGFmdGVyIHRoZSBkYXRhc2V0IHdhcyBpbXBvcnRlZC4gIFRoZSBkYXRhc2V0IGNvbnRhaW5lZCBhbGwgbnVtZXJpY2FsIHZhbHVlcyBhbmQgbm8gbWlzc2luZyBkYXRhLiAgSW5pdGlhbGx5IHdlIHdpbGwganVzdCBjZW50ZXIgYW5kIHNjYWxlIHRoZSBwcmVkaWN0b3JzIGJlZm9yZSBzZW5kaW5nIHRvIHRoZSBnbG1uZXQgbW9kZWwuDQpgYGB7cn0NCnByZXByb2Nlc3NpbmdfcmVjaXBlIDwtIHJlY2lwZShjb21wcmVzc2l2ZV9zdHJlbmd0aCB+IC4sIGRhdGEgPSB0cmFpbmluZyhjb25jcmV0ZV9pbml0aWFsX3NwbGl0KSkgJT4lDQogIA0KICAjY2VudGVyIGFuZCBzY2FsZSBhbGwgbnVtZXJpY2FsIHByZWRpY3RvcnMNCiAgc3RlcF9jZW50ZXIoYWxsX3ByZWRpY3RvcnMoKSkgJT4lDQogIHN0ZXBfc2NhbGUoYWxsX3ByZWRpY3RvcnMoKSkgJT4lDQogIA0KICAjICNSZW1vdmUgdW5uZWNlc3NhcnkgY29sdW1ucw0KICAjIHN0ZXBfcm0obW9kZWwpICU+JQ0KICBwcmVwKCkNCg0KcHJlcHJvY2Vzc2luZ19yZWNpcGUNCmBgYA0KDQpUaGUgcmVjaXBlIGlzIG5vdCBhY3R1YWxseSBhcHBsaWVkIHRvIHRoZSBkYXRhc2V0IHVudGlsIHlvdSAiYmFrZSIgaXQuICBIZXJlIHdlIGFwcGx5IHRoZSBwcmVwcm9jZXNzaW5nIHBpcGVsaW5lIGFuZCBzYXZlIGl0IHRvIGEgbmV3IHRpYmJsZS4NCmBgYHtyfQ0KY29uY3JldGVfdHJhaW5pbmdfcHJlcHJvY2Vzc2VkX3RibCA8LSBwcmVwcm9jZXNzaW5nX3JlY2lwZSAlPiUgYmFrZSh0cmFpbmluZyhjb25jcmV0ZV9pbml0aWFsX3NwbGl0KSkNCmBgYA0KDQpDcm9zcyB2YWxpZGF0aW9uIGZvbGRzIGFyZSBjcmVhdGVkIGluIG9yZGVyIHRvIGFzc2VzcyB0aGUgcGVyZm9ybWFuY2Ugb2YgdGhlIG1vZGVsIHBhcmFtZXRlcnMuICBIZXJlIHdlIHVzZSA1LWZvbGQgY3Jvc3MgdmFsaWRhdGlvbiB0byBjcmVhdGUgc3BsaXRzIGZyb20gb3VyIHRyYWluaW5nIGRhdGFzZXQgYW5kIGFsc28gdXNpbmcgdGhlIHByZXByb2Nlc3NpbmcgcGlwZWxpbmUgc3BlY2lmaWVkIGFib3ZlLg0KYGBge3J9DQpzZXQuc2VlZCgxMjMpDQpjb25jcmV0ZV9jdl9mb2xkcyA8LSB0cmFpbmluZyhjb25jcmV0ZV9pbml0aWFsX3NwbGl0KSAlPiUNCiAgYmFrZShwcmVwcm9jZXNzaW5nX3JlY2lwZSwgbmV3X2RhdGEgPSAuKSAlPiUNCiAgdmZvbGRfY3YodiA9IDUpDQoNCmNvbmNyZXRlX2N2X2ZvbGRzDQpgYGANCg0KTW9kZWwgc3BlY2lmaWNhdGlvbnMgYXJlIGNyZWF0ZWQgdXNpbmcgdGhlIHBhcnNuaXAgcGFja2FnZS4gIEhlcmUgd2Ugc3BlY2lmeSBhIGxpbmVhciByZWdyZXNzaW9uIG1vZGVsIHVzaW5nIHRoZSBnbG1uZXQgZW5naW5lLiAgZ2xtbmV0IHVzZXMgYW4gRWxhc3RpYyBOZXQgd2hpY2ggY29tYmluZXMgTEFTU08gYW5kIFJpZGdlIFJlZ3Jlc3Npb24gdGVjaG5pcXVlcy4gIFRoaXMgaXMgYSBsaW5lYXIgYWxnb3JpdGhtIHdoaWNoIG1heSBoYXZlIGRpZmZpY3VsdHkgd2l0aCB0aGUgc2tld2VkIG51bWVyaWMgZGF0YSB3aGljaCBpcyBwcmVzZW50IGluIHRoZSBDb25jcmV0ZSBkYXRhc2V0LiAgTm90aWNlIHRoYXQgdGhlIHBlbmFsdHkgYW5kIG1peHR1cmUgcGFyYW1ldGVycyBoYXZlIGJlZW4gc3BlY2lmaWVkIHRvIGJlIHR1bmVkLg0KYGBge3J9DQpnbG1uZXRfbW9kZWwgPC0gbGluZWFyX3JlZygNCiAgbW9kZSA9ICJyZWdyZXNzaW9uIiwNCiAgcGVuYWx0eSA9IHR1bmUoKSwNCiAgbWl4dHVyZSA9IHR1bmUoKQ0KKSAlPiUNCiAgc2V0X2VuZ2luZSgiZ2xtbmV0IikNCg0KZ2xtbmV0X21vZGVsDQpgYGANCg0KR3JpZCBzcGVjaWZpY2F0aW9ucyBzZXRzIHVwIGEgdmFyaWV0eSBvZiBwYXJhbWV0ZXIgdmFsdWVzIHVzZWQgd2l0aCBvdXIgbW9kZWwgdG8gZmluZCB3aGljaCBjb21iaW5hdGlvbiB5aWVsZHMgdGhlIGxvd2VzdCBwcmVkaWN0aW9uIGVycm9yIChvciBiZXN0IGFjY3VyYWN5KS4gIEhlcmUgd2Ugc3BlY2lmeSB0aGUgcGFyYW1ldGVyIHJhbmdlcyBhbmQgZ3JpZCBmdW5jdGlvbiB1c2luZyB0aGUgZGlhbHMgcGFja2FnZS4NCmBgYHtyfQ0KZ2xtbmV0X3BhcmFtcyA8LSBwYXJhbWV0ZXJzKHBlbmFsdHkoKSwgbWl4dHVyZSgpKQ0KZ2xtbmV0X3BhcmFtcw0KYGBgDQoNClNwZWNpZnkgdGhlIGdyaWQgZnVuY3Rpb24gKG1heCBlbnRyb3B5LCBoeXBlcmN1YmUgZXRjLikuICBIZXJlIHdlIG1ha2UgYSBncmlkIG9mIDIwIHZhbHVlcyB1c2luZyB0aGUgZ3JpZF9tYXhfZW50cm9weSgpIGZ1bmN0aW9uIGluIHRoZSBkaWFscyBwYWNrYWdlLiAgU2luY2UgdGhlcmUgYXJlIGp1c3QgMiB0dW5pbmcgcGFyYW1ldGVycyBpbiB0aGlzIGNhc2UsIHdlIGNhbiB2aXN1YWxpemUgdGhlIGdyaWQgc2VsZWN0aW9ucy4gIE5vdGUgdGhlIHBlbmFsdHkgcGFyYW1ldGVyIGlzIG9uIHRoZSBsb2cgYmFzZSAxMCBzY2FsZSBieSBkZWZhdWx0LiAgVGhlIGRpYWxzIHBhY2thZ2UgaGVscHMgdXMgbWFrZSBzbWFydGVyIGNob2ljZXMgZm9yIHRoZSBjcml0aWNhbCB0dW5pbmcgcGFyYW1ldGVycy4NCmBgYHtyfQ0Kc2V0LnNlZWQoMTIzKQ0KZ2xtbmV0X2dyaWQgPC0gZ3JpZF9tYXhfZW50cm9weShnbG1uZXRfcGFyYW1zLCBzaXplID0gMjApDQoNCmdsbW5ldF9ncmlkICU+JQ0KICBnZ3Bsb3QoYWVzKHBlbmFsdHksIG1peHR1cmUpKSArDQogIGdlb21fcG9pbnQoY29sb3IgPSAic3RlZWxibHVlIiwgc2l6ZSA9IDMpICsNCiAgc2NhbGVfeF9sb2cxMCgpICsNCiAgdGhlbWVfbGlnaHQoKSArDQogIGxhYnModGl0bGUgPSAiTWF4IEVudHJvcHkgR3JpZCIsIHggPSAiUGVuYWx0eSAobG9nIHNjYWxlKSIsIHkgPSAiTWl4dHVyZSIpDQpgYGANCg0KSHlwZXJwYXJhbWV0ZXIgdHVuaW5nIGlzIG5vdyBwZXJmb3JtZWQgdXNpbmcgdGhlIHR1bmVfZ3JpZCgpIGZ1bmN0aW9uIGZyb20gdGhlIHR1bmUgcGFja2FnZS4gIEhlcmUgd2Ugc3BlY2lmaWMgdGhlIGZvcm11bGEsIG1vZGVsLCByZXNhbXBsZXMsIGdyaWQgYW5kIG1ldHJpY3MuICBUaGUgbWV0cmljcyBjb21lIGZyb20gdGhlIHlhcmRzdGljayBwYWNrYWdlLiBGb3IgcmVncmVzc2lvbiBwcm9ibGVtcywgd2UgY2FuIHNwZWNpZnkgbXVsdGlwbGUgbWV0cmljcyBzdWNoIGFzIG1hZSwgbWFwZSwgcm1zZSBhbmQgcnNxIGludG8gYSBtZXRyaWNfc2V0KCkuDQpgYGB7cn0NCmdsbW5ldF9zdGFnZV8xX2N2X3Jlc3VsdHNfdGJsIDwtIHR1bmVfZ3JpZCgNCiAgZm9ybXVsYSA9IGNvbXByZXNzaXZlX3N0cmVuZ3RoIH4gLiwNCiAgbW9kZWwgPSBnbG1uZXRfbW9kZWwsDQogIHJlc2FtcGxlcyA9IGNvbmNyZXRlX2N2X2ZvbGRzLA0KICBncmlkID0gZ2xtbmV0X2dyaWQsDQogIG1ldHJpY3MgPSBtZXRyaWNfc2V0KG1hZSwgbWFwZSwgcm1zZSwgcnNxKSMsDQogICNjb250cm9sID0gY29udHJvbF9ncmlkKHZlcmJvc2UgPSBUUlVFKQ0KKQ0KYGBgDQoNCklkZW50aWZ5IHRoZSBiZXN0IGh5cGVycGFyYW1ldGVyIHZhbHVlcyB1c2luZyB0aGUgc2hvd19iZXN0KCkgZnVuY3Rpb24uDQpgYGB7cn0NCmdsbW5ldF9zdGFnZV8xX2N2X3Jlc3VsdHNfdGJsICU+JSBzaG93X2Jlc3QoIm1hZSIsIG4gPSAxMCwgbWF4aW1pemUgPSBGQUxTRSkNCmBgYA0KDQojIyMgU3RhZ2UgMjogQ29tcGFyZSBhbmQgU2VsZWN0IHRoZSBCZXN0IE1vZGVsDQoNClNlbGVjdCB0aGUgYmVzdCBwYXJhbWV0ZXJzIGJhc2VkIG9uIHRoZSBsb3dlc3QgbWVhbiBhYnNvbHV0ZSBlcnJvci4NCmBgYHtyfQ0KcGFyYW1zX2dsbW5ldF9iZXN0IDwtIGdsbW5ldF9zdGFnZV8xX2N2X3Jlc3VsdHNfdGJsICU+JSBzZWxlY3RfYmVzdCgibWFlIiwgbWF4aW1pemUgPSBGQUxTRSkNCnBhcmFtc19nbG1uZXRfYmVzdA0KYGBgDQoNCkZpbmFsaXplIHRoZSBtb2RlbCB3aXRoIHRoZSBiZXN0IHBhcmFtZXRlcnMuDQpgYGB7cn0NCmdsbW5ldF9zdGFnZV8yX21vZGVsIDwtIGdsbW5ldF9tb2RlbCAlPiUNCiAgZmluYWxpemVfbW9kZWwocGFyYW1ldGVycyA9IHBhcmFtc19nbG1uZXRfYmVzdCkNCg0KZ2xtbmV0X3N0YWdlXzJfbW9kZWwNCmBgYA0KDQpEZWZpbmUgYSBoZWxwZXIgZnVuY3Rpb24gdG8gY2FsY3VsYXRlIHRoZSBwZXJmb3JtYW5jZSBvbiB0aGUgdGVzdCBkYXRhc2V0DQpgYGB7cn0NCmNhbGNfdGVzdF9tZXRyaWNzIDwtIGZ1bmN0aW9uKGZvcm11bGEsIG1vZGVsX3NwZWMsIHJlY2lwZSwgc3BsaXQpIHsNCiAgDQogIHRyYWluX3Byb2Nlc3NlZCA8LSB0cmFpbmluZyhzcGxpdCkgJT4lIGJha2UocmVjaXBlLCBuZXdfZGF0YSA9IC4pDQogIHRlc3RfcHJvY2Vzc2VkIDwtIHRlc3Rpbmcoc3BsaXQpICU+JSBiYWtlKHJlY2lwZSwgbmV3X2RhdGEgPSAuKQ0KICANCiAgdGFyZ2V0X2V4cHIgPC0gcmVjaXBlICU+JQ0KICAgIHBsdWNrKCJsYXN0X3Rlcm1faW5mbyIpICU+JQ0KICAgIGZpbHRlcihyb2xlID09ICJvdXRjb21lIikgJT4lDQogICAgcHVsbCh2YXJpYWJsZSkgJT4lDQogICAgc3ltKCkNCiAgDQogIG1vZGVsX3NwZWMgJT4lDQogICAgZml0KGZvcm11bGEgPSBhcy5mb3JtdWxhKGZvcm11bGEpLA0KICAgICAgICBkYXRhID0gdHJhaW5fcHJvY2Vzc2VkKSAlPiUNCiAgICBwcmVkaWN0KG5ld19kYXRhID0gdGVzdF9wcm9jZXNzZWQpICU+JQ0KICAgIGJpbmRfY29scyh0ZXN0aW5nKHNwbGl0KSkgJT4lDQogICAgbWV0cmljcyghISB0YXJnZXRfZXhwciwgLnByZWQpDQp9DQpgYGANCg0KQ2FsY3VsYXRlIHRoZSB0ZXN0IHBlcmZvcm1hbmNlIG9uIHRoZSBnbG1uZXQgbW9kZWwuDQpgYGB7cn0NCmdsbW5ldF9zdGFnZV8yX21ldHJpY3MgPC0gY2FsY190ZXN0X21ldHJpY3MoDQogIGZvcm11bGEgPSBjb21wcmVzc2l2ZV9zdHJlbmd0aCB+IC4sDQogIG1vZGVsX3NwZWMgPSBnbG1uZXRfc3RhZ2VfMl9tb2RlbCwNCiAgcmVjaXBlID0gcHJlcHJvY2Vzc2luZ19yZWNpcGUsDQogIHNwbGl0ID0gY29uY3JldGVfaW5pdGlhbF9zcGxpdA0KKQ0KDQpnbG1uZXRfc3RhZ2VfMl9tZXRyaWNzDQpgYGANCg0KIyMjIFN0YWdlIDM6IFRyYWluIEZpbmFsIE1vZGVsDQpgYGB7cn0NCm1vZGVsX2ZpbmFsIDwtIGdsbW5ldF9zdGFnZV8yX21vZGVsICU+JQ0KICBmaXQoY29tcHJlc3NpdmVfc3RyZW5ndGggfiAuLCBkYXRhID0gYmFrZShwcmVwcm9jZXNzaW5nX3JlY2lwZSwgbmV3X2RhdGEgPSBjb25jcmV0ZV90YmwpKQ0KYGBgDQoNCldoaWNoIEZlYXR1cmVzIGFyZSBtb3N0IGltcG9ydGFudD8NCmBgYHtyfQ0KdmlwKG1vZGVsX2ZpbmFsLCBhZXN0aGV0aWNzID0gbGlzdChmaWxsID0gInN0ZWVsYmx1ZSIpKSArDQogIGxhYnModGl0bGUgPSAiR0xNTkVUIE1vZGVsIEltcG9ydGFuY2UgLSBDb21wcmVzc2l2ZSBTdHJlbmd0aCAoTVBhKSBQcmVkaWN0aW9uIikgKw0KICB0aGVtZV9idygpDQpgYGANCg0K</div>
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KbGlicmFyeShrbml0cikNCmxpYnJhcnkocmVhZHhsKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQoNCiNUaWR5bW9kZWxzDQpsaWJyYXJ5KHRpZHltb2RlbHMpDQpsaWJyYXJ5KHZpcCkNCmBgYA0KDQojIyAqKkdlbmVyYWxpemVkIExpbmVhciBNb2RlbGluZyBvZiB0aGUgQ29uY3JldGUgQ29tcHJlc3NpdmUgU3RyZW5ndGggRGF0YXNldCoqDQoqUG9zdGVkIG9uIE1hcmNoIDI2LCAyMDIwKg0KDQpJbiB0aGlzIHBvc3QsIHdlIHdpbGwgYmVnaW4gdG8gdXNlIG1hY2hpbmUgbGVhcm5pbmcgdGVjaG5pcXVlcyBmb3IgcHJlZGljdGluZyBjb21wcmVzc2l2ZSBzdHJlbmd0aCBvZiBmb3JtdWxhdGlvbnMgdXNpbmcgdGhlIGNvbmNyZXRlIGRhdGFzZXQuICBJbiBhIHByZXZpb3VzIHBvc3QsIHdlIGNyZWF0ZWQgYSBtb2RlbCB1c2luZyBhIGNvbnZlbnRpb25hbCBtYXRlcmlhbCBtb2RlbGluZyBhcHByb2FjaCB3aGljaCByZXN1bHRlZCBpbiBhbiBSXjJeIG9mIDAuNzguICBIZXJlIHdlIHdpbGwgdXNlIGEgZ2VuZXJhbGl6ZWQgbGluZWFyIG1vZGVsIHRvIHByZWRpY3QgY29tcHJlc3NpdmUgc3RyZW5ndGggYW5kIGNvbXBhcmUgdGhlIHJlc3VsdHMgd2l0aCB0aGUgY29udmVudGlvbmFsIG1hdGVyaWFsIG1vZGVsLg0KDQpgYGB7ciwgaW5jbHVkZT1GQUxTRX0NCmZpbGVuYW1lIDwtICJDb25jcmV0ZV9EYXRhLnhscyINCg0KZm9sZGVyIDwtICIuL2RhdGEvIg0KbnVtYmVyQ29scyA8LSA5ICN0b3RhbCBudW1iZXIgb2YgY29sdW1ucyBpbiBzcHJlYWRzaGVldA0KDQpjb2xUeXBlcyA8LSByZXAoIm51bWVyaWMiLCBudW1iZXJDb2xzKQ0KY29uY3JldGVfdGJsIDwtIHJlYWRfZXhjZWwocGF0aCA9IHBhc3RlMChmb2xkZXIsIGZpbGVuYW1lKSwgY29sX3R5cGVzID0gY29sVHlwZXMpDQoNCmNvbmNyZXRlX3RibCA8LSBjb25jcmV0ZV90YmwgJT4lDQogIHJlbmFtZShjZW1lbnQgPSBzdGFydHNfd2l0aCgiQ2VtZW50IikpICU+JQ0KICByZW5hbWUoYmxhc3RfZnVybmFjZV9zbGFnID0gc3RhcnRzX3dpdGgoIkJsYXN0IikpICU+JQ0KICByZW5hbWUoZmx5X2FzaCA9IHN0YXJ0c193aXRoKCJGbHkgQXNoIikpICU+JQ0KICByZW5hbWUod2F0ZXIgPSBzdGFydHNfd2l0aCgiV2F0ZXIiKSkgJT4lDQogIHJlbmFtZShzdXBlcnBsYXN0aWNpemVyID0gc3RhcnRzX3dpdGgoIlN1cGVyIikpICU+JQ0KICByZW5hbWUoY29hcnNlX2FnZ3JlZ2F0ZSA9IHN0YXJ0c193aXRoKCJDb2Fyc2UiKSkgJT4lDQogIHJlbmFtZShmaW5lX2FnZ3JlZ2F0ZSA9IHN0YXJ0c193aXRoKCJGaW5lIikpICU+JQ0KICByZW5hbWUoYWdlID0gc3RhcnRzX3dpdGgoIkFnZSIpKSAlPiUNCiAgcmVuYW1lKGNvbXByZXNzaXZlX3N0cmVuZ3RoID0gc3RhcnRzX3dpdGgoIkNvbmNyZXRlIikpDQpgYGANCg0KV2Ugd2lsbCB1dGlsaXplIHRoZSAzLXN0YWdlIG1hY2hpbmUgbGVhcm5pbmcgYXBwcm9hY2ggcHJvbW90ZWQgYnkgTWF0dCBEYW5jaG8gYXQgQnVzaW5lc3MtU2NpZW5jZS5pby4gIEhlIHBvc3RlZCBhbiBleGNlbGxlbnQgdHV0b3JpYWwgIlByb2R1Y3QgUHJpY2UgUHJlZGljdGlvbjogQSBUaWR5IEh5cGVycGFyYW10ZXIgVHVuaW5nIGFuZCBDcm9zcyBWYWxpZGF0aW9uIFR1dG9yaWFsIi4gIEkgaGF2ZW4ndCBmb3VuZCBhIGJldHRlciBleGFtcGxlIG9mIGFwcGx5aW5nIHRoZSB0aWR5bW9kZWwgcGFja2FnZXMgdG8gZGV2ZWxvcCBhIHByZWRpY3RpdmUgbW9kZWwuDQoNClRoZSAzLXN0YWdlIGh5cGVycGFyYW1ldGVyIHR1bmluZyBwcm9jZXNzOiAgDQoxLiAqKkZpbmQgUGFyYW1ldGVyczoqKiBVc2UgaHlwZXJwYXJhbWV0ZXIgdHVuaW5nIG9uIGEgInRyYWluaW5nIGRhdGFzZXQiIHRoYXQgc2VjdGlvbnMgeW91ciB0cmFpbmluZyBkYXRhIGludG8gY3Jvc3MgdmFsaWRhdGlvbiBmb2xkcy4gIFRoZSBvdXRwdXQgb2Ygc3RhZ2UgMSBpcyB0aGUgcGFyYW1ldGVyIHNldC4gIA0KMi4gKipDb21wYXJlIGFuZCBTZWxlY3QgdGhlIEJlc3QgTW9kZWw6KiogRXZhbHVhdGUgdGhlIHBlcmZvcm1hbmNlIG9uIGEgaGlkZGVuICJ0ZXN0IGRhdGFzZXQiLiAgVGhlIG91dHB1dCBhdCBTdGFnZSAyIGlzIHdoYXQgd2UgZGV0ZXJtaW5lZCBhcyB0aGUgYmVzdCBtb2RlbC4gIA0KMy4gKipUcmFpbiBGaW5hbCBNb2RlbDoqKiBPbmNlIHdlIGhhdmUgc2VsZWN0ZWQgdGhlIGJlc3QgbW9kZWwsIHdlIHRyYWluIHRoZSBmdWxsIGRhdGFzZXQuICBUaGlzIG1vZGVsIGdvZXMgaW50byBwcm9kdWN0aW9uLiAgDQoNCg0KIyMjIFN0YWdlIDE6IEZpbmQgUGFyYW1ldGVycw0KSGVyZSB3ZSB3YW50IHRvIG1ha2UgZGlmZmVyZW50IG1hY2hpbmUgbGVhcm5pbmcgbW9kZWxzIGFuZCB0cnkgdGhlbSBvdXQgYnkgcGVyZm9ybWluZyB0aGUgZm9sbG93aW5nIHN0ZXBzOg0KLSBJbml0aWFsIFNwbGl0dGluZzogU2VwYXJhdGUgaW50byByYW5kb20gdHJhaW5pbmcgYW5kIHRlc3QgZGF0YXNldHMNCi0gUHJlcHJvY2Vzc2luZzogTWFrZSBhIHBpcGVsaW5lIHRvIHRyYW5zZm9ybSByYXcgZGF0YSBpbnRvIGEgZGF0YXNldCByZWFkeSBmb3IgbWFjaGluZSBsZWFybmluZw0KLSBDcm9zcyBWYWxpZGF0aW9uIFNwZWNpZmljYXRpb246IFNhbXBsZSB0aGUgdHJhaW5pbmcgZGF0YSBpbnRvIHNwbGl0cw0KLSBNb2RlbCBTcGVjaWZpY2F0aW9uOiBTZWxlY3QgbW9kZWwgYWxnb3JpdGhtcyBhbmQgaWRlbnRpZnkga2V5IHR1bmluZyBwYXJhbWV0ZXJzDQotIEdyaWQgU3BlY2lmaWNhdGlvbjogU2V0IHVwIGEgZ3JpZCB1c2luZyB3aXNlIHBhcmFtZXRlciBjaG9pY2VzDQotIEh5cGVycGFyYW1ldGVyIFR1bmluZzogSW1wbGVtZW50IHRoZSB0dW5pbmcgcHJvY2Vzcw0KDQpJbml0aWFsIHNwbGl0dGluZyBvZiB0aGUgZGF0YXNldCBpbnRvIFRyYWluaW5nIGFuZCBUZXN0IERhdGFzZXQgIEhlcmUgd2UgdXNlIHRoZSByc2FtcGxlIHBhY2thZ2UgdG8gY3JlYXRlIGFuIDgwLzIwIHNwbGl0LiAgVGhlIGNvbmNyZXRlIGRhdGFzZXQgY29udGFpbnMgMTAzMCBmb3JtdWxhdGlvbnMgb2Ygd2hpY2ggODI1IGFyZSByYW5kb21seSBhc3NpZ25lZCB0byB0cmFpbmluZyBhbmQgMjA1IGFyZSByYW5kb21seSBhc3NpZ25lZCB0byB0ZXN0aW5nLg0KYGBge3J9DQpzZXQuc2VlZCgxMjMpDQpjb25jcmV0ZV9zcGxpdCA8LSBpbml0aWFsX3NwbGl0KGNvbmNyZXRlX3RibCwgcHJvcCA9IDAuODApDQpjb25jcmV0ZV90cmFpbiA8LSB0cmFpbmluZyhjb25jcmV0ZV9zcGxpdCkNCmNvbmNyZXRlX3Rlc3QgPC0gdGVzdGluZyhjb25jcmV0ZV9zcGxpdCkNCmBgYA0KDQpQcmVwcm9jZXNzaW5nIGlzIGFjY29tcGxpc2hlZCBieSB1c2luZyB0aGUgcmVjaXBlIHBhY2thZ2UuICBUaGUgcmVjaXBlIHByb3ZpZGVzIHRoZSBzdGVwcyByZXF1aXJlZCB0byB0cmFuc2Zvcm0gb3VyIHJhdyBkYXRhIGludG8gYSBkYXRhc2V0IHN1aXRhYmxlIGZvciBtYWNoaW5lIGxlYXJuaW5nLiAgVGhlIENvbmNyZXRlIGRhdGFzZXQgYWN0dWFsbHkgZG9lc24ndCByZXF1aXJlIG11Y2ggcmVmb3JtYXR0aW5nLiAgVGhlIG1ham9yIGlzc3VlIHdhcyB0aGUgbGVuZ3RoeSBjb2x1bW4gbmFtZXMgd2hpY2ggd2FzIGFkZHJlc3NlZCBpbW1lZGlhdGVseSBhZnRlciB0aGUgZGF0YXNldCB3YXMgaW1wb3J0ZWQuICBUaGUgZGF0YXNldCBjb250YWluZWQgYWxsIG51bWVyaWNhbCB2YWx1ZXMgYW5kIG5vIG1pc3NpbmcgZGF0YS4gIEluaXRpYWxseSB3ZSB3aWxsIGp1c3QgY2VudGVyIGFuZCBzY2FsZSB0aGUgcHJlZGljdG9ycyBiZWZvcmUgc2VuZGluZyB0byB0aGUgZ2xtbmV0IG1vZGVsLg0KYGBge3J9DQpjb25jcmV0ZV9yZWMgPC0gcmVjaXBlKGNvbXByZXNzaXZlX3N0cmVuZ3RoIH4gLiwgZGF0YSA9IGNvbmNyZXRlX3RyYWluKSAlPiUNCiAgc3RlcF9jZW50ZXIoYWxsX3ByZWRpY3RvcnMoKSkgJT4lDQogIHN0ZXBfc2NhbGUoYWxsX3ByZWRpY3RvcnMoKSkNCg0KY29uY3JldGVfcmVjDQpgYGANCg0KQ3Jvc3MgdmFsaWRhdGlvbiBmb2xkcyBhcmUgY3JlYXRlZCBpbiBvcmRlciB0byBhc3Nlc3MgdGhlIHBlcmZvcm1hbmNlIG9mIHRoZSBtb2RlbCBwYXJhbWV0ZXJzLiAgSGVyZSB3ZSB1c2UgNS1mb2xkIGNyb3NzIHZhbGlkYXRpb24gdG8gY3JlYXRlIHNwbGl0cyBmcm9tIG91ciB0cmFpbmluZyBkYXRhc2V0IGFuZCBhbHNvIHVzaW5nIHRoZSBwcmVwcm9jZXNzaW5nIHBpcGVsaW5lIHNwZWNpZmllZCBhYm92ZS4NCmBgYHtyfQ0Kc2V0LnNlZWQoMjM0KQ0KY29uY3JldGVfZm9sZHMgPC0gdmZvbGRfY3YoY29uY3JldGVfdHJhaW4sIHYgPSA1KQ0KDQpjb25jcmV0ZV9mb2xkcw0KYGBgDQoNCk1vZGVsIHNwZWNpZmljYXRpb25zIGFyZSBjcmVhdGVkIHVzaW5nIHRoZSBwYXJzbmlwIHBhY2thZ2UuICBIZXJlIHdlIHNwZWNpZnkgYSBsaW5lYXIgcmVncmVzc2lvbiBtb2RlbCB1c2luZyB0aGUgZ2xtbmV0IGVuZ2luZS4gIGdsbW5ldCB1c2VzIGFuIEVsYXN0aWMgTmV0IHdoaWNoIGNvbWJpbmVzIExBU1NPIGFuZCBSaWRnZSBSZWdyZXNzaW9uIHRlY2huaXF1ZXMuICBUaGlzIGlzIGEgbGluZWFyIGFsZ29yaXRobSB3aGljaCBtYXkgaGF2ZSBkaWZmaWN1bHR5IHdpdGggdGhlIHNrZXdlZCBudW1lcmljIGRhdGEgd2hpY2ggaXMgcHJlc2VudCBpbiB0aGUgQ29uY3JldGUgZGF0YXNldC4gIE5vdGljZSB0aGF0IHRoZSBwZW5hbHR5IGFuZCBtaXh0dXJlIHBhcmFtZXRlcnMgaGF2ZSBiZWVuIHNwZWNpZmllZCB0byBiZSB0dW5lZC4NCmBgYHtyfQ0KZ2xtbmV0X3NwZWMgPC0gbGluZWFyX3JlZygNCiAgcGVuYWx0eSA9IHR1bmUoKSwNCiAgbWl4dHVyZSA9IHR1bmUoKQ0KKSAlPiUNCiAgc2V0X2VuZ2luZSgiZ2xtbmV0IikgJT4lDQogIHNldF9tb2RlKCJyZWdyZXNzaW9uIikNCg0KZ2xtbmV0X3NwZWMNCmBgYA0KDQpHcmlkIHNwZWNpZmljYXRpb25zIHNldHMgdXAgYSB2YXJpZXR5IG9mIHBhcmFtZXRlciB2YWx1ZXMgdXNlZCB3aXRoIG91ciBtb2RlbCB0byBmaW5kIHdoaWNoIGNvbWJpbmF0aW9uIHlpZWxkcyB0aGUgbG93ZXN0IHByZWRpY3Rpb24gZXJyb3IgKG9yIGJlc3QgYWNjdXJhY3kpLiAgSGVyZSB3ZSBzcGVjaWZ5IHRoZSBwYXJhbWV0ZXIgcmFuZ2VzIGFuZCBncmlkIGZ1bmN0aW9uIHVzaW5nIHRoZSBkaWFscyBwYWNrYWdlLg0KDQpTcGVjaWZ5IHRoZSBncmlkIGZ1bmN0aW9uIChtYXggZW50cm9weSwgaHlwZXJjdWJlIGV0Yy4pLiAgSGVyZSB3ZSBtYWtlIGEgZ3JpZCBvZiAyMCB2YWx1ZXMgdXNpbmcgdGhlIGdyaWRfbWF4X2VudHJvcHkoKSBmdW5jdGlvbiBpbiB0aGUgZGlhbHMgcGFja2FnZS4gIFNpbmNlIHRoZXJlIGFyZSBqdXN0IDIgdHVuaW5nIHBhcmFtZXRlcnMgaW4gdGhpcyBjYXNlLCB3ZSBjYW4gdmlzdWFsaXplIHRoZSBncmlkIHNlbGVjdGlvbnMuICBOb3RlIHRoZSBwZW5hbHR5IHBhcmFtZXRlciBpcyBvbiB0aGUgbG9nIGJhc2UgMTAgc2NhbGUgYnkgZGVmYXVsdC4gIFRoZSBkaWFscyBwYWNrYWdlIGhlbHBzIHVzIG1ha2Ugc21hcnRlciBjaG9pY2VzIGZvciB0aGUgY3JpdGljYWwgdHVuaW5nIHBhcmFtZXRlcnMuDQpgYGB7cn0NCnNldC5zZWVkKDM0NSkNCmdsbW5ldF9ncmlkIDwtIGdyaWRfbWF4X2VudHJvcHkocGVuYWx0eSgpLCBtaXh0dXJlKCksIHNpemUgPSAyMCkNCg0KZ2xtbmV0X2dyaWQgJT4lDQogIGdncGxvdChhZXMocGVuYWx0eSwgbWl4dHVyZSkpICsNCiAgZ2VvbV9wb2ludChjb2xvciA9ICJzdGVlbGJsdWUiLCBzaXplID0gMykgKw0KICBzY2FsZV94X2xvZzEwKCkgKw0KICB0aGVtZV9saWdodCgpICsNCiAgbGFicyh0aXRsZSA9ICJNYXggRW50cm9weSBHcmlkIiwgeCA9ICJQZW5hbHR5IChsb2cgc2NhbGUpIiwgeSA9ICJNaXh0dXJlIikNCmBgYA0KDQpgYGB7cn0NCmNvbmNyZXRlX3dmIDwtIHdvcmtmbG93KCkgJT4lDQogIGFkZF9yZWNpcGUoY29uY3JldGVfcmVjKSAlPiUNCiAgYWRkX21vZGVsKGdsbW5ldF9zcGVjKQ0KYGBgDQoNCkh5cGVycGFyYW1ldGVyIHR1bmluZyBpcyBub3cgcGVyZm9ybWVkIHVzaW5nIHRoZSB0dW5lX2dyaWQoKSBmdW5jdGlvbiBmcm9tIHRoZSB0dW5lIHBhY2thZ2UuICBIZXJlIHdlIHNwZWNpZmljIHRoZSBmb3JtdWxhLCBtb2RlbCwgcmVzYW1wbGVzLCBncmlkIGFuZCBtZXRyaWNzLiAgVGhlIG1ldHJpY3MgY29tZSBmcm9tIHRoZSB5YXJkc3RpY2sgcGFja2FnZS4gRm9yIHJlZ3Jlc3Npb24gcHJvYmxlbXMsIHdlIGNhbiBzcGVjaWZ5IG11bHRpcGxlIG1ldHJpY3Mgc3VjaCBhcyBtYWUsIG1hcGUsIHJtc2UgYW5kIHJzcSBpbnRvIGEgbWV0cmljX3NldCgpLg0KYGBge3J9DQpkb1BhcmFsbGVsOjpyZWdpc3RlckRvUGFyYWxsZWwoKQ0KDQpnbG1uZXRfcmVzIDwtIHR1bmVfZ3JpZCgNCiAgY29uY3JldGVfd2YsDQogIHJlc2FtcGxlcyA9IGNvbmNyZXRlX2ZvbGRzLA0KICBncmlkID0gZ2xtbmV0X2dyaWQsDQogIG1ldHJpY3MgPSBtZXRyaWNfc2V0KHJtc2UsIHJzcSwgbWFlKSwNCiAgY29udHJvbCA9IGNvbnRyb2xfZ3JpZChzYXZlX3ByZWQgPSBUUlVFKQ0KKQ0KYGBgDQoNCklkZW50aWZ5IHRoZSBiZXN0IGh5cGVycGFyYW1ldGVyIHZhbHVlcyB1c2luZyB0aGUgc2hvd19iZXN0KCkgZnVuY3Rpb24uDQpgYGB7cn0NCmdsbW5ldF9yZXMgJT4lIHNob3dfYmVzdCgibWFlIiwgbiA9IDUsIG1heGltaXplID0gRkFMU0UpDQpgYGANCg0KVmlzdWFsaXplIHRoZSB0dW5pbmcgcmVzdWx0cw0KYGBge3J9DQphdXRvcGxvdChnbG1uZXRfcmVzKQ0KYGBgDQoNCiMjIyBTdGFnZSAyOiBDb21wYXJlIGFuZCBTZWxlY3QgdGhlIEJlc3QgTW9kZWwNCg0KU2VsZWN0IHRoZSBiZXN0IHBhcmFtZXRlcnMgYmFzZWQgb24gdGhlIGxvd2VzdCBtZWFuIGFic29sdXRlIGVycm9yLg0KYGBge3J9DQpwYXJhbXNfZ2xtbmV0X2Jlc3QgPC0gZ2xtbmV0X3JlcyAlPiUgc2VsZWN0X2Jlc3QoIm1hZSIsIG1heGltaXplID0gRkFMU0UpDQpwYXJhbXNfZ2xtbmV0X2Jlc3QNCmBgYA0KDQpGaW5hbGl6ZSB0aGUgbW9kZWwgd2l0aCB0aGUgYmVzdCBwYXJhbWV0ZXJzLg0KYGBge3J9DQpmaW5hbF9nbG1uZXQgPC0gZmluYWxpemVfd29ya2Zsb3coY29uY3JldGVfd2YsIHBhcmFtc19nbG1uZXRfYmVzdCkNCg0KZmluYWxfZ2xtbmV0DQpgYGANCg0KV2hpY2ggRmVhdHVyZXMgYXJlIG1vc3QgaW1wb3J0YW50Pw0KYGBge3J9DQpmaW5hbF9nbG1uZXQgJT4lDQogIGZpdChkYXRhID0gY29uY3JldGVfdHJhaW4pICU+JQ0KICBwdWxsX3dvcmtmbG93X2ZpdCgpICU+JQ0KICB2aXAoYWVzdGhldGljcyA9IGxpc3QoZmlsbCA9ICJzdGVlbGJsdWUiKSkgKw0KICBsYWJzKHRpdGxlID0gIkdMTU5FVCBNb2RlbCBJbXBvcnRhbmNlIC0gQ29tcHJlc3NpdmUgU3RyZW5ndGggKE1QYSkgUHJlZGljdGlvbiIpDQpgYGANCiMjIyBTdGFnZSAzOiBUcmFpbiBGaW5hbCBNb2RlbA0KDQpGaXQgbW9kZWwgb24gdHJhaW4gYW5kIGV2YWx1YXRlIG9uIHRlc3QuDQpgYGB7cn0NCmZpbmFsX3JlcyA8LSBsYXN0X2ZpdChmaW5hbF9nbG1uZXQsIGNvbmNyZXRlX3NwbGl0LCBtZXRyaWNzID0gbWV0cmljX3NldChybXNlLCByc3EsIG1hZSkpDQpgYGANCg0KQXNzZXNzIGZpbmFsIG1vZGVsIHBlcmZvcm1hbmNlIG1ldHJpY3MuDQpgYGB7cn0NCmNvbGxlY3RfbWV0cmljcyhmaW5hbF9yZXMpDQpgYGANCg0KVmlzdWFsaXplIGFjdHVhbCB2cy4gcHJlZGljdGVkIGNvbXByZXNzaXZlIHN0cmVuZ3RoIGZvciBmaW5hbCBtb2RlbC4NCmBgYHtyfQ0KY29sbGVjdF9wcmVkaWN0aW9ucyhmaW5hbF9yZXMpICU+JQ0KICBnZ3Bsb3QoYWVzKGNvbXByZXNzaXZlX3N0cmVuZ3RoLCAucHJlZCkpICsNCiAgZ2VvbV9hYmxpbmUoc2xvcGUgPSAxLCBsdHkgPSAyLCBjb2xvciA9ICJncmF5NTAiLCBhbHBoYSA9IDAuNSkgKw0KICBnZW9tX3BvaW50KGFscGhhID0gMC42LCBjb2xvciA9ICJtaWRuaWdodGJsdWUiKSArDQogIHlsaW0oMCwgTkEpICsNCiAgbGFicyh0aXRsZSA9ICJHTE1uZXQgTW9kZWwgUGVyZm9ybWFuY2UgZm9yIENvbmNyZXRlIERhdGFzZXQiLCANCiAgICAgICB4ID0gIkFjdHVhbCBDb21wcmVzc2l2ZSBTdHJlbmd0aCAoTVBhKSIsIA0KICAgICAgIHkgPSAiUHJlZGljdGVkIENvbXByZXNzaXZlIFN0cmVuZ3RoIChNUGEpIikNCmBgYA0K</div>
 &nbsp;
 <hr />
 <p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>

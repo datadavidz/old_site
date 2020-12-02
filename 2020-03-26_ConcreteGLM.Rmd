@@ -16,13 +16,7 @@ library(readxl)
 library(tidyverse)
 
 #Tidymodels
-library(tune)
-library(dials)
-library(parsnip)
-library(rsample)
-library(recipes)
-#library(textrecipes)
-library(yardstick)
+library(tidymodels)
 library(vip)
 ```
 
@@ -32,9 +26,6 @@ library(vip)
 In this post, we will begin to use machine learning techniques for predicting compressive strength of formulations using the concrete dataset.  In a previous post, we created a model using a conventional material modeling approach which resulted in an R^2^ of 0.78.  Here we will use a generalized linear model to predict compressive strength and compare the results with the conventional material model.
 
 ```{r, include=FALSE}
-library(readxl)
-library(tidyverse)
-
 filename <- "Concrete_Data.xls"
 
 folder <- "./data/"
@@ -75,62 +66,46 @@ Here we want to make different machine learning models and try them out by perfo
 Initial splitting of the dataset into Training and Test Dataset  Here we use the rsample package to create an 80/20 split.  The concrete dataset contains 1030 formulations of which 825 are randomly assigned to training and 205 are randomly assigned to testing.
 ```{r}
 set.seed(123)
-concrete_initial_split <- initial_split(concrete_tbl, prop = 0.80)
-concrete_initial_split
+concrete_split <- initial_split(concrete_tbl, prop = 0.80)
+concrete_train <- training(concrete_split)
+concrete_test <- testing(concrete_split)
 ```
 
 Preprocessing is accomplished by using the recipe package.  The recipe provides the steps required to transform our raw data into a dataset suitable for machine learning.  The Concrete dataset actually doesn't require much reformatting.  The major issue was the lengthy column names which was addressed immediately after the dataset was imported.  The dataset contained all numerical values and no missing data.  Initially we will just center and scale the predictors before sending to the glmnet model.
 ```{r}
-preprocessing_recipe <- recipe(compressive_strength ~ ., data = training(concrete_initial_split)) %>%
-  
-  #center and scale all numerical predictors
+concrete_rec <- recipe(compressive_strength ~ ., data = concrete_train) %>%
   step_center(all_predictors()) %>%
-  step_scale(all_predictors()) %>%
-  
-  # #Remove unnecessary columns
-  # step_rm(model) %>%
-  prep()
+  step_scale(all_predictors())
 
-preprocessing_recipe
-```
-
-The recipe is not actually applied to the dataset until you "bake" it.  Here we apply the preprocessing pipeline and save it to a new tibble.
-```{r}
-concrete_training_preprocessed_tbl <- preprocessing_recipe %>% bake(training(concrete_initial_split))
+concrete_rec
 ```
 
 Cross validation folds are created in order to assess the performance of the model parameters.  Here we use 5-fold cross validation to create splits from our training dataset and also using the preprocessing pipeline specified above.
 ```{r}
-set.seed(123)
-concrete_cv_folds <- training(concrete_initial_split) %>%
-  bake(preprocessing_recipe, new_data = .) %>%
-  vfold_cv(v = 5)
+set.seed(234)
+concrete_folds <- vfold_cv(concrete_train, v = 5)
 
-concrete_cv_folds
+concrete_folds
 ```
 
 Model specifications are created using the parsnip package.  Here we specify a linear regression model using the glmnet engine.  glmnet uses an Elastic Net which combines LASSO and Ridge Regression techniques.  This is a linear algorithm which may have difficulty with the skewed numeric data which is present in the Concrete dataset.  Notice that the penalty and mixture parameters have been specified to be tuned.
 ```{r}
-glmnet_model <- linear_reg(
-  mode = "regression",
+glmnet_spec <- linear_reg(
   penalty = tune(),
   mixture = tune()
 ) %>%
-  set_engine("glmnet")
+  set_engine("glmnet") %>%
+  set_mode("regression")
 
-glmnet_model
+glmnet_spec
 ```
 
 Grid specifications sets up a variety of parameter values used with our model to find which combination yields the lowest prediction error (or best accuracy).  Here we specify the parameter ranges and grid function using the dials package.
-```{r}
-glmnet_params <- parameters(penalty(), mixture())
-glmnet_params
-```
 
 Specify the grid function (max entropy, hypercube etc.).  Here we make a grid of 20 values using the grid_max_entropy() function in the dials package.  Since there are just 2 tuning parameters in this case, we can visualize the grid selections.  Note the penalty parameter is on the log base 10 scale by default.  The dials package helps us make smarter choices for the critical tuning parameters.
 ```{r}
-set.seed(123)
-glmnet_grid <- grid_max_entropy(glmnet_params, size = 20)
+set.seed(345)
+glmnet_grid <- grid_max_entropy(penalty(), mixture(), size = 20)
 
 glmnet_grid %>%
   ggplot(aes(penalty, mixture)) +
@@ -140,83 +115,78 @@ glmnet_grid %>%
   labs(title = "Max Entropy Grid", x = "Penalty (log scale)", y = "Mixture")
 ```
 
+```{r}
+concrete_wf <- workflow() %>%
+  add_recipe(concrete_rec) %>%
+  add_model(glmnet_spec)
+```
+
 Hyperparameter tuning is now performed using the tune_grid() function from the tune package.  Here we specific the formula, model, resamples, grid and metrics.  The metrics come from the yardstick package. For regression problems, we can specify multiple metrics such as mae, mape, rmse and rsq into a metric_set().
 ```{r}
-glmnet_stage_1_cv_results_tbl <- tune_grid(
-  formula = compressive_strength ~ .,
-  model = glmnet_model,
-  resamples = concrete_cv_folds,
+doParallel::registerDoParallel()
+
+glmnet_res <- tune_grid(
+  concrete_wf,
+  resamples = concrete_folds,
   grid = glmnet_grid,
-  metrics = metric_set(mae, mape, rmse, rsq)#,
-  #control = control_grid(verbose = TRUE)
+  metrics = metric_set(rmse, rsq, mae),
+  control = control_grid(save_pred = TRUE)
 )
 ```
 
 Identify the best hyperparameter values using the show_best() function.
 ```{r}
-glmnet_stage_1_cv_results_tbl %>% show_best("mae", n = 10, maximize = FALSE)
+glmnet_res %>% show_best("mae", n = 5)
+```
+
+Visualize the tuning results
+```{r}
+autoplot(glmnet_res)
 ```
 
 ### Stage 2: Compare and Select the Best Model
 
 Select the best parameters based on the lowest mean absolute error.
 ```{r}
-params_glmnet_best <- glmnet_stage_1_cv_results_tbl %>% select_best("mae", maximize = FALSE)
+params_glmnet_best <- glmnet_res %>% select_best("mae")
 params_glmnet_best
 ```
 
 Finalize the model with the best parameters.
 ```{r}
-glmnet_stage_2_model <- glmnet_model %>%
-  finalize_model(parameters = params_glmnet_best)
+final_glmnet <- finalize_workflow(concrete_wf, params_glmnet_best)
 
-glmnet_stage_2_model
-```
-
-Define a helper function to calculate the performance on the test dataset
-```{r}
-calc_test_metrics <- function(formula, model_spec, recipe, split) {
-  
-  train_processed <- training(split) %>% bake(recipe, new_data = .)
-  test_processed <- testing(split) %>% bake(recipe, new_data = .)
-  
-  target_expr <- recipe %>%
-    pluck("last_term_info") %>%
-    filter(role == "outcome") %>%
-    pull(variable) %>%
-    sym()
-  
-  model_spec %>%
-    fit(formula = as.formula(formula),
-        data = train_processed) %>%
-    predict(new_data = test_processed) %>%
-    bind_cols(testing(split)) %>%
-    metrics(!! target_expr, .pred)
-}
-```
-
-Calculate the test performance on the glmnet model.
-```{r}
-glmnet_stage_2_metrics <- calc_test_metrics(
-  formula = compressive_strength ~ .,
-  model_spec = glmnet_stage_2_model,
-  recipe = preprocessing_recipe,
-  split = concrete_initial_split
-)
-
-glmnet_stage_2_metrics
-```
-
-### Stage 3: Train Final Model
-```{r}
-model_final <- glmnet_stage_2_model %>%
-  fit(compressive_strength ~ ., data = bake(preprocessing_recipe, new_data = concrete_tbl))
+final_glmnet
 ```
 
 Which Features are most important?
 ```{r}
-vip(model_final, aesthetics = list(fill = "steelblue")) +
-  labs(title = "GLMNET Model Importance - Compressive Strength (MPa) Prediction") +
-  theme_bw()
+final_glmnet %>%
+  fit(data = concrete_train) %>%
+  pull_workflow_fit() %>%
+  vip(aesthetics = list(fill = "steelblue")) +
+  labs(title = "GLMNET Model Importance - Compressive Strength (MPa) Prediction")
+```
+### Stage 3: Train Final Model
+
+Fit model on train and evaluate on test.
+```{r}
+final_res <- last_fit(final_glmnet, concrete_split, metrics = metric_set(rmse, rsq, mae))
 ```
 
+Assess final model performance metrics.
+```{r}
+collect_metrics(final_res)
+```
+
+Visualize actual vs. predicted compressive strength for final model.
+```{r}
+collect_predictions(final_res) %>%
+  ggplot(aes(compressive_strength, .pred)) +
+  geom_abline(slope = 1, lty = 2, color = "gray50", alpha = 0.5) +
+  geom_point(alpha = 0.6, color = "midnightblue") +
+  ylim(0, NA) +
+  labs(title = "GLMnet Model Performance for Concrete Dataset", 
+       x = "Actual Compressive Strength (MPa)", 
+       y = "Predicted Compressive Strength (MPa)")
+```
