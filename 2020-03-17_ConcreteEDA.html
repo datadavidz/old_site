@@ -24,13 +24,6 @@
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-<script src="site_libs/plotly-binding-4.9.2/plotly.js"></script>
-<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="site_libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-<script src="site_libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="site_libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="site_libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
@@ -330,7 +323,7 @@ $(document).ready(function () {
 <h2><strong>Exploratory Analysis of the Concrete Compressive Strength Dataset</strong></h2>
 <p><em>Posted on March 17, 2020</em></p>
 <p>The previous post focused on building a model for predicting the compressive strength of concrete using a conventional material modeling process. The models were built using the age of the concrete before testing and the water-to-cement or water-to-binder ratio. In this post, we look more broadly at all of the variables in the concrete dataset using exploratory analysis techniques.</p>
-<p>First, let’s take another look at the dataset.</p>
+<p>First, let’s take another look at the dataset using the skimr package.</p>
 <pre class="r"><code>filename &lt;- &quot;Concrete_Data.xls&quot;
 
 folder &lt;- &quot;./data/&quot;
@@ -350,80 +343,7 @@ concrete_tbl &lt;- concrete_tbl %&gt;%
   rename(age = starts_with(&quot;Age&quot;)) %&gt;%
   rename(compressive_strength = starts_with(&quot;Concrete&quot;))
 
-kable(head(concrete_tbl, 5), caption = &quot;First 5 Rows of Concrete Dataset&quot;)</code></pre>
-<table>
-<caption>First 5 Rows of Concrete Dataset</caption>
-<thead>
-<tr class="header">
-<th align="right">cement</th>
-<th align="right">blast_furnace_slag</th>
-<th align="right">fly_ash</th>
-<th align="right">water</th>
-<th align="right">superplasticizer</th>
-<th align="right">coarse_aggregate</th>
-<th align="right">fine_aggregate</th>
-<th align="right">age</th>
-<th align="right">compressive_strength</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">540.0</td>
-<td align="right">0.0</td>
-<td align="right">0</td>
-<td align="right">162</td>
-<td align="right">2.5</td>
-<td align="right">1040.0</td>
-<td align="right">676.0</td>
-<td align="right">28</td>
-<td align="right">79.98611</td>
-</tr>
-<tr class="even">
-<td align="right">540.0</td>
-<td align="right">0.0</td>
-<td align="right">0</td>
-<td align="right">162</td>
-<td align="right">2.5</td>
-<td align="right">1055.0</td>
-<td align="right">676.0</td>
-<td align="right">28</td>
-<td align="right">61.88737</td>
-</tr>
-<tr class="odd">
-<td align="right">332.5</td>
-<td align="right">142.5</td>
-<td align="right">0</td>
-<td align="right">228</td>
-<td align="right">0.0</td>
-<td align="right">932.0</td>
-<td align="right">594.0</td>
-<td align="right">270</td>
-<td align="right">40.26954</td>
-</tr>
-<tr class="even">
-<td align="right">332.5</td>
-<td align="right">142.5</td>
-<td align="right">0</td>
-<td align="right">228</td>
-<td align="right">0.0</td>
-<td align="right">932.0</td>
-<td align="right">594.0</td>
-<td align="right">365</td>
-<td align="right">41.05278</td>
-</tr>
-<tr class="odd">
-<td align="right">198.6</td>
-<td align="right">132.4</td>
-<td align="right">0</td>
-<td align="right">192</td>
-<td align="right">0.0</td>
-<td align="right">978.4</td>
-<td align="right">825.5</td>
-<td align="right">360</td>
-<td align="right">44.29608</td>
-</tr>
-</tbody>
-</table>
+skim(concrete_tbl)</code></pre>
 <table>
 <caption>Data summary</caption>
 <tbody>
@@ -598,30 +518,31 @@ kable(head(concrete_tbl, 5), caption = &quot;First 5 Rows of Concrete Dataset&qu
 </tr>
 </tbody>
 </table>
-<p>The good news is that there were no missing data points in the concrete dataset. There are concrete compositions with no blast furnace slag, fly ash or superplasticizer. The age before testing is skewed to lower age before testing. These observations are further supported looking at the histograms shown below using the plot_histogram function in the DataExplorer package.</p>
-<pre class="r"><code>concrete_tbl %&gt;% plot_histogram()</code></pre>
-<p><img src="2020-03-17_ConcreteEDA_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>The good news is that there were no missing data points in the concrete dataset. There are concrete compositions with no blast furnace slag, fly ash or superplasticizer. The age before testing is skewed to lower age before testing. These observations are further supported looking at the histograms shown below.</p>
+<pre class="r"><code>concrete_tbl %&gt;%
+  pivot_longer(cement:age, names_to=&quot;ingredient&quot;, values_to = &quot;amount&quot;) %&gt;%
+  ggplot(aes(x=amount)) +
+  geom_histogram(bins = 30) +
+  facet_wrap(~ingredient, scales = &quot;free&quot;)</code></pre>
+<p><img src="2020-03-17_ConcreteEDA_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <div id="variable-correlations" class="section level3">
 <h3>Variable correlations</h3>
 <p>Next, we analyze the correlations between variables. When the amount of one ingredient is increased, we expect one or more of the other ingredients in the concrete mixture to decrease. So, some correlation between the concrete ingredients is expected.</p>
 <pre class="r"><code>ggcorr(concrete_tbl)</code></pre>
-<p><img src="2020-03-17_ConcreteEDA_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="2020-03-17_ConcreteEDA_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>The correlation analysis showed a strong, positive correlation with cement content and compressive strength and less strong correlations with age with compressive strength and superplasticizer with compressive strength. An inverse correlation between water and superplasticizer was detected perhaps due to the water content of the superplasticizer requiring less additional water in the formulation.</p>
 <p>Another way of visualizing the correlation of variables with the property you wish to predict is the called a “correlation funnel”.</p>
-<pre class="r"><code>#correlationfunnel 3-step process
-concrete_tbl %&gt;%
-  #drop_na(engine_hp, engine_cylinders, number_of_doors, engine_fuel_type) %&gt;%
-  binarize(n_bins = 5) %&gt;%
-  correlate(`compressive_strength__50.5141833496_Inf`) %&gt;%
-  plot_correlation_funnel(interactive = TRUE)</code></pre>
-<p><div id="htmlwidget-f823d89bf195026f30dd" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f823d89bf195026f30dd">{"x":{"data":[{"x":[0,0],"y":[0.4,9.6],"text":"","type":"scatter","mode":"lines","line":{"width":1.88976377952756,"color":"rgba(255,0,0,1)","dash":"dash"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1,0.321539920249058,0.297017026686009,0.292747106554886,0.271965387886002,-0.25,-0.25,-0.25,-0.25,-0.236305924220877,-0.19880961074365,-0.190251630507431,0.18773481537066,-0.160825188481885,-0.1552683265081,-0.150097805272226,-0.134289540066409,0.125843526429395,-0.115502053299212,0.112659511184829,0.111519797037458,0.108009708737864,0.101941747572816,-0.100507234730118,-0.100251990343813,-0.0943142560103393,0.0931093196474073,-0.091312988741296,0.0898058252427184,-0.0874967727027196,-0.0822264121561519,0.0811496946086211,-0.0663952046797809,0.0655339805825243,-0.0629924148560336,-0.0436893203883495,-0.0231429383218698,-0.0221742148495906,0.022006534465715],"y":[9,8,7,6,5,9,9,9,9,5,8,6,5,7,7,8,6,4,3,3,7,3,2,2,7,5,8,1,1,4,3,6,4,2,8,2,3,2,1],"text":["compressive_strength<br />Bin: 50.5141833496_Inf<br />Correlation: 1","cement<br />Bin: 376_Inf<br />Correlation: 0.322","water<br />Bin: -Inf_162<br />Correlation: 0.297","superplasticizer<br />Bin: 11.1_Inf<br />Correlation: 0.293","age<br />Bin: 28_56<br />Correlation: 0.272","compressive_strength<br />Bin: -Inf_20.957312496<br />Correlation: -0.25","compressive_strength<br />Bin: 20.957312496_30.927135456<br />Correlation: -0.25","compressive_strength<br />Bin: 30.927135456_39.0235536268376<br />Correlation: -0.25","compressive_strength<br />Bin: 39.0235536268376_50.5141833496<br />Correlation: -0.25","age<br />Bin: -Inf_7<br />Correlation: -0.236","cement<br />Bin: -Inf_173.81<br />Correlation: -0.199","superplasticizer<br />Bin: -Inf_4.084<br />Correlation: -0.19","age<br />Bin: 56_Inf<br />Correlation: 0.188","water<br />Bin: 188.45_195.47<br />Correlation: -0.161","water<br />Bin: 178_188.45<br />Correlation: -0.155","cement<br />Bin: 173.81_238<br />Correlation: -0.15","superplasticizer<br />Bin: 4.084_8<br />Correlation: -0.134","fly_ash<br />Bin: -Inf_89.76<br />Correlation: 0.126","coarse_aggregate<br />Bin: 947.04_991.52<br />Correlation: -0.116","coarse_aggregate<br />Bin: 913.98_947.04<br />Correlation: 0.113","water<br />Bin: 162_178<br />Correlation: 0.112","coarse_aggregate<br />Bin: -Inf_913.98<br />Correlation: 0.108","fine_aggregate<br />Bin: -Inf_709.94<br />Correlation: 0.102","fine_aggregate<br />Bin: 794.08_845<br />Correlation: -0.101","water<br />Bin: 195.47_Inf<br />Correlation: -0.1","age<br />Bin: 7_28<br />Correlation: -0.094","cement<br />Bin: 302_376<br />Correlation: 0.093","blast_furnace_slag<br />Bin: -Inf_97.1<br />Correlation: -0.091","blast_furnace_slag<br />Bin: 163.18_Inf<br />Correlation: 0.09","fly_ash<br />Bin: 89.76_123<br />Correlation: -0.087","coarse_aggregate<br />Bin: 991.52_1047<br />Correlation: -0.082","superplasticizer<br />Bin: 8_11.1<br />Correlation: 0.081","fly_ash<br />Bin: 123_Inf<br />Correlation: -0.066","fine_aggregate<br />Bin: 709.94_758.836<br />Correlation: 0.066","cement<br />Bin: 238_302<br />Correlation: -0.063","fine_aggregate<br />Bin: 758.836_794.08<br />Correlation: -0.044","coarse_aggregate<br />Bin: 1047_Inf<br />Correlation: -0.023","fine_aggregate<br />Bin: 845_Inf<br />Correlation: -0.022","blast_furnace_slag<br />Bin: 97.1_163.18<br />Correlation: 0.022"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(44,62,80,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(44,62,80,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.7625570776256,"r":7.30593607305936,"b":40.1826484018265,"l":142.465753424658},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187},"title":{"text":"Correlation Funnel","font":{"color":"rgba(44,62,80,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-1.1,1.1],"tickmode":"array","ticktext":["-1.0","-0.5","0.0","0.5","1.0"],"tickvals":[-1,-0.5,0,0.5,1],"categoryorder":"array","categoryarray":["-1.0","-0.5","0.0","0.5","1.0"],"nticks":null,"ticks":"outside","tickcolor":"rgba(204,204,204,1)","ticklen":3.65296803652968,"tickwidth":0.22139200221392,"showticklabels":true,"tickfont":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.22139200221392,"zeroline":false,"anchor":"y","title":{"text":"correlation","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,9.6],"tickmode":"array","ticktext":["blast_furnace_slag","fine_aggregate","coarse_aggregate","fly_ash","age","superplasticizer","water","cement","compressive_strength"],"tickvals":[1,2,3,4,5,6,7,8,9],"categoryorder":"array","categoryarray":["blast_furnace_slag","fine_aggregate","coarse_aggregate","fly_ash","age","superplasticizer","water","cement","compressive_strength"],"nticks":null,"ticks":"outside","tickcolor":"rgba(204,204,204,1)","ticklen":3.65296803652968,"tickwidth":0.22139200221392,"showticklabels":true,"tickfont":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.22139200221392,"zeroline":false,"anchor":"x","title":{"text":"feature","font":{"color":"rgba(44,62,80,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(44,62,80,1)","width":0.33208800332088,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(44,62,80,1)","family":"","size":11.689497716895}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"b9c1b9418bb":{"xintercept":{},"type":"scatter"},"b9c202b4752":{"x":{},"y":{},"text":{}}},"cur_data":"b9c1b9418bb","visdat":{"b9c1b9418bb":["function (y) ","x"],"b9c202b4752":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script> The correlation funnel shows some degree of correlation between the cement, water, superplasticizer and age with compressive strength. The fly ash, coarse and fine aggregate and blast furnace slag showed very little correlation with compressive strength.</p>
+<pre class="r"><code>concrete_tbl %&gt;%
+  binarize(n_bins = 3) %&gt;%
+  correlate(`compressive_strength__41.36856_Inf`) %&gt;%
+  plot_correlation_funnel(interactive = FALSE)</code></pre>
+<p><img src="2020-03-17_ConcreteEDA_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>The correlation funnel shows some degree of correlation between the cement, water, superplasticizer and age with compressive strength. The fly ash, coarse and fine aggregate and blast furnace slag showed very little correlation with compressive strength.</p>
 <p>This article has shown several techniques for exploring the concrete dataset. The next article will use a generalized linear modeling approach to predict concrete compressive strength and compare the results with the conventional material modeling approach. Subsequent articles will use machine learning techniques such as artificial neural networks and extreme gradient boosting.</p>
-<p>Conventional Material Modeling Approach Exploratory Data Analysis Generalized Linear Model Artificial Neural Network Model Extreme Gradient Boosting (XGBoost) Model</p>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KbGlicmFyeShrbml0cikNCmxpYnJhcnkocmVhZHhsKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQoNCiNFREENCmxpYnJhcnkoc2tpbXIpDQpsaWJyYXJ5KERhdGFFeHBsb3JlcikNCmxpYnJhcnkoR0dhbGx5KQ0KbGlicmFyeShjb3JyZWxhdGlvbmZ1bm5lbCkNCmBgYA0KDQojIyAqKkV4cGxvcmF0b3J5IEFuYWx5c2lzIG9mIHRoZSBDb25jcmV0ZSBDb21wcmVzc2l2ZSBTdHJlbmd0aCBEYXRhc2V0KioNCipQb3N0ZWQgb24gTWFyY2ggMTcsIDIwMjAqDQoNClRoZSBwcmV2aW91cyBwb3N0IGZvY3VzZWQgb24gYnVpbGRpbmcgYSBtb2RlbCBmb3IgcHJlZGljdGluZyB0aGUgY29tcHJlc3NpdmUgc3RyZW5ndGggb2YgY29uY3JldGUgdXNpbmcgYSBjb252ZW50aW9uYWwgbWF0ZXJpYWwgbW9kZWxpbmcgcHJvY2Vzcy4gIFRoZSBtb2RlbHMgd2VyZSBidWlsdCB1c2luZyB0aGUgYWdlIG9mIHRoZSBjb25jcmV0ZSBiZWZvcmUgdGVzdGluZyBhbmQgdGhlIHdhdGVyLXRvLWNlbWVudCBvciB3YXRlci10by1iaW5kZXIgcmF0aW8uICBJbiB0aGlzIHBvc3QsIHdlIGxvb2sgbW9yZSBicm9hZGx5IGF0IGFsbCBvZiB0aGUgdmFyaWFibGVzIGluIHRoZSBjb25jcmV0ZSBkYXRhc2V0IHVzaW5nIGV4cGxvcmF0b3J5IGFuYWx5c2lzIHRlY2huaXF1ZXMuDQoNCkZpcnN0LCBsZXQncyB0YWtlIGFub3RoZXIgbG9vayBhdCB0aGUgZGF0YXNldC4NCmBgYHtyIGNhcnN9DQpmaWxlbmFtZSA8LSAiQ29uY3JldGVfRGF0YS54bHMiDQoNCmZvbGRlciA8LSAiLi9kYXRhLyINCm51bWJlckNvbHMgPC0gOSAjdG90YWwgbnVtYmVyIG9mIGNvbHVtbnMgaW4gc3ByZWFkc2hlZXQNCg0KY29sVHlwZXMgPC0gcmVwKCJudW1lcmljIiwgbnVtYmVyQ29scykNCmNvbmNyZXRlX3RibCA8LSByZWFkX2V4Y2VsKHBhdGggPSBwYXN0ZTAoZm9sZGVyLCBmaWxlbmFtZSksIGNvbF90eXBlcyA9IGNvbFR5cGVzKQ0KDQpjb25jcmV0ZV90YmwgPC0gY29uY3JldGVfdGJsICU+JQ0KICByZW5hbWUoY2VtZW50ID0gc3RhcnRzX3dpdGgoIkNlbWVudCIpKSAlPiUNCiAgcmVuYW1lKGJsYXN0X2Z1cm5hY2Vfc2xhZyA9IHN0YXJ0c193aXRoKCJCbGFzdCIpKSAlPiUNCiAgcmVuYW1lKGZseV9hc2ggPSBzdGFydHNfd2l0aCgiRmx5IEFzaCIpKSAlPiUNCiAgcmVuYW1lKHdhdGVyID0gc3RhcnRzX3dpdGgoIldhdGVyIikpICU+JQ0KICByZW5hbWUoc3VwZXJwbGFzdGljaXplciA9IHN0YXJ0c193aXRoKCJTdXBlciIpKSAlPiUNCiAgcmVuYW1lKGNvYXJzZV9hZ2dyZWdhdGUgPSBzdGFydHNfd2l0aCgiQ29hcnNlIikpICU+JQ0KICByZW5hbWUoZmluZV9hZ2dyZWdhdGUgPSBzdGFydHNfd2l0aCgiRmluZSIpKSAlPiUNCiAgcmVuYW1lKGFnZSA9IHN0YXJ0c193aXRoKCJBZ2UiKSkgJT4lDQogIHJlbmFtZShjb21wcmVzc2l2ZV9zdHJlbmd0aCA9IHN0YXJ0c193aXRoKCJDb25jcmV0ZSIpKQ0KDQprYWJsZShoZWFkKGNvbmNyZXRlX3RibCwgNSksIGNhcHRpb24gPSAiRmlyc3QgNSBSb3dzIG9mIENvbmNyZXRlIERhdGFzZXQiKQ0KYGBgDQoNCmBgYHtyIHByZXNzdXJlLCBlY2hvPUZBTFNFfQ0Kc2tpbShjb25jcmV0ZV90YmwpDQpgYGANCg0KVGhlIGdvb2QgbmV3cyBpcyB0aGF0IHRoZXJlIHdlcmUgbm8gbWlzc2luZyBkYXRhIHBvaW50cyBpbiB0aGUgY29uY3JldGUgZGF0YXNldC4gIFRoZXJlIGFyZSBjb25jcmV0ZSBjb21wb3NpdGlvbnMgd2l0aCBubyBibGFzdCBmdXJuYWNlIHNsYWcsIGZseSBhc2ggb3Igc3VwZXJwbGFzdGljaXplci4gIFRoZSBhZ2UgYmVmb3JlIHRlc3RpbmcgaXMgc2tld2VkIHRvIGxvd2VyIGFnZSBiZWZvcmUgdGVzdGluZy4gIFRoZXNlIG9ic2VydmF0aW9ucyBhcmUgZnVydGhlciBzdXBwb3J0ZWQgbG9va2luZyBhdCB0aGUgaGlzdG9ncmFtcyBzaG93biBiZWxvdyB1c2luZyB0aGUgcGxvdF9oaXN0b2dyYW0gZnVuY3Rpb24gaW4gdGhlIERhdGFFeHBsb3JlciBwYWNrYWdlLg0KDQpgYGB7cn0NCmNvbmNyZXRlX3RibCAlPiUgcGxvdF9oaXN0b2dyYW0oKQ0KYGBgDQoNCiMjIyBWYXJpYWJsZSBjb3JyZWxhdGlvbnMNCg0KTmV4dCwgd2UgYW5hbHl6ZSB0aGUgY29ycmVsYXRpb25zIGJldHdlZW4gdmFyaWFibGVzLiAgV2hlbiB0aGUgYW1vdW50IG9mIG9uZSBpbmdyZWRpZW50IGlzIGluY3JlYXNlZCwgd2UgZXhwZWN0IG9uZSBvciBtb3JlIG9mIHRoZSBvdGhlciBpbmdyZWRpZW50cyBpbiB0aGUgY29uY3JldGUgbWl4dHVyZSB0byBkZWNyZWFzZS4gIFNvLCBzb21lIGNvcnJlbGF0aW9uIGJldHdlZW4gdGhlIGNvbmNyZXRlIGluZ3JlZGllbnRzIGlzIGV4cGVjdGVkLg0KDQpgYGB7cn0NCmdnY29ycihjb25jcmV0ZV90YmwpDQpgYGANCg0KVGhlIGNvcnJlbGF0aW9uIGFuYWx5c2lzIHNob3dlZCBhIHN0cm9uZywgcG9zaXRpdmUgY29ycmVsYXRpb24gd2l0aCBjZW1lbnQgY29udGVudCBhbmQgY29tcHJlc3NpdmUgc3RyZW5ndGggYW5kIGxlc3Mgc3Ryb25nIGNvcnJlbGF0aW9ucyB3aXRoIGFnZSB3aXRoIGNvbXByZXNzaXZlIHN0cmVuZ3RoIGFuZCBzdXBlcnBsYXN0aWNpemVyIHdpdGggY29tcHJlc3NpdmUgc3RyZW5ndGguICBBbiBpbnZlcnNlIGNvcnJlbGF0aW9uIGJldHdlZW4gd2F0ZXIgYW5kIHN1cGVycGxhc3RpY2l6ZXIgd2FzIGRldGVjdGVkIHBlcmhhcHMgZHVlIHRvIHRoZSB3YXRlciBjb250ZW50IG9mIHRoZSBzdXBlcnBsYXN0aWNpemVyIHJlcXVpcmluZyBsZXNzIGFkZGl0aW9uYWwgd2F0ZXIgaW4gdGhlIGZvcm11bGF0aW9uLg0KDQpBbm90aGVyIHdheSBvZiB2aXN1YWxpemluZyB0aGUgY29ycmVsYXRpb24gb2YgdmFyaWFibGVzIHdpdGggdGhlIHByb3BlcnR5IHlvdSB3aXNoIHRvIHByZWRpY3QgaXMgdGhlIGNhbGxlZCBhICJjb3JyZWxhdGlvbiBmdW5uZWwiLg0KDQpgYGB7cn0NCiNjb3JyZWxhdGlvbmZ1bm5lbCAzLXN0ZXAgcHJvY2Vzcw0KY29uY3JldGVfdGJsICU+JQ0KICAjZHJvcF9uYShlbmdpbmVfaHAsIGVuZ2luZV9jeWxpbmRlcnMsIG51bWJlcl9vZl9kb29ycywgZW5naW5lX2Z1ZWxfdHlwZSkgJT4lDQogIGJpbmFyaXplKG5fYmlucyA9IDUpICU+JQ0KICBjb3JyZWxhdGUoYGNvbXByZXNzaXZlX3N0cmVuZ3RoX181MC41MTQxODMzNDk2X0luZmApICU+JQ0KICBwbG90X2NvcnJlbGF0aW9uX2Z1bm5lbChpbnRlcmFjdGl2ZSA9IFRSVUUpDQpgYGANClRoZSBjb3JyZWxhdGlvbiBmdW5uZWwgc2hvd3Mgc29tZSBkZWdyZWUgb2YgY29ycmVsYXRpb24gYmV0d2VlbiB0aGUgY2VtZW50LCB3YXRlciwgc3VwZXJwbGFzdGljaXplciBhbmQgYWdlIHdpdGggY29tcHJlc3NpdmUgc3RyZW5ndGguICBUaGUgZmx5IGFzaCwgY29hcnNlIGFuZCBmaW5lIGFnZ3JlZ2F0ZSBhbmQgYmxhc3QgZnVybmFjZSBzbGFnIHNob3dlZCB2ZXJ5IGxpdHRsZSBjb3JyZWxhdGlvbiB3aXRoIGNvbXByZXNzaXZlIHN0cmVuZ3RoLg0KDQpUaGlzIGFydGljbGUgaGFzIHNob3duIHNldmVyYWwgdGVjaG5pcXVlcyBmb3IgZXhwbG9yaW5nIHRoZSBjb25jcmV0ZSBkYXRhc2V0LiAgVGhlIG5leHQgYXJ0aWNsZSB3aWxsIHVzZSBhIGdlbmVyYWxpemVkIGxpbmVhciBtb2RlbGluZyBhcHByb2FjaCB0byBwcmVkaWN0IGNvbmNyZXRlIGNvbXByZXNzaXZlIHN0cmVuZ3RoIGFuZCBjb21wYXJlIHRoZSByZXN1bHRzIHdpdGggdGhlIGNvbnZlbnRpb25hbCBtYXRlcmlhbCBtb2RlbGluZyBhcHByb2FjaC4gIFN1YnNlcXVlbnQgYXJ0aWNsZXMgd2lsbCB1c2UgbWFjaGluZSBsZWFybmluZyB0ZWNobmlxdWVzIHN1Y2ggYXMgYXJ0aWZpY2lhbCBuZXVyYWwgbmV0d29ya3MgYW5kIGV4dHJlbWUgZ3JhZGllbnQgYm9vc3RpbmcuDQoNCkNvbnZlbnRpb25hbCBNYXRlcmlhbCBNb2RlbGluZyBBcHByb2FjaA0KRXhwbG9yYXRvcnkgRGF0YSBBbmFseXNpcw0KR2VuZXJhbGl6ZWQgTGluZWFyIE1vZGVsDQpBcnRpZmljaWFsIE5ldXJhbCBOZXR3b3JrIE1vZGVsDQpFeHRyZW1lIEdyYWRpZW50IEJvb3N0aW5nIChYR0Jvb3N0KSBNb2RlbA0K</div>
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KbGlicmFyeShrbml0cikNCmxpYnJhcnkocmVhZHhsKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQoNCiNFREENCmxpYnJhcnkoc2tpbXIpDQpsaWJyYXJ5KEdHYWxseSkNCmxpYnJhcnkoY29ycmVsYXRpb25mdW5uZWwpDQpgYGANCg0KIyMgKipFeHBsb3JhdG9yeSBBbmFseXNpcyBvZiB0aGUgQ29uY3JldGUgQ29tcHJlc3NpdmUgU3RyZW5ndGggRGF0YXNldCoqDQoqUG9zdGVkIG9uIE1hcmNoIDE3LCAyMDIwKg0KDQpUaGUgcHJldmlvdXMgcG9zdCBmb2N1c2VkIG9uIGJ1aWxkaW5nIGEgbW9kZWwgZm9yIHByZWRpY3RpbmcgdGhlIGNvbXByZXNzaXZlIHN0cmVuZ3RoIG9mIGNvbmNyZXRlIHVzaW5nIGEgY29udmVudGlvbmFsIG1hdGVyaWFsIG1vZGVsaW5nIHByb2Nlc3MuICBUaGUgbW9kZWxzIHdlcmUgYnVpbHQgdXNpbmcgdGhlIGFnZSBvZiB0aGUgY29uY3JldGUgYmVmb3JlIHRlc3RpbmcgYW5kIHRoZSB3YXRlci10by1jZW1lbnQgb3Igd2F0ZXItdG8tYmluZGVyIHJhdGlvLiAgSW4gdGhpcyBwb3N0LCB3ZSBsb29rIG1vcmUgYnJvYWRseSBhdCBhbGwgb2YgdGhlIHZhcmlhYmxlcyBpbiB0aGUgY29uY3JldGUgZGF0YXNldCB1c2luZyBleHBsb3JhdG9yeSBhbmFseXNpcyB0ZWNobmlxdWVzLg0KDQpGaXJzdCwgbGV0J3MgdGFrZSBhbm90aGVyIGxvb2sgYXQgdGhlIGRhdGFzZXQgdXNpbmcgdGhlIHNraW1yIHBhY2thZ2UuDQpgYGB7cn0NCmZpbGVuYW1lIDwtICJDb25jcmV0ZV9EYXRhLnhscyINCg0KZm9sZGVyIDwtICIuL2RhdGEvIg0KbnVtYmVyQ29scyA8LSA5ICN0b3RhbCBudW1iZXIgb2YgY29sdW1ucyBpbiBzcHJlYWRzaGVldA0KDQpjb2xUeXBlcyA8LSByZXAoIm51bWVyaWMiLCBudW1iZXJDb2xzKQ0KY29uY3JldGVfdGJsIDwtIHJlYWRfZXhjZWwocGF0aCA9IHBhc3RlMChmb2xkZXIsIGZpbGVuYW1lKSwgY29sX3R5cGVzID0gY29sVHlwZXMpDQoNCmNvbmNyZXRlX3RibCA8LSBjb25jcmV0ZV90YmwgJT4lDQogIHJlbmFtZShjZW1lbnQgPSBzdGFydHNfd2l0aCgiQ2VtZW50IikpICU+JQ0KICByZW5hbWUoYmxhc3RfZnVybmFjZV9zbGFnID0gc3RhcnRzX3dpdGgoIkJsYXN0IikpICU+JQ0KICByZW5hbWUoZmx5X2FzaCA9IHN0YXJ0c193aXRoKCJGbHkgQXNoIikpICU+JQ0KICByZW5hbWUod2F0ZXIgPSBzdGFydHNfd2l0aCgiV2F0ZXIiKSkgJT4lDQogIHJlbmFtZShzdXBlcnBsYXN0aWNpemVyID0gc3RhcnRzX3dpdGgoIlN1cGVyIikpICU+JQ0KICByZW5hbWUoY29hcnNlX2FnZ3JlZ2F0ZSA9IHN0YXJ0c193aXRoKCJDb2Fyc2UiKSkgJT4lDQogIHJlbmFtZShmaW5lX2FnZ3JlZ2F0ZSA9IHN0YXJ0c193aXRoKCJGaW5lIikpICU+JQ0KICByZW5hbWUoYWdlID0gc3RhcnRzX3dpdGgoIkFnZSIpKSAlPiUNCiAgcmVuYW1lKGNvbXByZXNzaXZlX3N0cmVuZ3RoID0gc3RhcnRzX3dpdGgoIkNvbmNyZXRlIikpDQoNCnNraW0oY29uY3JldGVfdGJsKQ0KYGBgDQoNClRoZSBnb29kIG5ld3MgaXMgdGhhdCB0aGVyZSB3ZXJlIG5vIG1pc3NpbmcgZGF0YSBwb2ludHMgaW4gdGhlIGNvbmNyZXRlIGRhdGFzZXQuICBUaGVyZSBhcmUgY29uY3JldGUgY29tcG9zaXRpb25zIHdpdGggbm8gYmxhc3QgZnVybmFjZSBzbGFnLCBmbHkgYXNoIG9yIHN1cGVycGxhc3RpY2l6ZXIuICBUaGUgYWdlIGJlZm9yZSB0ZXN0aW5nIGlzIHNrZXdlZCB0byBsb3dlciBhZ2UgYmVmb3JlIHRlc3RpbmcuICBUaGVzZSBvYnNlcnZhdGlvbnMgYXJlIGZ1cnRoZXIgc3VwcG9ydGVkIGxvb2tpbmcgYXQgdGhlIGhpc3RvZ3JhbXMgc2hvd24gYmVsb3cuICANCg0KYGBge3J9DQpjb25jcmV0ZV90YmwgJT4lDQogIHBpdm90X2xvbmdlcihjZW1lbnQ6YWdlLCBuYW1lc190bz0iaW5ncmVkaWVudCIsIHZhbHVlc190byA9ICJhbW91bnQiKSAlPiUNCiAgZ2dwbG90KGFlcyh4PWFtb3VudCkpICsNCiAgZ2VvbV9oaXN0b2dyYW0oYmlucyA9IDMwKSArDQogIGZhY2V0X3dyYXAofmluZ3JlZGllbnQsIHNjYWxlcyA9ICJmcmVlIikNCmBgYA0KDQojIyMgVmFyaWFibGUgY29ycmVsYXRpb25zDQoNCk5leHQsIHdlIGFuYWx5emUgdGhlIGNvcnJlbGF0aW9ucyBiZXR3ZWVuIHZhcmlhYmxlcy4gIFdoZW4gdGhlIGFtb3VudCBvZiBvbmUgaW5ncmVkaWVudCBpcyBpbmNyZWFzZWQsIHdlIGV4cGVjdCBvbmUgb3IgbW9yZSBvZiB0aGUgb3RoZXIgaW5ncmVkaWVudHMgaW4gdGhlIGNvbmNyZXRlIG1peHR1cmUgdG8gZGVjcmVhc2UuICBTbywgc29tZSBjb3JyZWxhdGlvbiBiZXR3ZWVuIHRoZSBjb25jcmV0ZSBpbmdyZWRpZW50cyBpcyBleHBlY3RlZC4NCg0KYGBge3J9DQpnZ2NvcnIoY29uY3JldGVfdGJsKQ0KYGBgDQoNClRoZSBjb3JyZWxhdGlvbiBhbmFseXNpcyBzaG93ZWQgYSBzdHJvbmcsIHBvc2l0aXZlIGNvcnJlbGF0aW9uIHdpdGggY2VtZW50IGNvbnRlbnQgYW5kIGNvbXByZXNzaXZlIHN0cmVuZ3RoIGFuZCBsZXNzIHN0cm9uZyBjb3JyZWxhdGlvbnMgd2l0aCBhZ2Ugd2l0aCBjb21wcmVzc2l2ZSBzdHJlbmd0aCBhbmQgc3VwZXJwbGFzdGljaXplciB3aXRoIGNvbXByZXNzaXZlIHN0cmVuZ3RoLiAgQW4gaW52ZXJzZSBjb3JyZWxhdGlvbiBiZXR3ZWVuIHdhdGVyIGFuZCBzdXBlcnBsYXN0aWNpemVyIHdhcyBkZXRlY3RlZCBwZXJoYXBzIGR1ZSB0byB0aGUgd2F0ZXIgY29udGVudCBvZiB0aGUgc3VwZXJwbGFzdGljaXplciByZXF1aXJpbmcgbGVzcyBhZGRpdGlvbmFsIHdhdGVyIGluIHRoZSBmb3JtdWxhdGlvbi4NCg0KQW5vdGhlciB3YXkgb2YgdmlzdWFsaXppbmcgdGhlIGNvcnJlbGF0aW9uIG9mIHZhcmlhYmxlcyB3aXRoIHRoZSBwcm9wZXJ0eSB5b3Ugd2lzaCB0byBwcmVkaWN0IGlzIHRoZSBjYWxsZWQgYSAiY29ycmVsYXRpb24gZnVubmVsIi4NCg0KYGBge3J9DQpjb25jcmV0ZV90YmwgJT4lDQogIGJpbmFyaXplKG5fYmlucyA9IDMpICU+JQ0KICBjb3JyZWxhdGUoYGNvbXByZXNzaXZlX3N0cmVuZ3RoX180MS4zNjg1Nl9JbmZgKSAlPiUNCiAgcGxvdF9jb3JyZWxhdGlvbl9mdW5uZWwoaW50ZXJhY3RpdmUgPSBGQUxTRSkNCmBgYA0KDQpUaGUgY29ycmVsYXRpb24gZnVubmVsIHNob3dzIHNvbWUgZGVncmVlIG9mIGNvcnJlbGF0aW9uIGJldHdlZW4gdGhlIGNlbWVudCwgd2F0ZXIsIHN1cGVycGxhc3RpY2l6ZXIgYW5kIGFnZSB3aXRoIGNvbXByZXNzaXZlIHN0cmVuZ3RoLiAgVGhlIGZseSBhc2gsIGNvYXJzZSBhbmQgZmluZSBhZ2dyZWdhdGUgYW5kIGJsYXN0IGZ1cm5hY2Ugc2xhZyBzaG93ZWQgdmVyeSBsaXR0bGUgY29ycmVsYXRpb24gd2l0aCBjb21wcmVzc2l2ZSBzdHJlbmd0aC4NCg0KVGhpcyBhcnRpY2xlIGhhcyBzaG93biBzZXZlcmFsIHRlY2huaXF1ZXMgZm9yIGV4cGxvcmluZyB0aGUgY29uY3JldGUgZGF0YXNldC4gIFRoZSBuZXh0IGFydGljbGUgd2lsbCB1c2UgYSBnZW5lcmFsaXplZCBsaW5lYXIgbW9kZWxpbmcgYXBwcm9hY2ggdG8gcHJlZGljdCBjb25jcmV0ZSBjb21wcmVzc2l2ZSBzdHJlbmd0aCBhbmQgY29tcGFyZSB0aGUgcmVzdWx0cyB3aXRoIHRoZSBjb252ZW50aW9uYWwgbWF0ZXJpYWwgbW9kZWxpbmcgYXBwcm9hY2guICBTdWJzZXF1ZW50IGFydGljbGVzIHdpbGwgdXNlIG1hY2hpbmUgbGVhcm5pbmcgdGVjaG5pcXVlcyBzdWNoIGFzIGFydGlmaWNpYWwgbmV1cmFsIG5ldHdvcmtzIGFuZCBleHRyZW1lIGdyYWRpZW50IGJvb3N0aW5nLg0K</div>
 &nbsp;
 <hr />
 <p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
