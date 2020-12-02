@@ -1,0 +1,125 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+<br>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(knitr)
+library(readxl)
+library(tidyverse)
+```
+
+## **Conventional Material Models for Concrete Dataset**
+*Posted on June 16, 2020*
+
+Abrams' law states that the strength of a concrete mix is inversely related to the mass ratio of water to cement.  In other words, as the water content increases, the strength of the concrete decreases.  Experimental data however shows that this law does not provide the complete picture and concrete formulations with the same water:cement can have significantly different performance.
+
+```{r, include=FALSE}
+filename <- "Concrete_Data.xls"
+
+folder <- "./data/"
+numberCols <- 9 #total number of columns in spreadsheet
+
+colTypes <- rep("numeric", numberCols)
+concrete_tbl <- read_excel(path = paste0(folder, filename), col_types = colTypes)
+
+concrete_tbl <- concrete_tbl %>%
+  rename(cement = starts_with("Cement")) %>%
+  rename(blast_furnace_slag = starts_with("Blast")) %>%
+  rename(fly_ash = starts_with("Fly Ash")) %>%
+  rename(water = starts_with("Water")) %>%
+  rename(superplasticizer = starts_with("Super")) %>%
+  rename(coarse_aggregate = starts_with("Coarse")) %>%
+  rename(fine_aggregate = starts_with("Fine")) %>%
+  rename(age = starts_with("Age")) %>%
+  rename(compressive_strength = starts_with("Concrete"))
+```
+
+```{r}
+concrete_tbl <- concrete_tbl %>%
+  mutate(water_cement = water / cement,
+         water_binder = water / (cement + blast_furnace_slag + fly_ash))
+
+concrete_tbl %>%
+  ggplot(aes(water_cement, compressive_strength)) +
+  geom_point(alpha = 0.15) +
+  geom_smooth(formula = y ~ x, method = "lm") +
+  theme_light() +
+  labs(title = "Concrete Compressive Strength vs. Water:Cement",
+       x = "Water:Cement", y = "Compressive Strength (MPa)")
+```
+
+It is apparent from the plot above that water:cement is not the only factor important for determining the compressive strength of concrete.  For example, there are multiple formulations with a water:cement of ~1 with a range of compressive strengths from less than 10 MPa to greater than 50 MPa.  The age of the concrete at the time of testing is also recognized as an important factor in determining the concrete strength for a sample.
+
+$$ f^\prime_c(t) = a X^b \cdot [c \ln(t)+(d)] $$
+
+where t = age at test, X = w/c or water-to-binder ratio and a, b, c, d are regression coefficients
+
+The above equation also includes the age at test variable (t) to predict the compressive strength.  This equation uses four parameters reminding me of the famous quote by mathematician John von Neumann, "with four parameters I can fit an elephant, with five I can make him wiggle his trunk."
+
+This equation is fit to the experimental dataset using non-linear least squares approximation.  The nls function in base R has been used as shown below.
+
+### NLS Fit using water:cement
+```{r}
+wc <- concrete_tbl$water_cement
+wb <- concrete_tbl$water_binder
+age <- concrete_tbl$age
+cs <- concrete_tbl$compressive_strength
+
+csFunc <- function(wc, age, a, b, c, d) { (a * wc^b) + (c * log(age) + d)}
+```
+
+Fit with water:cement
+```{r}
+csFit <- nls(cs ~ csFunc(wc, age, a, b, c, d), start=list(a=30, b=-0.6, c=0.3, d=0.1))
+
+summary(csFit)
+```
+Add nls fit to table
+```{r}
+concrete_tbl <- concrete_tbl %>%
+  mutate(nls_wc = predict(csFit)) 
+
+concrete_tbl %>%
+  ggplot(aes(x=compressive_strength, y=nls_wc)) +
+  geom_point(color = "steelblue") +
+  geom_abline(slope = 1, lty = 2, color = "gray50", alpha = 0.5) +
+  labs(title="NLS model using water:cement and age at test",
+       x = "Actual Compressive Strength (MPa)",
+       y = "Predicted Compressive Strength (MPa)") +
+  geom_text(x = 5, y = 75, label = paste("R^2 == ", 
+            round(cor(concrete_tbl$compressive_strength, concrete_tbl$nls_wc)^2, 2)), parse = TRUE)
+```
+
+### NLS Fit using Water:Binder
+
+Fit with water:binder
+```{r}
+csFit_wb <- nls(cs ~ csFunc(wb, age, a, b, c, d), start=list(a=10, b=-0.5, c=10, d=10))
+
+summary(csFit_wb)
+```
+
+```{r}
+concrete_tbl <- concrete_tbl %>%
+  mutate(nls_wb = predict(csFit_wb)) 
+
+concrete_tbl %>%
+  ggplot(aes(x=compressive_strength, y=nls_wb)) +
+  geom_point(color = "steelblue") +
+  geom_abline(slope = 1, lty = 2, color = "gray50", alpha = 0.5) +
+  labs(title="NLS model using water:binder and age at test",
+       x = "Actual Compressive Strength (MPa)",
+       y = "Predicted Compressive Strength (MPa)") +
+  geom_text(x = 5, y = 75, label = paste("R^2 == ", 
+            round(cor(concrete_tbl$compressive_strength, concrete_tbl$nls_wb)^2, 2)), parse = TRUE)
+```
+
+The NLS model using water:binder was a better fit to the experimental data than the NLS model using water:cement.  The R^2^ for the water:binder model was 0.78 compared to an R^2^ of 0.65 for the water:cement model.

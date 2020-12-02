@@ -7,6 +7,15 @@ output: html_document
 
 <br><br>
 
+### **Concrete Dataset Part 4: Conventional Material Model using nls**
+*Posted on June 16, 2020*
+
+The performance of a conventional model is assessed by optimizing parameters for a given transfer function using the nls package.
+
+[Full post](2020-06-16_ConcreteNLS.html)
+
+***
+
 ### **Concrete Dataset Part 3: Predictive Modeling using GLMnet**
 *Posted on March 26, 2020*
 

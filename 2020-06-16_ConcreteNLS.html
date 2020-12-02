@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2020-06-16_ConcreteNLS.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="conventional-material-models-for-concrete-dataset" class="section level2">
+<h2><strong>Conventional Material Models for Concrete Dataset</strong></h2>
+<p><em>Posted on June 16, 2020</em></p>
+<p>Abrams’ law states that the strength of a concrete mix is inversely related to the mass ratio of water to cement. In other words, as the water content increases, the strength of the concrete decreases. Experimental data however shows that this law does not provide the complete picture and concrete formulations with the same water:cement can have significantly different performance.</p>
+<pre class="r"><code>concrete_tbl &lt;- concrete_tbl %&gt;%
+  mutate(water_cement = water / cement,
+         water_binder = water / (cement + blast_furnace_slag + fly_ash))
+
+concrete_tbl %&gt;%
+  ggplot(aes(water_cement, compressive_strength)) +
+  geom_point(alpha = 0.15) +
+  geom_smooth(formula = y ~ x, method = &quot;lm&quot;) +
+  theme_light() +
+  labs(title = &quot;Concrete Compressive Strength vs. Water:Cement&quot;,
+       x = &quot;Water:Cement&quot;, y = &quot;Compressive Strength (MPa)&quot;)</code></pre>
+<p><img src="2020-06-16_ConcreteNLS_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>It is apparent from the plot above that water:cement is not the only factor important for determining the compressive strength of concrete. For example, there are multiple formulations with a water:cement of ~1 with a range of compressive strengths from less than 10 MPa to greater than 50 MPa. The age of the concrete at the time of testing is also recognized as an important factor in determining the concrete strength for a sample.</p>
+<p><span class="math display">\[ f^\prime_c(t) = a X^b \cdot [c \ln(t)+(d)] \]</span></p>
+<p>where t = age at test, X = w/c or water-to-binder ratio and a, b, c, d are regression coefficients</p>
+<p>The above equation also includes the age at test variable (t) to predict the compressive strength. This equation uses four parameters reminding me of the famous quote by mathematician John von Neumann, “with four parameters I can fit an elephant, with five I can make him wiggle his trunk.”</p>
+<p>This equation is fit to the experimental dataset using non-linear least squares approximation. The nls function in base R has been used as shown below.</p>
+<div id="nls-fit-using-watercement" class="section level3">
+<h3>NLS Fit using water:cement</h3>
+<pre class="r"><code>wc &lt;- concrete_tbl$water_cement
+wb &lt;- concrete_tbl$water_binder
+age &lt;- concrete_tbl$age
+cs &lt;- concrete_tbl$compressive_strength
+
+csFunc &lt;- function(wc, age, a, b, c, d) { (a * wc^b) + (c * log(age) + d)}</code></pre>
+<p>Fit with water:cement</p>
+<pre class="r"><code>csFit &lt;- nls(cs ~ csFunc(wc, age, a, b, c, d), start=list(a=30, b=-0.6, c=0.3, d=0.1))
+
+summary(csFit)</code></pre>
+<pre><code>## 
+## Formula: cs ~ csFunc(wc, age, a, b, c, d)
+## 
+## Parameters:
+##   Estimate Std. Error t value Pr(&gt;|t|)    
+## a  14.0112     2.9035   4.826 1.61e-06 ***
+## b  -1.0536     0.1357  -7.763 2.00e-14 ***
+## c   8.1770     0.2587  31.608  &lt; 2e-16 ***
+## d -12.8289     3.1703  -4.047 5.59e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 9.869 on 1026 degrees of freedom
+## 
+## Number of iterations to convergence: 7 
+## Achieved convergence tolerance: 3.529e-06</code></pre>
+<p>Add nls fit to table</p>
+<pre class="r"><code>concrete_tbl &lt;- concrete_tbl %&gt;%
+  mutate(nls_wc = predict(csFit)) 
+
+concrete_tbl %&gt;%
+  ggplot(aes(x=compressive_strength, y=nls_wc)) +
+  geom_point(color = &quot;steelblue&quot;) +
+  geom_abline(slope = 1, lty = 2, color = &quot;gray50&quot;, alpha = 0.5) +
+  labs(title=&quot;NLS model using water:cement and age at test&quot;,
+       x = &quot;Actual Compressive Strength (MPa)&quot;,
+       y = &quot;Predicted Compressive Strength (MPa)&quot;) +
+  geom_text(x = 5, y = 75, label = paste(&quot;R^2 == &quot;, 
+            round(cor(concrete_tbl$compressive_strength, concrete_tbl$nls_wc)^2, 2)), parse = TRUE)</code></pre>
+<p><img src="2020-06-16_ConcreteNLS_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="nls-fit-using-waterbinder" class="section level3">
+<h3>NLS Fit using Water:Binder</h3>
+<p>Fit with water:binder</p>
+<pre class="r"><code>csFit_wb &lt;- nls(cs ~ csFunc(wb, age, a, b, c, d), start=list(a=10, b=-0.5, c=10, d=10))
+
+summary(csFit_wb)</code></pre>
+<pre><code>## 
+## Formula: cs ~ csFunc(wb, age, a, b, c, d)
+## 
+## Parameters:
+##   Estimate Std. Error t value Pr(&gt;|t|)    
+## a  23.5011     6.9342   3.389 0.000728 ***
+## b  -0.8614     0.1440  -5.980 3.07e-09 ***
+## c   8.5739     0.2043  41.971  &lt; 2e-16 ***
+## d -39.2343     8.2396  -4.762 2.20e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7.774 on 1026 degrees of freedom
+## 
+## Number of iterations to convergence: 7 
+## Achieved convergence tolerance: 2.226e-06</code></pre>
+<pre class="r"><code>concrete_tbl &lt;- concrete_tbl %&gt;%
+  mutate(nls_wb = predict(csFit_wb)) 
+
+concrete_tbl %&gt;%
+  ggplot(aes(x=compressive_strength, y=nls_wb)) +
+  geom_point(color = &quot;steelblue&quot;) +
+  geom_abline(slope = 1, lty = 2, color = &quot;gray50&quot;, alpha = 0.5) +
+  labs(title=&quot;NLS model using water:binder and age at test&quot;,
+       x = &quot;Actual Compressive Strength (MPa)&quot;,
+       y = &quot;Predicted Compressive Strength (MPa)&quot;) +
+  geom_text(x = 5, y = 75, label = paste(&quot;R^2 == &quot;, 
+            round(cor(concrete_tbl$compressive_strength, concrete_tbl$nls_wb)^2, 2)), parse = TRUE)</code></pre>
+<p><img src="2020-06-16_ConcreteNLS_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>The NLS model using water:binder was a better fit to the experimental data than the NLS model using water:cement. The R<sup>2</sup> for the water:binder model was 0.78 compared to an R<sup>2</sup> of 0.65 for the water:cement model.</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KbGlicmFyeShrbml0cikNCmxpYnJhcnkocmVhZHhsKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpgYGANCg0KIyMgKipDb252ZW50aW9uYWwgTWF0ZXJpYWwgTW9kZWxzIGZvciBDb25jcmV0ZSBEYXRhc2V0KioNCipQb3N0ZWQgb24gSnVuZSAxNiwgMjAyMCoNCg0KQWJyYW1zJyBsYXcgc3RhdGVzIHRoYXQgdGhlIHN0cmVuZ3RoIG9mIGEgY29uY3JldGUgbWl4IGlzIGludmVyc2VseSByZWxhdGVkIHRvIHRoZSBtYXNzIHJhdGlvIG9mIHdhdGVyIHRvIGNlbWVudC4gIEluIG90aGVyIHdvcmRzLCBhcyB0aGUgd2F0ZXIgY29udGVudCBpbmNyZWFzZXMsIHRoZSBzdHJlbmd0aCBvZiB0aGUgY29uY3JldGUgZGVjcmVhc2VzLiAgRXhwZXJpbWVudGFsIGRhdGEgaG93ZXZlciBzaG93cyB0aGF0IHRoaXMgbGF3IGRvZXMgbm90IHByb3ZpZGUgdGhlIGNvbXBsZXRlIHBpY3R1cmUgYW5kIGNvbmNyZXRlIGZvcm11bGF0aW9ucyB3aXRoIHRoZSBzYW1lIHdhdGVyOmNlbWVudCBjYW4gaGF2ZSBzaWduaWZpY2FudGx5IGRpZmZlcmVudCBwZXJmb3JtYW5jZS4NCg0KYGBge3IsIGluY2x1ZGU9RkFMU0V9DQpmaWxlbmFtZSA8LSAiQ29uY3JldGVfRGF0YS54bHMiDQoNCmZvbGRlciA8LSAiLi9kYXRhLyINCm51bWJlckNvbHMgPC0gOSAjdG90YWwgbnVtYmVyIG9mIGNvbHVtbnMgaW4gc3ByZWFkc2hlZXQNCg0KY29sVHlwZXMgPC0gcmVwKCJudW1lcmljIiwgbnVtYmVyQ29scykNCmNvbmNyZXRlX3RibCA8LSByZWFkX2V4Y2VsKHBhdGggPSBwYXN0ZTAoZm9sZGVyLCBmaWxlbmFtZSksIGNvbF90eXBlcyA9IGNvbFR5cGVzKQ0KDQpjb25jcmV0ZV90YmwgPC0gY29uY3JldGVfdGJsICU+JQ0KICByZW5hbWUoY2VtZW50ID0gc3RhcnRzX3dpdGgoIkNlbWVudCIpKSAlPiUNCiAgcmVuYW1lKGJsYXN0X2Z1cm5hY2Vfc2xhZyA9IHN0YXJ0c193aXRoKCJCbGFzdCIpKSAlPiUNCiAgcmVuYW1lKGZseV9hc2ggPSBzdGFydHNfd2l0aCgiRmx5IEFzaCIpKSAlPiUNCiAgcmVuYW1lKHdhdGVyID0gc3RhcnRzX3dpdGgoIldhdGVyIikpICU+JQ0KICByZW5hbWUoc3VwZXJwbGFzdGljaXplciA9IHN0YXJ0c193aXRoKCJTdXBlciIpKSAlPiUNCiAgcmVuYW1lKGNvYXJzZV9hZ2dyZWdhdGUgPSBzdGFydHNfd2l0aCgiQ29hcnNlIikpICU+JQ0KICByZW5hbWUoZmluZV9hZ2dyZWdhdGUgPSBzdGFydHNfd2l0aCgiRmluZSIpKSAlPiUNCiAgcmVuYW1lKGFnZSA9IHN0YXJ0c193aXRoKCJBZ2UiKSkgJT4lDQogIHJlbmFtZShjb21wcmVzc2l2ZV9zdHJlbmd0aCA9IHN0YXJ0c193aXRoKCJDb25jcmV0ZSIpKQ0KYGBgDQoNCmBgYHtyfQ0KY29uY3JldGVfdGJsIDwtIGNvbmNyZXRlX3RibCAlPiUNCiAgbXV0YXRlKHdhdGVyX2NlbWVudCA9IHdhdGVyIC8gY2VtZW50LA0KICAgICAgICAgd2F0ZXJfYmluZGVyID0gd2F0ZXIgLyAoY2VtZW50ICsgYmxhc3RfZnVybmFjZV9zbGFnICsgZmx5X2FzaCkpDQoNCmNvbmNyZXRlX3RibCAlPiUNCiAgZ2dwbG90KGFlcyh3YXRlcl9jZW1lbnQsIGNvbXByZXNzaXZlX3N0cmVuZ3RoKSkgKw0KICBnZW9tX3BvaW50KGFscGhhID0gMC4xNSkgKw0KICBnZW9tX3Ntb290aChmb3JtdWxhID0geSB+IHgsIG1ldGhvZCA9ICJsbSIpICsNCiAgdGhlbWVfbGlnaHQoKSArDQogIGxhYnModGl0bGUgPSAiQ29uY3JldGUgQ29tcHJlc3NpdmUgU3RyZW5ndGggdnMuIFdhdGVyOkNlbWVudCIsDQogICAgICAgeCA9ICJXYXRlcjpDZW1lbnQiLCB5ID0gIkNvbXByZXNzaXZlIFN0cmVuZ3RoIChNUGEpIikNCmBgYA0KDQpJdCBpcyBhcHBhcmVudCBmcm9tIHRoZSBwbG90IGFib3ZlIHRoYXQgd2F0ZXI6Y2VtZW50IGlzIG5vdCB0aGUgb25seSBmYWN0b3IgaW1wb3J0YW50IGZvciBkZXRlcm1pbmluZyB0aGUgY29tcHJlc3NpdmUgc3RyZW5ndGggb2YgY29uY3JldGUuICBGb3IgZXhhbXBsZSwgdGhlcmUgYXJlIG11bHRpcGxlIGZvcm11bGF0aW9ucyB3aXRoIGEgd2F0ZXI6Y2VtZW50IG9mIH4xIHdpdGggYSByYW5nZSBvZiBjb21wcmVzc2l2ZSBzdHJlbmd0aHMgZnJvbSBsZXNzIHRoYW4gMTAgTVBhIHRvIGdyZWF0ZXIgdGhhbiA1MCBNUGEuICBUaGUgYWdlIG9mIHRoZSBjb25jcmV0ZSBhdCB0aGUgdGltZSBvZiB0ZXN0aW5nIGlzIGFsc28gcmVjb2duaXplZCBhcyBhbiBpbXBvcnRhbnQgZmFjdG9yIGluIGRldGVybWluaW5nIHRoZSBjb25jcmV0ZSBzdHJlbmd0aCBmb3IgYSBzYW1wbGUuDQoNCiQkIGZeXHByaW1lX2ModCkgPSBhIFheYiBcY2RvdCBbYyBcbG4odCkrKGQpXSAkJA0KDQp3aGVyZSB0ID0gYWdlIGF0IHRlc3QsIFggPSB3L2Mgb3Igd2F0ZXItdG8tYmluZGVyIHJhdGlvIGFuZCBhLCBiLCBjLCBkIGFyZSByZWdyZXNzaW9uIGNvZWZmaWNpZW50cw0KDQpUaGUgYWJvdmUgZXF1YXRpb24gYWxzbyBpbmNsdWRlcyB0aGUgYWdlIGF0IHRlc3QgdmFyaWFibGUgKHQpIHRvIHByZWRpY3QgdGhlIGNvbXByZXNzaXZlIHN0cmVuZ3RoLiAgVGhpcyBlcXVhdGlvbiB1c2VzIGZvdXIgcGFyYW1ldGVycyByZW1pbmRpbmcgbWUgb2YgdGhlIGZhbW91cyBxdW90ZSBieSBtYXRoZW1hdGljaWFuIEpvaG4gdm9uIE5ldW1hbm4sICJ3aXRoIGZvdXIgcGFyYW1ldGVycyBJIGNhbiBmaXQgYW4gZWxlcGhhbnQsIHdpdGggZml2ZSBJIGNhbiBtYWtlIGhpbSB3aWdnbGUgaGlzIHRydW5rLiINCg0KVGhpcyBlcXVhdGlvbiBpcyBmaXQgdG8gdGhlIGV4cGVyaW1lbnRhbCBkYXRhc2V0IHVzaW5nIG5vbi1saW5lYXIgbGVhc3Qgc3F1YXJlcyBhcHByb3hpbWF0aW9uLiAgVGhlIG5scyBmdW5jdGlvbiBpbiBiYXNlIFIgaGFzIGJlZW4gdXNlZCBhcyBzaG93biBiZWxvdy4NCg0KIyMjIE5MUyBGaXQgdXNpbmcgd2F0ZXI6Y2VtZW50DQpgYGB7cn0NCndjIDwtIGNvbmNyZXRlX3RibCR3YXRlcl9jZW1lbnQNCndiIDwtIGNvbmNyZXRlX3RibCR3YXRlcl9iaW5kZXINCmFnZSA8LSBjb25jcmV0ZV90YmwkYWdlDQpjcyA8LSBjb25jcmV0ZV90YmwkY29tcHJlc3NpdmVfc3RyZW5ndGgNCg0KY3NGdW5jIDwtIGZ1bmN0aW9uKHdjLCBhZ2UsIGEsIGIsIGMsIGQpIHsgKGEgKiB3Y15iKSArIChjICogbG9nKGFnZSkgKyBkKX0NCmBgYA0KDQpGaXQgd2l0aCB3YXRlcjpjZW1lbnQNCmBgYHtyfQ0KY3NGaXQgPC0gbmxzKGNzIH4gY3NGdW5jKHdjLCBhZ2UsIGEsIGIsIGMsIGQpLCBzdGFydD1saXN0KGE9MzAsIGI9LTAuNiwgYz0wLjMsIGQ9MC4xKSkNCg0Kc3VtbWFyeShjc0ZpdCkNCmBgYA0KQWRkIG5scyBmaXQgdG8gdGFibGUNCmBgYHtyfQ0KY29uY3JldGVfdGJsIDwtIGNvbmNyZXRlX3RibCAlPiUNCiAgbXV0YXRlKG5sc193YyA9IHByZWRpY3QoY3NGaXQpKSANCg0KY29uY3JldGVfdGJsICU+JQ0KICBnZ3Bsb3QoYWVzKHg9Y29tcHJlc3NpdmVfc3RyZW5ndGgsIHk9bmxzX3djKSkgKw0KICBnZW9tX3BvaW50KGNvbG9yID0gInN0ZWVsYmx1ZSIpICsNCiAgZ2VvbV9hYmxpbmUoc2xvcGUgPSAxLCBsdHkgPSAyLCBjb2xvciA9ICJncmF5NTAiLCBhbHBoYSA9IDAuNSkgKw0KICBsYWJzKHRpdGxlPSJOTFMgbW9kZWwgdXNpbmcgd2F0ZXI6Y2VtZW50IGFuZCBhZ2UgYXQgdGVzdCIsDQogICAgICAgeCA9ICJBY3R1YWwgQ29tcHJlc3NpdmUgU3RyZW5ndGggKE1QYSkiLA0KICAgICAgIHkgPSAiUHJlZGljdGVkIENvbXByZXNzaXZlIFN0cmVuZ3RoIChNUGEpIikgKw0KICBnZW9tX3RleHQoeCA9IDUsIHkgPSA3NSwgbGFiZWwgPSBwYXN0ZSgiUl4yID09ICIsIA0KICAgICAgICAgICAgcm91bmQoY29yKGNvbmNyZXRlX3RibCRjb21wcmVzc2l2ZV9zdHJlbmd0aCwgY29uY3JldGVfdGJsJG5sc193YyleMiwgMikpLCBwYXJzZSA9IFRSVUUpDQpgYGANCg0KIyMjIE5MUyBGaXQgdXNpbmcgV2F0ZXI6QmluZGVyDQoNCkZpdCB3aXRoIHdhdGVyOmJpbmRlcg0KYGBge3J9DQpjc0ZpdF93YiA8LSBubHMoY3MgfiBjc0Z1bmMod2IsIGFnZSwgYSwgYiwgYywgZCksIHN0YXJ0PWxpc3QoYT0xMCwgYj0tMC41LCBjPTEwLCBkPTEwKSkNCg0Kc3VtbWFyeShjc0ZpdF93YikNCmBgYA0KDQpgYGB7cn0NCmNvbmNyZXRlX3RibCA8LSBjb25jcmV0ZV90YmwgJT4lDQogIG11dGF0ZShubHNfd2IgPSBwcmVkaWN0KGNzRml0X3diKSkgDQoNCmNvbmNyZXRlX3RibCAlPiUNCiAgZ2dwbG90KGFlcyh4PWNvbXByZXNzaXZlX3N0cmVuZ3RoLCB5PW5sc193YikpICsNCiAgZ2VvbV9wb2ludChjb2xvciA9ICJzdGVlbGJsdWUiKSArDQogIGdlb21fYWJsaW5lKHNsb3BlID0gMSwgbHR5ID0gMiwgY29sb3IgPSAiZ3JheTUwIiwgYWxwaGEgPSAwLjUpICsNCiAgbGFicyh0aXRsZT0iTkxTIG1vZGVsIHVzaW5nIHdhdGVyOmJpbmRlciBhbmQgYWdlIGF0IHRlc3QiLA0KICAgICAgIHggPSAiQWN0dWFsIENvbXByZXNzaXZlIFN0cmVuZ3RoIChNUGEpIiwNCiAgICAgICB5ID0gIlByZWRpY3RlZCBDb21wcmVzc2l2ZSBTdHJlbmd0aCAoTVBhKSIpICsNCiAgZ2VvbV90ZXh0KHggPSA1LCB5ID0gNzUsIGxhYmVsID0gcGFzdGUoIlJeMiA9PSAiLCANCiAgICAgICAgICAgIHJvdW5kKGNvcihjb25jcmV0ZV90YmwkY29tcHJlc3NpdmVfc3RyZW5ndGgsIGNvbmNyZXRlX3RibCRubHNfd2IpXjIsIDIpKSwgcGFyc2UgPSBUUlVFKQ0KYGBgDQoNClRoZSBOTFMgbW9kZWwgdXNpbmcgd2F0ZXI6YmluZGVyIHdhcyBhIGJldHRlciBmaXQgdG8gdGhlIGV4cGVyaW1lbnRhbCBkYXRhIHRoYW4gdGhlIE5MUyBtb2RlbCB1c2luZyB3YXRlcjpjZW1lbnQuICBUaGUgUl4yXiBmb3IgdGhlIHdhdGVyOmJpbmRlciBtb2RlbCB3YXMgMC43OCBjb21wYXJlZCB0byBhbiBSXjJeIG9mIDAuNjUgZm9yIHRoZSB3YXRlcjpjZW1lbnQgbW9kZWwuDQo=</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2020-06-16_ConcreteNLS.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
