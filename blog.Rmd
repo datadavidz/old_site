@@ -7,6 +7,15 @@ output: html_document
 
 <br><br>
 
+### **Concrete Dataset Part 6: Extreme Gradient Boosted Tree Model using XGboost**
+*Posted on December 3, 2020*
+
+A boosted tree model is fit to predict the compressive strength of concrete formulation using a tidymodels approach.  The XGBoost model showed the best performance of the predictive models so far.
+
+[Full post](2020-12-03_ConcreteXGB.html)
+
+***
+
 ### **Concrete Dataset Part 5: Single-Layer Neural Network Model using nnet**
 *Posted on December 2, 2020*
 
