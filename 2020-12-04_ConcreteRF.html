@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2020-12-04_ConcreteRF.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="random-forest-modeling-of-the-concrete-compressive-strength-dataset" class="section level2">
+<h2><strong>Random Forest Modeling of the Concrete Compressive Strength Dataset</strong></h2>
+<p><em>Posted on December 4, 2020</em></p>
+<p>In this post, we will begin to use machine learning techniques for predicting compressive strength of formulations using the concrete dataset. In a previous post, we created a model using a conventional material modeling approach which resulted in an R<sup>2</sup> of 0.78. Here we will use a random forest model to predict compressive strength and compare the results with the conventional material model.</p>
+<p>Initial splitting of the dataset into Training and Test Dataset Here we use the rsample package to create an 80/20 split. The concrete dataset contains 1030 formulations of which 825 are randomly assigned to training and 205 are randomly assigned to testing.</p>
+<pre class="r"><code>set.seed(123)
+concrete_split &lt;- initial_split(concrete_tbl, prop = 0.80)
+concrete_train &lt;- training(concrete_split)
+concrete_test &lt;- testing(concrete_split)</code></pre>
+<p>Preprocessing is accomplished by using the recipe package. The recipe provides the steps required to transform our raw data into a dataset suitable for machine learning. The Concrete dataset actually doesn’t require much reformatting. The major issue was the lengthy column names which was addressed immediately after the dataset was imported. The dataset contained all numerical values and no missing data. Initially we will just center and scale the predictors before sending to the nnet model.</p>
+<pre class="r"><code>concrete_rec &lt;- recipe(compressive_strength ~ ., data = concrete_train) %&gt;%
+  step_center(all_predictors()) %&gt;%
+  step_scale(all_predictors())
+
+concrete_rec</code></pre>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    outcome          1
+##  predictor          8
+## 
+## Operations:
+## 
+## Centering for all_predictors()
+## Scaling for all_predictors()</code></pre>
+<p>Cross validation folds are created in order to assess the performance of the model parameters. Here we use 5-fold cross validation to create splits from our training dataset and also using the preprocessing pipeline specified above.</p>
+<pre class="r"><code>set.seed(234)
+concrete_folds &lt;- vfold_cv(concrete_train, v = 5)
+
+concrete_folds</code></pre>
+<pre><code>## #  5-fold cross-validation 
+## # A tibble: 5 x 2
+##   splits            id   
+##   &lt;list&gt;            &lt;chr&gt;
+## 1 &lt;split [660/165]&gt; Fold1
+## 2 &lt;split [660/165]&gt; Fold2
+## 3 &lt;split [660/165]&gt; Fold3
+## 4 &lt;split [660/165]&gt; Fold4
+## 5 &lt;split [660/165]&gt; Fold5</code></pre>
+<p>Model specifications are created using the parsnip package. Here we specify a random forest model using the ranger engine. Notice that the min n and mtry parameters have been specified to be tuned.</p>
+<pre class="r"><code>rf_spec = rand_forest(
+  trees = 1000,
+  min_n = tune(),
+  mtry = tune()
+) %&gt;%
+  set_engine(&quot;ranger&quot;, importance = &quot;permutation&quot;) %&gt;%
+  set_mode(&quot;regression&quot;)
+
+rf_spec</code></pre>
+<pre><code>## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = tune()
+##   trees = 1000
+##   min_n = tune()
+## 
+## Engine-Specific Arguments:
+##   importance = permutation
+## 
+## Computational engine: ranger</code></pre>
+<p>Grid specifications sets up a variety of parameter values used with our model to find which combination yields the lowest prediction error (or best accuracy). Here we specify the parameter ranges and grid function using the dials package.</p>
+<p>Specify the grid function (max entropy, hypercube etc.). Here we make a grid of 20 values using the grid_max_entropy() function in the dials package. Since there are just 2 tuning parameters in this case, we can visualize the grid selections. Note the penalty parameter is on the log base 10 scale by default. The dials package helps us make smarter choices for the critical tuning parameters.</p>
+<pre class="r"><code>set.seed(345)
+rf_grid &lt;- grid_max_entropy(min_n(), mtry(c(1L, 10L)), size = 20)
+
+rf_grid %&gt;%
+  ggplot(aes(min_n, mtry)) +
+  geom_point(color = &quot;steelblue&quot;, size = 3) +
+  #scale_x_log10() +
+  theme_light() +
+  labs(title = &quot;Max Entropy Grid&quot;, x = &quot;min n&quot;, y = &quot;mtry&quot;)</code></pre>
+<p><img src="2020-12-04_ConcreteRF_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="r"><code>rf_grid</code></pre>
+<pre><code>## # A tibble: 20 x 2
+##    min_n  mtry
+##    &lt;int&gt; &lt;int&gt;
+##  1     2     7
+##  2    40     2
+##  3    22     6
+##  4    23     7
+##  5    29    10
+##  6    17     1
+##  7    34     4
+##  8    22     9
+##  9    10     6
+## 10    36    10
+## 11    25     1
+## 12     5     1
+## 13    28     3
+## 14     4     5
+## 15     6     9
+## 16     6     2
+## 17    11     1
+## 18    38     7
+## 19    30     6
+## 20    17     4</code></pre>
+<p>Define a workflow for the tuning process</p>
+<pre class="r"><code>concrete_wf &lt;- workflow() %&gt;%
+  add_recipe(concrete_rec) %&gt;%
+  add_model(rf_spec)</code></pre>
+<p>Hyperparameter tuning is now performed using the tune_grid() function from the tune package. Here we specific the formula, model, resamples, grid and metrics. The metrics come from the yardstick package. For regression problems, we can specify multiple metrics such as mae, mape, rmse and rsq into a metric_set().</p>
+<pre class="r"><code>doParallel::registerDoParallel()
+
+set.seed(456)
+
+begin &lt;- Sys.time()
+
+rf_res &lt;- tune_grid(
+  concrete_wf,
+  resamples = concrete_folds,
+  grid = rf_grid,
+  metrics = metric_set(rmse, rsq, mae),
+  control = control_grid(save_pred = TRUE)
+)
+
+end1 &lt;- Sys.time() - begin</code></pre>
+<div id="stage-2-compare-and-select-the-best-model" class="section level3">
+<h3>Stage 2: Compare and Select the Best Model</h3>
+<p>Identify the best hyperparameter values using the show_best() function.</p>
+<pre class="r"><code>rf_res %&gt;% show_best(&quot;mae&quot;, n = 5)</code></pre>
+<pre><code>## # A tibble: 5 x 8
+##    mtry min_n .metric .estimator  mean     n std_err .config
+##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1     7     2 mae     standard    3.84     5   0.148 Model01
+## 2     5     4 mae     standard    3.87     5   0.135 Model14
+## 3     6    10 mae     standard    4.12     5   0.134 Model09
+## 4     2     6 mae     standard    4.43     5   0.101 Model16
+## 5     4    17 mae     standard    4.52     5   0.105 Model20</code></pre>
+<p>Visualize the tuning results</p>
+<pre class="r"><code>autoplot(rf_res)</code></pre>
+<p><img src="2020-12-04_ConcreteRF_files/figure-html/unnamed-chunk-11-1.png" width="672" /> Select the best parameters based on the lowest mean absolute error.</p>
+<pre class="r"><code>params_rf_best &lt;- rf_res %&gt;% select_best(&quot;mae&quot;)
+params_rf_best</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##    mtry min_n .config
+##   &lt;int&gt; &lt;int&gt; &lt;chr&gt;  
+## 1     7     2 Model01</code></pre>
+<p>Finalize workflow with the best model parameters</p>
+<pre class="r"><code>final_rf &lt;- finalize_workflow(concrete_wf, params_rf_best)
+
+final_rf</code></pre>
+<pre><code>## == Workflow ==============================================================
+## Preprocessor: Recipe
+## Model: rand_forest()
+## 
+## -- Preprocessor ----------------------------------------------------------
+## 2 Recipe Steps
+## 
+## * step_center()
+## * step_scale()
+## 
+## -- Model -----------------------------------------------------------------
+## Random Forest Model Specification (regression)
+## 
+## Main Arguments:
+##   mtry = 7
+##   trees = 1000
+##   min_n = 2
+## 
+## Engine-Specific Arguments:
+##   importance = permutation
+## 
+## Computational engine: ranger</code></pre>
+<p>Which Features are most important?</p>
+<pre class="r"><code>final_rf %&gt;%
+  fit(data = concrete_train) %&gt;%
+  pull_workflow_fit() %&gt;%
+  vip(aesthetics = list(fill = &quot;steelblue&quot;)) +
+  labs(title = &quot;Random Forest Model Importance - Compressive Strength (MPa) Prediction&quot;)</code></pre>
+<p><img src="2020-12-04_ConcreteRF_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="stage-3-train-final-model" class="section level3">
+<h3>Stage 3: Train Final Model</h3>
+<p>Fit model on train and evaluate on test.</p>
+<pre class="r"><code>final_res &lt;- last_fit(final_rf, concrete_split, metrics = metric_set(rmse, rsq, mae))</code></pre>
+<p>Assess final model performance metrics.</p>
+<pre class="r"><code>collect_metrics(final_res)</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##   .metric .estimator .estimate
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
+## 1 rmse    standard       4.21 
+## 2 rsq     standard       0.937
+## 3 mae     standard       3.00</code></pre>
+<p>Visualize actual vs. predicted compressive strength for final model.</p>
+<pre class="r"><code>collect_predictions(final_res) %&gt;%
+  ggplot(aes(compressive_strength, .pred)) +
+  geom_abline(slope = 1, lty = 2, color = &quot;gray50&quot;, alpha = 0.5) +
+  geom_point(alpha = 0.6, color = &quot;midnightblue&quot;) +
+  ylim(0, NA) +
+  labs(title = &quot;Random Forest Model Performance for Concrete Dataset&quot;, 
+       x = &quot;Actual Compressive Strength (MPa)&quot;, 
+       y = &quot;Predicted Compressive Strength (MPa)&quot;)</code></pre>
+<p><img src="2020-12-04_ConcreteRF_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KbGlicmFyeShrbml0cikNCmxpYnJhcnkocmVhZHhsKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQoNCiNUaWR5bW9kZWxzDQpsaWJyYXJ5KHRpZHltb2RlbHMpDQpsaWJyYXJ5KHZpcCkNCmBgYA0KDQojIyAqKlJhbmRvbSBGb3Jlc3QgTW9kZWxpbmcgb2YgdGhlIENvbmNyZXRlIENvbXByZXNzaXZlIFN0cmVuZ3RoIERhdGFzZXQqKg0KKlBvc3RlZCBvbiBEZWNlbWJlciA0LCAyMDIwKg0KDQpJbiB0aGlzIHBvc3QsIHdlIHdpbGwgYmVnaW4gdG8gdXNlIG1hY2hpbmUgbGVhcm5pbmcgdGVjaG5pcXVlcyBmb3IgcHJlZGljdGluZyBjb21wcmVzc2l2ZSBzdHJlbmd0aCBvZiBmb3JtdWxhdGlvbnMgdXNpbmcgdGhlIGNvbmNyZXRlIGRhdGFzZXQuICBJbiBhIHByZXZpb3VzIHBvc3QsIHdlIGNyZWF0ZWQgYSBtb2RlbCB1c2luZyBhIGNvbnZlbnRpb25hbCBtYXRlcmlhbCBtb2RlbGluZyBhcHByb2FjaCB3aGljaCByZXN1bHRlZCBpbiBhbiBSXjJeIG9mIDAuNzguICBIZXJlIHdlIHdpbGwgdXNlIGEgcmFuZG9tIGZvcmVzdCBtb2RlbCB0byBwcmVkaWN0IGNvbXByZXNzaXZlIHN0cmVuZ3RoIGFuZCBjb21wYXJlIHRoZSByZXN1bHRzIHdpdGggdGhlIGNvbnZlbnRpb25hbCBtYXRlcmlhbCBtb2RlbC4NCg0KYGBge3IsIGluY2x1ZGU9RkFMU0V9DQpmaWxlbmFtZSA8LSAiQ29uY3JldGVfRGF0YS54bHMiDQoNCmZvbGRlciA8LSAiLi9kYXRhLyINCm51bWJlckNvbHMgPC0gOSAjdG90YWwgbnVtYmVyIG9mIGNvbHVtbnMgaW4gc3ByZWFkc2hlZXQNCg0KY29sVHlwZXMgPC0gcmVwKCJudW1lcmljIiwgbnVtYmVyQ29scykNCmNvbmNyZXRlX3RibCA8LSByZWFkX2V4Y2VsKHBhdGggPSBwYXN0ZTAoZm9sZGVyLCBmaWxlbmFtZSksIGNvbF90eXBlcyA9IGNvbFR5cGVzKQ0KDQpjb25jcmV0ZV90YmwgPC0gY29uY3JldGVfdGJsICU+JQ0KICByZW5hbWUoY2VtZW50ID0gc3RhcnRzX3dpdGgoIkNlbWVudCIpKSAlPiUNCiAgcmVuYW1lKGJsYXN0X2Z1cm5hY2Vfc2xhZyA9IHN0YXJ0c193aXRoKCJCbGFzdCIpKSAlPiUNCiAgcmVuYW1lKGZseV9hc2ggPSBzdGFydHNfd2l0aCgiRmx5IEFzaCIpKSAlPiUNCiAgcmVuYW1lKHdhdGVyID0gc3RhcnRzX3dpdGgoIldhdGVyIikpICU+JQ0KICByZW5hbWUoc3VwZXJwbGFzdGljaXplciA9IHN0YXJ0c193aXRoKCJTdXBlciIpKSAlPiUNCiAgcmVuYW1lKGNvYXJzZV9hZ2dyZWdhdGUgPSBzdGFydHNfd2l0aCgiQ29hcnNlIikpICU+JQ0KICByZW5hbWUoZmluZV9hZ2dyZWdhdGUgPSBzdGFydHNfd2l0aCgiRmluZSIpKSAlPiUNCiAgcmVuYW1lKGFnZSA9IHN0YXJ0c193aXRoKCJBZ2UiKSkgJT4lDQogIHJlbmFtZShjb21wcmVzc2l2ZV9zdHJlbmd0aCA9IHN0YXJ0c193aXRoKCJDb25jcmV0ZSIpKQ0KYGBgDQoNCkluaXRpYWwgc3BsaXR0aW5nIG9mIHRoZSBkYXRhc2V0IGludG8gVHJhaW5pbmcgYW5kIFRlc3QgRGF0YXNldCAgSGVyZSB3ZSB1c2UgdGhlIHJzYW1wbGUgcGFja2FnZSB0byBjcmVhdGUgYW4gODAvMjAgc3BsaXQuICBUaGUgY29uY3JldGUgZGF0YXNldCBjb250YWlucyAxMDMwIGZvcm11bGF0aW9ucyBvZiB3aGljaCA4MjUgYXJlIHJhbmRvbWx5IGFzc2lnbmVkIHRvIHRyYWluaW5nIGFuZCAyMDUgYXJlIHJhbmRvbWx5IGFzc2lnbmVkIHRvIHRlc3RpbmcuDQpgYGB7cn0NCnNldC5zZWVkKDEyMykNCmNvbmNyZXRlX3NwbGl0IDwtIGluaXRpYWxfc3BsaXQoY29uY3JldGVfdGJsLCBwcm9wID0gMC44MCkNCmNvbmNyZXRlX3RyYWluIDwtIHRyYWluaW5nKGNvbmNyZXRlX3NwbGl0KQ0KY29uY3JldGVfdGVzdCA8LSB0ZXN0aW5nKGNvbmNyZXRlX3NwbGl0KQ0KYGBgDQoNClByZXByb2Nlc3NpbmcgaXMgYWNjb21wbGlzaGVkIGJ5IHVzaW5nIHRoZSByZWNpcGUgcGFja2FnZS4gIFRoZSByZWNpcGUgcHJvdmlkZXMgdGhlIHN0ZXBzIHJlcXVpcmVkIHRvIHRyYW5zZm9ybSBvdXIgcmF3IGRhdGEgaW50byBhIGRhdGFzZXQgc3VpdGFibGUgZm9yIG1hY2hpbmUgbGVhcm5pbmcuICBUaGUgQ29uY3JldGUgZGF0YXNldCBhY3R1YWxseSBkb2Vzbid0IHJlcXVpcmUgbXVjaCByZWZvcm1hdHRpbmcuICBUaGUgbWFqb3IgaXNzdWUgd2FzIHRoZSBsZW5ndGh5IGNvbHVtbiBuYW1lcyB3aGljaCB3YXMgYWRkcmVzc2VkIGltbWVkaWF0ZWx5IGFmdGVyIHRoZSBkYXRhc2V0IHdhcyBpbXBvcnRlZC4gIFRoZSBkYXRhc2V0IGNvbnRhaW5lZCBhbGwgbnVtZXJpY2FsIHZhbHVlcyBhbmQgbm8gbWlzc2luZyBkYXRhLiAgSW5pdGlhbGx5IHdlIHdpbGwganVzdCBjZW50ZXIgYW5kIHNjYWxlIHRoZSBwcmVkaWN0b3JzIGJlZm9yZSBzZW5kaW5nIHRvIHRoZSBubmV0IG1vZGVsLg0KYGBge3J9DQpjb25jcmV0ZV9yZWMgPC0gcmVjaXBlKGNvbXByZXNzaXZlX3N0cmVuZ3RoIH4gLiwgZGF0YSA9IGNvbmNyZXRlX3RyYWluKSAlPiUNCiAgc3RlcF9jZW50ZXIoYWxsX3ByZWRpY3RvcnMoKSkgJT4lDQogIHN0ZXBfc2NhbGUoYWxsX3ByZWRpY3RvcnMoKSkNCg0KY29uY3JldGVfcmVjDQpgYGANCg0KQ3Jvc3MgdmFsaWRhdGlvbiBmb2xkcyBhcmUgY3JlYXRlZCBpbiBvcmRlciB0byBhc3Nlc3MgdGhlIHBlcmZvcm1hbmNlIG9mIHRoZSBtb2RlbCBwYXJhbWV0ZXJzLiAgSGVyZSB3ZSB1c2UgNS1mb2xkIGNyb3NzIHZhbGlkYXRpb24gdG8gY3JlYXRlIHNwbGl0cyBmcm9tIG91ciB0cmFpbmluZyBkYXRhc2V0IGFuZCBhbHNvIHVzaW5nIHRoZSBwcmVwcm9jZXNzaW5nIHBpcGVsaW5lIHNwZWNpZmllZCBhYm92ZS4NCmBgYHtyfQ0Kc2V0LnNlZWQoMjM0KQ0KY29uY3JldGVfZm9sZHMgPC0gdmZvbGRfY3YoY29uY3JldGVfdHJhaW4sIHYgPSA1KQ0KDQpjb25jcmV0ZV9mb2xkcw0KYGBgDQoNCk1vZGVsIHNwZWNpZmljYXRpb25zIGFyZSBjcmVhdGVkIHVzaW5nIHRoZSBwYXJzbmlwIHBhY2thZ2UuICBIZXJlIHdlIHNwZWNpZnkgYSByYW5kb20gZm9yZXN0IG1vZGVsIHVzaW5nIHRoZSByYW5nZXIgZW5naW5lLiAgTm90aWNlIHRoYXQgdGhlIG1pbiBuIGFuZCBtdHJ5IHBhcmFtZXRlcnMgaGF2ZSBiZWVuIHNwZWNpZmllZCB0byBiZSB0dW5lZC4gIA0KDQpgYGB7cn0NCnJmX3NwZWMgPSByYW5kX2ZvcmVzdCgNCiAgdHJlZXMgPSAxMDAwLA0KICBtaW5fbiA9IHR1bmUoKSwNCiAgbXRyeSA9IHR1bmUoKQ0KKSAlPiUNCiAgc2V0X2VuZ2luZSgicmFuZ2VyIiwgaW1wb3J0YW5jZSA9ICJwZXJtdXRhdGlvbiIpICU+JQ0KICBzZXRfbW9kZSgicmVncmVzc2lvbiIpDQoNCnJmX3NwZWMNCmBgYA0KDQpHcmlkIHNwZWNpZmljYXRpb25zIHNldHMgdXAgYSB2YXJpZXR5IG9mIHBhcmFtZXRlciB2YWx1ZXMgdXNlZCB3aXRoIG91ciBtb2RlbCB0byBmaW5kIHdoaWNoIGNvbWJpbmF0aW9uIHlpZWxkcyB0aGUgbG93ZXN0IHByZWRpY3Rpb24gZXJyb3IgKG9yIGJlc3QgYWNjdXJhY3kpLiAgSGVyZSB3ZSBzcGVjaWZ5IHRoZSBwYXJhbWV0ZXIgcmFuZ2VzIGFuZCBncmlkIGZ1bmN0aW9uIHVzaW5nIHRoZSBkaWFscyBwYWNrYWdlLg0KDQpTcGVjaWZ5IHRoZSBncmlkIGZ1bmN0aW9uIChtYXggZW50cm9weSwgaHlwZXJjdWJlIGV0Yy4pLiAgSGVyZSB3ZSBtYWtlIGEgZ3JpZCBvZiAyMCB2YWx1ZXMgdXNpbmcgdGhlIGdyaWRfbWF4X2VudHJvcHkoKSBmdW5jdGlvbiBpbiB0aGUgZGlhbHMgcGFja2FnZS4gIFNpbmNlIHRoZXJlIGFyZSBqdXN0IDIgdHVuaW5nIHBhcmFtZXRlcnMgaW4gdGhpcyBjYXNlLCB3ZSBjYW4gdmlzdWFsaXplIHRoZSBncmlkIHNlbGVjdGlvbnMuICBOb3RlIHRoZSBwZW5hbHR5IHBhcmFtZXRlciBpcyBvbiB0aGUgbG9nIGJhc2UgMTAgc2NhbGUgYnkgZGVmYXVsdC4gIFRoZSBkaWFscyBwYWNrYWdlIGhlbHBzIHVzIG1ha2Ugc21hcnRlciBjaG9pY2VzIGZvciB0aGUgY3JpdGljYWwgdHVuaW5nIHBhcmFtZXRlcnMuDQpgYGB7cn0NCnNldC5zZWVkKDM0NSkNCnJmX2dyaWQgPC0gZ3JpZF9tYXhfZW50cm9weShtaW5fbigpLCBtdHJ5KGMoMUwsIDEwTCkpLCBzaXplID0gMjApDQoNCnJmX2dyaWQgJT4lDQogIGdncGxvdChhZXMobWluX24sIG10cnkpKSArDQogIGdlb21fcG9pbnQoY29sb3IgPSAic3RlZWxibHVlIiwgc2l6ZSA9IDMpICsNCiAgI3NjYWxlX3hfbG9nMTAoKSArDQogIHRoZW1lX2xpZ2h0KCkgKw0KICBsYWJzKHRpdGxlID0gIk1heCBFbnRyb3B5IEdyaWQiLCB4ID0gIm1pbiBuIiwgeSA9ICJtdHJ5IikNCg0KcmZfZ3JpZA0KYGBgDQoNCkRlZmluZSBhIHdvcmtmbG93IGZvciB0aGUgdHVuaW5nIHByb2Nlc3MNCmBgYHtyfQ0KY29uY3JldGVfd2YgPC0gd29ya2Zsb3coKSAlPiUNCiAgYWRkX3JlY2lwZShjb25jcmV0ZV9yZWMpICU+JQ0KICBhZGRfbW9kZWwocmZfc3BlYykNCmBgYA0KDQpIeXBlcnBhcmFtZXRlciB0dW5pbmcgaXMgbm93IHBlcmZvcm1lZCB1c2luZyB0aGUgdHVuZV9ncmlkKCkgZnVuY3Rpb24gZnJvbSB0aGUgdHVuZSBwYWNrYWdlLiAgSGVyZSB3ZSBzcGVjaWZpYyB0aGUgZm9ybXVsYSwgbW9kZWwsIHJlc2FtcGxlcywgZ3JpZCBhbmQgbWV0cmljcy4gIFRoZSBtZXRyaWNzIGNvbWUgZnJvbSB0aGUgeWFyZHN0aWNrIHBhY2thZ2UuIEZvciByZWdyZXNzaW9uIHByb2JsZW1zLCB3ZSBjYW4gc3BlY2lmeSBtdWx0aXBsZSBtZXRyaWNzIHN1Y2ggYXMgbWFlLCBtYXBlLCBybXNlIGFuZCByc3EgaW50byBhIG1ldHJpY19zZXQoKS4NCmBgYHtyfQ0KZG9QYXJhbGxlbDo6cmVnaXN0ZXJEb1BhcmFsbGVsKCkNCg0Kc2V0LnNlZWQoNDU2KQ0KDQpiZWdpbiA8LSBTeXMudGltZSgpDQoNCnJmX3JlcyA8LSB0dW5lX2dyaWQoDQogIGNvbmNyZXRlX3dmLA0KICByZXNhbXBsZXMgPSBjb25jcmV0ZV9mb2xkcywNCiAgZ3JpZCA9IHJmX2dyaWQsDQogIG1ldHJpY3MgPSBtZXRyaWNfc2V0KHJtc2UsIHJzcSwgbWFlKSwNCiAgY29udHJvbCA9IGNvbnRyb2xfZ3JpZChzYXZlX3ByZWQgPSBUUlVFKQ0KKQ0KDQplbmQxIDwtIFN5cy50aW1lKCkgLSBiZWdpbg0KYGBgDQoNCiMjIyBTdGFnZSAyOiBDb21wYXJlIGFuZCBTZWxlY3QgdGhlIEJlc3QgTW9kZWwNCg0KSWRlbnRpZnkgdGhlIGJlc3QgaHlwZXJwYXJhbWV0ZXIgdmFsdWVzIHVzaW5nIHRoZSBzaG93X2Jlc3QoKSBmdW5jdGlvbi4NCmBgYHtyfQ0KcmZfcmVzICU+JSBzaG93X2Jlc3QoIm1hZSIsIG4gPSA1KQ0KYGBgDQpWaXN1YWxpemUgdGhlIHR1bmluZyByZXN1bHRzDQpgYGB7cn0NCmF1dG9wbG90KHJmX3JlcykNCmBgYA0KU2VsZWN0IHRoZSBiZXN0IHBhcmFtZXRlcnMgYmFzZWQgb24gdGhlIGxvd2VzdCBtZWFuIGFic29sdXRlIGVycm9yLg0KYGBge3J9DQpwYXJhbXNfcmZfYmVzdCA8LSByZl9yZXMgJT4lIHNlbGVjdF9iZXN0KCJtYWUiKQ0KcGFyYW1zX3JmX2Jlc3QNCmBgYA0KDQpGaW5hbGl6ZSB3b3JrZmxvdyB3aXRoIHRoZSBiZXN0IG1vZGVsIHBhcmFtZXRlcnMNCmBgYHtyfQ0KZmluYWxfcmYgPC0gZmluYWxpemVfd29ya2Zsb3coY29uY3JldGVfd2YsIHBhcmFtc19yZl9iZXN0KQ0KDQpmaW5hbF9yZg0KYGBgDQoNCldoaWNoIEZlYXR1cmVzIGFyZSBtb3N0IGltcG9ydGFudD8NCmBgYHtyfQ0KZmluYWxfcmYgJT4lDQogIGZpdChkYXRhID0gY29uY3JldGVfdHJhaW4pICU+JQ0KICBwdWxsX3dvcmtmbG93X2ZpdCgpICU+JQ0KICB2aXAoYWVzdGhldGljcyA9IGxpc3QoZmlsbCA9ICJzdGVlbGJsdWUiKSkgKw0KICBsYWJzKHRpdGxlID0gIlJhbmRvbSBGb3Jlc3QgTW9kZWwgSW1wb3J0YW5jZSAtIENvbXByZXNzaXZlIFN0cmVuZ3RoIChNUGEpIFByZWRpY3Rpb24iKQ0KYGBgDQoNCiMjIyBTdGFnZSAzOiBUcmFpbiBGaW5hbCBNb2RlbA0KDQpGaXQgbW9kZWwgb24gdHJhaW4gYW5kIGV2YWx1YXRlIG9uIHRlc3QuDQpgYGB7cn0NCmZpbmFsX3JlcyA8LSBsYXN0X2ZpdChmaW5hbF9yZiwgY29uY3JldGVfc3BsaXQsIG1ldHJpY3MgPSBtZXRyaWNfc2V0KHJtc2UsIHJzcSwgbWFlKSkNCmBgYA0KDQpBc3Nlc3MgZmluYWwgbW9kZWwgcGVyZm9ybWFuY2UgbWV0cmljcy4NCmBgYHtyfQ0KY29sbGVjdF9tZXRyaWNzKGZpbmFsX3JlcykNCmBgYA0KDQpWaXN1YWxpemUgYWN0dWFsIHZzLiBwcmVkaWN0ZWQgY29tcHJlc3NpdmUgc3RyZW5ndGggZm9yIGZpbmFsIG1vZGVsLg0KYGBge3J9DQpjb2xsZWN0X3ByZWRpY3Rpb25zKGZpbmFsX3JlcykgJT4lDQogIGdncGxvdChhZXMoY29tcHJlc3NpdmVfc3RyZW5ndGgsIC5wcmVkKSkgKw0KICBnZW9tX2FibGluZShzbG9wZSA9IDEsIGx0eSA9IDIsIGNvbG9yID0gImdyYXk1MCIsIGFscGhhID0gMC41KSArDQogIGdlb21fcG9pbnQoYWxwaGEgPSAwLjYsIGNvbG9yID0gIm1pZG5pZ2h0Ymx1ZSIpICsNCiAgeWxpbSgwLCBOQSkgKw0KICBsYWJzKHRpdGxlID0gIlJhbmRvbSBGb3Jlc3QgTW9kZWwgUGVyZm9ybWFuY2UgZm9yIENvbmNyZXRlIERhdGFzZXQiLCANCiAgICAgICB4ID0gIkFjdHVhbCBDb21wcmVzc2l2ZSBTdHJlbmd0aCAoTVBhKSIsIA0KICAgICAgIHkgPSAiUHJlZGljdGVkIENvbXByZXNzaXZlIFN0cmVuZ3RoIChNUGEpIikNCmBgYA0K</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2020-12-04_ConcreteRF.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

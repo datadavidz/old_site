@@ -7,6 +7,15 @@ output: html_document
 
 <br><br>
 
+### **Concrete Dataset Part 7: Random Forest Model using ranger**
+*Posted on December 4, 2020*
+
+A random forest model is fit to predict the compressive strength of concrete formulation using a tidymodels approach.  The random forest model showed similar performance to the XGBoost model only slightly worse.
+
+[Full post](2020-12-04_ConcreteRF.html)
+
+***
+
 ### **Concrete Dataset Part 6: Extreme Gradient Boosted Tree Model using XGboost**
 *Posted on December 3, 2020*
 

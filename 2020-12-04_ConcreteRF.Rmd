@@ -1,0 +1,185 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+<br>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(knitr)
+library(readxl)
+library(tidyverse)
+
+#Tidymodels
+library(tidymodels)
+library(vip)
+```
+
+## **Random Forest Modeling of the Concrete Compressive Strength Dataset**
+*Posted on December 4, 2020*
+
+In this post, we will begin to use machine learning techniques for predicting compressive strength of formulations using the concrete dataset.  In a previous post, we created a model using a conventional material modeling approach which resulted in an R^2^ of 0.78.  Here we will use a random forest model to predict compressive strength and compare the results with the conventional material model.
+
+```{r, include=FALSE}
+filename <- "Concrete_Data.xls"
+
+folder <- "./data/"
+numberCols <- 9 #total number of columns in spreadsheet
+
+colTypes <- rep("numeric", numberCols)
+concrete_tbl <- read_excel(path = paste0(folder, filename), col_types = colTypes)
+
+concrete_tbl <- concrete_tbl %>%
+  rename(cement = starts_with("Cement")) %>%
+  rename(blast_furnace_slag = starts_with("Blast")) %>%
+  rename(fly_ash = starts_with("Fly Ash")) %>%
+  rename(water = starts_with("Water")) %>%
+  rename(superplasticizer = starts_with("Super")) %>%
+  rename(coarse_aggregate = starts_with("Coarse")) %>%
+  rename(fine_aggregate = starts_with("Fine")) %>%
+  rename(age = starts_with("Age")) %>%
+  rename(compressive_strength = starts_with("Concrete"))
+```
+
+Initial splitting of the dataset into Training and Test Dataset  Here we use the rsample package to create an 80/20 split.  The concrete dataset contains 1030 formulations of which 825 are randomly assigned to training and 205 are randomly assigned to testing.
+```{r}
+set.seed(123)
+concrete_split <- initial_split(concrete_tbl, prop = 0.80)
+concrete_train <- training(concrete_split)
+concrete_test <- testing(concrete_split)
+```
+
+Preprocessing is accomplished by using the recipe package.  The recipe provides the steps required to transform our raw data into a dataset suitable for machine learning.  The Concrete dataset actually doesn't require much reformatting.  The major issue was the lengthy column names which was addressed immediately after the dataset was imported.  The dataset contained all numerical values and no missing data.  Initially we will just center and scale the predictors before sending to the nnet model.
+```{r}
+concrete_rec <- recipe(compressive_strength ~ ., data = concrete_train) %>%
+  step_center(all_predictors()) %>%
+  step_scale(all_predictors())
+
+concrete_rec
+```
+
+Cross validation folds are created in order to assess the performance of the model parameters.  Here we use 5-fold cross validation to create splits from our training dataset and also using the preprocessing pipeline specified above.
+```{r}
+set.seed(234)
+concrete_folds <- vfold_cv(concrete_train, v = 5)
+
+concrete_folds
+```
+
+Model specifications are created using the parsnip package.  Here we specify a random forest model using the ranger engine.  Notice that the min n and mtry parameters have been specified to be tuned.  
+
+```{r}
+rf_spec = rand_forest(
+  trees = 1000,
+  min_n = tune(),
+  mtry = tune()
+) %>%
+  set_engine("ranger", importance = "permutation") %>%
+  set_mode("regression")
+
+rf_spec
+```
+
+Grid specifications sets up a variety of parameter values used with our model to find which combination yields the lowest prediction error (or best accuracy).  Here we specify the parameter ranges and grid function using the dials package.
+
+Specify the grid function (max entropy, hypercube etc.).  Here we make a grid of 20 values using the grid_max_entropy() function in the dials package.  Since there are just 2 tuning parameters in this case, we can visualize the grid selections.  Note the penalty parameter is on the log base 10 scale by default.  The dials package helps us make smarter choices for the critical tuning parameters.
+```{r}
+set.seed(345)
+rf_grid <- grid_max_entropy(min_n(), mtry(c(1L, 10L)), size = 20)
+
+rf_grid %>%
+  ggplot(aes(min_n, mtry)) +
+  geom_point(color = "steelblue", size = 3) +
+  #scale_x_log10() +
+  theme_light() +
+  labs(title = "Max Entropy Grid", x = "min n", y = "mtry")
+
+rf_grid
+```
+
+Define a workflow for the tuning process
+```{r}
+concrete_wf <- workflow() %>%
+  add_recipe(concrete_rec) %>%
+  add_model(rf_spec)
+```
+
+Hyperparameter tuning is now performed using the tune_grid() function from the tune package.  Here we specific the formula, model, resamples, grid and metrics.  The metrics come from the yardstick package. For regression problems, we can specify multiple metrics such as mae, mape, rmse and rsq into a metric_set().
+```{r}
+doParallel::registerDoParallel()
+
+set.seed(456)
+
+begin <- Sys.time()
+
+rf_res <- tune_grid(
+  concrete_wf,
+  resamples = concrete_folds,
+  grid = rf_grid,
+  metrics = metric_set(rmse, rsq, mae),
+  control = control_grid(save_pred = TRUE)
+)
+
+end1 <- Sys.time() - begin
+```
+
+### Stage 2: Compare and Select the Best Model
+
+Identify the best hyperparameter values using the show_best() function.
+```{r}
+rf_res %>% show_best("mae", n = 5)
+```
+Visualize the tuning results
+```{r}
+autoplot(rf_res)
+```
+Select the best parameters based on the lowest mean absolute error.
+```{r}
+params_rf_best <- rf_res %>% select_best("mae")
+params_rf_best
+```
+
+Finalize workflow with the best model parameters
+```{r}
+final_rf <- finalize_workflow(concrete_wf, params_rf_best)
+
+final_rf
+```
+
+Which Features are most important?
+```{r}
+final_rf %>%
+  fit(data = concrete_train) %>%
+  pull_workflow_fit() %>%
+  vip(aesthetics = list(fill = "steelblue")) +
+  labs(title = "Random Forest Model Importance - Compressive Strength (MPa) Prediction")
+```
+
+### Stage 3: Train Final Model
+
+Fit model on train and evaluate on test.
+```{r}
+final_res <- last_fit(final_rf, concrete_split, metrics = metric_set(rmse, rsq, mae))
+```
+
+Assess final model performance metrics.
+```{r}
+collect_metrics(final_res)
+```
+
+Visualize actual vs. predicted compressive strength for final model.
+```{r}
+collect_predictions(final_res) %>%
+  ggplot(aes(compressive_strength, .pred)) +
+  geom_abline(slope = 1, lty = 2, color = "gray50", alpha = 0.5) +
+  geom_point(alpha = 0.6, color = "midnightblue") +
+  ylim(0, NA) +
+  labs(title = "Random Forest Model Performance for Concrete Dataset", 
+       x = "Actual Compressive Strength (MPa)", 
+       y = "Predicted Compressive Strength (MPa)")
+```
