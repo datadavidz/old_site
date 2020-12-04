@@ -79,7 +79,7 @@ rf_spec = rand_forest(
   min_n = tune(),
   mtry = tune()
 ) %>%
-  set_engine("ranger", importance = "permutation") %>%
+  set_engine("ranger") %>%
   set_mode("regression")
 
 rf_spec
@@ -98,8 +98,6 @@ rf_grid %>%
   #scale_x_log10() +
   theme_light() +
   labs(title = "Max Entropy Grid", x = "min n", y = "mtry")
-
-rf_grid
 ```
 
 Define a workflow for the tuning process
@@ -110,7 +108,7 @@ concrete_wf <- workflow() %>%
 ```
 
 Hyperparameter tuning is now performed using the tune_grid() function from the tune package.  Here we specific the formula, model, resamples, grid and metrics.  The metrics come from the yardstick package. For regression problems, we can specify multiple metrics such as mae, mape, rmse and rsq into a metric_set().
-```{r}
+```{r, cache = TRUE}
 doParallel::registerDoParallel()
 
 set.seed(456)
@@ -151,9 +149,15 @@ final_rf <- finalize_workflow(concrete_wf, params_rf_best)
 final_rf
 ```
 
-Which Features are most important?
+Which Features are most important?  For random forest, we are defining the importance measure as permutation which requires a new specification since including this calculation in the initial specification would slow down the tuning process.
 ```{r}
-final_rf %>%
+imp_spec <- rf_spec %>%
+  finalize_model(params_rf_best) %>%
+  set_engine("ranger", importance = "permutation")
+
+workflow() %>%
+  add_recipe(concrete_rec) %>%
+  add_model(imp_spec) %>%
   fit(data = concrete_train) %>%
   pull_workflow_fit() %>%
   vip(aesthetics = list(fill = "steelblue")) +
