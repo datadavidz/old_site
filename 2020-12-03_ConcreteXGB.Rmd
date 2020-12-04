@@ -20,7 +20,7 @@ library(tidymodels)
 library(vip)
 ```
 
-## **Extreme Gradient Boosting Modeling of the Concrete Compressive Strength Dataset**
+## **Extreme Gradient Boosting Model for the Concrete Compressive Strength Dataset**
 *Posted on December 3, 2020*
 
 In this post, we will begin to use machine learning techniques for predicting compressive strength of formulations using the concrete dataset.  In a previous post, we created a model using a conventional material modeling approach which resulted in an R^2^ of 0.78.  Here we will use an XGBoost model to predict compressive strength and compare the results with the conventional material model.
@@ -74,7 +74,6 @@ concrete_folds
 ```
 
 Model specifications are created using the parsnip package.  Here we specify a boosted tree model using the XGBoost engine.  Notice that the min n, tree depth and learn rate parameters have been specified to be tuned.  
-
 ```{r}
 xgboost_spec = boost_tree(
   mode = "regression",
@@ -88,17 +87,10 @@ xgboost_spec = boost_tree(
 
 xgboost_spec
 ```
-
+Grid specifications sets up a variety of parameter values used with our model to find which combination yields the lowest prediction error (or best accuracy).  Here we specify the parameter ranges and grid function using the dials package.
 ```{r}
 set.seed(345)
 xgboost_grid <- grid_max_entropy(min_n(), tree_depth(), learn_rate(), size = 30)
-
-# xgboost_grid %>%
-#   ggplot(aes(penalty, hidden_units)) +
-#   geom_point(color = "steelblue", size = 3) +
-#   scale_x_log10() +
-#   theme_light() +
-#   labs(title = "Max Entropy Grid", x = "Penalty (log scale)", y = "Hidden Units")
 
 xgboost_grid
 ```
@@ -111,7 +103,7 @@ concrete_wf <- workflow() %>%
 ```
 
 Hyperparameter tuning is now performed using the tune_grid() function from the tune package.  Here we specific the formula, model, resamples, grid and metrics.  The metrics come from the yardstick package. For regression problems, we can specify multiple metrics such as mae, mape, rmse and rsq into a metric_set().
-```{r}
+```{r, cache = TRUE}
 doParallel::registerDoParallel()
 
 set.seed(456)
@@ -136,8 +128,8 @@ Identify the best hyperparameter values using the show_best() function.
 xgboost_res %>% show_best("mae", n = 5)
 ```
 
-Visualize the tuning results
-```{r}
+Visualize the tuning results  
+```{r, echo = FALSE}
 autoplot(xgboost_res)
 ```
 
@@ -176,7 +168,7 @@ collect_metrics(final_res)
 ```
 
 Visualize actual vs. predicted compressive strength for final model.
-```{r}
+```{r, echo = FALSE}
 collect_predictions(final_res) %>%
   ggplot(aes(compressive_strength, .pred)) +
   geom_abline(slope = 1, lty = 2, color = "gray50", alpha = 0.5) +
@@ -185,4 +177,11 @@ collect_predictions(final_res) %>%
   labs(title = "XGBoost Model Performance for Concrete Dataset", 
        x = "Actual Compressive Strength (MPa)", 
        y = "Predicted Compressive Strength (MPa)")
+```
+```{r, include = FALSE}
+#save the metrics
+#collect_metrics(final_res) %>% mutate(model = "xgboost") %>% saveRDS(file = "results/concrete_xgb_metrics.rds")
+
+#fit final model with all data and save
+#fit(final_xgboost, data = concrete_tbl) %>% saveRDS(file = "results/concrete_xgb_model.rds")
 ```
