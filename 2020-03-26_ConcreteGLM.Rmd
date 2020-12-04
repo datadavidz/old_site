@@ -122,7 +122,7 @@ concrete_wf <- workflow() %>%
 ```
 
 Hyperparameter tuning is now performed using the tune_grid() function from the tune package.  Here we specific the formula, model, resamples, grid and metrics.  The metrics come from the yardstick package. For regression problems, we can specify multiple metrics such as mae, mape, rmse and rsq into a metric_set().
-```{r}
+```{r, cache = TRUE}
 doParallel::registerDoParallel()
 
 glmnet_res <- tune_grid(
@@ -139,8 +139,8 @@ Identify the best hyperparameter values using the show_best() function.
 glmnet_res %>% show_best("mae", n = 5)
 ```
 
-Visualize the tuning results
-```{r}
+Visualize the tuning results  
+```{r, echo = FALSE}
 autoplot(glmnet_res)
 ```
 
@@ -179,8 +179,8 @@ Assess final model performance metrics.
 collect_metrics(final_res)
 ```
 
-Visualize actual vs. predicted compressive strength for final model.
-```{r}
+Visualize actual vs. predicted compressive strength for final model.  
+```{r, echo = FALSE}
 collect_predictions(final_res) %>%
   ggplot(aes(compressive_strength, .pred)) +
   geom_abline(slope = 1, lty = 2, color = "gray50", alpha = 0.5) +
@@ -189,4 +189,11 @@ collect_predictions(final_res) %>%
   labs(title = "GLMnet Model Performance for Concrete Dataset", 
        x = "Actual Compressive Strength (MPa)", 
        y = "Predicted Compressive Strength (MPa)")
+```
+```{r, include = FALSE}
+#save the metrics
+#collect_metrics(final_res) %>% mutate(model = "glm") %>% saveRDS(file = "results/concrete_glm_metrics.rds")
+
+#fit final model with all data and save
+#fit(final_glmnet, data = concrete_tbl) %>% saveRDS(file = "results/concrete_glm_model.rds")
 ```
