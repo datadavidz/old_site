@@ -132,10 +132,11 @@ Identify the best hyperparameter values using the show_best() function.
 ```{r}
 rf_res %>% show_best("mae", n = 5)
 ```
-Visualize the tuning results
-```{r}
+Visualize the tuning results  
+```{r, echo = FALSE}
 autoplot(rf_res)
 ```
+
 Select the best parameters based on the lowest mean absolute error.
 ```{r}
 params_rf_best <- rf_res %>% select_best("mae")
@@ -176,8 +177,8 @@ Assess final model performance metrics.
 collect_metrics(final_res)
 ```
 
-Visualize actual vs. predicted compressive strength for final model.
-```{r}
+Visualize actual vs. predicted compressive strength for final model.  
+```{r, echo = FALSE}
 collect_predictions(final_res) %>%
   ggplot(aes(compressive_strength, .pred)) +
   geom_abline(slope = 1, lty = 2, color = "gray50", alpha = 0.5) +
@@ -187,3 +188,11 @@ collect_predictions(final_res) %>%
        x = "Actual Compressive Strength (MPa)", 
        y = "Predicted Compressive Strength (MPa)")
 ```
+```{r, include = FALSE}
+#save the metrics
+#collect_metrics(final_res) %>% mutate(model = "rf") %>% saveRDS(file = "results/concrete_rf_metrics.rds")
+
+#fit final model with all data and save
+#fit(final_rf, data = concrete_tbl) %>% saveRDS(file = "results/concrete_rf_model.rds")
+```
+
