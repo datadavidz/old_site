@@ -82,8 +82,8 @@ csFit <- nls(cs ~ csFunc(wc, age, a, b, c, d), start=list(a=30, b=-0.6, c=0.3, d
 
 summary(csFit)
 ```
-Add nls fit to table
-```{r}
+Visualize actual vs. predicted compressive strength for water:cement model.  
+```{r, echo = FALSE}
 concrete_tbl <- concrete_tbl %>%
   mutate(nls_wc = predict(csFit)) 
 
@@ -106,8 +106,8 @@ csFit_wb <- nls(cs ~ csFunc(wb, age, a, b, c, d), start=list(a=10, b=-0.5, c=10,
 
 summary(csFit_wb)
 ```
-
-```{r}
+Visualize actual vs. predicted compressive strength for water:binder model.  
+```{r, echo = FALSE}
 concrete_tbl <- concrete_tbl %>%
   mutate(nls_wb = predict(csFit_wb)) 
 
@@ -123,3 +123,14 @@ concrete_tbl %>%
 ```
 
 The NLS model using water:binder was a better fit to the experimental data than the NLS model using water:cement.  The R^2^ for the water:binder model was 0.78 compared to an R^2^ of 0.65 for the water:cement model.
+
+```{r, include = FALSE}
+#manually calculate the metrics
+# tribble(
+#   ~.metric, ~.estimator, ~.estimate,
+#   "rmse",    "standard",  sqrt(mean((concrete_tbl$compressive_strength - concrete_tbl$nls_wb)^2)),
+#   "rsq",     "standard",  cor(concrete_tbl$compressive_strength, concrete_tbl$nls_wb)^2,
+#   "mae",     "standard",  mean(abs(concrete_tbl$compressive_strength - concrete_tbl$nls_wb))
+# ) %>% mutate(model = "nls") %>% saveRDS(file = "results/concrete_nls_metrics.rds")
+```
+
