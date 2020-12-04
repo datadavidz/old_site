@@ -113,9 +113,9 @@ Hyperparameter tuning is now performed using the tune_grid() function from the t
 ```{r}
 doParallel::registerDoParallel()
 
-set.seed(456)
-
 begin <- Sys.time()
+
+set.seed(456)
 
 nnet_res <- tune_grid(
   concrete_wf,
@@ -126,6 +126,7 @@ nnet_res <- tune_grid(
 )
 
 end1 <- Sys.time() - begin
+
 ```
 
 
@@ -135,8 +136,8 @@ Identify the best hyperparameter values using the show_best() function.
 ```{r}
 nnet_res %>% show_best("mae", n = 5)
 ```
-Visualize the tuning results
-```{r}
+Visualize the tuning results  
+```{r, echo = FALSE}
 autoplot(nnet_res)
 ```
 
@@ -151,7 +152,7 @@ final_nnet <- finalize_workflow(concrete_wf, params_nnet_best)
 
 final_nnet
 ```
-Which Features are most important?
+Which Features are most important?  
 ```{r}
 set.seed(567)
 
@@ -176,8 +177,8 @@ Assess final model performance metrics.
 collect_metrics(final_res)
 ```
 
-Visualize actual vs. predicted compressive strength for final model.
-```{r}
+Visualize actual vs. predicted compressive strength for final model.  
+```{r, echo = FALSE}
 collect_predictions(final_res) %>%
   ggplot(aes(compressive_strength, .pred)) +
   geom_abline(slope = 1, lty = 2, color = "gray50", alpha = 0.5) +
@@ -187,4 +188,10 @@ collect_predictions(final_res) %>%
        x = "Actual Compressive Strength (MPa)", 
        y = "Predicted Compressive Strength (MPa)")
 ```
+```{r, include = FALSE}
+#save the metrics
+#collect_metrics(final_res) %>% mutate(model = "mlp") %>% saveRDS(file = "results/concrete_mlp_metrics.rds")
 
+#fit final model with all data and save
+#fit(final_nnet, data = concrete_tbl) %>% saveRDS(file = "results/concrete_mlp_model.rds")
+```
