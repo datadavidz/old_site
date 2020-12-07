@@ -61,7 +61,7 @@ metrics_summary %>%
 
 As shown in the figure and table above, the random forest (rf) and boosted tree (xgboost) models showed a significant improvement in predictive capability as compared with the conventional modeling approach (nls).  The xgboost model had an R^2^ of 0.95 compared to 0.78 for the nls model with similar improvements in root mean square error and mean absolute error.  The glmnet model gave worse performance than the non-linear models.
 
-##Benchmark performance
+## Benchmark performance
 
 Here we load the final models for the different approaches for comparison of prediction time.  In this case, the time to make predictions for 10,300 (10 times the original dataset) was determined as a benchmark.
 ```{r}
