@@ -14,6 +14,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 library(readxl)
 library(tidyverse)
+
+theme_set(theme_light())
 ```
 
 ## **Conventional Material Models for Concrete Dataset**
@@ -132,5 +134,7 @@ The NLS model using water:binder was a better fit to the experimental data than 
 #   "rsq",     "standard",  cor(concrete_tbl$compressive_strength, concrete_tbl$nls_wb)^2,
 #   "mae",     "standard",  mean(abs(concrete_tbl$compressive_strength - concrete_tbl$nls_wb))
 # ) %>% mutate(model = "nls") %>% saveRDS(file = "results/concrete_nls_metrics.rds")
+
+#csFit_wb %>% saveRDS(file = "results/concrete_nls_model.rds")
 ```
 
