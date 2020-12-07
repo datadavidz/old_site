@@ -1,0 +1,156 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+<br>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE}
+library(knitr)
+library(readxl)
+library(tidyverse)
+library(tidymodels)
+```
+
+
+## **Summary of Models to Predict the Strength of High Performance Concrete**
+*Posted on December 4, 2020*
+
+Several models have been created to predict the compressive strength of high performance concrete based on the I-Cheng Yeh [dataset](http://archive.ics.uci.edu/ml/datasets/Concrete+Compressive+Strength).  A conventional material model using a pre-determined transfer function which was fit to the data using a non-linear least squares approach. Four different models were created using machine learning algorithms, elastic net (glmnet), single-layer neural net (nnet), random forest (ranger) and boosted tree (xgboost), applied to the dataset.
+
+## Predictive Accuracy
+
+Each model performance was assessed by several metrics: R-squared (R^2^), Root Mean Square Error (RMSE) and Mean Absolute Error (MAE).
+```{r, include = FALSE}
+#load all the metrics
+metrics_summary <- bind_rows(
+  readRDS("results/concrete_nls_metrics.rds"),
+  readRDS("results/concrete_glm_metrics.rds"),
+  readRDS("results/concrete_mlp_metrics.rds"),
+  readRDS("results/concrete_xgb_metrics.rds"),
+  readRDS("results/concrete_rf_metrics.rds")
+)
+```
+
+```{r, echo = FALSE}
+metrics_summary %>%
+  mutate(model = fct_relevel(factor(model), "nls", "glm", "mlp", "rf", "xgboost")) %>%
+  ggplot(aes(x = model, y = .estimate, fill = model)) +
+  geom_col() +
+  #geom_label(aes(label = round(.estimate, 2)), size = 3) +
+  scale_fill_manual(values = c("gray50", rep("steelblue", 3), "midnightblue"), guide = FALSE) +
+  facet_wrap(~.metric, nrow = 2, scales = "free_y") +
+  labs(x = NULL, y = NULL) +
+  theme_light()
+
+```
+```{r, echo = FALSE}
+#create a summary table of model ststs
+metrics_summary %>%
+  mutate(.estimate = round(.estimate, 2)) %>%
+  pivot_wider(names_from = model, values_from = .estimate) %>%
+  select(.metric, nls, glm, mlp, rf, xgboost) %>%
+  rename(metric = .metric) %>%
+  kable()
+```
+
+As shown in the figure and table above, the random forest (rf) and boosted tree (xgboost) models showed a significant improvement in predictive capability as compared with the conventional modeling approach (nls).  The xgboost model had an R^2^ of 0.95 compared to 0.78 for the nls model with similar improvements in root mean square error and mean absolute error.  The glmnet model gave worse performance than the non-linear models.
+
+##Benchmark performance
+
+Here we load the final models for the different approaches for comparison of prediction time.  In this case, the time to make predictions for 10,300 (10 times the original dataset) was determined as a benchmark.
+```{r}
+#load all the models
+concrete_nls <- readRDS("results/concrete_nls_model.rds")
+concrete_glm <- readRDS("results/concrete_glm_model.rds")
+concrete_mlp <- readRDS("results/concrete_mlp_model.rds")
+concrete_rf <- readRDS("results/concrete_rf_model.rds")
+concrete_xgb <- readRDS("results/concrete_xgb_model.rds")
+```
+
+
+```{r, include=FALSE}
+filename <- "Concrete_Data.xls"
+
+folder <- "./data/"
+numberCols <- 9 #total number of columns in spreadsheet
+
+colTypes <- rep("numeric", numberCols)
+concrete_tbl <- read_excel(path = paste0(folder, filename), col_types = colTypes)
+
+concrete_tbl <- concrete_tbl %>%
+  rename(cement = starts_with("Cement")) %>%
+  rename(blast_furnace_slag = starts_with("Blast")) %>%
+  rename(fly_ash = starts_with("Fly Ash")) %>%
+  rename(water = starts_with("Water")) %>%
+  rename(superplasticizer = starts_with("Super")) %>%
+  rename(coarse_aggregate = starts_with("Coarse")) %>%
+  rename(fine_aggregate = starts_with("Fine")) %>%
+  rename(age = starts_with("Age")) %>%
+  rename(compressive_strength = starts_with("Concrete"))
+
+#create a dataset for prediction by taking original data x 10
+temp <- concrete_tbl %>% slice(rep(row_number(), 10))
+```
+
+Benchmarking was performed in the following manner using Sys.time to capture the time before and after each set of model predictions.
+```{r, results = "hide"}
+begin <- Sys.time()
+a_temp <- predict(concrete_nls, new_data = temp)
+end1 <- Sys.time()
+
+b_temp <- predict(concrete_glm, new_data = temp)
+end2 <- Sys.time()
+
+c_temp <- predict(concrete_mlp, new_data = temp)
+end3 <- Sys.time()
+
+d_temp <- predict(concrete_rf, new_data = temp)
+end4 <- Sys.time()
+
+e_temp <- predict(concrete_xgb, new_data = temp)
+end5 <- Sys.time()
+
+# print(end1 - begin)[[1]]
+# print(end2 - end1)[[1]]
+# print(end3 - end2)[[1]]
+# print(end4 - end3)[[1]]
+
+rm(temp)
+```
+
+As shown in the figure and table below, the xgboost model was the slowest taking about 1 second to perform 10,300 predictions.  For the example of making a prediction of compressive strength of concrete for a particular formulation, however, this amount of time is trivial and the increased accuracy would be preferred over a faster and less accurate model.
+```{r, include = FALSE}
+#create a tibble with the model times
+model_times <- tribble(~model, ~time,
+                        "nls", (end1 - begin)[[1]], 
+                        "glm", (end2 - end1)[[1]], 
+                        "mlp", (end3 - end2)[[1]], 
+                        "rf", (end4 - end3)[[1]], 
+                        "xgboost", (end5 - end4)[[1]]
+  ) %>%
+  mutate(time = round(time * 1000, 0)) %>%
+  mutate(model = fct_relevel(factor(model), "nls", "glm", "mlp", "rf", "xgboost"))
+```
+
+```{r, echo = FALSE}
+#create a plot of the model times
+model_times %>%
+  ggplot(aes(x = model, y = time, fill = model)) +
+  geom_col() +
+  scale_fill_manual(values = c("gray50", rep("steelblue", 3), "midnightblue"), guide = FALSE) +
+  labs(title = "Model Benchmark for 10K Predictions", x = NULL, y = "Prediction Time (ms)") +
+  theme_light()
+```
+
+```{r, echo = FALSE}
+#create a summary table of model times
+model_times %>%
+  kable(col.names = c("Model", "Time (ms)"))
+```
+Prediction with the conventional model (nls) is about two orders of magnitude faster than the boosted tree model (xgboost).  It should be noted that the random forest model is about 40% faster than the xgboost model, in this case, with similar predictive accuracy.

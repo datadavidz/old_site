@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2020-12-04_ConcreteSummary.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="summary-of-models-to-predict-the-strength-of-high-performance-concrete" class="section level2">
+<h2><strong>Summary of Models to Predict the Strength of High Performance Concrete</strong></h2>
+<p><em>Posted on December 4, 2020</em></p>
+<p>Several models have been created to predict the compressive strength of high performance concrete based on the I-Cheng Yeh <a href="http://archive.ics.uci.edu/ml/datasets/Concrete+Compressive+Strength">dataset</a>. A conventional material model using a pre-determined transfer function which was fit to the data using a non-linear least squares approach. Four different models were created using machine learning algorithms, elastic net (glmnet), single-layer neural net (nnet), random forest (ranger) and boosted tree (xgboost), applied to the dataset.</p>
+</div>
+<div id="predictive-accuracy" class="section level2">
+<h2>Predictive Accuracy</h2>
+<p>Each model performance was assessed by several metrics: R-squared (R<sup>2</sup>), Root Mean Square Error (RMSE) and Mean Absolute Error (MAE).</p>
+<p><img src="2020-12-04_ConcreteSummary_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">metric</th>
+<th align="right">nls</th>
+<th align="right">glm</th>
+<th align="right">mlp</th>
+<th align="right">rf</th>
+<th align="right">xgboost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">rmse</td>
+<td align="right">7.76</td>
+<td align="right">10.31</td>
+<td align="right">4.83</td>
+<td align="right">4.19</td>
+<td align="right">3.67</td>
+</tr>
+<tr class="even">
+<td align="left">rsq</td>
+<td align="right">0.78</td>
+<td align="right">0.61</td>
+<td align="right">0.92</td>
+<td align="right">0.94</td>
+<td align="right">0.95</td>
+</tr>
+<tr class="odd">
+<td align="left">mae</td>
+<td align="right">5.95</td>
+<td align="right">8.12</td>
+<td align="right">3.79</td>
+<td align="right">2.98</td>
+<td align="right">2.57</td>
+</tr>
+</tbody>
+</table>
+<p>As shown in the figure and table above, the random forest (rf) and boosted tree (xgboost) models showed a significant improvement in predictive capability as compared with the conventional modeling approach (nls). The xgboost model had an R<sup>2</sup> of 0.95 compared to 0.78 for the nls model with similar improvements in root mean square error and mean absolute error. The glmnet model gave worse performance than the non-linear models.</p>
+<p>##Benchmark performance</p>
+<p>Here we load the final models for the different approaches for comparison of prediction time. In this case, the time to make predictions for 10,300 (10 times the original dataset) was determined as a benchmark.</p>
+<pre class="r"><code>#load all the models
+concrete_nls &lt;- readRDS(&quot;results/concrete_nls_model.rds&quot;)
+concrete_glm &lt;- readRDS(&quot;results/concrete_glm_model.rds&quot;)
+concrete_mlp &lt;- readRDS(&quot;results/concrete_mlp_model.rds&quot;)
+concrete_rf &lt;- readRDS(&quot;results/concrete_rf_model.rds&quot;)
+concrete_xgb &lt;- readRDS(&quot;results/concrete_xgb_model.rds&quot;)</code></pre>
+<p>Benchmarking was performed in the following manner using Sys.time to capture the time before and after each set of model predictions.</p>
+<pre class="r"><code>begin &lt;- Sys.time()
+a_temp &lt;- predict(concrete_nls, new_data = temp)
+end1 &lt;- Sys.time()
+
+b_temp &lt;- predict(concrete_glm, new_data = temp)
+end2 &lt;- Sys.time()
+
+c_temp &lt;- predict(concrete_mlp, new_data = temp)
+end3 &lt;- Sys.time()
+
+d_temp &lt;- predict(concrete_rf, new_data = temp)
+end4 &lt;- Sys.time()
+
+e_temp &lt;- predict(concrete_xgb, new_data = temp)
+end5 &lt;- Sys.time()
+
+# print(end1 - begin)[[1]]
+# print(end2 - end1)[[1]]
+# print(end3 - end2)[[1]]
+# print(end4 - end3)[[1]]
+
+rm(temp)</code></pre>
+<p>As shown in the figure and table below, the xgboost model was the slowest taking about 1 second to perform 10,300 predictions. For the example of making a prediction of compressive strength of concrete for a particular formulation, however, this amount of time is trivial and the increased accuracy would be preferred over a faster and less accurate model.</p>
+<p><img src="2020-12-04_ConcreteSummary_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Model</th>
+<th align="right">Time (ms)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">nls</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">glm</td>
+<td align="right">101</td>
+</tr>
+<tr class="odd">
+<td align="left">mlp</td>
+<td align="right">48</td>
+</tr>
+<tr class="even">
+<td align="left">rf</td>
+<td align="right">549</td>
+</tr>
+<tr class="odd">
+<td align="left">xgboost</td>
+<td align="right">852</td>
+</tr>
+</tbody>
+</table>
+<p>Prediction with the conventional model (nls) is about two orders of magnitude faster than the boosted tree model (xgboost). It should be noted that the random forest model is about 40% faster than the xgboost model, in this case, with similar predictive accuracy.</p>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCmBgYHtyLCBpbmNsdWRlID0gRkFMU0V9DQpsaWJyYXJ5KGtuaXRyKQ0KbGlicmFyeShyZWFkeGwpDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkodGlkeW1vZGVscykNCmBgYA0KDQoNCiMjICoqU3VtbWFyeSBvZiBNb2RlbHMgdG8gUHJlZGljdCB0aGUgU3RyZW5ndGggb2YgSGlnaCBQZXJmb3JtYW5jZSBDb25jcmV0ZSoqDQoqUG9zdGVkIG9uIERlY2VtYmVyIDQsIDIwMjAqDQoNClNldmVyYWwgbW9kZWxzIGhhdmUgYmVlbiBjcmVhdGVkIHRvIHByZWRpY3QgdGhlIGNvbXByZXNzaXZlIHN0cmVuZ3RoIG9mIGhpZ2ggcGVyZm9ybWFuY2UgY29uY3JldGUgYmFzZWQgb24gdGhlIEktQ2hlbmcgWWVoIFtkYXRhc2V0XShodHRwOi8vYXJjaGl2ZS5pY3MudWNpLmVkdS9tbC9kYXRhc2V0cy9Db25jcmV0ZStDb21wcmVzc2l2ZStTdHJlbmd0aCkuICBBIGNvbnZlbnRpb25hbCBtYXRlcmlhbCBtb2RlbCB1c2luZyBhIHByZS1kZXRlcm1pbmVkIHRyYW5zZmVyIGZ1bmN0aW9uIHdoaWNoIHdhcyBmaXQgdG8gdGhlIGRhdGEgdXNpbmcgYSBub24tbGluZWFyIGxlYXN0IHNxdWFyZXMgYXBwcm9hY2guIEZvdXIgZGlmZmVyZW50IG1vZGVscyB3ZXJlIGNyZWF0ZWQgdXNpbmcgbWFjaGluZSBsZWFybmluZyBhbGdvcml0aG1zLCBlbGFzdGljIG5ldCAoZ2xtbmV0KSwgc2luZ2xlLWxheWVyIG5ldXJhbCBuZXQgKG5uZXQpLCByYW5kb20gZm9yZXN0IChyYW5nZXIpIGFuZCBib29zdGVkIHRyZWUgKHhnYm9vc3QpLCBhcHBsaWVkIHRvIHRoZSBkYXRhc2V0Lg0KDQojIyBQcmVkaWN0aXZlIEFjY3VyYWN5DQoNCkVhY2ggbW9kZWwgcGVyZm9ybWFuY2Ugd2FzIGFzc2Vzc2VkIGJ5IHNldmVyYWwgbWV0cmljczogUi1zcXVhcmVkIChSXjJeKSwgUm9vdCBNZWFuIFNxdWFyZSBFcnJvciAoUk1TRSkgYW5kIE1lYW4gQWJzb2x1dGUgRXJyb3IgKE1BRSkuDQpgYGB7ciwgaW5jbHVkZSA9IEZBTFNFfQ0KI2xvYWQgYWxsIHRoZSBtZXRyaWNzDQptZXRyaWNzX3N1bW1hcnkgPC0gYmluZF9yb3dzKA0KICByZWFkUkRTKCJyZXN1bHRzL2NvbmNyZXRlX25sc19tZXRyaWNzLnJkcyIpLA0KICByZWFkUkRTKCJyZXN1bHRzL2NvbmNyZXRlX2dsbV9tZXRyaWNzLnJkcyIpLA0KICByZWFkUkRTKCJyZXN1bHRzL2NvbmNyZXRlX21scF9tZXRyaWNzLnJkcyIpLA0KICByZWFkUkRTKCJyZXN1bHRzL2NvbmNyZXRlX3hnYl9tZXRyaWNzLnJkcyIpLA0KICByZWFkUkRTKCJyZXN1bHRzL2NvbmNyZXRlX3JmX21ldHJpY3MucmRzIikNCikNCmBgYA0KDQpgYGB7ciwgZWNobyA9IEZBTFNFfQ0KbWV0cmljc19zdW1tYXJ5ICU+JQ0KICBtdXRhdGUobW9kZWwgPSBmY3RfcmVsZXZlbChmYWN0b3IobW9kZWwpLCAibmxzIiwgImdsbSIsICJtbHAiLCAicmYiLCAieGdib29zdCIpKSAlPiUNCiAgZ2dwbG90KGFlcyh4ID0gbW9kZWwsIHkgPSAuZXN0aW1hdGUsIGZpbGwgPSBtb2RlbCkpICsNCiAgZ2VvbV9jb2woKSArDQogICNnZW9tX2xhYmVsKGFlcyhsYWJlbCA9IHJvdW5kKC5lc3RpbWF0ZSwgMikpLCBzaXplID0gMykgKw0KICBzY2FsZV9maWxsX21hbnVhbCh2YWx1ZXMgPSBjKCJncmF5NTAiLCByZXAoInN0ZWVsYmx1ZSIsIDMpLCAibWlkbmlnaHRibHVlIiksIGd1aWRlID0gRkFMU0UpICsNCiAgZmFjZXRfd3JhcCh+Lm1ldHJpYywgbnJvdyA9IDIsIHNjYWxlcyA9ICJmcmVlX3kiKSArDQogIGxhYnMoeCA9IE5VTEwsIHkgPSBOVUxMKSArDQogIHRoZW1lX2xpZ2h0KCkNCg0KYGBgDQpgYGB7ciwgZWNobyA9IEZBTFNFfQ0KI2NyZWF0ZSBhIHN1bW1hcnkgdGFibGUgb2YgbW9kZWwgc3RzdHMNCm1ldHJpY3Nfc3VtbWFyeSAlPiUNCiAgbXV0YXRlKC5lc3RpbWF0ZSA9IHJvdW5kKC5lc3RpbWF0ZSwgMikpICU+JQ0KICBwaXZvdF93aWRlcihuYW1lc19mcm9tID0gbW9kZWwsIHZhbHVlc19mcm9tID0gLmVzdGltYXRlKSAlPiUNCiAgc2VsZWN0KC5tZXRyaWMsIG5scywgZ2xtLCBtbHAsIHJmLCB4Z2Jvb3N0KSAlPiUNCiAgcmVuYW1lKG1ldHJpYyA9IC5tZXRyaWMpICU+JQ0KICBrYWJsZSgpDQpgYGANCg0KQXMgc2hvd24gaW4gdGhlIGZpZ3VyZSBhbmQgdGFibGUgYWJvdmUsIHRoZSByYW5kb20gZm9yZXN0IChyZikgYW5kIGJvb3N0ZWQgdHJlZSAoeGdib29zdCkgbW9kZWxzIHNob3dlZCBhIHNpZ25pZmljYW50IGltcHJvdmVtZW50IGluIHByZWRpY3RpdmUgY2FwYWJpbGl0eSBhcyBjb21wYXJlZCB3aXRoIHRoZSBjb252ZW50aW9uYWwgbW9kZWxpbmcgYXBwcm9hY2ggKG5scykuICBUaGUgeGdib29zdCBtb2RlbCBoYWQgYW4gUl4yXiBvZiAwLjk1IGNvbXBhcmVkIHRvIDAuNzggZm9yIHRoZSBubHMgbW9kZWwgd2l0aCBzaW1pbGFyIGltcHJvdmVtZW50cyBpbiByb290IG1lYW4gc3F1YXJlIGVycm9yIGFuZCBtZWFuIGFic29sdXRlIGVycm9yLiAgVGhlIGdsbW5ldCBtb2RlbCBnYXZlIHdvcnNlIHBlcmZvcm1hbmNlIHRoYW4gdGhlIG5vbi1saW5lYXIgbW9kZWxzLg0KDQojI0JlbmNobWFyayBwZXJmb3JtYW5jZQ0KDQpIZXJlIHdlIGxvYWQgdGhlIGZpbmFsIG1vZGVscyBmb3IgdGhlIGRpZmZlcmVudCBhcHByb2FjaGVzIGZvciBjb21wYXJpc29uIG9mIHByZWRpY3Rpb24gdGltZS4gIEluIHRoaXMgY2FzZSwgdGhlIHRpbWUgdG8gbWFrZSBwcmVkaWN0aW9ucyBmb3IgMTAsMzAwICgxMCB0aW1lcyB0aGUgb3JpZ2luYWwgZGF0YXNldCkgd2FzIGRldGVybWluZWQgYXMgYSBiZW5jaG1hcmsuDQpgYGB7cn0NCiNsb2FkIGFsbCB0aGUgbW9kZWxzDQpjb25jcmV0ZV9ubHMgPC0gcmVhZFJEUygicmVzdWx0cy9jb25jcmV0ZV9ubHNfbW9kZWwucmRzIikNCmNvbmNyZXRlX2dsbSA8LSByZWFkUkRTKCJyZXN1bHRzL2NvbmNyZXRlX2dsbV9tb2RlbC5yZHMiKQ0KY29uY3JldGVfbWxwIDwtIHJlYWRSRFMoInJlc3VsdHMvY29uY3JldGVfbWxwX21vZGVsLnJkcyIpDQpjb25jcmV0ZV9yZiA8LSByZWFkUkRTKCJyZXN1bHRzL2NvbmNyZXRlX3JmX21vZGVsLnJkcyIpDQpjb25jcmV0ZV94Z2IgPC0gcmVhZFJEUygicmVzdWx0cy9jb25jcmV0ZV94Z2JfbW9kZWwucmRzIikNCmBgYA0KDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KZmlsZW5hbWUgPC0gIkNvbmNyZXRlX0RhdGEueGxzIg0KDQpmb2xkZXIgPC0gIi4vZGF0YS8iDQpudW1iZXJDb2xzIDwtIDkgI3RvdGFsIG51bWJlciBvZiBjb2x1bW5zIGluIHNwcmVhZHNoZWV0DQoNCmNvbFR5cGVzIDwtIHJlcCgibnVtZXJpYyIsIG51bWJlckNvbHMpDQpjb25jcmV0ZV90YmwgPC0gcmVhZF9leGNlbChwYXRoID0gcGFzdGUwKGZvbGRlciwgZmlsZW5hbWUpLCBjb2xfdHlwZXMgPSBjb2xUeXBlcykNCg0KY29uY3JldGVfdGJsIDwtIGNvbmNyZXRlX3RibCAlPiUNCiAgcmVuYW1lKGNlbWVudCA9IHN0YXJ0c193aXRoKCJDZW1lbnQiKSkgJT4lDQogIHJlbmFtZShibGFzdF9mdXJuYWNlX3NsYWcgPSBzdGFydHNfd2l0aCgiQmxhc3QiKSkgJT4lDQogIHJlbmFtZShmbHlfYXNoID0gc3RhcnRzX3dpdGgoIkZseSBBc2giKSkgJT4lDQogIHJlbmFtZSh3YXRlciA9IHN0YXJ0c193aXRoKCJXYXRlciIpKSAlPiUNCiAgcmVuYW1lKHN1cGVycGxhc3RpY2l6ZXIgPSBzdGFydHNfd2l0aCgiU3VwZXIiKSkgJT4lDQogIHJlbmFtZShjb2Fyc2VfYWdncmVnYXRlID0gc3RhcnRzX3dpdGgoIkNvYXJzZSIpKSAlPiUNCiAgcmVuYW1lKGZpbmVfYWdncmVnYXRlID0gc3RhcnRzX3dpdGgoIkZpbmUiKSkgJT4lDQogIHJlbmFtZShhZ2UgPSBzdGFydHNfd2l0aCgiQWdlIikpICU+JQ0KICByZW5hbWUoY29tcHJlc3NpdmVfc3RyZW5ndGggPSBzdGFydHNfd2l0aCgiQ29uY3JldGUiKSkNCg0KI2NyZWF0ZSBhIGRhdGFzZXQgZm9yIHByZWRpY3Rpb24gYnkgdGFraW5nIG9yaWdpbmFsIGRhdGEgeCAxMA0KdGVtcCA8LSBjb25jcmV0ZV90YmwgJT4lIHNsaWNlKHJlcChyb3dfbnVtYmVyKCksIDEwKSkNCmBgYA0KDQpCZW5jaG1hcmtpbmcgd2FzIHBlcmZvcm1lZCBpbiB0aGUgZm9sbG93aW5nIG1hbm5lciB1c2luZyBTeXMudGltZSB0byBjYXB0dXJlIHRoZSB0aW1lIGJlZm9yZSBhbmQgYWZ0ZXIgZWFjaCBzZXQgb2YgbW9kZWwgcHJlZGljdGlvbnMuDQpgYGB7ciwgcmVzdWx0cyA9ICJoaWRlIn0NCmJlZ2luIDwtIFN5cy50aW1lKCkNCmFfdGVtcCA8LSBwcmVkaWN0KGNvbmNyZXRlX25scywgbmV3X2RhdGEgPSB0ZW1wKQ0KZW5kMSA8LSBTeXMudGltZSgpDQoNCmJfdGVtcCA8LSBwcmVkaWN0KGNvbmNyZXRlX2dsbSwgbmV3X2RhdGEgPSB0ZW1wKQ0KZW5kMiA8LSBTeXMudGltZSgpDQoNCmNfdGVtcCA8LSBwcmVkaWN0KGNvbmNyZXRlX21scCwgbmV3X2RhdGEgPSB0ZW1wKQ0KZW5kMyA8LSBTeXMudGltZSgpDQoNCmRfdGVtcCA8LSBwcmVkaWN0KGNvbmNyZXRlX3JmLCBuZXdfZGF0YSA9IHRlbXApDQplbmQ0IDwtIFN5cy50aW1lKCkNCg0KZV90ZW1wIDwtIHByZWRpY3QoY29uY3JldGVfeGdiLCBuZXdfZGF0YSA9IHRlbXApDQplbmQ1IDwtIFN5cy50aW1lKCkNCg0KIyBwcmludChlbmQxIC0gYmVnaW4pW1sxXV0NCiMgcHJpbnQoZW5kMiAtIGVuZDEpW1sxXV0NCiMgcHJpbnQoZW5kMyAtIGVuZDIpW1sxXV0NCiMgcHJpbnQoZW5kNCAtIGVuZDMpW1sxXV0NCg0Kcm0odGVtcCkNCmBgYA0KDQpBcyBzaG93biBpbiB0aGUgZmlndXJlIGFuZCB0YWJsZSBiZWxvdywgdGhlIHhnYm9vc3QgbW9kZWwgd2FzIHRoZSBzbG93ZXN0IHRha2luZyBhYm91dCAxIHNlY29uZCB0byBwZXJmb3JtIDEwLDMwMCBwcmVkaWN0aW9ucy4gIEZvciB0aGUgZXhhbXBsZSBvZiBtYWtpbmcgYSBwcmVkaWN0aW9uIG9mIGNvbXByZXNzaXZlIHN0cmVuZ3RoIG9mIGNvbmNyZXRlIGZvciBhIHBhcnRpY3VsYXIgZm9ybXVsYXRpb24sIGhvd2V2ZXIsIHRoaXMgYW1vdW50IG9mIHRpbWUgaXMgdHJpdmlhbCBhbmQgdGhlIGluY3JlYXNlZCBhY2N1cmFjeSB3b3VsZCBiZSBwcmVmZXJyZWQgb3ZlciBhIGZhc3RlciBhbmQgbGVzcyBhY2N1cmF0ZSBtb2RlbC4NCmBgYHtyLCBpbmNsdWRlID0gRkFMU0V9DQojY3JlYXRlIGEgdGliYmxlIHdpdGggdGhlIG1vZGVsIHRpbWVzDQptb2RlbF90aW1lcyA8LSB0cmliYmxlKH5tb2RlbCwgfnRpbWUsDQogICAgICAgICAgICAgICAgICAgICAgICAibmxzIiwgKGVuZDEgLSBiZWdpbilbWzFdXSwgDQogICAgICAgICAgICAgICAgICAgICAgICAiZ2xtIiwgKGVuZDIgLSBlbmQxKVtbMV1dLCANCiAgICAgICAgICAgICAgICAgICAgICAgICJtbHAiLCAoZW5kMyAtIGVuZDIpW1sxXV0sIA0KICAgICAgICAgICAgICAgICAgICAgICAgInJmIiwgKGVuZDQgLSBlbmQzKVtbMV1dLCANCiAgICAgICAgICAgICAgICAgICAgICAgICJ4Z2Jvb3N0IiwgKGVuZDUgLSBlbmQ0KVtbMV1dDQogICkgJT4lDQogIG11dGF0ZSh0aW1lID0gcm91bmQodGltZSAqIDEwMDAsIDApKSAlPiUNCiAgbXV0YXRlKG1vZGVsID0gZmN0X3JlbGV2ZWwoZmFjdG9yKG1vZGVsKSwgIm5scyIsICJnbG0iLCAibWxwIiwgInJmIiwgInhnYm9vc3QiKSkNCmBgYA0KDQpgYGB7ciwgZWNobyA9IEZBTFNFfQ0KI2NyZWF0ZSBhIHBsb3Qgb2YgdGhlIG1vZGVsIHRpbWVzDQptb2RlbF90aW1lcyAlPiUNCiAgZ2dwbG90KGFlcyh4ID0gbW9kZWwsIHkgPSB0aW1lLCBmaWxsID0gbW9kZWwpKSArDQogIGdlb21fY29sKCkgKw0KICBzY2FsZV9maWxsX21hbnVhbCh2YWx1ZXMgPSBjKCJncmF5NTAiLCByZXAoInN0ZWVsYmx1ZSIsIDMpLCAibWlkbmlnaHRibHVlIiksIGd1aWRlID0gRkFMU0UpICsNCiAgbGFicyh0aXRsZSA9ICJNb2RlbCBCZW5jaG1hcmsgZm9yIDEwSyBQcmVkaWN0aW9ucyIsIHggPSBOVUxMLCB5ID0gIlByZWRpY3Rpb24gVGltZSAobXMpIikgKw0KICB0aGVtZV9saWdodCgpDQpgYGANCg0KYGBge3IsIGVjaG8gPSBGQUxTRX0NCiNjcmVhdGUgYSBzdW1tYXJ5IHRhYmxlIG9mIG1vZGVsIHRpbWVzDQptb2RlbF90aW1lcyAlPiUNCiAga2FibGUoY29sLm5hbWVzID0gYygiTW9kZWwiLCAiVGltZSAobXMpIikpDQpgYGANClByZWRpY3Rpb24gd2l0aCB0aGUgY29udmVudGlvbmFsIG1vZGVsIChubHMpIGlzIGFib3V0IHR3byBvcmRlcnMgb2YgbWFnbml0dWRlIGZhc3RlciB0aGFuIHRoZSBib29zdGVkIHRyZWUgbW9kZWwgKHhnYm9vc3QpLiAgSXQgc2hvdWxkIGJlIG5vdGVkIHRoYXQgdGhlIHJhbmRvbSBmb3Jlc3QgbW9kZWwgaXMgYWJvdXQgNDAlIGZhc3RlciB0aGFuIHRoZSB4Z2Jvb3N0IG1vZGVsLCBpbiB0aGlzIGNhc2UsIHdpdGggc2ltaWxhciBwcmVkaWN0aXZlIGFjY3VyYWN5Lg0K</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2020-12-04_ConcreteSummary.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
