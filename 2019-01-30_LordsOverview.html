@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
 
-<title></title>
+<title>2019-01-30_LordsOverview.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,9 +24,8 @@
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -77,9 +76,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -93,7 +90,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -103,6 +99,9 @@ img {
 }
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -118,7 +117,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -138,6 +136,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -159,27 +194,77 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 <style type="text/css">
 .code-folding-btn { margin-bottom: 4px; }
 </style>
-<script>
-$(document).ready(function () {
-  window.initializeSourceEmbed("2019-01-30_LordsOverview.Rmd");
-});
-</script>
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -235,55 +320,19 @@ $(document).ready(function () {
 
 <p><br></p>
 <p><img src="img/190130_LordsMobile.jpg" width="400px" /></p>
-<div id="what-is-lords-mobile" class="section level2">
-<h2><strong>What is Lords Mobile?</strong></h2>
-<p><em>Posted on January 30, 2019</em></p>
-<p>Lords Mobile is a game you can download and play on your mobile device (i.e. smartphone or tablet). The game was developed by IGG Inc. (<a href="www.igg.com" class="uri">www.igg.com</a>) and released on February 2016. Lords Mobile is one of many games in the massive multi-player online strategy genre. The core of the game is to build your own castle and army to battle against other players. You cannot get very far in the game without joining a guild with up to 99 other players in your kingdom. The best way to learn more about the game is to go to your Apple or Google Play store and download the game for free. If you have no interest at this time, please read on.</p>
-<div id="development" class="section level3">
-<h3><strong>Development</strong></h3>
-<p>There are four main developmental aspects to the game: building, research, training and heroes.</p>
-<div id="building" class="section level4">
-<h4>Building</h4>
-<p>You begin the game with a level 1 castle building. There are several spaces on your turf for constructing other types of buildings. You can build resource buildings to grow food, stone, wood and ore. You need resources to level up your buildings, perform research and train troops. You also need a barracks to house your troops, an academy to perform research, a castle wall for defense as well as many other types of buildings. You can keep upgrading your buildings to make them more productive. Each upgrade advances the building level to a maximum of level 25. Besides the resource requirements, the upgrades also take time. The first few levels may take only a few hours and the next few levels take a couple of days and then you get into weeks at the upper levels. You can acquire speed-ups from various quests and events which can be applied to complete the upgrades more quickly.</p>
-</div>
-<div id="research" class="section level4">
-<h4>Research</h4>
-<p>You can perform research at the academy to build faster, produce more resources and train a more powerful army. Similar to building, resources and time are required to complete a research and only one research can be studied at a time. Also, the researches have different levels with higher levels offering better boosts but also requiring much more time. Researches can be performed in several different trees for Military, Economy and Defense to name a few. Certain researches have to be completed before other research can begin as defined by the tree.</p>
-</div>
-<div id="training" class="section level4">
-<h4>Training</h4>
-<p>At some point in the game, you will want to battle other players and, for this, you will need to build an army. There are four types of troops: infantry, range, cavalry and siege. The troops also can be from 1 of 4 different tiers. You begin with tier 1 troops and then you need to complete research to unlock the other tiers with tier 4 being the most powerful troops. You train your troops in the barracks building and it requires, you guessed it, resources and time. The level of your barracks building(s) largely determines how many troops you can train at a time. The level of your castle determines the upper limit on how many troops you can send into combat in each attack.</p>
-</div>
-<div id="heroes" class="section level4">
-<h4>Heroes</h4>
-<p>Heroes are characters you recruit to hunt monsters and lead your troops into battle. You recruit heroes by collecting their medals which can be done by completing hero stages. Once you have recruited a hero, you can level up the hero to increase its abilities by collecting more medals. Different heroes have different abilities which can increase troop power as well as your development speed. You assign a hero as your leader and can equip him with gear (e.g. helmet, armor, weapons) to give further boosts. Gear is crafted using special materials found when gathering and monster hunting.</p>
-</div>
-</div>
-<div id="supporting-activities" class="section level3">
-<h3><strong>Supporting activities</strong></h3>
-<p>So, what do you do in the game while waiting for all of your building, research and training to complete? Well, you can chat with your guildmates about what is going on in their part of the world or talk smack with rival guilds in the kingdom chat. You can attack other castles with what troops you have already trained however this can take your development backwards especially if your troops are constantly ending up dead or wounded. Other ways to support your development are gathering, monster hunting, quests and events.</p>
-<div id="gathering" class="section level4">
-<h4>Gathering</h4>
-<p>On the kingdom map outside your castle, many locations exist (i.e. tiles) where there are resources which can be gathered by your troops and brought back to your castle. You send an army out to the tile and they gather until they reach their limit or until all resources have been gathered from the tile. A lot of players find the gathering aspect of the game very boring. You can get by without gathering however you will need to find a way to supplement your resources either by attacking other players and stealing their resources or purchasing packs with your real, hard-earned money. A downside to gathering is that your tile can be attacked by another player which typically sends your troops to your hospital and you then need resources to heal them.</p>
-</div>
-<div id="monster-hunting" class="section level4">
-<h4>Monster hunting</h4>
-<p>Monsters also lurk on the kingdom map outside your castle. You can send your heroes out to fight the monster. Each attack reduces the monster’s health by a percentage and gives you some rewards. When you reduce the monster’s health to zero, every member of your guild gets a chest containing a reward. The rewards are items such as resource packs, speed-ups, guild coins and special materials. Each time you hunt a monster, you lose some energy however this energy continually rebuilds with time.</p>
-</div>
-<div id="quests" class="section level4">
-<h4>Quests</h4>
-<p>At the beginning of the game, you are presented with turf quests which give you resources, experience points and speed-ups (sometimes) for completing research, buildings and various other tasks. Completing these quests can speed up your development. You also can complete admin and guild quests which just require you to push a button and wait and provide the same types of rewards as turf quests along with special materials.</p>
-</div>
-<div id="events" class="section level4">
-<h4>Events</h4>
-<p>One of the ways I think Lords Mobile separates itself from other games in this genre is its events. Events occur for a specific period of time and require players to perform specific actions to earn rewards. Events can involve combat such as in kingdom vs. kingdom (KvK) or have special monsters to hunt or require you to work with your guild to earn points. Certain events like KvK and guildfest occur on a regular schedule while others are special for a particular holiday or time of year. You can get great rewards by participating in the events and it breaks up some of the monotony of the daily quests and development. There are also events occuring every few hours (solo and hell events) where you can earn rewards for completing certain developments.</p>
-</div>
-</div>
-<div id="thats-all-folks" class="section level3">
-<h3><strong>That’s all folks!</strong></h3>
-<p>This short introduction ends my overview of Lords Mobile. There are so many more aspects and strategy to the game but I have shared the basics. You can find loads of information about the game in wikis, guides and on Youtube but, again, the best way to learn is to actually try it out. I have been casually playing since November 2016 and have had a lot of fun with it!</p>
-</div>
-</div>
+<p>##<strong>What is Lords Mobile?</strong> <em>Posted on January 30, 2019</em></p>
+<p>Lords Mobile is a game you can download and play on your mobile device (i.e. smartphone or tablet). The game was developed by IGG Inc. (<a href="www.igg.com">www.igg.com</a>) and released on February 2016. Lords Mobile is one of many games in the massive multi-player online strategy genre. The core of the game is to build your own castle and army to battle against other players. You cannot get very far in the game without joining a guild with up to 99 other players in your kingdom. The best way to learn more about the game is to go to your Apple or Google Play store and download the game for free. If you have no interest at this time, please read on.</p>
+<p>###<strong>Development</strong> There are four main developmental aspects to the game: building, research, training and heroes.</p>
+<p>####Building You begin the game with a level 1 castle building. There are several spaces on your turf for constructing other types of buildings. You can build resource buildings to grow food, stone, wood and ore. You need resources to level up your buildings, perform research and train troops. You also need a barracks to house your troops, an academy to perform research, a castle wall for defense as well as many other types of buildings. You can keep upgrading your buildings to make them more productive. Each upgrade advances the building level to a maximum of level 25. Besides the resource requirements, the upgrades also take time. The first few levels may take only a few hours and the next few levels take a couple of days and then you get into weeks at the upper levels. You can acquire speed-ups from various quests and events which can be applied to complete the upgrades more quickly.</p>
+<p>####Research You can perform research at the academy to build faster, produce more resources and train a more powerful army. Similar to building, resources and time are required to complete a research and only one research can be studied at a time. Also, the researches have different levels with higher levels offering better boosts but also requiring much more time. Researches can be performed in several different trees for Military, Economy and Defense to name a few. Certain researches have to be completed before other research can begin as defined by the tree.</p>
+<p>####Training At some point in the game, you will want to battle other players and, for this, you will need to build an army. There are four types of troops: infantry, range, cavalry and siege. The troops also can be from 1 of 4 different tiers. You begin with tier 1 troops and then you need to complete research to unlock the other tiers with tier 4 being the most powerful troops. You train your troops in the barracks building and it requires, you guessed it, resources and time. The level of your barracks building(s) largely determines how many troops you can train at a time. The level of your castle determines the upper limit on how many troops you can send into combat in each attack.</p>
+<p>####Heroes Heroes are characters you recruit to hunt monsters and lead your troops into battle. You recruit heroes by collecting their medals which can be done by completing hero stages. Once you have recruited a hero, you can level up the hero to increase its abilities by collecting more medals. Different heroes have different abilities which can increase troop power as well as your development speed. You assign a hero as your leader and can equip him with gear (e.g. helmet, armor, weapons) to give further boosts. Gear is crafted using special materials found when gathering and monster hunting.</p>
+<p>###<strong>Supporting activities</strong> So, what do you do in the game while waiting for all of your building, research and training to complete? Well, you can chat with your guildmates about what is going on in their part of the world or talk smack with rival guilds in the kingdom chat. You can attack other castles with what troops you have already trained however this can take your development backwards especially if your troops are constantly ending up dead or wounded. Other ways to support your development are gathering, monster hunting, quests and events.</p>
+<p>####Gathering On the kingdom map outside your castle, many locations exist (i.e. tiles) where there are resources which can be gathered by your troops and brought back to your castle. You send an army out to the tile and they gather until they reach their limit or until all resources have been gathered from the tile. A lot of players find the gathering aspect of the game very boring. You can get by without gathering however you will need to find a way to supplement your resources either by attacking other players and stealing their resources or purchasing packs with your real, hard-earned money. A downside to gathering is that your tile can be attacked by another player which typically sends your troops to your hospital and you then need resources to heal them.</p>
+<p>####Monster hunting Monsters also lurk on the kingdom map outside your castle. You can send your heroes out to fight the monster. Each attack reduces the monster’s health by a percentage and gives you some rewards. When you reduce the monster’s health to zero, every member of your guild gets a chest containing a reward. The rewards are items such as resource packs, speed-ups, guild coins and special materials. Each time you hunt a monster, you lose some energy however this energy continually rebuilds with time.</p>
+<p>####Quests At the beginning of the game, you are presented with turf quests which give you resources, experience points and speed-ups (sometimes) for completing research, buildings and various other tasks. Completing these quests can speed up your development. You also can complete admin and guild quests which just require you to push a button and wait and provide the same types of rewards as turf quests along with special materials.</p>
+<p>####Events One of the ways I think Lords Mobile separates itself from other games in this genre is its events. Events occur for a specific period of time and require players to perform specific actions to earn rewards. Events can involve combat such as in kingdom vs. kingdom (KvK) or have special monsters to hunt or require you to work with your guild to earn points. Certain events like KvK and guildfest occur on a regular schedule while others are special for a particular holiday or time of year. You can get great rewards by participating in the events and it breaks up some of the monotony of the daily quests and development. There are also events occuring every few hours (solo and hell events) where you can earn rewards for completing certain developments.</p>
+<p>###<strong>That’s all folks!</strong> This short introduction ends my overview of Lords Mobile. There are so many more aspects and strategy to the game but I have shared the basics. You can find loads of information about the game in wikis, guides and on Youtube but, again, the best way to learn is to actually try it out. I have been casually playing since November 2016 and have had a lot of fun with it!</p>
 
 <div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KbGlicmFyeShqcGVnKQ0KbGlicmFyeShrbml0cikNCmBgYA0KDQpgYGB7ciwgZWNobz1GQUxTRSwgb3V0LndpZHRoPSI0MDBweCJ9DQppbmNsdWRlX2dyYXBoaWNzKCJpbWcvMTkwMTMwX0xvcmRzTW9iaWxlLmpwZyIpDQpgYGANCg0KDQojIyoqV2hhdCBpcyBMb3JkcyBNb2JpbGU/KioNCipQb3N0ZWQgb24gSmFudWFyeSAzMCwgMjAxOSoNCg0KTG9yZHMgTW9iaWxlIGlzIGEgZ2FtZSB5b3UgY2FuIGRvd25sb2FkIGFuZCBwbGF5IG9uIHlvdXIgbW9iaWxlIGRldmljZSAoaS5lLiBzbWFydHBob25lIG9yIHRhYmxldCkuICBUaGUgZ2FtZSB3YXMgZGV2ZWxvcGVkIGJ5IElHRyBJbmMuIChbd3d3LmlnZy5jb21dKHd3dy5pZ2cuY29tKSkgYW5kIHJlbGVhc2VkIG9uIEZlYnJ1YXJ5IDIwMTYuICBMb3JkcyBNb2JpbGUgaXMgb25lIG9mIG1hbnkgZ2FtZXMgaW4gdGhlIG1hc3NpdmUgbXVsdGktcGxheWVyIG9ubGluZSBzdHJhdGVneSBnZW5yZS4gIFRoZSBjb3JlIG9mIHRoZSBnYW1lIGlzIHRvIGJ1aWxkIHlvdXIgb3duIGNhc3RsZSBhbmQgYXJteSB0byBiYXR0bGUgYWdhaW5zdCBvdGhlciBwbGF5ZXJzLiAgWW91IGNhbm5vdCBnZXQgdmVyeSBmYXIgaW4gdGhlIGdhbWUgd2l0aG91dCBqb2luaW5nIGEgZ3VpbGQgd2l0aCB1cCB0byA5OSBvdGhlciBwbGF5ZXJzIGluIHlvdXIga2luZ2RvbS4gIFRoZSBiZXN0IHdheSB0byBsZWFybiBtb3JlIGFib3V0IHRoZSBnYW1lIGlzIHRvIGdvIHRvIHlvdXIgQXBwbGUgb3IgR29vZ2xlIFBsYXkgc3RvcmUgYW5kIGRvd25sb2FkIHRoZSBnYW1lIGZvciBmcmVlLiAgSWYgeW91IGhhdmUgbm8gaW50ZXJlc3QgYXQgdGhpcyB0aW1lLCBwbGVhc2UgcmVhZCBvbi4gIA0KDQojIyMqKkRldmVsb3BtZW50KioNClRoZXJlIGFyZSBmb3VyIG1haW4gZGV2ZWxvcG1lbnRhbCBhc3BlY3RzIHRvIHRoZSBnYW1lOiBidWlsZGluZywgcmVzZWFyY2gsIHRyYWluaW5nIGFuZCBoZXJvZXMuDQoNCiMjIyNCdWlsZGluZw0KWW91IGJlZ2luIHRoZSBnYW1lIHdpdGggYSBsZXZlbCAxIGNhc3RsZSBidWlsZGluZy4gIFRoZXJlIGFyZSBzZXZlcmFsIHNwYWNlcyBvbiB5b3VyIHR1cmYgZm9yIGNvbnN0cnVjdGluZyBvdGhlciB0eXBlcyBvZiBidWlsZGluZ3MuICBZb3UgY2FuIGJ1aWxkIHJlc291cmNlIGJ1aWxkaW5ncyB0byBncm93IGZvb2QsIHN0b25lLCB3b29kIGFuZCBvcmUuICBZb3UgbmVlZCByZXNvdXJjZXMgdG8gbGV2ZWwgdXAgeW91ciBidWlsZGluZ3MsIHBlcmZvcm0gcmVzZWFyY2ggYW5kIHRyYWluIHRyb29wcy4gIFlvdSBhbHNvIG5lZWQgYSBiYXJyYWNrcyB0byBob3VzZSB5b3VyIHRyb29wcywgYW4gYWNhZGVteSB0byBwZXJmb3JtIHJlc2VhcmNoLCBhIGNhc3RsZSB3YWxsIGZvciBkZWZlbnNlIGFzIHdlbGwgYXMgbWFueSBvdGhlciB0eXBlcyBvZiBidWlsZGluZ3MuICBZb3UgY2FuIGtlZXAgdXBncmFkaW5nIHlvdXIgYnVpbGRpbmdzIHRvIG1ha2UgdGhlbSBtb3JlIHByb2R1Y3RpdmUuICBFYWNoIHVwZ3JhZGUgYWR2YW5jZXMgdGhlIGJ1aWxkaW5nIGxldmVsIHRvIGEgbWF4aW11bSBvZiBsZXZlbCAyNS4gIEJlc2lkZXMgdGhlIHJlc291cmNlIHJlcXVpcmVtZW50cywgdGhlIHVwZ3JhZGVzIGFsc28gdGFrZSB0aW1lLiAgVGhlIGZpcnN0IGZldyBsZXZlbHMgbWF5IHRha2Ugb25seSBhIGZldyBob3VycyBhbmQgdGhlIG5leHQgZmV3IGxldmVscyB0YWtlIGEgY291cGxlIG9mIGRheXMgYW5kIHRoZW4geW91IGdldCBpbnRvIHdlZWtzIGF0IHRoZSB1cHBlciBsZXZlbHMuICBZb3UgY2FuIGFjcXVpcmUgc3BlZWQtdXBzIGZyb20gdmFyaW91cyBxdWVzdHMgYW5kIGV2ZW50cyB3aGljaCBjYW4gYmUgYXBwbGllZCB0byBjb21wbGV0ZSB0aGUgdXBncmFkZXMgbW9yZSBxdWlja2x5Lg0KDQojIyMjUmVzZWFyY2gNCllvdSBjYW4gcGVyZm9ybSByZXNlYXJjaCBhdCB0aGUgYWNhZGVteSB0byBidWlsZCBmYXN0ZXIsIHByb2R1Y2UgbW9yZSByZXNvdXJjZXMgYW5kIHRyYWluIGEgbW9yZSBwb3dlcmZ1bCBhcm15LiAgU2ltaWxhciB0byBidWlsZGluZywgcmVzb3VyY2VzIGFuZCB0aW1lIGFyZSByZXF1aXJlZCB0byBjb21wbGV0ZSBhIHJlc2VhcmNoIGFuZCBvbmx5IG9uZSByZXNlYXJjaCBjYW4gYmUgc3R1ZGllZCBhdCBhIHRpbWUuICBBbHNvLCB0aGUgcmVzZWFyY2hlcyBoYXZlIGRpZmZlcmVudCBsZXZlbHMgd2l0aCBoaWdoZXIgbGV2ZWxzIG9mZmVyaW5nIGJldHRlciBib29zdHMgYnV0IGFsc28gcmVxdWlyaW5nIG11Y2ggbW9yZSB0aW1lLiAgUmVzZWFyY2hlcyBjYW4gYmUgcGVyZm9ybWVkIGluIHNldmVyYWwgZGlmZmVyZW50IHRyZWVzIGZvciBNaWxpdGFyeSwgRWNvbm9teSBhbmQgRGVmZW5zZSB0byBuYW1lIGEgZmV3LiAgQ2VydGFpbiByZXNlYXJjaGVzIGhhdmUgdG8gYmUgY29tcGxldGVkIGJlZm9yZSBvdGhlciByZXNlYXJjaCBjYW4gYmVnaW4gYXMgZGVmaW5lZCBieSB0aGUgdHJlZS4NCg0KIyMjI1RyYWluaW5nDQpBdCBzb21lIHBvaW50IGluIHRoZSBnYW1lLCB5b3Ugd2lsbCB3YW50IHRvIGJhdHRsZSBvdGhlciBwbGF5ZXJzIGFuZCwgZm9yIHRoaXMsIHlvdSB3aWxsIG5lZWQgdG8gYnVpbGQgYW4gYXJteS4gIFRoZXJlIGFyZSBmb3VyIHR5cGVzIG9mIHRyb29wczogaW5mYW50cnksIHJhbmdlLCBjYXZhbHJ5IGFuZCBzaWVnZS4gIFRoZSB0cm9vcHMgYWxzbyBjYW4gYmUgZnJvbSAxIG9mIDQgZGlmZmVyZW50IHRpZXJzLiAgWW91IGJlZ2luIHdpdGggdGllciAxIHRyb29wcyBhbmQgdGhlbiB5b3UgbmVlZCB0byBjb21wbGV0ZSByZXNlYXJjaCB0byB1bmxvY2sgdGhlIG90aGVyIHRpZXJzIHdpdGggdGllciA0IGJlaW5nIHRoZSBtb3N0IHBvd2VyZnVsIHRyb29wcy4gIFlvdSB0cmFpbiB5b3VyIHRyb29wcyBpbiB0aGUgYmFycmFja3MgYnVpbGRpbmcgYW5kIGl0IHJlcXVpcmVzLCB5b3UgZ3Vlc3NlZCBpdCwgcmVzb3VyY2VzIGFuZCB0aW1lLiAgVGhlIGxldmVsIG9mIHlvdXIgYmFycmFja3MgYnVpbGRpbmcocykgbGFyZ2VseSBkZXRlcm1pbmVzIGhvdyBtYW55IHRyb29wcyB5b3UgY2FuIHRyYWluIGF0IGEgdGltZS4gIFRoZSBsZXZlbCBvZiB5b3VyIGNhc3RsZSBkZXRlcm1pbmVzIHRoZSB1cHBlciBsaW1pdCBvbiBob3cgbWFueSB0cm9vcHMgeW91IGNhbiBzZW5kIGludG8gY29tYmF0IGluIGVhY2ggYXR0YWNrLg0KDQojIyMjSGVyb2VzDQpIZXJvZXMgYXJlIGNoYXJhY3RlcnMgeW91IHJlY3J1aXQgdG8gaHVudCBtb25zdGVycyBhbmQgbGVhZCB5b3VyIHRyb29wcyBpbnRvIGJhdHRsZS4gIFlvdSByZWNydWl0IGhlcm9lcyBieSBjb2xsZWN0aW5nIHRoZWlyIG1lZGFscyB3aGljaCBjYW4gYmUgZG9uZSBieSBjb21wbGV0aW5nIGhlcm8gc3RhZ2VzLiAgT25jZSB5b3UgaGF2ZSByZWNydWl0ZWQgYSBoZXJvLCB5b3UgY2FuIGxldmVsIHVwIHRoZSBoZXJvIHRvIGluY3JlYXNlIGl0cyBhYmlsaXRpZXMgYnkgY29sbGVjdGluZyBtb3JlIG1lZGFscy4gIERpZmZlcmVudCBoZXJvZXMgaGF2ZSBkaWZmZXJlbnQgYWJpbGl0aWVzIHdoaWNoIGNhbiBpbmNyZWFzZSB0cm9vcCBwb3dlciBhcyB3ZWxsIGFzIHlvdXIgZGV2ZWxvcG1lbnQgc3BlZWQuICBZb3UgYXNzaWduIGEgaGVybyBhcyB5b3VyIGxlYWRlciBhbmQgY2FuIGVxdWlwIGhpbSB3aXRoIGdlYXIgKGUuZy4gaGVsbWV0LCBhcm1vciwgd2VhcG9ucykgdG8gZ2l2ZSBmdXJ0aGVyIGJvb3N0cy4gIEdlYXIgaXMgY3JhZnRlZCB1c2luZyBzcGVjaWFsIG1hdGVyaWFscyBmb3VuZCB3aGVuIGdhdGhlcmluZyBhbmQgbW9uc3RlciBodW50aW5nLg0KDQojIyMqKlN1cHBvcnRpbmcgYWN0aXZpdGllcyoqDQpTbywgd2hhdCBkbyB5b3UgZG8gaW4gdGhlIGdhbWUgd2hpbGUgd2FpdGluZyBmb3IgYWxsIG9mIHlvdXIgYnVpbGRpbmcsIHJlc2VhcmNoIGFuZCB0cmFpbmluZyB0byBjb21wbGV0ZT8gIFdlbGwsIHlvdSBjYW4gY2hhdCB3aXRoIHlvdXIgZ3VpbGRtYXRlcyBhYm91dCB3aGF0IGlzIGdvaW5nIG9uIGluIHRoZWlyIHBhcnQgb2YgdGhlIHdvcmxkIG9yIHRhbGsgc21hY2sgd2l0aCByaXZhbCBndWlsZHMgaW4gdGhlIGtpbmdkb20gY2hhdC4gIFlvdSBjYW4gYXR0YWNrIG90aGVyIGNhc3RsZXMgd2l0aCB3aGF0IHRyb29wcyB5b3UgaGF2ZSBhbHJlYWR5IHRyYWluZWQgaG93ZXZlciB0aGlzIGNhbiB0YWtlIHlvdXIgZGV2ZWxvcG1lbnQgYmFja3dhcmRzIGVzcGVjaWFsbHkgaWYgeW91ciB0cm9vcHMgYXJlIGNvbnN0YW50bHkgZW5kaW5nIHVwIGRlYWQgb3Igd291bmRlZC4gIE90aGVyIHdheXMgdG8gc3VwcG9ydCB5b3VyIGRldmVsb3BtZW50IGFyZSBnYXRoZXJpbmcsIG1vbnN0ZXIgaHVudGluZywgcXVlc3RzIGFuZCBldmVudHMuDQoNCiMjIyNHYXRoZXJpbmcNCk9uIHRoZSBraW5nZG9tIG1hcCBvdXRzaWRlIHlvdXIgY2FzdGxlLCBtYW55IGxvY2F0aW9ucyBleGlzdCAoaS5lLiB0aWxlcykgd2hlcmUgdGhlcmUgYXJlIHJlc291cmNlcyB3aGljaCBjYW4gYmUgZ2F0aGVyZWQgYnkgeW91ciB0cm9vcHMgYW5kIGJyb3VnaHQgYmFjayB0byB5b3VyIGNhc3RsZS4gIFlvdSBzZW5kIGFuIGFybXkgb3V0IHRvIHRoZSB0aWxlIGFuZCB0aGV5IGdhdGhlciB1bnRpbCB0aGV5IHJlYWNoIHRoZWlyIGxpbWl0IG9yIHVudGlsIGFsbCByZXNvdXJjZXMgaGF2ZSBiZWVuIGdhdGhlcmVkIGZyb20gdGhlIHRpbGUuICBBIGxvdCBvZiBwbGF5ZXJzIGZpbmQgdGhlIGdhdGhlcmluZyBhc3BlY3Qgb2YgdGhlIGdhbWUgdmVyeSBib3JpbmcuICBZb3UgY2FuIGdldCBieSB3aXRob3V0IGdhdGhlcmluZyBob3dldmVyIHlvdSB3aWxsIG5lZWQgdG8gZmluZCBhIHdheSB0byBzdXBwbGVtZW50IHlvdXIgcmVzb3VyY2VzIGVpdGhlciBieSBhdHRhY2tpbmcgb3RoZXIgcGxheWVycyBhbmQgc3RlYWxpbmcgdGhlaXIgcmVzb3VyY2VzIG9yIHB1cmNoYXNpbmcgcGFja3Mgd2l0aCB5b3VyIHJlYWwsIGhhcmQtZWFybmVkIG1vbmV5LiAgQSBkb3duc2lkZSB0byBnYXRoZXJpbmcgaXMgdGhhdCB5b3VyIHRpbGUgY2FuIGJlIGF0dGFja2VkIGJ5IGFub3RoZXIgcGxheWVyIHdoaWNoIHR5cGljYWxseSBzZW5kcyB5b3VyIHRyb29wcyB0byB5b3VyIGhvc3BpdGFsIGFuZCB5b3UgdGhlbiBuZWVkIHJlc291cmNlcyB0byBoZWFsIHRoZW0uDQoNCiMjIyNNb25zdGVyIGh1bnRpbmcNCk1vbnN0ZXJzIGFsc28gbHVyayBvbiB0aGUga2luZ2RvbSBtYXAgb3V0c2lkZSB5b3VyIGNhc3RsZS4gIFlvdSBjYW4gc2VuZCB5b3VyIGhlcm9lcyBvdXQgdG8gZmlnaHQgdGhlIG1vbnN0ZXIuICBFYWNoIGF0dGFjayByZWR1Y2VzIHRoZSBtb25zdGVyJ3MgaGVhbHRoIGJ5IGEgcGVyY2VudGFnZSBhbmQgZ2l2ZXMgeW91IHNvbWUgcmV3YXJkcy4gIFdoZW4geW91IHJlZHVjZSB0aGUgbW9uc3RlcidzIGhlYWx0aCB0byB6ZXJvLCBldmVyeSBtZW1iZXIgb2YgeW91ciBndWlsZCBnZXRzIGEgY2hlc3QgY29udGFpbmluZyBhIHJld2FyZC4gIFRoZSByZXdhcmRzIGFyZSBpdGVtcyBzdWNoIGFzIHJlc291cmNlIHBhY2tzLCBzcGVlZC11cHMsIGd1aWxkIGNvaW5zIGFuZCBzcGVjaWFsIG1hdGVyaWFscy4gIEVhY2ggdGltZSB5b3UgaHVudCBhIG1vbnN0ZXIsIHlvdSBsb3NlIHNvbWUgZW5lcmd5IGhvd2V2ZXIgdGhpcyBlbmVyZ3kgY29udGludWFsbHkgcmVidWlsZHMgd2l0aCB0aW1lLg0KDQojIyMjUXVlc3RzDQpBdCB0aGUgYmVnaW5uaW5nIG9mIHRoZSBnYW1lLCB5b3UgYXJlIHByZXNlbnRlZCB3aXRoIHR1cmYgcXVlc3RzIHdoaWNoIGdpdmUgeW91IHJlc291cmNlcywgZXhwZXJpZW5jZSBwb2ludHMgYW5kIHNwZWVkLXVwcyAoc29tZXRpbWVzKSBmb3IgY29tcGxldGluZyByZXNlYXJjaCwgYnVpbGRpbmdzIGFuZCB2YXJpb3VzIG90aGVyIHRhc2tzLiAgQ29tcGxldGluZyB0aGVzZSBxdWVzdHMgY2FuIHNwZWVkIHVwIHlvdXIgZGV2ZWxvcG1lbnQuICBZb3UgYWxzbyBjYW4gY29tcGxldGUgYWRtaW4gYW5kIGd1aWxkIHF1ZXN0cyB3aGljaCBqdXN0IHJlcXVpcmUgeW91IHRvIHB1c2ggYSBidXR0b24gYW5kIHdhaXQgYW5kIHByb3ZpZGUgdGhlIHNhbWUgdHlwZXMgb2YgcmV3YXJkcyBhcyB0dXJmIHF1ZXN0cyBhbG9uZyB3aXRoIHNwZWNpYWwgbWF0ZXJpYWxzLg0KDQojIyMjRXZlbnRzDQpPbmUgb2YgdGhlIHdheXMgSSB0aGluayBMb3JkcyBNb2JpbGUgc2VwYXJhdGVzIGl0c2VsZiBmcm9tIG90aGVyIGdhbWVzIGluIHRoaXMgZ2VucmUgaXMgaXRzIGV2ZW50cy4gIEV2ZW50cyBvY2N1ciBmb3IgYSBzcGVjaWZpYyBwZXJpb2Qgb2YgdGltZSBhbmQgcmVxdWlyZSBwbGF5ZXJzIHRvIHBlcmZvcm0gc3BlY2lmaWMgYWN0aW9ucyB0byBlYXJuIHJld2FyZHMuICBFdmVudHMgY2FuIGludm9sdmUgY29tYmF0IHN1Y2ggYXMgaW4ga2luZ2RvbSB2cy4ga2luZ2RvbSAoS3ZLKSBvciBoYXZlIHNwZWNpYWwgbW9uc3RlcnMgdG8gaHVudCBvciByZXF1aXJlIHlvdSB0byB3b3JrIHdpdGggeW91ciBndWlsZCB0byBlYXJuIHBvaW50cy4gIENlcnRhaW4gZXZlbnRzIGxpa2UgS3ZLIGFuZCBndWlsZGZlc3Qgb2NjdXIgb24gYSByZWd1bGFyIHNjaGVkdWxlIHdoaWxlIG90aGVycyBhcmUgc3BlY2lhbCBmb3IgYSBwYXJ0aWN1bGFyIGhvbGlkYXkgb3IgdGltZSBvZiB5ZWFyLiAgWW91IGNhbiBnZXQgZ3JlYXQgcmV3YXJkcyBieSBwYXJ0aWNpcGF0aW5nIGluIHRoZSBldmVudHMgYW5kIGl0IGJyZWFrcyB1cCBzb21lIG9mIHRoZSBtb25vdG9ueSBvZiB0aGUgZGFpbHkgcXVlc3RzIGFuZCBkZXZlbG9wbWVudC4gIFRoZXJlIGFyZSBhbHNvIGV2ZW50cyBvY2N1cmluZyBldmVyeSBmZXcgaG91cnMgKHNvbG8gYW5kIGhlbGwgZXZlbnRzKSB3aGVyZSB5b3UgY2FuIGVhcm4gcmV3YXJkcyBmb3IgY29tcGxldGluZyBjZXJ0YWluIGRldmVsb3BtZW50cy4NCg0KIyMjKipUaGF0J3MgYWxsIGZvbGtzISoqDQpUaGlzIHNob3J0IGludHJvZHVjdGlvbiBlbmRzIG15IG92ZXJ2aWV3IG9mIExvcmRzIE1vYmlsZS4gIFRoZXJlIGFyZSBzbyBtYW55IG1vcmUgYXNwZWN0cyBhbmQgc3RyYXRlZ3kgdG8gdGhlIGdhbWUgYnV0IEkgaGF2ZSBzaGFyZWQgdGhlIGJhc2ljcy4gIFlvdSBjYW4gZmluZCBsb2FkcyBvZiBpbmZvcm1hdGlvbiBhYm91dCB0aGUgZ2FtZSBpbiB3aWtpcywgZ3VpZGVzIGFuZCBvbiBZb3V0dWJlIGJ1dCwgYWdhaW4sIHRoZSBiZXN0IHdheSB0byBsZWFybiBpcyB0byBhY3R1YWxseSB0cnkgaXQgb3V0LiAgSSBoYXZlIGJlZW4gY2FzdWFsbHkgcGxheWluZyBzaW5jZSBOb3ZlbWJlciAyMDE2IGFuZCBoYXZlIGhhZCBhIGxvdCBvZiBmdW4gd2l0aCBpdCENCg0KDQoNCg0KDQoNCg==</div>
 &nbsp;
@@ -327,6 +376,28 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2019-01-30_LordsOverview.Rmd");
+});
+</script>
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

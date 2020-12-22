@@ -431,13 +431,14 @@ end1 &lt;- Sys.time() - begin</code></pre>
 <p>Identify the best hyperparameter values using the show_best() function.</p>
 <pre class="r"><code>xgboost_res %&gt;% show_best(&quot;mae&quot;, n = 5)</code></pre>
 <pre><code>## # A tibble: 5 x 9
-##   min_n tree_depth learn_rate .metric .estimator  mean     n std_err .config
-##   &lt;int&gt;      &lt;int&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
-## 1    18         10    0.0265  mae     standard    3.19     5   0.155 Model14
-## 2    28          7    0.0302  mae     standard    3.23     5   0.144 Model30
-## 3    36         10    0.0264  mae     standard    3.36     5   0.126 Model10
-## 4    19          2    0.0904  mae     standard    3.38     5   0.131 Model20
-## 5    24         14    0.00824 mae     standard    3.56     5   0.112 Model25</code></pre>
+##   min_n tree_depth learn_rate .metric .estimator  mean     n std_err
+##   &lt;int&gt;      &lt;int&gt;      &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
+## 1    18         10    0.0265  mae     standard    3.19     5   0.155
+## 2    28          7    0.0302  mae     standard    3.23     5   0.144
+## 3    36         10    0.0264  mae     standard    3.36     5   0.126
+## 4    19          2    0.0904  mae     standard    3.38     5   0.131
+## 5    24         14    0.00824 mae     standard    3.56     5   0.112
+## # ... with 1 more variable: .config &lt;chr&gt;</code></pre>
 <p>Visualize the tuning results<br />
 <img src="2020-12-03_ConcreteXGB_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Select the best parameters based on the lowest mean absolute error.</p>
@@ -451,17 +452,17 @@ params_xgboost_best</code></pre>
 <pre class="r"><code>final_xgboost &lt;- finalize_workflow(concrete_wf, params_xgboost_best)
 
 final_xgboost</code></pre>
-<pre><code>## == Workflow ==============================================================
+<pre><code>## == Workflow ====================================================================
 ## Preprocessor: Recipe
 ## Model: boost_tree()
 ## 
-## -- Preprocessor ----------------------------------------------------------
+## -- Preprocessor ----------------------------------------------------------------
 ## 2 Recipe Steps
 ## 
 ## * step_center()
 ## * step_scale()
 ## 
-## -- Model -----------------------------------------------------------------
+## -- Model -----------------------------------------------------------------------
 ## Boosted Tree Model Specification (regression)
 ## 
 ## Main Arguments:

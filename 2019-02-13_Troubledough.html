@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
 
-<title></title>
+<title>2019-02-13_Troubledough.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,9 +24,8 @@
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -77,9 +76,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -93,7 +90,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -103,6 +99,9 @@ img {
 }
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -118,7 +117,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -138,6 +136,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -159,27 +194,77 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 <style type="text/css">
 .code-folding-btn { margin-bottom: 4px; }
 </style>
-<script>
-$(document).ready(function () {
-  window.initializeSourceEmbed("2019-02-13_Troubledough.Rmd");
-});
-</script>
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -235,9 +320,7 @@ $(document).ready(function () {
 
 <p><br></p>
 <p><img src="img/190213_troubledough.jpg" width="112" /></p>
-<div id="whats-the-trouble-yo-its-a-troubledough" class="section level2">
-<h2><strong>What’s the trouble, yo? It’s a troubledough!</strong></h2>
-<p><em>Posted on February 13, 2019</em></p>
+<p>##<strong>What’s the trouble, yo? It’s a troubledough!</strong> <em>Posted on February 13, 2019</em></p>
 <p>A recent event in the Lords Mobile game (see <a href="2019-01-30_LordsOverview.html">previous post</a>) was a monster hunting event with a new type of monster: the Troubledough. The event was concurrent with the release of new background music for the game. The Troubledough resembled a cross between a stereotypical pizza maker and a portly violinist. He seemed rather jolly playing his music however we send our heroes out to slash him with a sword and send him back to another dimension. As our reward for this heroic feat, we obtain a “Chest of Echoes” which contains one of seven possible rewards.</p>
 <p>The event costs basically nothing except your valuable time to find Troubledoughs when every 3 hours when they appear on the kingdom map and then send your heroes out to slay them. There was no energy cost to hunt (well, 1 energy unit which takes about 1 second to build back). Of the seven possible rewards, 5 rewards were various amount of resources. All resources with the exception of gold are rather easily obtained and the resource amounts offered from the chest were fairly insignificant for my account. One reward was for 15 min of speed-ups. Speed-ups are very important in the game however 15 min is a small amount relative to the typical time required to complete researches (weeks) or build troops (days). The final reward was the real gem, in fact, 300 of them. Gems are flexible currency in the Lords Mobile game and can be used to buy speed-ups, special materials, chests, combat boosts etc. 300 gems is the equivalent of a 3 hour speed-up which is miles better than just 15 min.</p>
 <p>So, what kind of drop rate are we to expect for the 300 gems reward from the “Chest of Echoes”? If we assume the same drop-rate for all 7 rewards, the 300 gems would be received about 14.3% of the time. Lords Mobile players however have come to expect a much lower drop-rate for the top item in a chest compared to the lesser items. Many times the drop-rate for the top item is less than 5%. This event was actually the second time the Troubledoughs had appeared and I had remembered receiving a good deal of gems from the previous event (~25,000 gems). I decided to go “all-in” on this event to see how many chests I could acquire over the next few days.</p>
@@ -321,11 +404,7 @@ res</code></pre>
 ## data:  chest_of_echoes$Count
 ## X-squared = 9.8385, df = 6, p-value = 0.1316</code></pre>
 <p>From this sample, we cannot conclude that the drop rates are significantly different from our assumption (p-value &gt; 0.05).</p>
-<div id="conclusion" class="section level3">
-<h3><strong>Conclusion</strong></h3>
-<p>So, there you have it! The drop rate for the 300 gem reward from the chest of echoes was ~20% which was awesome. From the 1418 chests collected during the event, I was able to collect 82,500 gems which is equivalent to about 60 days of speedups! Another 4 days of speed-ups were obtained from the 15 min speed-up items. If this event comes up a third time, be sure to hunt those Troubledoughs!</p>
-</div>
-</div>
+<p>###<strong>Conclusion</strong> So, there you have it! The drop rate for the 300 gem reward from the chest of echoes was ~20% which was awesome. From the 1418 chests collected during the event, I was able to collect 82,500 gems which is equivalent to about 60 days of speedups! Another 4 days of speed-ups were obtained from the 15 min speed-up items. If this event comes up a third time, be sure to hunt those Troubledoughs!</p>
 
 <div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KbGlicmFyeShqcGVnKQ0KbGlicmFyeShrbml0cikNCmBgYA0KDQpgYGB7ciwgZWNobz1GQUxTRX0NCmluY2x1ZGVfZ3JhcGhpY3MoImltZy8xOTAyMTNfdHJvdWJsZWRvdWdoLmpwZyIpDQpgYGANCg0KIyMqKldoYXTigJlzIHRoZSB0cm91YmxlLCB5bz8gIEl04oCZcyBhIHRyb3VibGVkb3VnaCEqKg0KKlBvc3RlZCBvbiBGZWJydWFyeSAxMywgMjAxOSoNCg0KQSByZWNlbnQgZXZlbnQgaW4gdGhlIExvcmRzIE1vYmlsZSBnYW1lIChzZWUgW3ByZXZpb3VzIHBvc3RdKDIwMTktMDEtMzBfTG9yZHNPdmVydmlldy5odG1sKSkgd2FzIGEgbW9uc3RlciBodW50aW5nIGV2ZW50IHdpdGggYSBuZXcgdHlwZSBvZiBtb25zdGVyOiB0aGUgVHJvdWJsZWRvdWdoLiAgVGhlIGV2ZW50IHdhcyBjb25jdXJyZW50IHdpdGggdGhlIHJlbGVhc2Ugb2YgbmV3IGJhY2tncm91bmQgbXVzaWMgZm9yIHRoZSBnYW1lLiAgVGhlIFRyb3VibGVkb3VnaCByZXNlbWJsZWQgYSBjcm9zcyBiZXR3ZWVuIGEgc3RlcmVvdHlwaWNhbCBwaXp6YSBtYWtlciBhbmQgYSBwb3J0bHkgdmlvbGluaXN0LiAgSGUgc2VlbWVkIHJhdGhlciBqb2xseSBwbGF5aW5nIGhpcyBtdXNpYyBob3dldmVyIHdlIHNlbmQgb3VyIGhlcm9lcyBvdXQgdG8gc2xhc2ggaGltIHdpdGggYSBzd29yZCBhbmQgc2VuZCBoaW0gYmFjayB0byBhbm90aGVyIGRpbWVuc2lvbi4gIEFzIG91ciByZXdhcmQgZm9yIHRoaXMgaGVyb2ljIGZlYXQsIHdlIG9idGFpbiBhIOKAnENoZXN0IG9mIEVjaG9lc+KAnSB3aGljaCBjb250YWlucyBvbmUgb2Ygc2V2ZW4gcG9zc2libGUgcmV3YXJkcy4NCg0KVGhlIGV2ZW50IGNvc3RzIGJhc2ljYWxseSBub3RoaW5nIGV4Y2VwdCB5b3VyIHZhbHVhYmxlIHRpbWUgdG8gZmluZCBUcm91YmxlZG91Z2hzIHdoZW4gZXZlcnkgMyBob3VycyB3aGVuIHRoZXkgYXBwZWFyIG9uIHRoZSBraW5nZG9tIG1hcCBhbmQgdGhlbiBzZW5kIHlvdXIgaGVyb2VzIG91dCB0byBzbGF5IHRoZW0uICBUaGVyZSB3YXMgbm8gZW5lcmd5IGNvc3QgdG8gaHVudCAod2VsbCwgMSBlbmVyZ3kgdW5pdCB3aGljaCB0YWtlcyBhYm91dCAxIHNlY29uZCB0byBidWlsZCBiYWNrKS4NCk9mIHRoZSBzZXZlbiBwb3NzaWJsZSByZXdhcmRzLCA1IHJld2FyZHMgd2VyZSB2YXJpb3VzIGFtb3VudCBvZiByZXNvdXJjZXMuICBBbGwgcmVzb3VyY2VzIHdpdGggdGhlIGV4Y2VwdGlvbiBvZiBnb2xkIGFyZSByYXRoZXIgZWFzaWx5IG9idGFpbmVkIGFuZCB0aGUgcmVzb3VyY2UgYW1vdW50cyBvZmZlcmVkIGZyb20gdGhlIGNoZXN0IHdlcmUgZmFpcmx5IGluc2lnbmlmaWNhbnQgZm9yIG15IGFjY291bnQuICBPbmUgcmV3YXJkIHdhcyBmb3IgMTUgbWluIG9mIHNwZWVkLXVwcy4gIFNwZWVkLXVwcyBhcmUgdmVyeSBpbXBvcnRhbnQgaW4gdGhlIGdhbWUgaG93ZXZlciAxNSBtaW4gaXMgYSBzbWFsbCBhbW91bnQgcmVsYXRpdmUgdG8gdGhlIHR5cGljYWwgdGltZSByZXF1aXJlZCB0byBjb21wbGV0ZSByZXNlYXJjaGVzICh3ZWVrcykgb3IgYnVpbGQgdHJvb3BzIChkYXlzKS4gIFRoZSBmaW5hbCByZXdhcmQgd2FzIHRoZSByZWFsIGdlbSwgaW4gZmFjdCwgMzAwIG9mIHRoZW0uICBHZW1zIGFyZSBmbGV4aWJsZSBjdXJyZW5jeSBpbiB0aGUgTG9yZHMgTW9iaWxlIGdhbWUgYW5kIGNhbiBiZSB1c2VkIHRvIGJ1eSBzcGVlZC11cHMsIHNwZWNpYWwgbWF0ZXJpYWxzLCBjaGVzdHMsIGNvbWJhdCBib29zdHMgZXRjLiAgMzAwIGdlbXMgaXMgdGhlIGVxdWl2YWxlbnQgb2YgYSAzIGhvdXIgc3BlZWQtdXAgd2hpY2ggaXMgbWlsZXMgYmV0dGVyIHRoYW4ganVzdCAxNSBtaW4uDQoNClNvLCB3aGF0IGtpbmQgb2YgZHJvcCByYXRlIGFyZSB3ZSB0byBleHBlY3QgZm9yIHRoZSAzMDAgZ2VtcyByZXdhcmQgZnJvbSB0aGUg4oCcQ2hlc3Qgb2YgRWNob2Vz4oCdPyAgSWYgd2UgYXNzdW1lIHRoZSBzYW1lIGRyb3AtcmF0ZSBmb3IgYWxsIDcgcmV3YXJkcywgdGhlIDMwMCBnZW1zIHdvdWxkIGJlIHJlY2VpdmVkIGFib3V0IDE0LjMlIG9mIHRoZSB0aW1lLiAgTG9yZHMgTW9iaWxlIHBsYXllcnMgaG93ZXZlciBoYXZlIGNvbWUgdG8gZXhwZWN0IGEgbXVjaCBsb3dlciBkcm9wLXJhdGUgZm9yIHRoZSB0b3AgaXRlbSBpbiBhIGNoZXN0IGNvbXBhcmVkIHRvIHRoZSBsZXNzZXIgaXRlbXMuICBNYW55IHRpbWVzIHRoZSBkcm9wLXJhdGUgZm9yIHRoZSB0b3AgaXRlbSBpcyBsZXNzIHRoYW4gNSUuICBUaGlzIGV2ZW50IHdhcyBhY3R1YWxseSB0aGUgc2Vjb25kIHRpbWUgdGhlIFRyb3VibGVkb3VnaHMgaGFkIGFwcGVhcmVkIGFuZCBJIGhhZCByZW1lbWJlcmVkIHJlY2VpdmluZyBhIGdvb2QgZGVhbCBvZiBnZW1zIGZyb20gdGhlIHByZXZpb3VzIGV2ZW50ICh+MjUsMDAwIGdlbXMpLiAgSSBkZWNpZGVkIHRvIGdvIOKAnGFsbC1pbuKAnSBvbiB0aGlzIGV2ZW50IHRvIHNlZSBob3cgbWFueSBjaGVzdHMgSSBjb3VsZCBhY3F1aXJlIG92ZXIgdGhlIG5leHQgZmV3IGRheXMuDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGtuaXRyKQ0KYGBgDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KY2hlc3Rfb2ZfZWNob2VzIDwtIHRpYmJsZSgNCiAgICAgICAgICAgICAgICAgICAgICAgICAgUmV3YXJkcyA9IGMoIjMwMCBnZW1zIiwgIjE1IG1pbiBzcGVlZHVwIiwgIjE1MGsgZm9vZCIsICI1MGsgc3RvbmVzIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIjUwayB0aW1iZXIiLCAiNTBrIG9yZSIsICIxNWsgZ29sZCIpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICBDb3VudCA9IGMoMjc1LCA0MDIsIDE2OSwgMTYwLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMTMyLCAxMzksIDE0MSkNCikNCmBgYA0KDQpBZnRlciBzZXZlcmFsIGRheXMgb2YgdmFsaWFudCBUcm91YmxlZG91Z2ggc2xheWluZywgSSB3YXMgYWJsZSB0byBjb2xsZWN0IDE0MTggY2hlc3RzIG9mIGVjaG9lcy4gIEkgcmVjb3JkZWQgdGhlIHJld2FyZHMgYXMgSSBvcGVuZWQgdGhlIGNoZXN0cy4gIEkgY2FuIGNvbmZpcm0gdGhlcmUgd2FzIG9uZSByZXdhcmQgcGVyIGNoZXN0LiAgVGhlIGRpc3RyaWJ1dGlvbiBvZiByZXdhcmRzIGlzIHNob3duIGluIHRoZSBmaWd1cmUgYmVsb3cuDQoNCmBgYHtyLCBlY2hvPUZBTFNFLCBmaWcuaGVpZ2h0PTYsIGZpZy53aWR0aD04fQ0KY2hlc3Rfb2ZfZWNob2VzJFJld2FyZHMgPC0gZmFjdG9yKGNoZXN0X29mX2VjaG9lcyRSZXdhcmRzLCBsZXZlbHMgPSBjaGVzdF9vZl9lY2hvZXMkUmV3YXJkc1tvcmRlcigtY2hlc3Rfb2ZfZWNob2VzJENvdW50KV0pDQoNCmcxIDwtIGdncGxvdChkYXRhPWNoZXN0X29mX2VjaG9lcywgYWVzKHg9UmV3YXJkcywgeT1Db3VudCkpICsNCiAgICAgICAgZ2VvbV9iYXIoc3RhdD0iaWRlbnRpdHkiLCB3aWR0aD0wLjcsIGZpbGw9InN0ZWVsYmx1ZSIpICsNCiAgICAgICAgZ2VvbV90ZXh0KGFlcyhsYWJlbD1Db3VudCksIHZqdXN0PS0wLjMsIHNpemU9My41KSArDQogICAgICAgIGdndGl0bGUoIlRyb3VibGVkb3VnaCBFdmVudCBSZXdhcmRzIiwgc3VidGl0bGU9IlJld2FyZHMgb2J0YWluZWQgZnJvbSAxNDE4IGNoZXN0cyBvZiBlY2hvZXMiKSArDQogICAgICAgIHhsYWIoIiIpICsgeWxhYigiIyBvZiBJdGVtcyBPYnRhaW5lZCIpICsNCiAgICAgICAgdGhlbWVfY2xhc3NpYygpDQpnMQ0KYGBgDQoNClRoZSBkaXN0cmlidXRpb24gb2YgcmV3YXJkcyBkaWQgbm90IGFwcGVhciB0byBiZSB1bmlmb3JtLiAgSWYgYWxsIHJld2FyZHMgd2VyZSBlcXVhbGx5IGxpa2VseSwgZWFjaCByZXdhcmRzIHdvdWxkIGFwcGVhciBhYm91dCAyMDMgdGltZXMuICBUaGUgMTUgbWludXRlIHNwZWVkLXVwcyBzaG93ZWQgdXAgYWJvdXQgMiB0aW1lcyBtb3JlIG9mdGVuLiAgVGhlIGhpZ2hseS1kZXNpcmVkIHJld2FyZCBvZiAzMDAgZ2VtcyB3YXMgYWxzbyByZWNlaXZlZCBtb3JlIGZyZXF1ZW50bHkgdGhhbiBvbmUgd291bGQgZXhwZWN0IGZyb20gYSB1bmlmb3JtIGRpc3RyaWJ1dGlvbiBvZiByZXdhcmRzLg0KDQpUaGUgY2hpLXNxdWFyZSBnb29kbmVzcyBvZiBmaXQgdGVzdCBpcyB1c2VkIHRvIGNvbXBhcmUgdGhlIG9ic2VydmVkIGRpc3RyaWJ1dGlvbiB0byBhbiBleHBlY3RlZCBkaXN0cmlidXRpb24gaW4gYSBzaXR1YXRpb24gd2hlcmUgd2UgaGF2ZSB0d28gb3IgbW9yZSBjYXRlZ29yaWVzIGluIGEgZGlzY3JldGUgZGF0YXNldC4gIEluIG90aGVyIHdvcmRzLCBpdCBjb21wYXJlcyBtdWx0aXBsZSBvYnNlcnZlZCBwcm9wb3J0aW9ucyB0byBleHBlY3RlZCBwcm9iYWJpbGl0aWVzLg0KDQpOdWxsIGh5cG90aGVzaXMgKEhvKTogVGhlcmUgaXMgbm8gc2lnbmlmaWNhbnQgZGlmZmVyZW5jZSBiZXR3ZWVuIHRoZSBvYnNlcnZlZCBhbmQgdGhlIGV4cGVjdGVkIHZhbHVlLg0KDQpBbHRlcm5hdGl2ZSBoeXBvdGhlc2lzIChIYSk6IFRoZXJlIGlzIGEgc2lnbmlmaWNhbnQgZGlmZmVyZW50IGJldHdlZW4gdGhlIG9ic2VydmVkIGFuZCB0aGUgZXhwZWN0ZWQgdmFsdWUuDQoNCmBgYHtyfQ0KcmVzIDwtIGNoaXNxLnRlc3QoY2hlc3Rfb2ZfZWNob2VzJENvdW50LCBwID0gcmVwKDEvNywgNykpDQpyZXMNCmBgYA0KDQpUaGUgcC12YWx1ZSBvZiB0aGUgdGVzdCBpcyBsZXNzIHRoYW4gdGhlIHNpZ25pZmljYW5jZSBsZXZlbCBhbHBoYSA9IDAuMDUuICBXZSBjYW4gY29uY2x1ZGUgdGhhdCB0aGUgcmV3YXJkcyBhcmUgc2lnbmlmaWNhbnRseSBub3QgdW5pZm9ybWx5IGRpc3RyaWJ1dGVkIHdpdGggYSBwLXZhbHVlIG9mIDwgMi4yZS0xNi4NCg0KVGhlIGFjdHVhbCBkcm9wIHJhdGUgJSBmb3IgdGhlIDE0MTggY2hlc3RzIHdhcyBjYWxjdWxhdGVkLiAgVGhlIGRyb3AgcmF0ZXMgd2VyZSBjbG9zZSB0byAyMCUgZm9yIDMwMCBnZW1zIGFuZCAzMCUgZm9yIHRoZSAxNSBtaW4gc3BlZWQtdXAuICBPbmUgY291bGQgYXNzdW1lIHRoZSByZXN0IG9mIHRoZSByZXNvdXJjZSBhd2FyZHMgd2VyZSBlcXVhbGx5IGxpa2VseSB3aXRoIDEwJSBkcm9wIHJhdGUuDQoNCmBgYHtyLCBlY2hvPUZBTFNFfQ0KdG90YWxfY2hlc3RzIDwtIHN1bShjaGVzdF9vZl9lY2hvZXMkQ291bnQpDQpjaGVzdF9vZl9lY2hvZXMgPC0gY2hlc3Rfb2ZfZWNob2VzICU+JQ0KICAgICAgICAgICAgICAgICAgICBtdXRhdGUoQWN0dWFsID0gcGFzdGUwKHJvdW5kKENvdW50IC8gdG90YWxfY2hlc3RzICogMTAwLCAxKSwgIiUiKSkgJT4lDQogICAgICAgICAgICAgICAgICAgIG11dGF0ZShBc3N1bWVkID0gYygiMjAlIiwgIjMwJSIsICIxMCUiLCAiMTAlIiwgIjEwJSIsICIxMCUiLCAiMTAlIikpDQprYWJsZShjaGVzdF9vZl9lY2hvZXMsIGFsaWduPSdsY2NjJywgY2FwdGlvbj0iQ2hlc3Qgb2YgRWNob2VzIERyb3AgUmF0ZXMiKQ0KYGBgDQoNClJlZG8gdGhlIGFuYWx5c2lzIHRvIHRlc3QgdGhlIGFzc3VtZWQgZHJvcCByYXRlcyBmb3IgdGhlIDE0MTggY2hlc3Qgc2FtcGxlLg0KYGBge3J9DQphc3N1bWVkX2Ryb3BfcmF0ZXMgPC0gYygwLjIsIDAuMywgMC4xLCAwLjEsIDAuMSwgMC4xLCAwLjEpDQpyZXMgPC0gY2hpc3EudGVzdChjaGVzdF9vZl9lY2hvZXMkQ291bnQsIHAgPSBhc3N1bWVkX2Ryb3BfcmF0ZXMpDQpyZXMNCmBgYA0KRnJvbSB0aGlzIHNhbXBsZSwgd2UgY2Fubm90IGNvbmNsdWRlIHRoYXQgdGhlIGRyb3AgcmF0ZXMgYXJlIHNpZ25pZmljYW50bHkgZGlmZmVyZW50IGZyb20gb3VyIGFzc3VtcHRpb24gKHAtdmFsdWUgPiAwLjA1KS4NCg0KIyMjKipDb25jbHVzaW9uKioNClNvLCB0aGVyZSB5b3UgaGF2ZSBpdCEgIFRoZSBkcm9wIHJhdGUgZm9yIHRoZSAzMDAgZ2VtIHJld2FyZCBmcm9tIHRoZSBjaGVzdCBvZiBlY2hvZXMgd2FzIH4yMCUgd2hpY2ggd2FzIGF3ZXNvbWUuICBGcm9tIHRoZSAxNDE4IGNoZXN0cyBjb2xsZWN0ZWQgZHVyaW5nIHRoZSBldmVudCwgSSB3YXMgYWJsZSB0byBjb2xsZWN0IDgyLDUwMCBnZW1zIHdoaWNoIGlzIGVxdWl2YWxlbnQgdG8gYWJvdXQgNjAgZGF5cyBvZiBzcGVlZHVwcyEgIEFub3RoZXIgNCBkYXlzIG9mIHNwZWVkLXVwcyB3ZXJlIG9idGFpbmVkIGZyb20gdGhlIDE1IG1pbiBzcGVlZC11cCBpdGVtcy4gIElmIHRoaXMgZXZlbnQgY29tZXMgdXAgYSB0aGlyZCB0aW1lLCBiZSBzdXJlIHRvIGh1bnQgdGhvc2UgVHJvdWJsZWRvdWdocyENCg0K</div>
 &nbsp;
@@ -369,6 +448,28 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2019-02-13_Troubledough.Rmd");
+});
+</script>
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

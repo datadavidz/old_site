@@ -435,17 +435,17 @@ params_rf_best</code></pre>
 <pre class="r"><code>final_rf &lt;- finalize_workflow(concrete_wf, params_rf_best)
 
 final_rf</code></pre>
-<pre><code>## == Workflow ==============================================================
+<pre><code>## == Workflow ====================================================================
 ## Preprocessor: Recipe
 ## Model: rand_forest()
 ## 
-## -- Preprocessor ----------------------------------------------------------
+## -- Preprocessor ----------------------------------------------------------------
 ## 2 Recipe Steps
 ## 
 ## * step_center()
 ## * step_scale()
 ## 
-## -- Model -----------------------------------------------------------------
+## -- Model -----------------------------------------------------------------------
 ## Random Forest Model Specification (regression)
 ## 
 ## Main Arguments:
@@ -479,7 +479,7 @@ workflow() %&gt;%
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
 ## 1 rmse    standard       4.19 
 ## 2 rsq     standard       0.938
-## 3 mae     standard       2.98</code></pre>
+## 3 mae     standard       2.99</code></pre>
 <p>Visualize actual vs. predicted compressive strength for final model.<br />
 <img src="2020-12-04_ConcreteRF_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>

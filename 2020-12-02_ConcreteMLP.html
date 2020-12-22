@@ -421,13 +421,13 @@ end1 &lt;- Sys.time() - begin</code></pre>
 <p>Identify the best hyperparameter values using the show_best() function.</p>
 <pre class="r"><code>nnet_res %&gt;% show_best(&quot;mae&quot;, n = 5)</code></pre>
 <pre><code>## # A tibble: 5 x 8
-##   hidden_units  penalty .metric .estimator  mean     n std_err .config
-##          &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
-## 1           10 1.65e- 3 mae     standard    4.45     5  0.278  Model05
-## 2           10 9.28e- 2 mae     standard    4.51     5  0.293  Model10
-## 3            7 3.58e- 5 mae     standard    4.52     5  0.212  Model04
-## 4            7 1.08e-10 mae     standard    4.62     5  0.216  Model01
-## 5            6 2.39e- 5 mae     standard    4.63     5  0.0927 Model03</code></pre>
+##   hidden_units      penalty .metric .estimator  mean     n std_err .config
+##          &lt;int&gt;        &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1           10 0.0928       mae     standard    4.30     5   0.134 Model10
+## 2            7 0.0000358    mae     standard    4.52     5   0.160 Model04
+## 3            7 0.316        mae     standard    4.63     5   0.143 Model18
+## 4            6 0.0000000141 mae     standard    4.66     5   0.144 Model09
+## 5            9 0.0000147    mae     standard    4.69     5   0.227 Model08</code></pre>
 <p>Visualize the tuning results<br />
 <img src="2020-12-02_ConcreteMLP_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Select the best parameters based on the lowest mean absolute error.</p>
@@ -436,26 +436,26 @@ params_nnet_best</code></pre>
 <pre><code>## # A tibble: 1 x 3
 ##   hidden_units penalty .config
 ##          &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
-## 1           10 0.00165 Model05</code></pre>
+## 1           10  0.0928 Model10</code></pre>
 <pre class="r"><code>final_nnet &lt;- finalize_workflow(concrete_wf, params_nnet_best)
 
 final_nnet</code></pre>
-<pre><code>## == Workflow ==============================================================
+<pre><code>## == Workflow ====================================================================
 ## Preprocessor: Recipe
 ## Model: mlp()
 ## 
-## -- Preprocessor ----------------------------------------------------------
+## -- Preprocessor ----------------------------------------------------------------
 ## 2 Recipe Steps
 ## 
 ## * step_center()
 ## * step_scale()
 ## 
-## -- Model -----------------------------------------------------------------
+## -- Model -----------------------------------------------------------------------
 ## Single Layer Neural Network Specification (regression)
 ## 
 ## Main Arguments:
 ##   hidden_units = 10
-##   penalty = 0.00165108785023803
+##   penalty = 0.0927943905608392
 ##   epochs = 3000
 ##   activation = relu
 ## 
@@ -481,9 +481,9 @@ final_res &lt;- last_fit(final_nnet, concrete_split, metrics = metric_set(rmse, 
 <pre><code>## # A tibble: 3 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
-## 1 rmse    standard       5.58 
-## 2 rsq     standard       0.892
-## 3 mae     standard       4.19</code></pre>
+## 1 rmse    standard       5.68 
+## 2 rsq     standard       0.882
+## 3 mae     standard       4.32</code></pre>
 <p>Visualize actual vs. predicted compressive strength for final model.<br />
 <img src="2020-12-02_ConcreteMLP_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>

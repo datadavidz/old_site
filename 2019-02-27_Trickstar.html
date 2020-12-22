@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
 
-<title></title>
+<title>2019-02-27_Trickstar.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,9 +24,8 @@
 <script src="site_libs/navigation-1.1/sourceembed.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
-<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
-<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -77,9 +76,7 @@ h6 {
 </style>
 
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -93,7 +90,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -103,6 +99,9 @@ img {
 }
 button.code-folding-btn:focus {
   outline: none;
+}
+summary {
+  display: list-item;
 }
 </style>
 
@@ -118,7 +117,6 @@ body {
   padding-top: 56px;
   margin-top: -56px;
 }
-
 .section h2 {
   padding-top: 56px;
   margin-top: -56px;
@@ -138,6 +136,43 @@ body {
 .section h6 {
   padding-top: 56px;
   margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
 }
 </style>
 
@@ -159,27 +194,77 @@ $(document).ready(function () {
 });
 </script>
 
-
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
 
 <!-- code folding -->
 <style type="text/css">
 .code-folding-btn { margin-bottom: 4px; }
 </style>
-<script>
-$(document).ready(function () {
-  window.initializeSourceEmbed("2019-02-27_Trickstar.Rmd");
-});
-</script>
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -235,9 +320,7 @@ $(document).ready(function () {
 
 <p><br></p>
 <p><img src="img/190227_Trickstar.jpg" width="234" /></p>
-<div id="was-i-fooled-by-the-trickstar" class="section level2">
-<h2><strong>Was I fooled by the Trickstar?</strong></h2>
-<p><em>Posted on February 27, 2019</em></p>
+<p>##<strong>Was I fooled by the Trickstar?</strong> <em>Posted on February 27, 2019</em></p>
 <p>A recent event in Lords Mobile for Valentine’s day was a Trickstar monster kill. The Trickstar looks like an evil version of Cupid so I suppose it was an appropriate way to celebrate the holiday. Trickstars appeared on the map every 3 hours for a period of 3 days. The Trickstars can be slayed with 1 energy (basically free). The rewards were holy stars which can be used in the Labyrinth to obtain gems, special materials, gold and other items. Each Trickstar kill produced an immediate rewards of either 50, 100, 200 or 1000 holy stars. I was able to participate in 11 rounds over the first two days. On the third day, I was too busy with the Kingdom vs. Kingdom event to do any dedicated Trickstar hunting.</p>
 <p>So, how did the Trickstar event go? Overall, I was able to kill about 32 trickstars per round for a grand total of 350. The total rewards were 43,150 holy stars which was a pretty good haul with an equivalent cost of about 86,300 gems. I was able to use some of these holy stars in the Labyrinth to obtain special materials which allowed me to upgrade my Dragon’s Talon boots to rare (blue) grade.</p>
 <p>The overall drop rate for the 1000 holy stars reward was unfortunately quite low (~1%). The following table summarizes the drop rates for each of the holy star rewards.</p>
@@ -273,9 +356,7 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
-<div id="does-the-next-reward-depend-on-previous-rewards" class="section level3">
-<h3>Does the next reward depend on previous rewards?</h3>
-<p>One of the questions which arose during the Trickstar hunting was: “Is it more likely to receive certain rewards after a particular drop?”. It felt at times like you would get a string of 100 holy star rewards and at other times it would seem to alternate between 50 holy stars and 200 holy stars. One way to analyze whether this dependency exists is by Markov Chain analysis. I have used the markovchain package in R to perform the analyses.</p>
+<p>###Does the next reward depend on previous rewards? One of the questions which arose during the Trickstar hunting was: “Is it more likely to receive certain rewards after a particular drop?”. It felt at times like you would get a string of 100 holy star rewards and at other times it would seem to alternate between 50 holy stars and 200 holy stars. One way to analyze whether this dependency exists is by Markov Chain analysis. I have used the markovchain package in R to perform the analyses.</p>
 <p>The ordered sequence of rewards were first loaded into R.</p>
 <pre class="r"><code>filename &lt;- &quot;trickstar_sequence.csv&quot;
 folder &lt;- &quot;./data/&quot;
@@ -292,8 +373,8 @@ trickstarSequence &lt;- read_csv(paste0(folder, filename), col_types = colTypes)
 <pre class="r"><code>vmp &lt;- verifyMarkovProperty(rewardSequence$Reward)</code></pre>
 <pre><code>## Testing markovianity property on given data sequence
 ## Chi - square statistic is: 13.50894 
-## Degrees of freedom are: 64 
-## And corresponding p-value is: 1</code></pre>
+## Degrees of freedom are: 26 
+## And corresponding p-value is: 0.9789201</code></pre>
 <p>The transition matrix for the sequence of Trickstar rewards is given below. The row label is the previous reward drop and the column label is the next reward drop. For example, a 100 holy stars reward was received 99 times when the previous reward was also 100 holy stars. A 1000 holy stars reward was obtained 3 times when the previous rewards was 100 holy stars. The 1000 holy star drops were quite rare (only 4 out of 350) and was never obtained back-to-back nor after a 50 holy stars drop. This observation is likely due to the limited sample size.</p>
 <pre class="r"><code>createSequenceMatrix(stringchar = rewardSequence$Reward)</code></pre>
 <pre><code>##        HS100 HS1000 HS200 HS50
@@ -306,9 +387,7 @@ trickstarSequence &lt;- read_csv(paste0(folder, filename), col_types = colTypes)
 steadyStates(mcRewards)</code></pre>
 <pre><code>##          HS100     HS1000     HS200      HS50
 ## [1,] 0.5217254 0.01151036 0.2433529 0.2234113</code></pre>
-</div>
-<div id="analysis-of-the-transitional-probabilities" class="section level3">
-<h3>Analysis of the transitional probabilities</h3>
+<p>###Analysis of the transitional probabilities</p>
 <p>The transitional probabilities are given in the following table:</p>
 <pre class="r"><code>mcRewards</code></pre>
 <pre><code>## MLE Fit 
@@ -345,27 +424,22 @@ steadyStates(mcRewards)</code></pre>
 ## [1] 0.95
 ## 
 ## $lowerEndpointMatrix
-##            HS100       HS1000     HS200      HS50
-## HS100  0.4565410 0.0008344196 0.1539251 0.1683304
-## HS1000 0.0000000 0.0000000000 0.0000000 0.0000000
-## HS200  0.3892856 0.0000000000 0.1777830 0.1202129
-## HS50   0.3417056 0.0000000000 0.1808222 0.1600505
+##            HS100 HS1000     HS200      HS50
+## HS100  0.4392188      0 0.1431932 0.1571829
+## HS1000 0.0000000      0 0.0000000 0.0000000
+## HS200  0.3646949      0 0.1600040 0.1049278
+## HS50   0.3174431      0 0.1621133 0.1422123
 ## 
 ## $upperEndpointMatrix
 ##            HS100     HS1000     HS200      HS50
-## HS100  0.6373817 0.03231475 0.2659644 0.2847083
+## HS100  0.6547039 0.03533015 0.2766963 0.2958558
 ## HS1000 1.0000000 0.00000000 1.0000000 0.0000000
-## HS200  0.6460085 0.03111593 0.3633934 0.2797871
-## HS50   0.5950032 0.00000000 0.3761398 0.3462786
+## HS200  0.6705992 0.03482311 0.3811725 0.2950722
+## HS50   0.6192658 0.00000000 0.3948487 0.3641168
 ## 
 ## $logLikelihood
 ## [1] -369.508</code></pre>
-</div>
-<div id="summary" class="section level3">
-<h3>Summary</h3>
-<p>So, I don’t feel I was fooled by Trickstar in this event. In fact, the event was well-worth the effort with 43,150 holy stars obtained over two days of hunting. The drop rate was highest for the 100 holy star rewards (~52%) and the 1000 holy star reward was quite rare (~ 1% drop rate). The rewards appear to be randomly generated based on the drop rates and I could not statistically conclude using Markov Chain analysis that any dependency exists between the previous reward and the next reward.</p>
-</div>
-</div>
+<p>###Summary So, I don’t feel I was fooled by Trickstar in this event. In fact, the event was well-worth the effort with 43,150 holy stars obtained over two days of hunting. The drop rate was highest for the 100 holy star rewards (~52%) and the 1000 holy star reward was quite rare (~ 1% drop rate). The rewards appear to be randomly generated based on the drop rates and I could not statistically conclude using Markov Chain analysis that any dependency exists between the previous reward and the next reward.</p>
 
 <div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KPGJyPg0KYGBge3IsIGluY2x1ZGU9RkFMU0V9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoanBlZykNCmxpYnJhcnkoa25pdHIpDQpgYGANCg0KYGBge3IsIGVjaG89RkFMU0V9DQppbmNsdWRlX2dyYXBoaWNzKCJpbWcvMTkwMjI3X1RyaWNrc3Rhci5qcGciKQ0KYGBgDQoNCiMjKipXYXMgSSBmb29sZWQgYnkgdGhlIFRyaWNrc3Rhcj8qKg0KKlBvc3RlZCBvbiBGZWJydWFyeSAyNywgMjAxOSoNCg0KQSByZWNlbnQgZXZlbnQgaW4gTG9yZHMgTW9iaWxlIGZvciBWYWxlbnRpbmUncyBkYXkgd2FzIGEgVHJpY2tzdGFyIG1vbnN0ZXIga2lsbC4gIFRoZSBUcmlja3N0YXIgbG9va3MgbGlrZSBhbiBldmlsIHZlcnNpb24gb2YgQ3VwaWQgc28gSSBzdXBwb3NlIGl0IHdhcyBhbiBhcHByb3ByaWF0ZSB3YXkgdG8gY2VsZWJyYXRlIHRoZSBob2xpZGF5LiAgVHJpY2tzdGFycyBhcHBlYXJlZCBvbiB0aGUgbWFwIGV2ZXJ5IDMgaG91cnMgZm9yIGEgcGVyaW9kIG9mIDMgZGF5cy4gIFRoZSBUcmlja3N0YXJzIGNhbiBiZSBzbGF5ZWQgd2l0aCAxIGVuZXJneSAoYmFzaWNhbGx5IGZyZWUpLiAgVGhlIHJld2FyZHMgd2VyZSBob2x5IHN0YXJzIHdoaWNoIGNhbiBiZSB1c2VkIGluIHRoZSBMYWJ5cmludGggdG8gb2J0YWluIGdlbXMsIHNwZWNpYWwgbWF0ZXJpYWxzLCBnb2xkIGFuZCBvdGhlciBpdGVtcy4gIEVhY2ggVHJpY2tzdGFyIGtpbGwgcHJvZHVjZWQgYW4gaW1tZWRpYXRlIHJld2FyZHMgb2YgZWl0aGVyIDUwLCAxMDAsIDIwMCBvciAxMDAwIGhvbHkgc3RhcnMuICBJIHdhcyBhYmxlIHRvIHBhcnRpY2lwYXRlIGluIDExIHJvdW5kcyBvdmVyIHRoZSBmaXJzdCB0d28gZGF5cy4gIE9uIHRoZSB0aGlyZCBkYXksIEkgd2FzIHRvbyBidXN5IHdpdGggdGhlIEtpbmdkb20gdnMuIEtpbmdkb20gZXZlbnQgdG8gZG8gYW55IGRlZGljYXRlZCBUcmlja3N0YXIgaHVudGluZy4NCg0KU28sIGhvdyBkaWQgdGhlIFRyaWNrc3RhciBldmVudCBnbz8gIE92ZXJhbGwsIEkgd2FzIGFibGUgdG8ga2lsbCBhYm91dCAzMiB0cmlja3N0YXJzIHBlciByb3VuZCBmb3IgYSBncmFuZCB0b3RhbCBvZiAzNTAuICBUaGUgdG90YWwgcmV3YXJkcyB3ZXJlIDQzLDE1MCBob2x5IHN0YXJzIHdoaWNoIHdhcyBhIHByZXR0eSBnb29kIGhhdWwgd2l0aCBhbiBlcXVpdmFsZW50IGNvc3Qgb2YgYWJvdXQgODYsMzAwIGdlbXMuICBJIHdhcyBhYmxlIHRvIHVzZSBzb21lIG9mIHRoZXNlIGhvbHkgc3RhcnMgaW4gdGhlIExhYnlyaW50aCB0byBvYnRhaW4gc3BlY2lhbCBtYXRlcmlhbHMgd2hpY2ggYWxsb3dlZCBtZSB0byB1cGdyYWRlIG15IERyYWdvbidzIFRhbG9uIGJvb3RzIHRvIHJhcmUgKGJsdWUpIGdyYWRlLg0KDQpUaGUgb3ZlcmFsbCBkcm9wIHJhdGUgZm9yIHRoZSAxMDAwIGhvbHkgc3RhcnMgcmV3YXJkIHdhcyB1bmZvcnR1bmF0ZWx5IHF1aXRlIGxvdyAofjElKS4gIFRoZSBmb2xsb3dpbmcgdGFibGUgc3VtbWFyaXplcyB0aGUgZHJvcCByYXRlcyBmb3IgZWFjaCBvZiB0aGUgaG9seSBzdGFyIHJld2FyZHMuDQoNCmBgYHtyLCBlY2hvPUZBTFNFfQ0KdHJpY2tzdGFyX2tpbGxzIDwtIHRpYmJsZShSZXdhcmRzID0gYygiNTAgc3RhcnMiLCAiMTAwIHN0YXJzIiwgIjIwMCBzdGFycyIsICIxMDAwIHN0YXJzIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgIENvdW50ID0gICBjKCAgICAgICAgNzksICAgICAgICAgMTgyLCAgICAgICAgICA4NSwgICAgICAgICAgIDQpKQ0KdG90YWxfa2lsbHMgPC0gc3VtKHRyaWNrc3Rhcl9raWxscyRDb3VudCkNCnRyaWNrc3Rhcl9raWxscyA8LSB0cmlja3N0YXJfa2lsbHMgJT4lDQogICAgICAgICAgICAgICAgICAgIG11dGF0ZShEcm9wUmF0ZSA9IHBhc3RlMChyb3VuZChDb3VudCAvIHRvdGFsX2tpbGxzICogMTAwLCAxKSwgIiUiKSkNCmthYmxlKHRyaWNrc3Rhcl9raWxscywgYWxpZ249J2xjY2MnLCBjYXB0aW9uPSJUcmlja3N0YXIvSG9seSBTdGFyIERyb3AgUmF0ZXMiKQ0KYGBgDQoNCiMjI0RvZXMgdGhlIG5leHQgcmV3YXJkIGRlcGVuZCBvbiBwcmV2aW91cyByZXdhcmRzPw0KT25lIG9mIHRoZSBxdWVzdGlvbnMgd2hpY2ggYXJvc2UgZHVyaW5nIHRoZSBUcmlja3N0YXIgaHVudGluZyB3YXM6ICJJcyBpdCBtb3JlIGxpa2VseSB0byByZWNlaXZlIGNlcnRhaW4gcmV3YXJkcyBhZnRlciBhIHBhcnRpY3VsYXIgZHJvcD8iLiAgSXQgZmVsdCBhdCB0aW1lcyBsaWtlIHlvdSB3b3VsZCBnZXQgYSBzdHJpbmcgb2YgMTAwIGhvbHkgc3RhciByZXdhcmRzIGFuZCBhdCBvdGhlciB0aW1lcyBpdCB3b3VsZCBzZWVtIHRvIGFsdGVybmF0ZSBiZXR3ZWVuIDUwIGhvbHkgc3RhcnMgYW5kIDIwMCBob2x5IHN0YXJzLiAgT25lIHdheSB0byBhbmFseXplIHdoZXRoZXIgdGhpcyBkZXBlbmRlbmN5IGV4aXN0cyBpcyBieSBNYXJrb3YgQ2hhaW4gYW5hbHlzaXMuICBJIGhhdmUgdXNlZCB0aGUgbWFya292Y2hhaW4gcGFja2FnZSBpbiBSIHRvIHBlcmZvcm0gdGhlIGFuYWx5c2VzLg0KDQpUaGUgb3JkZXJlZCBzZXF1ZW5jZSBvZiByZXdhcmRzIHdlcmUgZmlyc3QgbG9hZGVkIGludG8gUi4NCmBgYHtyfQ0KZmlsZW5hbWUgPC0gInRyaWNrc3Rhcl9zZXF1ZW5jZS5jc3YiDQpmb2xkZXIgPC0gIi4vZGF0YS8iDQpudW1iZXJDb2xzIDwtIDYgI3RvdGFsIG51bWJlciBvZiBjb2x1bW5zIGluIHNwcmVhZHNoZWV0DQoNCmNvbFR5cGVzIDwtIHN0cl9jKHN0cl9kdXAoImkiLCBudW1iZXJDb2xzKSkNCnRyaWNrc3RhclNlcXVlbmNlIDwtIHJlYWRfY3N2KHBhc3RlMChmb2xkZXIsIGZpbGVuYW1lKSwgY29sX3R5cGVzID0gY29sVHlwZXMpDQpgYGANCg0KYGBge3J9DQpyZXdhcmRTZXF1ZW5jZSA8LSB0cmlja3N0YXJTZXF1ZW5jZSAlPiUNCiAgICAgICAgICAgICAgICAgICAgZ2F0aGVyKCJSZXdhcmQiLCAiQ291bnQiLCBIUzUwOkhTMTAwMCkgJT4lDQogICAgICAgICAgICAgICAgICAgIGZpbHRlcighaXMubmEoQ291bnQpKSAlPiUNCiAgICAgICAgICAgICAgICAgICAgYXJyYW5nZShPcmRlcikNCmBgYA0KDQpgYGB7ciwgbWVzc2FnZT1GQUxTRSwgd2FybmluZz1GQUxTRX0NCmxpYnJhcnkobWFya292Y2hhaW4pDQpgYGANClRoZSBmdW5jdGlvbiB2ZXJpZnlNYXJrb3ZQcm9wZXJ0eSBhbmFseXplcyB0aGUgc2VxdWVuY2UgdG8gZGV0ZXJtaW5lIHdoZXRoZXIgdGhlIHNlcXVlbmNlIHNhdGlzZmllcyB0aGUgTWFya292IHByb3BlcnR5LiAgSW4gdGhpcyBjYXNlLCBhIHAtdmFsdWUgPiAwLjA1IGluZGljYXRlcyBvbmUgc2hvdWxkIG5vdCByZWplY3QgdGhlIG51bGwgaHlwb3RoZXNpcyB0aGF0IHRoZSBNYXJrb3YgcHJvcGVydHkgaG9sZHMgZm9yIGEgc3BlY2lmaWMgdHJhbnNpdGlvbi4NCmBgYHtyLCB3YXJuaW5nPUZBTFNFfQ0Kdm1wIDwtIHZlcmlmeU1hcmtvdlByb3BlcnR5KHJld2FyZFNlcXVlbmNlJFJld2FyZCkNCmBgYA0KVGhlIHRyYW5zaXRpb24gbWF0cml4IGZvciB0aGUgc2VxdWVuY2Ugb2YgVHJpY2tzdGFyIHJld2FyZHMgaXMgZ2l2ZW4gYmVsb3cuICBUaGUgcm93IGxhYmVsIGlzIHRoZSBwcmV2aW91cyByZXdhcmQgZHJvcCBhbmQgdGhlIGNvbHVtbiBsYWJlbCBpcyB0aGUgbmV4dCByZXdhcmQgZHJvcC4gIEZvciBleGFtcGxlLCBhIDEwMCBob2x5IHN0YXJzIHJld2FyZCB3YXMgcmVjZWl2ZWQgOTkgdGltZXMgd2hlbiB0aGUgcHJldmlvdXMgcmV3YXJkIHdhcyBhbHNvIDEwMCBob2x5IHN0YXJzLiAgQSAxMDAwIGhvbHkgc3RhcnMgcmV3YXJkIHdhcyBvYnRhaW5lZCAzIHRpbWVzIHdoZW4gdGhlIHByZXZpb3VzIHJld2FyZHMgd2FzIDEwMCBob2x5IHN0YXJzLiAgVGhlIDEwMDAgaG9seSBzdGFyIGRyb3BzIHdlcmUgcXVpdGUgcmFyZSAob25seSA0IG91dCBvZiAzNTApIGFuZCB3YXMgbmV2ZXIgb2J0YWluZWQgYmFjay10by1iYWNrIG5vciBhZnRlciBhIDUwIGhvbHkgc3RhcnMgZHJvcC4gIFRoaXMgb2JzZXJ2YXRpb24gaXMgbGlrZWx5IGR1ZSB0byB0aGUgbGltaXRlZCBzYW1wbGUgc2l6ZS4NCg0KYGBge3J9DQpjcmVhdGVTZXF1ZW5jZU1hdHJpeChzdHJpbmdjaGFyID0gcmV3YXJkU2VxdWVuY2UkUmV3YXJkKQ0KYGBgDQoNCkFzIGNhbGN1bGF0ZWQgcHJldmlvdXNseSwgdGhlIGRyb3AgcmF0ZXMgZm9yIHRoZSBkaWZmZXJlbnQgaG9seSBzdGFyIHJld2FyZHMgYXJlOg0KYGBge3J9DQptY1Jld2FyZHMgPC0gbWFya292Y2hhaW5GaXQoZGF0YT1yZXdhcmRTZXF1ZW5jZSRSZXdhcmQpJGVzdGltYXRlDQpzdGVhZHlTdGF0ZXMobWNSZXdhcmRzKQ0KYGBgDQojIyNBbmFseXNpcyBvZiB0aGUgdHJhbnNpdGlvbmFsIHByb2JhYmlsaXRpZXMNCg0KVGhlIHRyYW5zaXRpb25hbCBwcm9iYWJpbGl0aWVzIGFyZSBnaXZlbiBpbiB0aGUgZm9sbG93aW5nIHRhYmxlOg0KYGBge3J9DQptY1Jld2FyZHMNCmBgYA0KVGhlIGNvbHVtbnMgb2YgdGhlIHRyYW5zaXRpb24gbWF0cml4IHNob3VsZCBiZSBjbG9zZSB0byB0aGUgc3RlYWR5IHN0YXRlIHByb2JhYmlsaXRpZXMgKGRyb3AgcmF0ZXMpIGlmIHRoZXJlIGlzIG5vIGRlcGVuZGVuY3kgYmV0d2VlbiB0aGUgY3VycmVudCByZXdhcmQgYW5kIHRoZSBuZXh0IHJld2FyZC4gIEEgbW9yZSBkZXRhaWxlZCBhbmFseXNpcyBpbmNsdWRpbmcgdGhlIDk1JSBjb25maWRlbmNlIGludGVydmFscyBhcm91bmQgdGhlIHRyYW5zaXRpb25hbCBwcm9iYWJpbGl0aWVzIHNob3dzIHRoYXQgdGhleSBpbmNsdWRlIHRoZSBkcm9wIHJhdGVzLiAgVGhlcmVmb3JlLCB3ZSBjYW5ub3Qgc2F5IHRoZXJlIGlzIGEgZGVwZW5kZW5jeSBiZXR3ZWVuIGN1cnJlbnQgYW5kIG5leHQgcmV3YXJkcyBhbmQgdGhlIHNlcXVlbmNlIGNvdWxkIGJlIHJhbmRvbWx5IGdlbmVyYXRlZCBmcm9tIHRoZSBsaXN0ZWQgZHJvcCByYXRlcy4NCg0KYGBge3J9DQptYXJrb3ZjaGFpbkZpdChkYXRhPXJld2FyZFNlcXVlbmNlJFJld2FyZCkNCmBgYA0KDQojIyNTdW1tYXJ5DQpTbywgSSBkb24ndCBmZWVsIEkgd2FzIGZvb2xlZCBieSBUcmlja3N0YXIgaW4gdGhpcyBldmVudC4gIEluIGZhY3QsIHRoZSBldmVudCB3YXMgd2VsbC13b3J0aCB0aGUgZWZmb3J0IHdpdGggNDMsMTUwIGhvbHkgc3RhcnMgb2J0YWluZWQgb3ZlciB0d28gZGF5cyBvZiBodW50aW5nLiAgVGhlIGRyb3AgcmF0ZSB3YXMgaGlnaGVzdCBmb3IgdGhlIDEwMCBob2x5IHN0YXIgcmV3YXJkcyAofjUyJSkgYW5kIHRoZSAxMDAwIGhvbHkgc3RhciByZXdhcmQgd2FzIHF1aXRlIHJhcmUgKH4gMSUgZHJvcCByYXRlKS4gIFRoZSByZXdhcmRzIGFwcGVhciB0byBiZSByYW5kb21seSBnZW5lcmF0ZWQgYmFzZWQgb24gdGhlIGRyb3AgcmF0ZXMgYW5kIEkgY291bGQgbm90IHN0YXRpc3RpY2FsbHkgY29uY2x1ZGUgdXNpbmcgTWFya292IENoYWluIGFuYWx5c2lzIHRoYXQgYW55IGRlcGVuZGVuY3kgZXhpc3RzIGJldHdlZW4gdGhlIHByZXZpb3VzIHJld2FyZCBhbmQgdGhlIG5leHQgcmV3YXJkLg0KDQo=</div>
 &nbsp;
@@ -409,6 +483,28 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2019-02-27_Trickstar.Rmd");
+});
+</script>
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -20,7 +20,7 @@ library(knitr)
 include_graphics("img/190313_Mhunt.jpg")
 ```
 
-##**Monster Hunting Part 1: Personal Loot**
+## **Monster Hunting Part 1: Personal Loot**
 *Posted on March 13, 2019*
 
 One of the long running debates in my Lords Mobile guild has been how to best benefit the entire guild when monster hunting.  As discussed in a [previous post](2019-01-30_LordsOverview.html), you get a certain amount of energy each day which can be used to hunt monsters on the map.  Each time you hunt a monster, you get a reward which can be a number of helpful things such as resources and materials.  If you reduce the monster's stamina to 0, you kill the monster and everyone in the guild receives a chest which contains one item.  The debate comes down to which level monsters should be hunted.  The level 1 monsters require the least amount of energy to kill but also have the smallest rewards.  Level 2 monsters require 6X-8X more energy to kill but have marginally, better rewards.  My guild has switched between various rules such as killing a minimum of 5 monsters of any level, killing only level 2 and 3 monsters and now killing only level 1 and 2 monsters with a minimum of 10 kills per day (with verifiable proof nonetheless!).
@@ -45,7 +45,7 @@ raw1x <- read_excel(path = paste0(folder, filename), col_types = colTypes, col_n
 
 #Parse the raw data
 raw1x <- mutate(raw1x, id = rownames(raw1x))
-temp <- raw1x %>% separate(X__1, c("mon", "lvl", "rwd1", "no1", "rwd2", "no2", "rwd3", "no3"), " ")
+temp <- raw1x %>% separate(...1, c("mon", "lvl", "rwd1", "no1", "rwd2", "no2", "rwd3", "no3"), " ")
 
 tmp1 <- temp %>% select(id, mon, lvl, rwd1, no1) %>% rename(reward = rwd1) %>% rename(quantity = no1)
 tmp2 <- temp %>% select(id, mon, lvl, rwd2, no2) %>% rename(reward = rwd2) %>% rename(quantity = no2)
@@ -55,7 +55,7 @@ mhunts <- bind_rows(tmp1, tmp2) %>% bind_rows(., tmp3)
 rm(temp, tmp1, tmp2, tmp3)
 ```
 
-###Hunts by Monster Level
+### Hunts by Monster Level
 
 ```{r, echo=FALSE}
 hunts_per_level <- mhunts %>% 
@@ -75,7 +75,7 @@ g3
 
 The distribution of hunts by monster level is shown in the above figure.  The spreadsheet contained data for 12,507 hunts at the time of this analysis.  The majority of these hunts were for level 1 monsters (70%).  A decent number of level 3 and level 4 hunts are available (~700 each).  I should also note that there are level 5 monsters however the data has not yet been provided (presumably due to low counts).
 
-###Hunts by Monster Type
+### Hunts by Monster Type
 
 There are currently 18 different monsters which routinely appear on the map for hunting.  Two different types of monsters are found on any given day and each monster stays for two days and then is switched for another type.  The next analysis looks at the distribution of hunts by monster type.  Some monster types have been in the game longer than others.  For example, the Frostwing monster was present with the launch of the game whereas the Hardrox monster was added only a few months ago.  The figure below shows the distribution of hunts by monster type and using a signature color for each monster because I am fancy like that.
 
@@ -117,7 +117,7 @@ g2
 
 The data contains about 3 times more hunts for the Voodoo Shaman monster than any other type.  Voodoo Shaman is one of the more recent monster types and its materials are needed for a new "Familiar" feature added to the game.  Obviously, this guild was focused on hunting these monsters during the data collection period.  The rest of the monsters are fairly evenly distributed except for the most recent monster, Hardrox.  Hardrox is the most difficult monster to kill and its materials make more specialized gear that most players are not focused on making.  The fact that the hunts are not evenly distributed amongst the monster types must be considered in future analyses.
 
-###Drop Rate for Good Rewards by Monster Level
+### Drop Rate for Good Rewards by Monster Level
 
 The next analysis looks at how frequently the most desired rewards are received from hunting different level monsters.  The most desired rewards, in my view, are regular and research speedups, gems, holy stars and ultra-rare materials.
 
@@ -175,7 +175,7 @@ g4
 
 As observed in the figure above, the drop rate for the most desired rewards generally increases slightly with the level of monster hunted.  In this case, the regular and research speedups are combined in one category and show up about a fourth of the time for level 1 and 2 monsters and about a third of the time for level 3 and 4 monsters.  The ultra-rare materials which are needed to forge the most desired gear are, in fact, very rare!  The drop rates for the ultra rare materials is only 0.3 (approximately 1 drop in every 333 hits).  This analysis doesn't take into account either the increased energy required to hunt higher level monsters nor the increased amount of each reward obtained from hunting higher level monsters.
 
-###Average Expected Rewards Using Daily Energy by Monster Level
+### Average Expected Rewards Using Daily Energy by Monster Level
 
 The next analysis takes into account the amount obtained in each reward item (e.g. 10 min, 15 min, 30 min, 1 hr speedup...) and the energy required to hunt the monster.  A daily energy expense equivalent to 40 level 1 monster hits was used in the calculations.  The amount of energy generated in a day will vary depending upon your monster hunting stats.  Monster hunting stats can depend on a number of factors including your gear, research and familiar development.
 
@@ -353,7 +353,7 @@ As observed in the figure above, the best average personal loot is obtained by h
 
 I did analyze, but did not include in the figure above, the number of ultra-rare materials expected each day.  For all of the different level monsters, the average ultra-rare material (i.e. the equivalent of 1 gray material) was less than 1 per day.  Since it is such an rare event, I do not feel there is enough data to conclusively say which level is better to hunt for ultra-rares.  The most data is available for level 1 monsters which average 0.2 ultra-rares per day.
 
-###Conclusion
+### Conclusion
 The best personal loot from hunting monsters is unquestionably obtained by hunting level 3 and 4 monsters.  You would expect to obtain, on average, about 3x more gems and speedups by hunting level 4 monsters compared to hunting level 1 monsters.  This analysis doesn't include the chance of obtaining relocators (level 3 and 4 only) and 24 hr shields (level 4 only) which cannot be obtained from hunting level 1 and 2 monsters.  
 
 So, why are guilds requiring their members to hunt level 1 and 2 monsters?  To answer this question, we need to factor in the guild gifts which are received only after slaying the monster (i.e. reducing its energy to zero).  Slaying a level 4 monster is difficult and takes coordination among many guild members and/or the use of energy packs and you will get many fewer guild gifts from hunting level 3 and 4 monsters.  Analysis of the guild gifts obtained from monster hunting will be the subject of my next post.

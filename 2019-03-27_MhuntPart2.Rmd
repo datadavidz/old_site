@@ -19,7 +19,7 @@ library(knitr)
 include_graphics("img/190313_Mhunt.jpg")
 ```
 
-##**Monster Hunting Part 2: Guild Gifts**
+## **Monster Hunting Part 2: Guild Gifts**
 *Posted on March 27, 2019*
 
 The [previous post](2019-03-13_MhuntPart1.html) focused on the rewards obtained in Lords Mobile from your personal monster hunts.  Analysis of monster hunt data showed that the best rewards were obtained by hunting level 3 and 4 monsters.  This analysis runs counter to my guild's advice to only hunt level 1 and 2 monsters to maximize our rewards.  What was missing in the previous analysis was the effect that hunting different level monsters has on the guild gifts you receive.  In this post, I examine the potential daily rewards obtained from guild gifts.  As you will see, in a full and active guild, the rewards obtained from guild gifts can easily dwarf the rewards obtained from your personal monster hunting.
@@ -43,7 +43,7 @@ raw1x <- read_excel(path = paste0(folder, filename), col_types = colTypes, col_n
 
 #Parse the raw data
 raw1x <- mutate(raw1x, id = rownames(raw1x))
-temp <- raw1x %>% separate(X__1, c("mon", "lvl", "reward", "quantity"), " ")
+temp <- raw1x %>% separate(...1, c("mon", "lvl", "reward", "quantity"), " ")
 ```
 
 ###Guild Gifts by Monster Level
@@ -65,7 +65,7 @@ g3
 
 As shown in the figure above, guild gift data was available for level 1 through 5 monsters.  You may remember that the personal monster hunting data did not contain level 5 data.  A total of 30,798 guild gifts were available in this dataset.  About 3/4 of the data was from guild gifts for level 1 and 2 monsters although a decent number of level 3 and 4 gifts were also available.
 
-###Guild Gifts by Monster Type
+### Guild Gifts by Monster Type
 
 Guild gifts are available for all 18 different types of monsters.  The figure below shows the distribution of guild gifts by monster type in the monster hunting dataset.  Once again, I am displaying the bars in the signature color for each monster!  But seriously, the figure would probably be more clear if I didn't display it this way.
 
@@ -108,7 +108,7 @@ g2
 
 The distribution of guild gifts is a bit more balanced with respect to monster than the personal monster hunting data.  The personal monster hunting data was skewed significantly to Voodoo Shaman hunts.  In this dataset, the distribution is not as skewed but does seem to trend with the difficulty to kill a particular monster.  Grim Reaper and Frostwing are the easiest level 1 monsters to "one-shot" meaning kill in one hunt.  Noceros, Hardrox and Tidal Titan are more difficult to "one-shot".  Even in  many strong guilds, some guild members do not have their monster hunting research complete or do not invest in monster hunting gear which leads to fewer kills per energy on these stronger monsters.
 
-###Drop Rate for Good Rewards from Guild Gifts by Monster Level
+### Drop Rate for Good Rewards from Guild Gifts by Monster Level
 
 The next analysis looks at how frequently the most desired rewards are received from different level guild gifts.  The most desired rewards, in my view, are regular and research speedups, gems and ultra-rare materials.  Unfortunately, holy stars are not available from guild gifts.
 
@@ -165,7 +165,7 @@ g4
 
 Similar to the personal hunting dataset, the drop rate for the most desired rewards generally increases with increasing monster level.  Unfortunately, the ultra-rare materials are still very rare.  In fact, no ultra-rare materials were obtained from the 217 level 5 monster chests.  You can obtain ultra-rares from level 5 monsters (and potentially higher grade ones) however you will need to be very, very lucky.
 
-###Average Expected Daily Rewards from Guild Gifts
+### Average Expected Daily Rewards from Guild Gifts
 
 The next analysis looks at the speedups and gems expected from guild gifts, if the entire guild hunted a specific level monster.  To perform this analysis, a few assumptions need to be made as to the number of guild members and the average amount of energy they will expend daily.  For the figure below, I assumed a full guild of 100 active members using an average amount of energy equivalent to 40 level 1 hits (~69,000 energy).  This assumption is close to the best-case situation.  Also, there is an assumption regarding how many hits are required to slay each monster.  I used the following estimates: level 1 takes 1 hits, level 2 takes 4 hits, level 3 takes 10 hits, level 4 takes 22 hits and level 5 takes 40 hits.  Again, these estimates are closer to the best-case situation.
 
@@ -314,6 +314,6 @@ g5
 
 The figure above shows that the most speedups per day from guild gifts are obtained by hunting only level 1 monsters.  The most gems per day from guild gifts are obtained by hunting level 2 monsters although level 1 is not too far behind.  There is a steep drop off in guild gift rewards from hunting only level 3 or 4 monsters.  The amount of these rewards obtained from guild gifts for level 1 and 2 monsters is at least an order of magnitude higher than the rewards obtained from personal loot.  The total speedups (regular + research) obtained from personal loot ranged from 4.5 hours/day for level 1 monsters to 15 hours/day for level 4 monsters.  Here we see that the total speedups from guild gifts for level 1 monsters is 255 hours (over 10 days!).  The gems from personal loot ranged from 111 gems for level 1 to 377 gems for level 4.  Here we see the average gems from guild gifts for level 1 monsters is 6304 gems!  Clearly, any reduction in personal loot from hitting level 1 monsters is made up and greatly exceeded by the increased guild gifts.
 
-###Summary
+### Summary
 Hunting only level 1 monsters is clearly the right way to maximize your speedup and gem rewards.  A practical issue exists in that, if the guild members are close together on the map, the level 1 monsters may be hard to find since everyone is focused on killing them.  Adding level 2 monsters as acceptable can help address this issue and may increase gem rewards slightly.  Also, the guild could spread out more on the map however this can have repercussions in other activities (e.g. rallying Darknests). In the next post, I intend to look at various ways a guild could optimize their monster hunting based upon their availability and needs.
 
