@@ -41,8 +41,6 @@ hbcu_all <- readRDS(file = "./data/tt_210202.rds")
 
 ### Wrangle
 
-Explore the data and process it into a nice format for plotting! Access each dataset by name by using a dollarsign after the `tt` object and then the name of the data set.
-
 Initial conclusions from exploring the dataset:
 
 * Years span from 1976-2015 but only 1990s and 2000s have complete yearly data.

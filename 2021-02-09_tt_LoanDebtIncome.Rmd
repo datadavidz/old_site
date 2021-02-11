@@ -1,0 +1,93 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+<br>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## **TidyTuesday: Student Loan Debt and Income by Race Dataset**
+*Posted on February 2, 2021*
+
+A quick analysis of the weekly [#TidyTuesday](http://github.com/rfordatascience/tidytuesday) dataset organized by the R4DS Online Learning Community.  My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question.  The main purpose for me is to practice and try out new things.  I am never completely satisfied with the end result but I do the best I can in a short period of time.
+
+```{r, include=FALSE}
+
+library(tidyverse)
+
+theme_set(theme_light())
+
+```
+
+**What I learned this week about R and the Tidyverse**
+
+* Regex expression to select everything after the first space
+* [.^ ]* is regex expression for any character, any number of times but not space and do not capture
+* Setting custom axis breaks using scale_x_continuous and seq functions
+
+**Brief explanation of the dataset**
+
+The dataset contains income and student debt information from 1989-2016.  A lot of data was released however my focus was on average yearly income and average student loan debt broken down by race.  My question was: "How did average student loan debt-to-income change over time by race?".  The income data had many different categories for race but student debt had just three.
+
+```{r Load, include = FALSE}
+#Save needed data into Rdata for blog post
+load("./data/tt_210209.Rdata")
+```
+
+### Wrangle
+
+Initial conclusions from exploring the dataset:
+
+* Student loan debt information was only available for three races: White, Black and Hispanic.
+* Student loan debt was available only every 3rd year.
+* Income distribution contained many different race categories that don't align precisely with the student loan data.
+
+```{r Wrangle}
+race_of_interest <- c("White Alone", "Black Alone", "Hispanic (Any Race)")
+race_income_year <- income_distribution %>%
+  select(year, race, number, income_mean) %>%
+  distinct() %>%
+  filter(race %in% race_of_interest) %>%
+  mutate(race = str_replace(race, "[.^ ]* (.*)", ""))
+
+race_debt_income <- student_debt %>%
+  left_join(race_income_year, by = c("year", "race")) %>%
+  mutate(debt_to_income = loan_debt / income_mean)
+```
+
+Testing for regular expression to capture everything after first space including the space.
+```{r}
+test_string <- "Hispanic (Any Race)"
+str_replace(test_string, "[.^ ]* (.*)", "")
+```
+
+### Visualize
+
+Initial visualization of mean income over time by race
+```{r Visualize}
+race_income_year %>%
+  ggplot(aes(x = year, y = income_mean, color = race)) +
+  geom_line()
+```
+
+Visualization to address the question of interest.
+```{r}
+race_debt_income %>%
+  ggplot(aes(x = year, y = debt_to_income, color = race)) +
+  geom_line(size = 3) +
+  scale_x_continuous(breaks = seq(1989, 2016, 3)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  ggthemes::scale_color_tableau(name=NULL) +
+  labs(title = "Change in Student Loan Debt to Income by Race",
+       subtitle = "Average Student Debt as a Percentage of Average Yearly Income (1989-2016)",
+       caption = "Visualization by @datadavidz | Data Courtesy of Urban Institute | #TidyTuesday") +
+  ggthemes::theme_fivethirtyeight()
+```
+
+### Summary
+
+The ratio of student loan debt to average yearly income is increasing across all three racial groups contained in the dataset.  The increase is most significant for blacks.  Grid lines were added every 3 years to correspond with the data.  A clean and simple data visualization using a line chart.

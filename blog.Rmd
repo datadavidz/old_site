@@ -7,6 +7,16 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: Student Loan Debt and Income by Race Dataset**
+*Posted on February 9, 2021*
+
+Question addressed: How did average student loan debt-to-income change over time by race?  
+Visualization: Created a clean and simple line chart.  
+
+[Full post](2021-02-09_tt_LoanDebtIncome.html)
+
+***
+
 ### **Tidy Tuesday: HBCU Enrollments Dataset**
 *Posted on February 2, 2021*
 

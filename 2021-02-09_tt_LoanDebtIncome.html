@@ -11,7 +11,7 @@
 
 
 
-<title>2021-02-02_tt_HBCUWaffle.utf8</title>
+<title>2021-02-09_tt_LoanDebtIncome.utf8</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -319,67 +319,68 @@ $(document).ready(function () {
 
 
 <p><br></p>
-<div id="tidytuesday-hbcu-enrollments-dataset" class="section level2">
-<h2><strong>TidyTuesday: HBCU Enrollments Dataset</strong></h2>
+<div id="tidytuesday-student-loan-debt-and-income-by-race-dataset" class="section level2">
+<h2><strong>TidyTuesday: Student Loan Debt and Income by Race Dataset</strong></h2>
 <p><em>Posted on February 2, 2021</em></p>
 <p>A quick analysis of the weekly <a href="http://github.com/rfordatascience/tidytuesday">#TidyTuesday</a> dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.</p>
 <p><strong>What I learned this week about R and the Tidyverse</strong></p>
 <ul>
-<li>My first use of the waffle package to make a waffle plot using geom_waffle.</li>
-<li>It is tricky to get the scales correct in a waffle bar plot. Need to multiply back by a factor related to number of waffle rows.</li>
-<li>Used the truncated division operator (%/%) in function to assign years to decades.</li>
+<li>Regex expression to select everything after the first space</li>
+<li>[.^ ]* is regex expression for any character, any number of times but not space and do not capture</li>
+<li>Setting custom axis breaks using scale_x_continuous and seq functions</li>
 </ul>
 <p><strong>Brief explanation of the dataset</strong></p>
-<p>The dataset contained number of enrollments at historically-black universities and colleges (HBCUs) from 1976-2015. The main content of the dataset was the number of enrollments broken down by gender, public or private school and 2 or 4 year program. My question was: “How did the enrollments change by HBCU type comparing 1990s vs. 2000s?”. Complete data was only available for these two decades.</p>
+<p>The dataset contains income and student debt information from 1989-2016. A lot of data was released however my focus was on average yearly income and average student loan debt broken down by race. My question was: “How did average student loan debt-to-income change over time by race?”. The income data had many different categories for race but student debt had just three.</p>
 <div id="wrangle" class="section level3">
 <h3>Wrangle</h3>
 <p>Initial conclusions from exploring the dataset:</p>
 <ul>
-<li>Years span from 1976-2015 but only 1990s and 2000s have complete yearly data.</li>
-<li>Four categories of HBCU: 2- and 4- year and Public or Private.</li>
+<li>Student loan debt information was only available for three races: White, Black and Hispanic.</li>
+<li>Student loan debt was available only every 3rd year.</li>
+<li>Income distribution contained many different race categories that don’t align precisely with the student loan data.</li>
 </ul>
-<pre class="r"><code>hbcu_enrollment &lt;- hbcu_all %&gt;%
-  pivot_longer(`Total enrollment`:`2-year - Private`, names_to = &quot;category&quot;, values_to = &quot;enrollments&quot;)
+<pre class="r"><code>race_of_interest &lt;- c(&quot;White Alone&quot;, &quot;Black Alone&quot;, &quot;Hispanic (Any Race)&quot;)
+race_income_year &lt;- income_distribution %&gt;%
+  select(year, race, number, income_mean) %&gt;%
+  distinct() %&gt;%
+  filter(race %in% race_of_interest) %&gt;%
+  mutate(race = str_replace(race, &quot;[.^ ]* (.*)&quot;, &quot;&quot;))
 
-hbcu_by_decade &lt;- hbcu_enrollment  %&gt;%
-  filter(category %in% c(&quot;2-year - Private&quot;, &quot;2-year - Public&quot;, &quot;4-year - Private&quot;, &quot;4-year - Public&quot;)) %&gt;%
-  filter(Year &gt; 1989 &amp; Year &lt; 2010) %&gt;%
-  mutate(decade = paste0(10 * (Year %/% 10), &quot;s&quot;)) %&gt;%
-  group_by(decade, category) %&gt;%
-  summarize(enrollments = sum(enrollments), .groups = &quot;keep&quot;) %&gt;%
-  ungroup()</code></pre>
+race_debt_income &lt;- student_debt %&gt;%
+  left_join(race_income_year, by = c(&quot;year&quot;, &quot;race&quot;)) %&gt;%
+  mutate(debt_to_income = loan_debt / income_mean)</code></pre>
+<p>Testing for regular expression to capture everything after first space including the space.</p>
+<pre class="r"><code>test_string &lt;- &quot;Hispanic (Any Race)&quot;
+str_replace(test_string, &quot;[.^ ]* (.*)&quot;, &quot;&quot;)</code></pre>
+<pre><code>## [1] &quot;Hispanic&quot;</code></pre>
 </div>
 <div id="visualize" class="section level3">
 <h3>Visualize</h3>
-<p>Initial visualization to look at enrollments across all data categories.</p>
-<pre class="r"><code>hbcu_enrollment %&gt;%
-  mutate(name = fct_reorder(category, enrollments, last, .desc = TRUE)) %&gt;%
-  ggplot(aes(x = Year, y = enrollments, color = category)) +
-  geom_line() +
-  scale_y_continuous(labels = scales::comma_format())</code></pre>
-<p><img src="2021-02-02_tt_HBCUWaffle_files/figure-html/Visualize-1.png" width="672" /></p>
-<p>Would like to create a waffle plot for each decade (1980s - 2010s) of Public, Private, 2-year, 4-year HBCUs.</p>
-<pre class="r"><code>hbcu_by_decade %&gt;%
-  ggplot(aes(fill = category, values = enrollments %/% 10000)) +
-  geom_waffle(color = &quot;white&quot;, size = 0.25, n_rows = 10) +
-  facet_wrap(~decade, ncol = 1, strip.position = &quot;left&quot;) + 
-  scale_x_continuous(labels = scales::unit_format(unit = &quot;M&quot;, scale = 0.1)) +
-  scale_y_discrete() +
-  ggthemes::scale_fill_tableau(name=NULL) +
-  labs(title = &quot;HBCU Enrollments: 1990s vs. 2000s&quot;,
-       subtitle = &quot;Total Number of Enrollments (in Millions)&quot;,
-       caption = &quot;Visualization by @datadavidz | Data Courtesy of Data.World | #TidyTuesday&quot;) +
-  ggthemes::theme_fivethirtyeight() +
-  theme(panel.grid.major.x = element_blank(), axis.ticks.x = element_line())</code></pre>
-<p><img src="2021-02-02_tt_HBCUWaffle_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Initial visualization of mean income over time by race</p>
+<pre class="r"><code>race_income_year %&gt;%
+  ggplot(aes(x = year, y = income_mean, color = race)) +
+  geom_line()</code></pre>
+<p><img src="2021-02-09_tt_LoanDebtIncome_files/figure-html/Visualize-1.png" width="672" /></p>
+<p>Visualization to address the question of interest.</p>
+<pre class="r"><code>race_debt_income %&gt;%
+  ggplot(aes(x = year, y = debt_to_income, color = race)) +
+  geom_line(size = 3) +
+  scale_x_continuous(breaks = seq(1989, 2016, 3)) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  ggthemes::scale_color_tableau(name=NULL) +
+  labs(title = &quot;Change in Student Loan Debt to Income by Race&quot;,
+       subtitle = &quot;Average Student Debt as a Percentage of Average Yearly Income (1989-2016)&quot;,
+       caption = &quot;Visualization by @datadavidz | Data Courtesy of Urban Institute | #TidyTuesday&quot;) +
+  ggthemes::theme_fivethirtyeight()</code></pre>
+<p><img src="2021-02-09_tt_LoanDebtIncome_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 </div>
 <div id="summary" class="section level3">
 <h3>Summary</h3>
-<p>The number of HBCU enrollments increased from the 1990s to the 2000s largely driven by increase in the number of 2-year, public HBCU enrollments. A function was required to adjust the labels so that the number of enrollments was listed accurately. The scales package was also used to format the labels. I used the “fivethirtyeight” theme but took the fill color from “tableau” both in the ggthemes package.</p>
+<p>The ratio of student loan debt to average yearly income is increasing across all three racial groups contained in the dataset. The increase is most significant for blacks. Grid lines were added every 3 years to correspond with the data. A clean and simple data visualization using a line chart.</p>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCiMjICoqVGlkeVR1ZXNkYXk6IEhCQ1UgRW5yb2xsbWVudHMgRGF0YXNldCoqDQoqUG9zdGVkIG9uIEZlYnJ1YXJ5IDIsIDIwMjEqDQoNCkEgcXVpY2sgYW5hbHlzaXMgb2YgdGhlIHdlZWtseSBbI1RpZHlUdWVzZGF5XShodHRwOi8vZ2l0aHViLmNvbS9yZm9yZGF0YXNjaWVuY2UvdGlkeXR1ZXNkYXkpIGRhdGFzZXQgb3JnYW5pemVkIGJ5IHRoZSBSNERTIE9ubGluZSBMZWFybmluZyBDb21tdW5pdHkuICBNeSBhcHByb2FjaCBpcyB0byBhcHBseSBteSBkYXRhIHNjaWVuY2Ugc2tpbGxzIHRvIGV4cGxvcmUgb25lIHF1ZXN0aW9uIEkgaGF2ZSBhYm91dCB0aGUgZGF0YSBhbmQgZ2VuZXJhdGUgYSB2aXN1YWxpemF0aW9uIHRoYXQgYWRkcmVzc2VzIHRoaXMgcXVlc3Rpb24uICBUaGUgbWFpbiBwdXJwb3NlIGZvciBtZSBpcyB0byBwcmFjdGljZSBhbmQgdHJ5IG91dCBuZXcgdGhpbmdzLiAgSSBhbSBuZXZlciBjb21wbGV0ZWx5IHNhdGlzZmllZCB3aXRoIHRoZSBlbmQgcmVzdWx0IGJ1dCBJIGRvIHRoZSBiZXN0IEkgY2FuIGluIGEgc2hvcnQgcGVyaW9kIG9mIHRpbWUuDQoNCmBgYHtyLCBpbmNsdWRlPUZBTFNFfQ0KDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkodGlkeXR1ZXNkYXlSKQ0KbGlicmFyeSh3YWZmbGUpDQoNCnRoZW1lX3NldCh0aGVtZV9taW5pbWFsKCkpDQpgYGANCg0KKipXaGF0IEkgbGVhcm5lZCB0aGlzIHdlZWsgYWJvdXQgUiBhbmQgdGhlIFRpZHl2ZXJzZSoqDQoNCiogTXkgZmlyc3QgdXNlIG9mIHRoZSB3YWZmbGUgcGFja2FnZSB0byBtYWtlIGEgd2FmZmxlIHBsb3QgdXNpbmcgZ2VvbV93YWZmbGUuDQoqIEl0IGlzIHRyaWNreSB0byBnZXQgdGhlIHNjYWxlcyBjb3JyZWN0IGluIGEgd2FmZmxlIGJhciBwbG90LiAgTmVlZCB0byBtdWx0aXBseSBiYWNrIGJ5IGEgZmFjdG9yIHJlbGF0ZWQgdG8gbnVtYmVyIG9mIHdhZmZsZSByb3dzLg0KKiBVc2VkIHRoZSB0cnVuY2F0ZWQgZGl2aXNpb24gb3BlcmF0b3IgKCUvJSkgaW4gZnVuY3Rpb24gdG8gYXNzaWduIHllYXJzIHRvIGRlY2FkZXMuDQoNCioqQnJpZWYgZXhwbGFuYXRpb24gb2YgdGhlIGRhdGFzZXQqKg0KDQpUaGUgZGF0YXNldCBjb250YWluZWQgbnVtYmVyIG9mIGVucm9sbG1lbnRzIGF0IGhpc3RvcmljYWxseS1ibGFjayB1bml2ZXJzaXRpZXMgYW5kIGNvbGxlZ2VzIChIQkNVcykgZnJvbSAxOTc2LTIwMTUuICBUaGUgbWFpbiBjb250ZW50IG9mIHRoZSBkYXRhc2V0IHdhcyB0aGUgbnVtYmVyIG9mIGVucm9sbG1lbnRzIGJyb2tlbiBkb3duIGJ5IGdlbmRlciwgcHVibGljIG9yIHByaXZhdGUgc2Nob29sIGFuZCAyIG9yIDQgeWVhciBwcm9ncmFtLiAgTXkgcXVlc3Rpb24gd2FzOiAiSG93IGRpZCB0aGUgZW5yb2xsbWVudHMgY2hhbmdlIGJ5IEhCQ1UgdHlwZSBjb21wYXJpbmcgMTk5MHMgdnMuIDIwMDBzPyIuICBDb21wbGV0ZSBkYXRhIHdhcyBvbmx5IGF2YWlsYWJsZSBmb3IgdGhlc2UgdHdvIGRlY2FkZXMuDQoNCmBgYHtyIExvYWQsIGluY2x1ZGUgPSBGQUxTRX0NCiNTYXZlIG5lZWRlZCBkYXRhIGludG8gcmRzIGZvciBibG9nIHBvc3QNCmhiY3VfYWxsIDwtIHJlYWRSRFMoZmlsZSA9ICIuL2RhdGEvdHRfMjEwMjAyLnJkcyIpDQpgYGANCg0KIyMjIFdyYW5nbGUNCg0KSW5pdGlhbCBjb25jbHVzaW9ucyBmcm9tIGV4cGxvcmluZyB0aGUgZGF0YXNldDoNCg0KKiBZZWFycyBzcGFuIGZyb20gMTk3Ni0yMDE1IGJ1dCBvbmx5IDE5OTBzIGFuZCAyMDAwcyBoYXZlIGNvbXBsZXRlIHllYXJseSBkYXRhLg0KKiBGb3VyIGNhdGVnb3JpZXMgb2YgSEJDVTogMi0gYW5kIDQtIHllYXIgYW5kIFB1YmxpYyBvciBQcml2YXRlLg0KDQpgYGB7ciBXcmFuZ2xlfQ0KaGJjdV9lbnJvbGxtZW50IDwtIGhiY3VfYWxsICU+JQ0KICBwaXZvdF9sb25nZXIoYFRvdGFsIGVucm9sbG1lbnRgOmAyLXllYXIgLSBQcml2YXRlYCwgbmFtZXNfdG8gPSAiY2F0ZWdvcnkiLCB2YWx1ZXNfdG8gPSAiZW5yb2xsbWVudHMiKQ0KDQpoYmN1X2J5X2RlY2FkZSA8LSBoYmN1X2Vucm9sbG1lbnQgICU+JQ0KICBmaWx0ZXIoY2F0ZWdvcnkgJWluJSBjKCIyLXllYXIgLSBQcml2YXRlIiwgIjIteWVhciAtIFB1YmxpYyIsICI0LXllYXIgLSBQcml2YXRlIiwgIjQteWVhciAtIFB1YmxpYyIpKSAlPiUNCiAgZmlsdGVyKFllYXIgPiAxOTg5ICYgWWVhciA8IDIwMTApICU+JQ0KICBtdXRhdGUoZGVjYWRlID0gcGFzdGUwKDEwICogKFllYXIgJS8lIDEwKSwgInMiKSkgJT4lDQogIGdyb3VwX2J5KGRlY2FkZSwgY2F0ZWdvcnkpICU+JQ0KICBzdW1tYXJpemUoZW5yb2xsbWVudHMgPSBzdW0oZW5yb2xsbWVudHMpLCAuZ3JvdXBzID0gImtlZXAiKSAlPiUNCiAgdW5ncm91cCgpDQpgYGANCiMjIyBWaXN1YWxpemUNCg0KSW5pdGlhbCB2aXN1YWxpemF0aW9uIHRvIGxvb2sgYXQgZW5yb2xsbWVudHMgYWNyb3NzIGFsbCBkYXRhIGNhdGVnb3JpZXMuDQpgYGB7ciBWaXN1YWxpemV9DQpoYmN1X2Vucm9sbG1lbnQgJT4lDQogIG11dGF0ZShuYW1lID0gZmN0X3Jlb3JkZXIoY2F0ZWdvcnksIGVucm9sbG1lbnRzLCBsYXN0LCAuZGVzYyA9IFRSVUUpKSAlPiUNCiAgZ2dwbG90KGFlcyh4ID0gWWVhciwgeSA9IGVucm9sbG1lbnRzLCBjb2xvciA9IGNhdGVnb3J5KSkgKw0KICBnZW9tX2xpbmUoKSArDQogIHNjYWxlX3lfY29udGludW91cyhsYWJlbHMgPSBzY2FsZXM6OmNvbW1hX2Zvcm1hdCgpKQ0KYGBgDQoNCldvdWxkIGxpa2UgdG8gY3JlYXRlIGEgd2FmZmxlIHBsb3QgZm9yIGVhY2ggZGVjYWRlICgxOTgwcyAtIDIwMTBzKSBvZiBQdWJsaWMsIFByaXZhdGUsIDIteWVhciwgNC15ZWFyIEhCQ1VzLg0KYGBge3J9DQpoYmN1X2J5X2RlY2FkZSAlPiUNCiAgZ2dwbG90KGFlcyhmaWxsID0gY2F0ZWdvcnksIHZhbHVlcyA9IGVucm9sbG1lbnRzICUvJSAxMDAwMCkpICsNCiAgZ2VvbV93YWZmbGUoY29sb3IgPSAid2hpdGUiLCBzaXplID0gMC4yNSwgbl9yb3dzID0gMTApICsNCiAgZmFjZXRfd3JhcCh+ZGVjYWRlLCBuY29sID0gMSwgc3RyaXAucG9zaXRpb24gPSAibGVmdCIpICsgDQogIHNjYWxlX3hfY29udGludW91cyhsYWJlbHMgPSBzY2FsZXM6OnVuaXRfZm9ybWF0KHVuaXQgPSAiTSIsIHNjYWxlID0gMC4xKSkgKw0KICBzY2FsZV95X2Rpc2NyZXRlKCkgKw0KICBnZ3RoZW1lczo6c2NhbGVfZmlsbF90YWJsZWF1KG5hbWU9TlVMTCkgKw0KICBsYWJzKHRpdGxlID0gIkhCQ1UgRW5yb2xsbWVudHM6IDE5OTBzIHZzLiAyMDAwcyIsDQogICAgICAgc3VidGl0bGUgPSAiVG90YWwgTnVtYmVyIG9mIEVucm9sbG1lbnRzIChpbiBNaWxsaW9ucykiLA0KICAgICAgIGNhcHRpb24gPSAiVmlzdWFsaXphdGlvbiBieSBAZGF0YWRhdmlkeiB8IERhdGEgQ291cnRlc3kgb2YgRGF0YS5Xb3JsZCB8ICNUaWR5VHVlc2RheSIpICsNCiAgZ2d0aGVtZXM6OnRoZW1lX2ZpdmV0aGlydHllaWdodCgpICsNCiAgdGhlbWUocGFuZWwuZ3JpZC5tYWpvci54ID0gZWxlbWVudF9ibGFuaygpLCBheGlzLnRpY2tzLnggPSBlbGVtZW50X2xpbmUoKSkNCg0KYGBgDQoNCiMjIyBTdW1tYXJ5DQoNClRoZSBudW1iZXIgb2YgSEJDVSBlbnJvbGxtZW50cyBpbmNyZWFzZWQgZnJvbSB0aGUgMTk5MHMgdG8gdGhlIDIwMDBzIGxhcmdlbHkgZHJpdmVuIGJ5IGluY3JlYXNlIGluIHRoZSBudW1iZXIgb2YgMi15ZWFyLCBwdWJsaWMgSEJDVSBlbnJvbGxtZW50cy4gIEEgZnVuY3Rpb24gd2FzIHJlcXVpcmVkIHRvIGFkanVzdCB0aGUgbGFiZWxzIHNvIHRoYXQgdGhlIG51bWJlciBvZiBlbnJvbGxtZW50cyB3YXMgbGlzdGVkIGFjY3VyYXRlbHkuICBUaGUgc2NhbGVzIHBhY2thZ2Ugd2FzIGFsc28gdXNlZCB0byBmb3JtYXQgdGhlIGxhYmVscy4gIEkgdXNlZCB0aGUgImZpdmV0aGlydHllaWdodCIgdGhlbWUgYnV0IHRvb2sgdGhlIGZpbGwgY29sb3IgZnJvbSAidGFibGVhdSIgYm90aCBpbiB0aGUgZ2d0aGVtZXMgcGFja2FnZS4NCg==</div>
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCiMjICoqVGlkeVR1ZXNkYXk6IFN0dWRlbnQgTG9hbiBEZWJ0IGFuZCBJbmNvbWUgYnkgUmFjZSBEYXRhc2V0KioNCipQb3N0ZWQgb24gRmVicnVhcnkgMiwgMjAyMSoNCg0KQSBxdWljayBhbmFseXNpcyBvZiB0aGUgd2Vla2x5IFsjVGlkeVR1ZXNkYXldKGh0dHA6Ly9naXRodWIuY29tL3Jmb3JkYXRhc2NpZW5jZS90aWR5dHVlc2RheSkgZGF0YXNldCBvcmdhbml6ZWQgYnkgdGhlIFI0RFMgT25saW5lIExlYXJuaW5nIENvbW11bml0eS4gIE15IGFwcHJvYWNoIGlzIHRvIGFwcGx5IG15IGRhdGEgc2NpZW5jZSBza2lsbHMgdG8gZXhwbG9yZSBvbmUgcXVlc3Rpb24gSSBoYXZlIGFib3V0IHRoZSBkYXRhIGFuZCBnZW5lcmF0ZSBhIHZpc3VhbGl6YXRpb24gdGhhdCBhZGRyZXNzZXMgdGhpcyBxdWVzdGlvbi4gIFRoZSBtYWluIHB1cnBvc2UgZm9yIG1lIGlzIHRvIHByYWN0aWNlIGFuZCB0cnkgb3V0IG5ldyB0aGluZ3MuICBJIGFtIG5ldmVyIGNvbXBsZXRlbHkgc2F0aXNmaWVkIHdpdGggdGhlIGVuZCByZXN1bHQgYnV0IEkgZG8gdGhlIGJlc3QgSSBjYW4gaW4gYSBzaG9ydCBwZXJpb2Qgb2YgdGltZS4NCg0KYGBge3IsIGluY2x1ZGU9RkFMU0V9DQoNCmxpYnJhcnkodGlkeXZlcnNlKQ0KDQp0aGVtZV9zZXQodGhlbWVfbGlnaHQoKSkNCg0KYGBgDQoNCioqV2hhdCBJIGxlYXJuZWQgdGhpcyB3ZWVrIGFib3V0IFIgYW5kIHRoZSBUaWR5dmVyc2UqKg0KDQoqIFJlZ2V4IGV4cHJlc3Npb24gdG8gc2VsZWN0IGV2ZXJ5dGhpbmcgYWZ0ZXIgdGhlIGZpcnN0IHNwYWNlDQoqIFsuXiBdKiBpcyByZWdleCBleHByZXNzaW9uIGZvciBhbnkgY2hhcmFjdGVyLCBhbnkgbnVtYmVyIG9mIHRpbWVzIGJ1dCBub3Qgc3BhY2UgYW5kIGRvIG5vdCBjYXB0dXJlDQoqIFNldHRpbmcgY3VzdG9tIGF4aXMgYnJlYWtzIHVzaW5nIHNjYWxlX3hfY29udGludW91cyBhbmQgc2VxIGZ1bmN0aW9ucw0KDQoqKkJyaWVmIGV4cGxhbmF0aW9uIG9mIHRoZSBkYXRhc2V0KioNCg0KVGhlIGRhdGFzZXQgY29udGFpbnMgaW5jb21lIGFuZCBzdHVkZW50IGRlYnQgaW5mb3JtYXRpb24gZnJvbSAxOTg5LTIwMTYuICBBIGxvdCBvZiBkYXRhIHdhcyByZWxlYXNlZCBob3dldmVyIG15IGZvY3VzIHdhcyBvbiBhdmVyYWdlIHllYXJseSBpbmNvbWUgYW5kIGF2ZXJhZ2Ugc3R1ZGVudCBsb2FuIGRlYnQgYnJva2VuIGRvd24gYnkgcmFjZS4gIE15IHF1ZXN0aW9uIHdhczogIkhvdyBkaWQgYXZlcmFnZSBzdHVkZW50IGxvYW4gZGVidC10by1pbmNvbWUgY2hhbmdlIG92ZXIgdGltZSBieSByYWNlPyIuICBUaGUgaW5jb21lIGRhdGEgaGFkIG1hbnkgZGlmZmVyZW50IGNhdGVnb3JpZXMgZm9yIHJhY2UgYnV0IHN0dWRlbnQgZGVidCBoYWQganVzdCB0aHJlZS4NCg0KYGBge3IgTG9hZCwgaW5jbHVkZSA9IEZBTFNFfQ0KI1NhdmUgbmVlZGVkIGRhdGEgaW50byBSZGF0YSBmb3IgYmxvZyBwb3N0DQpsb2FkKCIuL2RhdGEvdHRfMjEwMjA5LlJkYXRhIikNCmBgYA0KDQojIyMgV3JhbmdsZQ0KDQpJbml0aWFsIGNvbmNsdXNpb25zIGZyb20gZXhwbG9yaW5nIHRoZSBkYXRhc2V0Og0KDQoqIFN0dWRlbnQgbG9hbiBkZWJ0IGluZm9ybWF0aW9uIHdhcyBvbmx5IGF2YWlsYWJsZSBmb3IgdGhyZWUgcmFjZXM6IFdoaXRlLCBCbGFjayBhbmQgSGlzcGFuaWMuDQoqIFN0dWRlbnQgbG9hbiBkZWJ0IHdhcyBhdmFpbGFibGUgb25seSBldmVyeSAzcmQgeWVhci4NCiogSW5jb21lIGRpc3RyaWJ1dGlvbiBjb250YWluZWQgbWFueSBkaWZmZXJlbnQgcmFjZSBjYXRlZ29yaWVzIHRoYXQgZG9uJ3QgYWxpZ24gcHJlY2lzZWx5IHdpdGggdGhlIHN0dWRlbnQgbG9hbiBkYXRhLg0KDQpgYGB7ciBXcmFuZ2xlfQ0KcmFjZV9vZl9pbnRlcmVzdCA8LSBjKCJXaGl0ZSBBbG9uZSIsICJCbGFjayBBbG9uZSIsICJIaXNwYW5pYyAoQW55IFJhY2UpIikNCnJhY2VfaW5jb21lX3llYXIgPC0gaW5jb21lX2Rpc3RyaWJ1dGlvbiAlPiUNCiAgc2VsZWN0KHllYXIsIHJhY2UsIG51bWJlciwgaW5jb21lX21lYW4pICU+JQ0KICBkaXN0aW5jdCgpICU+JQ0KICBmaWx0ZXIocmFjZSAlaW4lIHJhY2Vfb2ZfaW50ZXJlc3QpICU+JQ0KICBtdXRhdGUocmFjZSA9IHN0cl9yZXBsYWNlKHJhY2UsICJbLl4gXSogKC4qKSIsICIiKSkNCg0KcmFjZV9kZWJ0X2luY29tZSA8LSBzdHVkZW50X2RlYnQgJT4lDQogIGxlZnRfam9pbihyYWNlX2luY29tZV95ZWFyLCBieSA9IGMoInllYXIiLCAicmFjZSIpKSAlPiUNCiAgbXV0YXRlKGRlYnRfdG9faW5jb21lID0gbG9hbl9kZWJ0IC8gaW5jb21lX21lYW4pDQpgYGANCg0KVGVzdGluZyBmb3IgcmVndWxhciBleHByZXNzaW9uIHRvIGNhcHR1cmUgZXZlcnl0aGluZyBhZnRlciBmaXJzdCBzcGFjZSBpbmNsdWRpbmcgdGhlIHNwYWNlLg0KYGBge3J9DQp0ZXN0X3N0cmluZyA8LSAiSGlzcGFuaWMgKEFueSBSYWNlKSINCnN0cl9yZXBsYWNlKHRlc3Rfc3RyaW5nLCAiWy5eIF0qICguKikiLCAiIikNCmBgYA0KDQojIyMgVmlzdWFsaXplDQoNCkluaXRpYWwgdmlzdWFsaXphdGlvbiBvZiBtZWFuIGluY29tZSBvdmVyIHRpbWUgYnkgcmFjZQ0KYGBge3IgVmlzdWFsaXplfQ0KcmFjZV9pbmNvbWVfeWVhciAlPiUNCiAgZ2dwbG90KGFlcyh4ID0geWVhciwgeSA9IGluY29tZV9tZWFuLCBjb2xvciA9IHJhY2UpKSArDQogIGdlb21fbGluZSgpDQpgYGANCg0KVmlzdWFsaXphdGlvbiB0byBhZGRyZXNzIHRoZSBxdWVzdGlvbiBvZiBpbnRlcmVzdC4NCmBgYHtyfQ0KcmFjZV9kZWJ0X2luY29tZSAlPiUNCiAgZ2dwbG90KGFlcyh4ID0geWVhciwgeSA9IGRlYnRfdG9faW5jb21lLCBjb2xvciA9IHJhY2UpKSArDQogIGdlb21fbGluZShzaXplID0gMykgKw0KICBzY2FsZV94X2NvbnRpbnVvdXMoYnJlYWtzID0gc2VxKDE5ODksIDIwMTYsIDMpKSArDQogIHNjYWxlX3lfY29udGludW91cyhsYWJlbHMgPSBzY2FsZXM6OnBlcmNlbnRfZm9ybWF0KCkpICsNCiAgZ2d0aGVtZXM6OnNjYWxlX2NvbG9yX3RhYmxlYXUobmFtZT1OVUxMKSArDQogIGxhYnModGl0bGUgPSAiQ2hhbmdlIGluIFN0dWRlbnQgTG9hbiBEZWJ0IHRvIEluY29tZSBieSBSYWNlIiwNCiAgICAgICBzdWJ0aXRsZSA9ICJBdmVyYWdlIFN0dWRlbnQgRGVidCBhcyBhIFBlcmNlbnRhZ2Ugb2YgQXZlcmFnZSBZZWFybHkgSW5jb21lICgxOTg5LTIwMTYpIiwNCiAgICAgICBjYXB0aW9uID0gIlZpc3VhbGl6YXRpb24gYnkgQGRhdGFkYXZpZHogfCBEYXRhIENvdXJ0ZXN5IG9mIFVyYmFuIEluc3RpdHV0ZSB8ICNUaWR5VHVlc2RheSIpICsNCiAgZ2d0aGVtZXM6OnRoZW1lX2ZpdmV0aGlydHllaWdodCgpDQpgYGANCg0KIyMjIFN1bW1hcnkNCg0KVGhlIHJhdGlvIG9mIHN0dWRlbnQgbG9hbiBkZWJ0IHRvIGF2ZXJhZ2UgeWVhcmx5IGluY29tZSBpcyBpbmNyZWFzaW5nIGFjcm9zcyBhbGwgdGhyZWUgcmFjaWFsIGdyb3VwcyBjb250YWluZWQgaW4gdGhlIGRhdGFzZXQuICBUaGUgaW5jcmVhc2UgaXMgbW9zdCBzaWduaWZpY2FudCBmb3IgYmxhY2tzLiAgR3JpZCBsaW5lcyB3ZXJlIGFkZGVkIGV2ZXJ5IDMgeWVhcnMgdG8gY29ycmVzcG9uZCB3aXRoIHRoZSBkYXRhLiAgQSBjbGVhbiBhbmQgc2ltcGxlIGRhdGEgdmlzdWFsaXphdGlvbiB1c2luZyBhIGxpbmUgY2hhcnQu</div>
 &nbsp;
 <hr />
 <p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
@@ -439,7 +440,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("2021-02-02_tt_HBCUWaffle.Rmd");
+  window.initializeSourceEmbed("2021-02-09_tt_LoanDebtIncome.Rmd");
 });
 </script>
 
