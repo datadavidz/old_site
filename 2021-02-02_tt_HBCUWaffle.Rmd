@@ -1,0 +1,93 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+<br>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## **TidyTuesday: HBCU Enrollments Dataset**
+*Posted on February 2, 2021*
+
+A quick analysis of the weekly [#TidyTuesday](http://github.com/rfordatascience/tidytuesday) dataset organized by the R4DS Online Learning Community.  My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question.  The main purpose for me is to practice and try out new things.  I am never completely satisfied with the end result but I do the best I can in a short period of time.
+
+```{r, include=FALSE}
+
+library(tidyverse)
+library(tidytuesdayR)
+library(waffle)
+
+theme_set(theme_minimal())
+```
+
+**What I learned this week about R and the Tidyverse**
+
+* My first use of the waffle package to make a waffle plot using geom_waffle.
+* It is tricky to get the scales correct in a waffle bar plot.  Need to multiply back by a factor related to number of waffle rows.
+* Used the truncated division operator (%/%) in function to assign years to decades.
+
+**Brief explanation of the dataset**
+
+The dataset contained number of enrollments at historically-black universities and colleges (HBCUs) from 1976-2015.  The main content of the dataset was the number of enrollments broken down by gender, public or private school and 2 or 4 year program.  My question was: "How did the enrollments change by HBCU type comparing 1990s vs. 2000s?".  Complete data was only available for these two decades.
+
+```{r Load, include = FALSE}
+#Save needed data into rds for blog post
+hbcu_all <- readRDS(file = "./data/tt_210202.rds")
+```
+
+### Wrangle
+
+Explore the data and process it into a nice format for plotting! Access each dataset by name by using a dollarsign after the `tt` object and then the name of the data set.
+
+Initial conclusions from exploring the dataset:
+
+* Years span from 1976-2015 but only 1990s and 2000s have complete yearly data.
+* Four categories of HBCU: 2- and 4- year and Public or Private.
+
+```{r Wrangle}
+hbcu_enrollment <- hbcu_all %>%
+  pivot_longer(`Total enrollment`:`2-year - Private`, names_to = "category", values_to = "enrollments")
+
+hbcu_by_decade <- hbcu_enrollment  %>%
+  filter(category %in% c("2-year - Private", "2-year - Public", "4-year - Private", "4-year - Public")) %>%
+  filter(Year > 1989 & Year < 2010) %>%
+  mutate(decade = paste0(10 * (Year %/% 10), "s")) %>%
+  group_by(decade, category) %>%
+  summarize(enrollments = sum(enrollments), .groups = "keep") %>%
+  ungroup()
+```
+### Visualize
+
+Initial visualization to look at enrollments across all data categories.
+```{r Visualize}
+hbcu_enrollment %>%
+  mutate(name = fct_reorder(category, enrollments, last, .desc = TRUE)) %>%
+  ggplot(aes(x = Year, y = enrollments, color = category)) +
+  geom_line() +
+  scale_y_continuous(labels = scales::comma_format())
+```
+
+Would like to create a waffle plot for each decade (1980s - 2010s) of Public, Private, 2-year, 4-year HBCUs.
+```{r}
+hbcu_by_decade %>%
+  ggplot(aes(fill = category, values = enrollments %/% 10000)) +
+  geom_waffle(color = "white", size = 0.25, n_rows = 10) +
+  facet_wrap(~decade, ncol = 1, strip.position = "left") + 
+  scale_x_continuous(labels = scales::unit_format(unit = "M", scale = 0.1)) +
+  scale_y_discrete() +
+  ggthemes::scale_fill_tableau(name=NULL) +
+  labs(title = "HBCU Enrollments: 1990s vs. 2000s",
+       subtitle = "Total Number of Enrollments (in Millions)",
+       caption = "Visualization by @datadavidz | Data Courtesy of Data.World | #TidyTuesday") +
+  ggthemes::theme_fivethirtyeight() +
+  theme(panel.grid.major.x = element_blank(), axis.ticks.x = element_line())
+
+```
+
+### Summary
+
+The number of HBCU enrollments increased from the 1990s to the 2000s largely driven by increase in the number of 2-year, public HBCU enrollments.  A function was required to adjust the labels so that the number of enrollments was listed accurately.  The scales package was also used to format the labels.  I used the "fivethirtyeight" theme but took the fill color from "tableau" both in the ggthemes package.

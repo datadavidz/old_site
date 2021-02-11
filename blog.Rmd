@@ -7,10 +7,21 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: HBCU Enrollments Dataset**
+*Posted on February 2, 2021*
+
+Question addressed: How did HBCU enrollments changes between 1990s and 2000s?  
+Visualization: Created a waffle plot visualization using waffle package.  
+
+[Full post](2021-02-02_tt_HBCUWaffle.html)
+
+***
+
 ### **Tidy Tuesday: Break Free From Plastics Dataset**
 *Posted on January 26, 2021*
 
-Question addressed: "What were the top 10 countries participating in Break Free From Plastics events?"  Created a bar chart visualization using ggthemes package.
+Question addressed: What were the top 10 countries participating in Break Free From Plastics events?  
+Visualization: Created a bar chart visualization using ggthemes package.  
 
 [Full post](2021-01-26_tt_PlasticWaste.html)
 
