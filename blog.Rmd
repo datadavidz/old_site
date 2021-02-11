@@ -7,6 +7,15 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: Break Free From Plastics Dataset**
+*Posted on January 26, 2021*
+
+Question addressed: "What were the top 10 countries participating in Break Free From Plastics events?"  Created a bar chart visualization using ggthemes package.
+
+[Full post](2021-01-26_tt_PlasticWaste.html)
+
+***
+
 ### **Concrete Dataset Part 8: Comparison of Predictive Models for Concrete Compressive Strength**
 *Posted on December 4, 2020*
 

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2021-01-26_tt_PlasticWaste.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="tidytuesday-break-free-from-plastic-dataset" class="section level2">
+<h2><strong>TidyTuesday: Break Free From Plastic Dataset</strong></h2>
+<p><em>Posted on January 26, 2021</em></p>
+<p>A quick analysis of the weekly <a href="http://github.com/rfordatascience/tidytuesday">#TidyTuesday</a> dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is for practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.</p>
+<p><strong>What I learned this week about R and the Tidyverse</strong></p>
+<ul>
+<li>Explored the ggthemes package and used the “fivethirtyeight” theme. I didn’t like the fill colors (too political).</li>
+<li>Unsuccessfully tried to apply fct_lump to aggregated data. Wasn’t appropriate in this case.</li>
+</ul>
+<p><strong>Brief explanation of the dataset</strong></p>
+<p>The data was from Break Free From Plastic events in 2019 and 2020. The main content of the dataset was the number of participants per country, the amount of plastic collected, the type of plastic and the company that sold the plastic item. My question was: “Which countries had the most participants in these events?” I had never heard of these events in the US.</p>
+<div id="wrangle" class="section level3">
+<h3>Wrangle</h3>
+<p>Initial conclusions from exploring the dataset:</p>
+<ul>
+<li>There are only two years of data: 2019 (9296 entries) and 2020 (4084 entries)</li>
+<li>There are EMPTY country names (1346 entries). Not sure what EMPTY means.</li>
+<li>There is a parent company called “Grand Total” which doesn’t seem to be a company name.</li>
+</ul>
+<p>Does Grand Total equal the sum total for a country in 2019?</p>
+<pre class="r"><code>argentina_sum &lt;- plastics %&gt;% 
+  filter(country == &quot;Argentina&quot;, parent_company != &quot;Grand Total&quot;) %&gt;%
+  group_by(country, year) %&gt;% 
+  summarize(across(empty:grand_total, sum)) %&gt;%
+  ungroup()
+
+argentina_total &lt;- plastics %&gt;%
+  filter(country == &quot;Argentina&quot;, parent_company == &quot;Grand Total&quot;) %&gt;%
+  select(country, year, empty:grand_total)
+
+bind_rows(argentina_sum, argentina_total) %&gt;% arrange(year)</code></pre>
+<pre><code>## # A tibble: 3 x 11
+##   country    year empty  hdpe  ldpe     o   pet    pp    ps   pvc grand_total
+##   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;
+## 1 Argentina  2019     0   215    55   607  1376   281   116    18        2668
+## 2 Argentina  2019     0   215    55   607  1376   281   116    18        2668
+## 3 Argentina  2020   128   132   141   212   144   263    62     4        1086</code></pre>
+<p>Yes, parent_company as “Grand Total” was just the sum total for a country in that year.</p>
+<p>Clean up the Country Name</p>
+<pre class="r"><code>plastics &lt;- plastics %&gt;%
+  mutate(country = str_to_title(country, locale = &quot;en&quot;)) %&gt;%
+  mutate(country = ifelse(country == &quot;Taiwan_ Republic Of China (Roc)&quot;, &quot;Taiwan&quot;, country))</code></pre>
+</div>
+<div id="visualize" class="section level3">
+<h3>Visualize</h3>
+<p>What are the top 10 countries participating in BFFP events?</p>
+<pre class="r"><code>plastics_subset &lt;- plastics %&gt;%
+  select(country, year, volunteers) %&gt;%
+  distinct() %&gt;%
+  group_by(country) %&gt;%
+  summarize(total_vols = sum(volunteers), .groups = &quot;drop&quot;) %&gt;%
+  arrange(desc(total_vols))
+  
+top_countries &lt;- plastics_subset %&gt;% 
+  slice(1:10) %&gt;%
+  pull(country)
+
+plastics %&gt;%
+  left_join(plastics_subset, by = &quot;country&quot;) %&gt;%
+  filter(country %in% top_countries) %&gt;%
+  select(country, year, volunteers, total_vols) %&gt;%
+  distinct() %&gt;%
+  mutate(country = fct_reorder(country, total_vols)) %&gt;%
+  mutate(year = as_factor(year)) %&gt;%
+  mutate(year = fct_relevel(year, rev)) %&gt;%
+  ggplot(aes(x = volunteers, y = country, fill = year)) +
+  geom_col() +
+  labs(title = &quot;Top 10 Countries Participating in BFFP Events&quot;,
+       subtitle = &quot;Volunteers at Plastic Clean-up Events (www.breakfreefromplastic.org)&quot;,
+       caption = &quot;Created by @datadavidz | Data Courtesy of Sarah Sauve | #TidyTuesday&quot;,
+       x = &quot;Number of Volunteers&quot;,
+       y = NULL,
+       fill = &quot;Year&quot;) +
+  theme_fivethirtyeight() +
+  scale_fill_fivethirtyeight()</code></pre>
+<p><img src="2021-01-26_tt_PlasticWaste_files/figure-html/visualize-1.png" width="672" /></p>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<p>The top countries participating in the events were primarily in the APAC region. Taiwan had a strong participation in 2019 and did not participate in 2020. Not sure what happened but could be related to the pandemic. I liked the “fivethirtyeight” theme but the fill colors of red and blue look too much like the main party affiliations in the US and would probably choose something else next time.</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCjxicj4NCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQ0Ka25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQ0KYGBgDQoNCiMjICoqVGlkeVR1ZXNkYXk6IEJyZWFrIEZyZWUgRnJvbSBQbGFzdGljIERhdGFzZXQqKg0KKlBvc3RlZCBvbiBKYW51YXJ5IDI2LCAyMDIxKg0KDQpBIHF1aWNrIGFuYWx5c2lzIG9mIHRoZSB3ZWVrbHkgWyNUaWR5VHVlc2RheV0oaHR0cDovL2dpdGh1Yi5jb20vcmZvcmRhdGFzY2llbmNlL3RpZHl0dWVzZGF5KSBkYXRhc2V0IG9yZ2FuaXplZCBieSB0aGUgUjREUyBPbmxpbmUgTGVhcm5pbmcgQ29tbXVuaXR5LiAgTXkgYXBwcm9hY2ggaXMgdG8gYXBwbHkgbXkgZGF0YSBzY2llbmNlIHNraWxscyB0byBleHBsb3JlIG9uZSBxdWVzdGlvbiBJIGhhdmUgYWJvdXQgdGhlIGRhdGEgYW5kIGdlbmVyYXRlIGEgdmlzdWFsaXphdGlvbiB0aGF0IGFkZHJlc3NlcyB0aGlzIHF1ZXN0aW9uLiAgVGhlIG1haW4gcHVycG9zZSBmb3IgbWUgaXMgZm9yIHByYWN0aWNlIGFuZCB0cnkgb3V0IG5ldyB0aGluZ3MuICBJIGFtIG5ldmVyIGNvbXBsZXRlbHkgc2F0aXNmaWVkIHdpdGggdGhlIGVuZCByZXN1bHQgYnV0IEkgZG8gdGhlIGJlc3QgSSBjYW4gaW4gYSBzaG9ydCBwZXJpb2Qgb2YgdGltZS4NCg0KYGBge3IsIGluY2x1ZGU9RkFMU0V9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkoZ2d0aGVtZXMpDQoNCnRoZW1lX3NldCh0aGVtZV9taW5pbWFsKCkpDQpgYGANCg0KKipXaGF0IEkgbGVhcm5lZCB0aGlzIHdlZWsgYWJvdXQgUiBhbmQgdGhlIFRpZHl2ZXJzZSoqDQoNCiogRXhwbG9yZWQgdGhlIGdndGhlbWVzIHBhY2thZ2UgYW5kIHVzZWQgdGhlICJmaXZldGhpcnR5ZWlnaHQiIHRoZW1lLiAgSSBkaWRuJ3QgbGlrZSB0aGUgZmlsbCBjb2xvcnMgKHRvbyBwb2xpdGljYWwpLg0KKiBVbnN1Y2Nlc3NmdWxseSB0cmllZCB0byBhcHBseSBmY3RfbHVtcCB0byBhZ2dyZWdhdGVkIGRhdGEuICBXYXNuJ3QgYXBwcm9wcmlhdGUgaW4gdGhpcyBjYXNlLg0KDQoqKkJyaWVmIGV4cGxhbmF0aW9uIG9mIHRoZSBkYXRhc2V0KioNCg0KVGhlIGRhdGEgd2FzIGZyb20gQnJlYWsgRnJlZSBGcm9tIFBsYXN0aWMgZXZlbnRzIGluIDIwMTkgYW5kIDIwMjAuICBUaGUgbWFpbiBjb250ZW50IG9mIHRoZSBkYXRhc2V0IHdhcyB0aGUgbnVtYmVyIG9mIHBhcnRpY2lwYW50cyBwZXIgY291bnRyeSwgdGhlIGFtb3VudCBvZiBwbGFzdGljIGNvbGxlY3RlZCwgdGhlIHR5cGUgb2YgcGxhc3RpYyBhbmQgdGhlIGNvbXBhbnkgdGhhdCBzb2xkIHRoZSBwbGFzdGljIGl0ZW0uICBNeSBxdWVzdGlvbiB3YXM6ICJXaGljaCBjb3VudHJpZXMgaGFkIHRoZSBtb3N0IHBhcnRpY2lwYW50cyBpbiB0aGVzZSBldmVudHM/IiAgSSBoYWQgbmV2ZXIgaGVhcmQgb2YgdGhlc2UgZXZlbnRzIGluIHRoZSBVUy4NCg0KYGBge3IgTG9hZCwgaW5jbHVkZSA9IEZBTFNFfQ0KI1NhdmUgbmVlZGVkIGRhdGEgaW50byByZHMgZm9yIGJsb2cgcG9zdA0KcGxhc3RpY3MgPC0gcmVhZFJEUyhmaWxlID0gIi4vZGF0YS90dF8yMTAxMjYucmRzIikNCmBgYA0KIyMjIFdyYW5nbGUNCg0KSW5pdGlhbCBjb25jbHVzaW9ucyBmcm9tIGV4cGxvcmluZyB0aGUgZGF0YXNldDoNCg0KKiBUaGVyZSBhcmUgb25seSB0d28geWVhcnMgb2YgZGF0YTogMjAxOSAoOTI5NiBlbnRyaWVzKSBhbmQgMjAyMCAoNDA4NCBlbnRyaWVzKQ0KKiBUaGVyZSBhcmUgRU1QVFkgY291bnRyeSBuYW1lcyAoMTM0NiBlbnRyaWVzKS4gIE5vdCBzdXJlIHdoYXQgRU1QVFkgbWVhbnMuDQoqIFRoZXJlIGlzIGEgcGFyZW50IGNvbXBhbnkgY2FsbGVkICJHcmFuZCBUb3RhbCIgd2hpY2ggZG9lc24ndCBzZWVtIHRvIGJlIGEgY29tcGFueSBuYW1lLg0KDQpEb2VzIEdyYW5kIFRvdGFsIGVxdWFsIHRoZSBzdW0gdG90YWwgZm9yIGEgY291bnRyeSBpbiAyMDE5Pw0KYGBge3IgV3JhbmdsZSwgbWVzc2FnZT1GQUxTRX0NCmFyZ2VudGluYV9zdW0gPC0gcGxhc3RpY3MgJT4lIA0KICBmaWx0ZXIoY291bnRyeSA9PSAiQXJnZW50aW5hIiwgcGFyZW50X2NvbXBhbnkgIT0gIkdyYW5kIFRvdGFsIikgJT4lDQogIGdyb3VwX2J5KGNvdW50cnksIHllYXIpICU+JSANCiAgc3VtbWFyaXplKGFjcm9zcyhlbXB0eTpncmFuZF90b3RhbCwgc3VtKSkgJT4lDQogIHVuZ3JvdXAoKQ0KDQphcmdlbnRpbmFfdG90YWwgPC0gcGxhc3RpY3MgJT4lDQogIGZpbHRlcihjb3VudHJ5ID09ICJBcmdlbnRpbmEiLCBwYXJlbnRfY29tcGFueSA9PSAiR3JhbmQgVG90YWwiKSAlPiUNCiAgc2VsZWN0KGNvdW50cnksIHllYXIsIGVtcHR5OmdyYW5kX3RvdGFsKQ0KDQpiaW5kX3Jvd3MoYXJnZW50aW5hX3N1bSwgYXJnZW50aW5hX3RvdGFsKSAlPiUgYXJyYW5nZSh5ZWFyKQ0KYGBgDQpZZXMsIHBhcmVudF9jb21wYW55IGFzICJHcmFuZCBUb3RhbCIgd2FzIGp1c3QgdGhlIHN1bSB0b3RhbCBmb3IgYSBjb3VudHJ5IGluIHRoYXQgeWVhci4NCg0KDQpDbGVhbiB1cCB0aGUgQ291bnRyeSBOYW1lDQpgYGB7cn0NCnBsYXN0aWNzIDwtIHBsYXN0aWNzICU+JQ0KICBtdXRhdGUoY291bnRyeSA9IHN0cl90b190aXRsZShjb3VudHJ5LCBsb2NhbGUgPSAiZW4iKSkgJT4lDQogIG11dGF0ZShjb3VudHJ5ID0gaWZlbHNlKGNvdW50cnkgPT0gIlRhaXdhbl8gUmVwdWJsaWMgT2YgQ2hpbmEgKFJvYykiLCAiVGFpd2FuIiwgY291bnRyeSkpDQpgYGANCg0KIyMjIFZpc3VhbGl6ZQ0KDQpXaGF0IGFyZSB0aGUgdG9wIDEwIGNvdW50cmllcyBwYXJ0aWNpcGF0aW5nIGluIEJGRlAgZXZlbnRzPw0KDQpgYGB7ciB2aXN1YWxpemV9DQpwbGFzdGljc19zdWJzZXQgPC0gcGxhc3RpY3MgJT4lDQogIHNlbGVjdChjb3VudHJ5LCB5ZWFyLCB2b2x1bnRlZXJzKSAlPiUNCiAgZGlzdGluY3QoKSAlPiUNCiAgZ3JvdXBfYnkoY291bnRyeSkgJT4lDQogIHN1bW1hcml6ZSh0b3RhbF92b2xzID0gc3VtKHZvbHVudGVlcnMpLCAuZ3JvdXBzID0gImRyb3AiKSAlPiUNCiAgYXJyYW5nZShkZXNjKHRvdGFsX3ZvbHMpKQ0KICANCnRvcF9jb3VudHJpZXMgPC0gcGxhc3RpY3Nfc3Vic2V0ICU+JSANCiAgc2xpY2UoMToxMCkgJT4lDQogIHB1bGwoY291bnRyeSkNCg0KcGxhc3RpY3MgJT4lDQogIGxlZnRfam9pbihwbGFzdGljc19zdWJzZXQsIGJ5ID0gImNvdW50cnkiKSAlPiUNCiAgZmlsdGVyKGNvdW50cnkgJWluJSB0b3BfY291bnRyaWVzKSAlPiUNCiAgc2VsZWN0KGNvdW50cnksIHllYXIsIHZvbHVudGVlcnMsIHRvdGFsX3ZvbHMpICU+JQ0KICBkaXN0aW5jdCgpICU+JQ0KICBtdXRhdGUoY291bnRyeSA9IGZjdF9yZW9yZGVyKGNvdW50cnksIHRvdGFsX3ZvbHMpKSAlPiUNCiAgbXV0YXRlKHllYXIgPSBhc19mYWN0b3IoeWVhcikpICU+JQ0KICBtdXRhdGUoeWVhciA9IGZjdF9yZWxldmVsKHllYXIsIHJldikpICU+JQ0KICBnZ3Bsb3QoYWVzKHggPSB2b2x1bnRlZXJzLCB5ID0gY291bnRyeSwgZmlsbCA9IHllYXIpKSArDQogIGdlb21fY29sKCkgKw0KICBsYWJzKHRpdGxlID0gIlRvcCAxMCBDb3VudHJpZXMgUGFydGljaXBhdGluZyBpbiBCRkZQIEV2ZW50cyIsDQogICAgICAgc3VidGl0bGUgPSAiVm9sdW50ZWVycyBhdCBQbGFzdGljIENsZWFuLXVwIEV2ZW50cyAod3d3LmJyZWFrZnJlZWZyb21wbGFzdGljLm9yZykiLA0KICAgICAgIGNhcHRpb24gPSAiQ3JlYXRlZCBieSBAZGF0YWRhdmlkeiB8IERhdGEgQ291cnRlc3kgb2YgU2FyYWggU2F1dmUgfCAjVGlkeVR1ZXNkYXkiLA0KICAgICAgIHggPSAiTnVtYmVyIG9mIFZvbHVudGVlcnMiLA0KICAgICAgIHkgPSBOVUxMLA0KICAgICAgIGZpbGwgPSAiWWVhciIpICsNCiAgdGhlbWVfZml2ZXRoaXJ0eWVpZ2h0KCkgKw0KICBzY2FsZV9maWxsX2ZpdmV0aGlydHllaWdodCgpDQpgYGANCg0KIyMjIFN1bW1hcnkNCg0KVGhlIHRvcCBjb3VudHJpZXMgcGFydGljaXBhdGluZyBpbiB0aGUgZXZlbnRzIHdlcmUgcHJpbWFyaWx5IGluIHRoZSBBUEFDIHJlZ2lvbi4gIFRhaXdhbiBoYWQgYSBzdHJvbmcgcGFydGljaXBhdGlvbiBpbiAyMDE5IGFuZCBkaWQgbm90IHBhcnRpY2lwYXRlIGluIDIwMjAuICBOb3Qgc3VyZSB3aGF0IGhhcHBlbmVkIGJ1dCBjb3VsZCBiZSByZWxhdGVkIHRvIHRoZSBwYW5kZW1pYy4gIEkgbGlrZWQgdGhlICJmaXZldGhpcnR5ZWlnaHQiIHRoZW1lIGJ1dCB0aGUgZmlsbCBjb2xvcnMgb2YgcmVkIGFuZCBibHVlIGxvb2sgdG9vIG11Y2ggbGlrZSB0aGUgbWFpbiBwYXJ0eSBhZmZpbGlhdGlvbnMgaW4gdGhlIFVTIGFuZCB3b3VsZCBwcm9iYWJseSBjaG9vc2Ugc29tZXRoaW5nIGVsc2UgbmV4dCB0aW1lLg0K</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2021-01-26_tt_PlasticWaste.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
