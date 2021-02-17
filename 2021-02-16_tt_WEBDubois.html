@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2021-02-16_tt_WEBDubois.utf8</title>
+
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fas fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="tidytuesday-w.e.b.-du-bois-challenge" class="section level2">
+<h2><strong>TidyTuesday: W.E.B. Du Bois Challenge</strong></h2>
+<p><em>Posted on February 16, 2021</em></p>
+<p>A quick analysis of the weekly <a href="http://github.com/rfordatascience/tidytuesday">#TidyTuesday</a> dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.</p>
+<p><strong>What I learned this week about R and the Tidyverse</strong></p>
+<ul>
+<li>How to generate points for an Archimedean spiral</li>
+<li>Plotting points in the listed order using geom_path</li>
+<li>Adding a custom Google font using showtext package</li>
+<li>Putting fig.showtext=TRUE into knitr::opts_chunk to render the Google font properly</li>
+</ul>
+<p><strong>Brief explanation of the dataset</strong></p>
+<p>This week’s <a href="http://github.com/rfordatascience/tidytuesday">#TidyTuesday</a> was a bit different than normal. The assignment was to re-create one of W.E.B. Du Bois’ data visualizations and aligned with the #DuBoisChallenge. I chose Challenge #6 which was an interesting design to demonstrate the number of Black persons living in urban versus rural areas of Georgia in 1890. This interesting figure is shown below:</p>
+<p><img src="img/original-plate-11.jpg" width="408" /></p>
+<div id="wrangle" class="section level3">
+<h3>Wrangle</h3>
+<p>I didn’t even use the dataset directly as it was just four population numbers.</p>
+<pre class="r"><code>readRDS(&quot;./data/tt_210216.rds&quot;)</code></pre>
+<pre><code>## # A tibble: 4 x 2
+##   Category             Population
+##   &lt;chr&gt;                     &lt;dbl&gt;
+## 1 Cities Over 10000         78139
+## 2 Cities 5000-10000          8025
+## 3 Cities 2500-5000          37699
+## 4 Country and Villages     734952</code></pre>
+<p>The biggest challenge for me was to figure out how to generate the red spiral for this figure. I eventually came upon a formula to generate an Archimedean spiral and then switched the x and y points so that it would spin counterclockwise.</p>
+<p>Create the points to generate the spiral.</p>
+<pre class="r"><code>#Initialize
+num_segments &lt;- 1e4
+radius &lt;- 0
+x &lt;- vector(mode =&quot;numeric&quot;, length = num_segments)
+y &lt;- vector(mode = &quot;numeric&quot;, length = num_segments)
+i &lt;- 0
+
+max_radius &lt;- 1
+delta_r &lt;- max_radius / num_segments
+spin_rate &lt;- 10
+
+#Create points
+for (i in 1:(num_segments-1)) {
+  #print(i)
+  radius &lt;- radius + delta_r
+  x[i+1] &lt;- x[i] + radius * sin((2 * pi * i / num_segments) * spin_rate)
+  y[i+1] &lt;- y[i] + radius * cos((2 * pi * i / num_segments) * spin_rate)
+}</code></pre>
+</div>
+<div id="visualize" class="section level3">
+<h3>Visualize</h3>
+<p>The tightness of the spiral (i.e. number of revolutions) increased by increasing the spin_rate. The size of the spiral could be increased by increasing the max_radius. The resolution (i.e. smoothness) of the spiral could be improved by increasing num_segments.</p>
+<p>The raw spiral points used in the visualization are shown below.</p>
+<pre class="r"><code>df &lt;- tibble(x, y)
+
+p &lt;- df %&gt;%
+  ggplot(aes(x = x, y = y)) +
+  geom_path(size = 3, linejoin = &quot;round&quot;, lineend = &quot;square&quot;, linemitre = &quot;10&quot;, color = &quot;red&quot;)
+
+p</code></pre>
+<p><img src="2021-02-16_tt_WEBDubois_files/figure-html/unnamed-chunk-5-1.png" width="576" /></p>
+<p>Some trimming was required in order to get the correct number of rotations and trim some of the inner part in order to display the population number. Trimming was accomplished by trial-and-error resulting in the following figure.</p>
+<pre class="r"><code>spiral_df &lt;- df %&gt;%
+  filter(row_number() &gt; 2500 &amp; row_number() &lt; 7100)
+
+spiral_df %&gt;%
+  ggplot(aes(x = x, y = y)) +
+  geom_path(size = 3, linejoin = &quot;round&quot;, lineend = &quot;square&quot;, linemitre = &quot;10&quot;, color = &quot;red&quot;)</code></pre>
+<p><img src="2021-02-16_tt_WEBDubois_files/figure-html/unnamed-chunk-6-1.png" width="576" /></p>
+<p>A Google font was selected that is somewhat close to the handwriting used in the Du Bois figure. The font was added to Windows using the google_add_font funcion from the showtext package.</p>
+<pre class="r"><code>font_add_google(name = &quot;Syncopate&quot;, family = &quot;syncopate&quot;)
+showtext_auto()</code></pre>
+<p>The figure was then constructed by connecting polygons to the spiral and adding the text.</p>
+<pre class="r"><code>#Annotation settings
+a_font &lt;- &quot;syncopate&quot;
+a_size &lt;- 2
+
+p &lt;- ggplot() +
+  geom_path(data = spiral_df, aes(x = x, y = y), size = 3, color = &quot;#CC0000&quot;) +
+  #geom_segment(aes(x = -100, y = 50, xend = 100, yend = 200), size = 5) +
+  geom_polygon(aes(x = c(-99, -89, 105, 95), y = c(61, 61, 275, 275), fill = &quot;A&quot;)) +
+  geom_polygon(aes(x = c(95, 105, 55, 45), y = c(275, 275, 325, 325), fill = &quot;B&quot;)) +
+  geom_polygon(aes(x = c(45, 55, 80, 70), y = c(325, 325, 350, 350), fill = &quot;C&quot;)) +
+  geom_polygon(aes(x = c(80, 80, -175, -175), y = c(350, 360, 360, 350), fill = &quot;D&quot;)) +
+  annotate(&quot;text&quot;, x = 0, y = 0, label = &quot;734,952&quot;, family = a_font) +
+  annotate(&quot;text&quot;, x = -100, y = 345, label = &quot;78,139 NEGROES IN CITIES&quot;, size = a_size, family = a_font) +
+  annotate(&quot;text&quot;, x = -100, y = 335, label = &quot;OF OVER 10,000 INHABITANTS&quot;, size = a_size, family = a_font) +
+  annotate(&quot;text&quot;, x = 82, y = 335, label = &quot;8,025&quot;, size = a_size, family = a_font) +
+  annotate(&quot;text&quot;, x = 135, y = 340, label = &quot;NEGROES IN CITIES&quot;, size = a_size, family = a_font) +
+  annotate(&quot;text&quot;, x = 143, y = 330, label = &quot;FROM 5,000 TO 10,000&quot;, size = a_size, family = a_font) +
+  annotate(&quot;text&quot;, x = 35, y = 310, label = &quot;37,699&quot;, size = a_size, family = a_font) +
+  annotate(&quot;text&quot;, x = 35, y = 300, label = &quot;NEGROES&quot;, size = a_size, family = a_font) +
+  annotate(&quot;text&quot;, x = 35, y = 290, label = &quot;IN CITIES&quot;, size = a_size, family = a_font) +
+  annotate(&quot;text&quot;, x = 35, y = 280, label = &quot;FROM&quot;, size = a_size, family = a_font) +
+  annotate(&quot;text&quot;, x = 35, y = 270, label = &quot;2,500 TO 5,000&quot;, size = a_size, family = a_font) +
+  
+  xlim(-200, 200) +
+  scale_fill_manual(values = c(&quot;#CC0000&quot;, &quot;#FFD700&quot;, &quot;#330099&quot;, &quot;#336600&quot;)) +
+  labs(title = &quot;CITY AND RURAL POPULATION.\n 1890.&quot;,
+       caption = &quot;Re-creation by @datadavidz | #DuBoisChallenge | #TidyTuesday&quot;) +
+  theme(legend.position = &quot;none&quot;,
+        panel.grid = element_blank(),
+        axis.text = element_blank(),
+        axis.title = element_blank(),
+        plot.title = element_text(hjust = 0.5),
+        plot.background = element_rect(fill = &quot;#EBD5B3&quot;))
+
+p</code></pre>
+<p><img src="2021-02-16_tt_WEBDubois_files/figure-html/unnamed-chunk-8-1.png" width="576" /></p>
+<p><strong>Procedure for Adding a Curved Label under the Spiral</strong></p>
+<p>The remaining part is to put the curved label at the bottom of the spiral. Unfortunately, curved text didn’t appear to be an option in ggplot2 and I didn’t immediately find a package that could integrate well with the figure already developed. I decided to write my own function to add the curved text. The idea was to use the data from the next outer revolution of the spiral as a guide for the text.</p>
+<p>The idea was to add the text one-character-at-a-time and change the location and angle of the text to match the spiral.</p>
+<p><strong>Step 1.</strong> Trim the outer spiral loop to capture the points where the text should be placed.</p>
+<pre class="r"><code>curve_text_path &lt;- df %&gt;% 
+  filter(row_number() &gt; 7600 &amp; row_number() &lt; 7900)
+
+p + geom_point(data = curve_text_path, aes(x = x, y = y))</code></pre>
+<p><img src="2021-02-16_tt_WEBDubois_files/figure-html/unnamed-chunk-9-1.png" width="576" /></p>
+<p><strong>Step 2.</strong> Split the label into a vector of characters (42).</p>
+<pre class="r"><code>curve_label &lt;- &quot;NEGROES LIVING IN THE COUNTRY AND VILLAGES&quot;
+curve_label_chars &lt;- unlist(str_split(curve_label, &quot;&quot;))</code></pre>
+<p><strong>Step 3.</strong> Define the x,y locations for each character. This was accomplished by taking the total number of points (300) and dividing by the number of characters (42). The result is taking every 7th point for a character location.</p>
+<pre class="r"><code>curve_text_loc &lt;- curve_text_path %&gt;%
+  arrange(x) %&gt;%
+  mutate(ind = rep(1:7, length.out = n())) %&gt;%
+  filter(ind == 1)</code></pre>
+<p><strong>Step 4.</strong> Determine the angle for each character by the angle of points for the current character and the next character relative to the horizontal axis.</p>
+<pre class="r"><code>curve_x &lt;- curve_text_loc$x
+curve_y &lt;- curve_text_loc$y
+
+i &lt;- 0
+curve_angle &lt;- vector(mode = &quot;numeric&quot;, length = 42)
+
+for (i in 1:42) {
+  curve_angle[i] &lt;- atan((curve_y[i+1] - curve_y[i]) / (curve_x[i+1] - curve_x[i])) * 180 / pi 
+}</code></pre>
+<p><strong>Step 5.</strong> Create a function to add one character to the plot at the correct location and angle.</p>
+<pre class="r"><code>curve_text &lt;- function(p, x, y, angle, size, label) {
+  return (p + annotate(&quot;text&quot;, x = x, y = y, angle = angle, size = size, label = label, hjust = 0.5, vjust = 0, family = a_font))
+}</code></pre>
+<p><strong>Step 6.</strong> Plot the curved label on to the final plot.</p>
+<pre class="r"><code>i &lt;- 0
+p2 &lt;- p
+
+for (i in 1:42) {
+  p2 &lt;- curve_text(p2, curve_x[i], curve_y[i], curve_angle[i], a_size, curve_label_chars[i])
+}
+
+p2</code></pre>
+<p><img src="2021-02-16_tt_WEBDubois_files/figure-html/unnamed-chunk-14-1.png" width="576" /></p>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<p>The final result was somewhat close to the original. It would have been nice to do more work to make the polygons more proportional to the data. The yellow polygon is clearly shorter than the original. The result from the curve_text function was a bit wonky. The spacing defined by every 7th point was not ideal and some unevenness is observed. Overall, I think not a bad attempt for a couple of hours of work.</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCg0KPGJyPg0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSwgDQogICAgICAgICAgICAgICAgICAgICAgZmlnLndpZHRoID0gNiwgZmlnLmhlaWdodCA9IDYsDQogICAgICAgICAgICAgICAgICAgICAgZmlnLnNob3d0ZXh0ID0gVFJVRSkNCmBgYA0KDQpgYGB7ciwgaW5jbHVkZT1GQUxTRX0NCg0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KHNob3d0ZXh0KQ0KbGlicmFyeShqcGVnKQ0KdGhlbWVfc2V0KHRoZW1lX21pbmltYWwoKSkNCmBgYA0KDQojIyAqKlRpZHlUdWVzZGF5OiBXLkUuQi4gRHUgQm9pcyBDaGFsbGVuZ2UqKg0KDQoqUG9zdGVkIG9uIEZlYnJ1YXJ5IDE2LCAyMDIxKg0KDQpBIHF1aWNrIGFuYWx5c2lzIG9mIHRoZSB3ZWVrbHkgW1wjVGlkeVR1ZXNkYXldKGh0dHA6Ly9naXRodWIuY29tL3Jmb3JkYXRhc2NpZW5jZS90aWR5dHVlc2RheSkgZGF0YXNldCBvcmdhbml6ZWQgYnkgdGhlIFI0RFMgT25saW5lIExlYXJuaW5nIENvbW11bml0eS4gTXkgYXBwcm9hY2ggaXMgdG8gYXBwbHkgbXkgZGF0YSBzY2llbmNlIHNraWxscyB0byBleHBsb3JlIG9uZSBxdWVzdGlvbiBJIGhhdmUgYWJvdXQgdGhlIGRhdGEgYW5kIGdlbmVyYXRlIGEgdmlzdWFsaXphdGlvbiB0aGF0IGFkZHJlc3NlcyB0aGlzIHF1ZXN0aW9uLiBUaGUgbWFpbiBwdXJwb3NlIGZvciBtZSBpcyB0byBwcmFjdGljZSBhbmQgdHJ5IG91dCBuZXcgdGhpbmdzLiBJIGFtIG5ldmVyIGNvbXBsZXRlbHkgc2F0aXNmaWVkIHdpdGggdGhlIGVuZCByZXN1bHQgYnV0IEkgZG8gdGhlIGJlc3QgSSBjYW4gaW4gYSBzaG9ydCBwZXJpb2Qgb2YgdGltZS4NCg0KKipXaGF0IEkgbGVhcm5lZCB0aGlzIHdlZWsgYWJvdXQgUiBhbmQgdGhlIFRpZHl2ZXJzZSoqDQoNCi0gICBIb3cgdG8gZ2VuZXJhdGUgcG9pbnRzIGZvciBhbiBBcmNoaW1lZGVhbiBzcGlyYWwNCi0gICBQbG90dGluZyBwb2ludHMgaW4gdGhlIGxpc3RlZCBvcmRlciB1c2luZyBnZW9tX3BhdGgNCi0gICBBZGRpbmcgYSBjdXN0b20gR29vZ2xlIGZvbnQgdXNpbmcgc2hvd3RleHQgcGFja2FnZQ0KLSAgIFB1dHRpbmcgZmlnLnNob3d0ZXh0PVRSVUUgaW50byBrbml0cjo6b3B0c19jaHVuayB0byByZW5kZXIgdGhlIEdvb2dsZSBmb250IHByb3Blcmx5DQoNCioqQnJpZWYgZXhwbGFuYXRpb24gb2YgdGhlIGRhdGFzZXQqKg0KDQpUaGlzIHdlZWsncyBbXCNUaWR5VHVlc2RheV0oaHR0cDovL2dpdGh1Yi5jb20vcmZvcmRhdGFzY2llbmNlL3RpZHl0dWVzZGF5KSB3YXMgYSBiaXQgZGlmZmVyZW50IHRoYW4gbm9ybWFsLiBUaGUgYXNzaWdubWVudCB3YXMgdG8gcmUtY3JlYXRlIG9uZSBvZiBXLkUuQi4gRHUgQm9pcycgZGF0YSB2aXN1YWxpemF0aW9ucyBhbmQgYWxpZ25lZCB3aXRoIHRoZSBcI0R1Qm9pc0NoYWxsZW5nZS4gSSBjaG9zZSBDaGFsbGVuZ2UgXCM2IHdoaWNoIHdhcyBhbiBpbnRlcmVzdGluZyBkZXNpZ24gdG8gZGVtb25zdHJhdGUgdGhlIG51bWJlciBvZiBCbGFjayBwZXJzb25zIGxpdmluZyBpbiB1cmJhbiB2ZXJzdXMgcnVyYWwgYXJlYXMgb2YgR2VvcmdpYSBpbiAxODkwLiBUaGlzIGludGVyZXN0aW5nIGZpZ3VyZSBpcyBzaG93biBiZWxvdzoNCg0KYGBge3IsIGVjaG89RkFMU0V9DQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiaW1nL29yaWdpbmFsLXBsYXRlLTExLmpwZyIpDQpgYGANCg0KIyMjIFdyYW5nbGUNCg0KSSBkaWRuJ3QgZXZlbiB1c2UgdGhlIGRhdGFzZXQgZGlyZWN0bHkgYXMgaXQgd2FzIGp1c3QgZm91ciBwb3B1bGF0aW9uIG51bWJlcnMuDQoNCmBgYHtyfQ0KcmVhZFJEUygiLi9kYXRhL3R0XzIxMDIxNi5yZHMiKQ0KYGBgDQoNClRoZSBiaWdnZXN0IGNoYWxsZW5nZSBmb3IgbWUgd2FzIHRvIGZpZ3VyZSBvdXQgaG93IHRvIGdlbmVyYXRlIHRoZSByZWQgc3BpcmFsIGZvciB0aGlzIGZpZ3VyZS4gSSBldmVudHVhbGx5IGNhbWUgdXBvbiBhIGZvcm11bGEgdG8gZ2VuZXJhdGUgYW4gQXJjaGltZWRlYW4gc3BpcmFsIGFuZCB0aGVuIHN3aXRjaGVkIHRoZSB4IGFuZCB5IHBvaW50cyBzbyB0aGF0IGl0IHdvdWxkIHNwaW4gY291bnRlcmNsb2Nrd2lzZS4NCg0KQ3JlYXRlIHRoZSBwb2ludHMgdG8gZ2VuZXJhdGUgdGhlIHNwaXJhbC4NCg0KYGBge3J9DQojSW5pdGlhbGl6ZQ0KbnVtX3NlZ21lbnRzIDwtIDFlNA0KcmFkaXVzIDwtIDANCnggPC0gdmVjdG9yKG1vZGUgPSJudW1lcmljIiwgbGVuZ3RoID0gbnVtX3NlZ21lbnRzKQ0KeSA8LSB2ZWN0b3IobW9kZSA9ICJudW1lcmljIiwgbGVuZ3RoID0gbnVtX3NlZ21lbnRzKQ0KaSA8LSAwDQoNCm1heF9yYWRpdXMgPC0gMQ0KZGVsdGFfciA8LSBtYXhfcmFkaXVzIC8gbnVtX3NlZ21lbnRzDQpzcGluX3JhdGUgPC0gMTANCg0KI0NyZWF0ZSBwb2ludHMNCmZvciAoaSBpbiAxOihudW1fc2VnbWVudHMtMSkpIHsNCiAgI3ByaW50KGkpDQogIHJhZGl1cyA8LSByYWRpdXMgKyBkZWx0YV9yDQogIHhbaSsxXSA8LSB4W2ldICsgcmFkaXVzICogc2luKCgyICogcGkgKiBpIC8gbnVtX3NlZ21lbnRzKSAqIHNwaW5fcmF0ZSkNCiAgeVtpKzFdIDwtIHlbaV0gKyByYWRpdXMgKiBjb3MoKDIgKiBwaSAqIGkgLyBudW1fc2VnbWVudHMpICogc3Bpbl9yYXRlKQ0KfQ0KYGBgDQoNCiMjIyBWaXN1YWxpemUNCg0KVGhlIHRpZ2h0bmVzcyBvZiB0aGUgc3BpcmFsIChpLmUuIG51bWJlciBvZiByZXZvbHV0aW9ucykgaW5jcmVhc2VkIGJ5IGluY3JlYXNpbmcgdGhlIHNwaW5fcmF0ZS4gVGhlIHNpemUgb2YgdGhlIHNwaXJhbCBjb3VsZCBiZSBpbmNyZWFzZWQgYnkgaW5jcmVhc2luZyB0aGUgbWF4X3JhZGl1cy4gVGhlIHJlc29sdXRpb24gKGkuZS4gc21vb3RobmVzcykgb2YgdGhlIHNwaXJhbCBjb3VsZCBiZSBpbXByb3ZlZCBieSBpbmNyZWFzaW5nIG51bV9zZWdtZW50cy4NCg0KVGhlIHJhdyBzcGlyYWwgcG9pbnRzIHVzZWQgaW4gdGhlIHZpc3VhbGl6YXRpb24gYXJlIHNob3duIGJlbG93Lg0KDQpgYGB7cn0NCmRmIDwtIHRpYmJsZSh4LCB5KQ0KDQpwIDwtIGRmICU+JQ0KICBnZ3Bsb3QoYWVzKHggPSB4LCB5ID0geSkpICsNCiAgZ2VvbV9wYXRoKHNpemUgPSAzLCBsaW5lam9pbiA9ICJyb3VuZCIsIGxpbmVlbmQgPSAic3F1YXJlIiwgbGluZW1pdHJlID0gIjEwIiwgY29sb3IgPSAicmVkIikNCg0KcA0KYGBgDQoNClNvbWUgdHJpbW1pbmcgd2FzIHJlcXVpcmVkIGluIG9yZGVyIHRvIGdldCB0aGUgY29ycmVjdCBudW1iZXIgb2Ygcm90YXRpb25zIGFuZCB0cmltIHNvbWUgb2YgdGhlIGlubmVyIHBhcnQgaW4gb3JkZXIgdG8gZGlzcGxheSB0aGUgcG9wdWxhdGlvbiBudW1iZXIuIFRyaW1taW5nIHdhcyBhY2NvbXBsaXNoZWQgYnkgdHJpYWwtYW5kLWVycm9yIHJlc3VsdGluZyBpbiB0aGUgZm9sbG93aW5nIGZpZ3VyZS4NCg0KYGBge3J9DQpzcGlyYWxfZGYgPC0gZGYgJT4lDQogIGZpbHRlcihyb3dfbnVtYmVyKCkgPiAyNTAwICYgcm93X251bWJlcigpIDwgNzEwMCkNCg0Kc3BpcmFsX2RmICU+JQ0KICBnZ3Bsb3QoYWVzKHggPSB4LCB5ID0geSkpICsNCiAgZ2VvbV9wYXRoKHNpemUgPSAzLCBsaW5lam9pbiA9ICJyb3VuZCIsIGxpbmVlbmQgPSAic3F1YXJlIiwgbGluZW1pdHJlID0gIjEwIiwgY29sb3IgPSAicmVkIikNCmBgYA0KDQpBIEdvb2dsZSBmb250IHdhcyBzZWxlY3RlZCB0aGF0IGlzIHNvbWV3aGF0IGNsb3NlIHRvIHRoZSBoYW5kd3JpdGluZyB1c2VkIGluIHRoZSBEdSBCb2lzIGZpZ3VyZS4gVGhlIGZvbnQgd2FzIGFkZGVkIHRvIFdpbmRvd3MgdXNpbmcgdGhlIGdvb2dsZV9hZGRfZm9udCBmdW5jaW9uIGZyb20gdGhlIHNob3d0ZXh0IHBhY2thZ2UuDQoNCmBgYHtyfQ0KZm9udF9hZGRfZ29vZ2xlKG5hbWUgPSAiU3luY29wYXRlIiwgZmFtaWx5ID0gInN5bmNvcGF0ZSIpDQpzaG93dGV4dF9hdXRvKCkNCmBgYA0KDQpUaGUgZmlndXJlIHdhcyB0aGVuIGNvbnN0cnVjdGVkIGJ5IGNvbm5lY3RpbmcgcG9seWdvbnMgdG8gdGhlIHNwaXJhbCBhbmQgYWRkaW5nIHRoZSB0ZXh0Lg0KDQpgYGB7cn0NCiNBbm5vdGF0aW9uIHNldHRpbmdzDQphX2ZvbnQgPC0gInN5bmNvcGF0ZSINCmFfc2l6ZSA8LSAyDQoNCnAgPC0gZ2dwbG90KCkgKw0KICBnZW9tX3BhdGgoZGF0YSA9IHNwaXJhbF9kZiwgYWVzKHggPSB4LCB5ID0geSksIHNpemUgPSAzLCBjb2xvciA9ICIjQ0MwMDAwIikgKw0KICAjZ2VvbV9zZWdtZW50KGFlcyh4ID0gLTEwMCwgeSA9IDUwLCB4ZW5kID0gMTAwLCB5ZW5kID0gMjAwKSwgc2l6ZSA9IDUpICsNCiAgZ2VvbV9wb2x5Z29uKGFlcyh4ID0gYygtOTksIC04OSwgMTA1LCA5NSksIHkgPSBjKDYxLCA2MSwgMjc1LCAyNzUpLCBmaWxsID0gIkEiKSkgKw0KICBnZW9tX3BvbHlnb24oYWVzKHggPSBjKDk1LCAxMDUsIDU1LCA0NSksIHkgPSBjKDI3NSwgMjc1LCAzMjUsIDMyNSksIGZpbGwgPSAiQiIpKSArDQogIGdlb21fcG9seWdvbihhZXMoeCA9IGMoNDUsIDU1LCA4MCwgNzApLCB5ID0gYygzMjUsIDMyNSwgMzUwLCAzNTApLCBmaWxsID0gIkMiKSkgKw0KICBnZW9tX3BvbHlnb24oYWVzKHggPSBjKDgwLCA4MCwgLTE3NSwgLTE3NSksIHkgPSBjKDM1MCwgMzYwLCAzNjAsIDM1MCksIGZpbGwgPSAiRCIpKSArDQogIGFubm90YXRlKCJ0ZXh0IiwgeCA9IDAsIHkgPSAwLCBsYWJlbCA9ICI3MzQsOTUyIiwgZmFtaWx5ID0gYV9mb250KSArDQogIGFubm90YXRlKCJ0ZXh0IiwgeCA9IC0xMDAsIHkgPSAzNDUsIGxhYmVsID0gIjc4LDEzOSBORUdST0VTIElOIENJVElFUyIsIHNpemUgPSBhX3NpemUsIGZhbWlseSA9IGFfZm9udCkgKw0KICBhbm5vdGF0ZSgidGV4dCIsIHggPSAtMTAwLCB5ID0gMzM1LCBsYWJlbCA9ICJPRiBPVkVSIDEwLDAwMCBJTkhBQklUQU5UUyIsIHNpemUgPSBhX3NpemUsIGZhbWlseSA9IGFfZm9udCkgKw0KICBhbm5vdGF0ZSgidGV4dCIsIHggPSA4MiwgeSA9IDMzNSwgbGFiZWwgPSAiOCwwMjUiLCBzaXplID0gYV9zaXplLCBmYW1pbHkgPSBhX2ZvbnQpICsNCiAgYW5ub3RhdGUoInRleHQiLCB4ID0gMTM1LCB5ID0gMzQwLCBsYWJlbCA9ICJORUdST0VTIElOIENJVElFUyIsIHNpemUgPSBhX3NpemUsIGZhbWlseSA9IGFfZm9udCkgKw0KICBhbm5vdGF0ZSgidGV4dCIsIHggPSAxNDMsIHkgPSAzMzAsIGxhYmVsID0gIkZST00gNSwwMDAgVE8gMTAsMDAwIiwgc2l6ZSA9IGFfc2l6ZSwgZmFtaWx5ID0gYV9mb250KSArDQogIGFubm90YXRlKCJ0ZXh0IiwgeCA9IDM1LCB5ID0gMzEwLCBsYWJlbCA9ICIzNyw2OTkiLCBzaXplID0gYV9zaXplLCBmYW1pbHkgPSBhX2ZvbnQpICsNCiAgYW5ub3RhdGUoInRleHQiLCB4ID0gMzUsIHkgPSAzMDAsIGxhYmVsID0gIk5FR1JPRVMiLCBzaXplID0gYV9zaXplLCBmYW1pbHkgPSBhX2ZvbnQpICsNCiAgYW5ub3RhdGUoInRleHQiLCB4ID0gMzUsIHkgPSAyOTAsIGxhYmVsID0gIklOIENJVElFUyIsIHNpemUgPSBhX3NpemUsIGZhbWlseSA9IGFfZm9udCkgKw0KICBhbm5vdGF0ZSgidGV4dCIsIHggPSAzNSwgeSA9IDI4MCwgbGFiZWwgPSAiRlJPTSIsIHNpemUgPSBhX3NpemUsIGZhbWlseSA9IGFfZm9udCkgKw0KICBhbm5vdGF0ZSgidGV4dCIsIHggPSAzNSwgeSA9IDI3MCwgbGFiZWwgPSAiMiw1MDAgVE8gNSwwMDAiLCBzaXplID0gYV9zaXplLCBmYW1pbHkgPSBhX2ZvbnQpICsNCiAgDQogIHhsaW0oLTIwMCwgMjAwKSArDQogIHNjYWxlX2ZpbGxfbWFudWFsKHZhbHVlcyA9IGMoIiNDQzAwMDAiLCAiI0ZGRDcwMCIsICIjMzMwMDk5IiwgIiMzMzY2MDAiKSkgKw0KICBsYWJzKHRpdGxlID0gIkNJVFkgQU5EIFJVUkFMIFBPUFVMQVRJT04uXG4gMTg5MC4iLA0KICAgICAgIGNhcHRpb24gPSAiUmUtY3JlYXRpb24gYnkgQGRhdGFkYXZpZHogfCAjRHVCb2lzQ2hhbGxlbmdlIHwgI1RpZHlUdWVzZGF5IikgKw0KICB0aGVtZShsZWdlbmQucG9zaXRpb24gPSAibm9uZSIsDQogICAgICAgIHBhbmVsLmdyaWQgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIGF4aXMudGV4dCA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgYXhpcy50aXRsZSA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgcGxvdC50aXRsZSA9IGVsZW1lbnRfdGV4dChoanVzdCA9IDAuNSksDQogICAgICAgIHBsb3QuYmFja2dyb3VuZCA9IGVsZW1lbnRfcmVjdChmaWxsID0gIiNFQkQ1QjMiKSkNCg0KcA0KYGBgDQoNCioqUHJvY2VkdXJlIGZvciBBZGRpbmcgYSBDdXJ2ZWQgTGFiZWwgdW5kZXIgdGhlIFNwaXJhbCoqDQoNClRoZSByZW1haW5pbmcgcGFydCBpcyB0byBwdXQgdGhlIGN1cnZlZCBsYWJlbCBhdCB0aGUgYm90dG9tIG9mIHRoZSBzcGlyYWwuIFVuZm9ydHVuYXRlbHksIGN1cnZlZCB0ZXh0IGRpZG4ndCBhcHBlYXIgdG8gYmUgYW4gb3B0aW9uIGluIGdncGxvdDIgYW5kIEkgZGlkbid0IGltbWVkaWF0ZWx5IGZpbmQgYSBwYWNrYWdlIHRoYXQgY291bGQgaW50ZWdyYXRlIHdlbGwgd2l0aCB0aGUgZmlndXJlIGFscmVhZHkgZGV2ZWxvcGVkLiBJIGRlY2lkZWQgdG8gd3JpdGUgbXkgb3duIGZ1bmN0aW9uIHRvIGFkZCB0aGUgY3VydmVkIHRleHQuIFRoZSBpZGVhIHdhcyB0byB1c2UgdGhlIGRhdGEgZnJvbSB0aGUgbmV4dCBvdXRlciByZXZvbHV0aW9uIG9mIHRoZSBzcGlyYWwgYXMgYSBndWlkZSBmb3IgdGhlIHRleHQuDQoNClRoZSBpZGVhIHdhcyB0byBhZGQgdGhlIHRleHQgb25lLWNoYXJhY3Rlci1hdC1hLXRpbWUgYW5kIGNoYW5nZSB0aGUgbG9jYXRpb24gYW5kIGFuZ2xlIG9mIHRoZSB0ZXh0IHRvIG1hdGNoIHRoZSBzcGlyYWwuDQoNCioqU3RlcCAxLioqIFRyaW0gdGhlIG91dGVyIHNwaXJhbCBsb29wIHRvIGNhcHR1cmUgdGhlIHBvaW50cyB3aGVyZSB0aGUgdGV4dCBzaG91bGQgYmUgcGxhY2VkLg0KDQpgYGB7cn0NCmN1cnZlX3RleHRfcGF0aCA8LSBkZiAlPiUgDQogIGZpbHRlcihyb3dfbnVtYmVyKCkgPiA3NjAwICYgcm93X251bWJlcigpIDwgNzkwMCkNCg0KcCArIGdlb21fcG9pbnQoZGF0YSA9IGN1cnZlX3RleHRfcGF0aCwgYWVzKHggPSB4LCB5ID0geSkpDQpgYGANCg0KKipTdGVwIDIuKiogU3BsaXQgdGhlIGxhYmVsIGludG8gYSB2ZWN0b3Igb2YgY2hhcmFjdGVycyAoNDIpLg0KDQpgYGB7cn0NCmN1cnZlX2xhYmVsIDwtICJORUdST0VTIExJVklORyBJTiBUSEUgQ09VTlRSWSBBTkQgVklMTEFHRVMiDQpjdXJ2ZV9sYWJlbF9jaGFycyA8LSB1bmxpc3Qoc3RyX3NwbGl0KGN1cnZlX2xhYmVsLCAiIikpDQpgYGANCg0KKipTdGVwIDMuKiogRGVmaW5lIHRoZSB4LHkgbG9jYXRpb25zIGZvciBlYWNoIGNoYXJhY3Rlci4gVGhpcyB3YXMgYWNjb21wbGlzaGVkIGJ5IHRha2luZyB0aGUgdG90YWwgbnVtYmVyIG9mIHBvaW50cyAoMzAwKSBhbmQgZGl2aWRpbmcgYnkgdGhlIG51bWJlciBvZiBjaGFyYWN0ZXJzICg0MikuIFRoZSByZXN1bHQgaXMgdGFraW5nIGV2ZXJ5IDd0aCBwb2ludCBmb3IgYSBjaGFyYWN0ZXIgbG9jYXRpb24uDQoNCmBgYHtyfQ0KY3VydmVfdGV4dF9sb2MgPC0gY3VydmVfdGV4dF9wYXRoICU+JQ0KICBhcnJhbmdlKHgpICU+JQ0KICBtdXRhdGUoaW5kID0gcmVwKDE6NywgbGVuZ3RoLm91dCA9IG4oKSkpICU+JQ0KICBmaWx0ZXIoaW5kID09IDEpDQpgYGANCg0KKipTdGVwIDQuKiogRGV0ZXJtaW5lIHRoZSBhbmdsZSBmb3IgZWFjaCBjaGFyYWN0ZXIgYnkgdGhlIGFuZ2xlIG9mIHBvaW50cyBmb3IgdGhlIGN1cnJlbnQgY2hhcmFjdGVyIGFuZCB0aGUgbmV4dCBjaGFyYWN0ZXIgcmVsYXRpdmUgdG8gdGhlIGhvcml6b250YWwgYXhpcy4NCg0KYGBge3J9DQpjdXJ2ZV94IDwtIGN1cnZlX3RleHRfbG9jJHgNCmN1cnZlX3kgPC0gY3VydmVfdGV4dF9sb2MkeQ0KDQppIDwtIDANCmN1cnZlX2FuZ2xlIDwtIHZlY3Rvcihtb2RlID0gIm51bWVyaWMiLCBsZW5ndGggPSA0MikNCg0KZm9yIChpIGluIDE6NDIpIHsNCiAgY3VydmVfYW5nbGVbaV0gPC0gYXRhbigoY3VydmVfeVtpKzFdIC0gY3VydmVfeVtpXSkgLyAoY3VydmVfeFtpKzFdIC0gY3VydmVfeFtpXSkpICogMTgwIC8gcGkgDQp9DQpgYGANCg0KKipTdGVwIDUuKiogQ3JlYXRlIGEgZnVuY3Rpb24gdG8gYWRkIG9uZSBjaGFyYWN0ZXIgdG8gdGhlIHBsb3QgYXQgdGhlIGNvcnJlY3QgbG9jYXRpb24gYW5kIGFuZ2xlLg0KDQpgYGB7cn0NCmN1cnZlX3RleHQgPC0gZnVuY3Rpb24ocCwgeCwgeSwgYW5nbGUsIHNpemUsIGxhYmVsKSB7DQogIHJldHVybiAocCArIGFubm90YXRlKCJ0ZXh0IiwgeCA9IHgsIHkgPSB5LCBhbmdsZSA9IGFuZ2xlLCBzaXplID0gc2l6ZSwgbGFiZWwgPSBsYWJlbCwgaGp1c3QgPSAwLjUsIHZqdXN0ID0gMCwgZmFtaWx5ID0gYV9mb250KSkNCn0NCmBgYA0KDQoqKlN0ZXAgNi4qKiBQbG90IHRoZSBjdXJ2ZWQgbGFiZWwgb24gdG8gdGhlIGZpbmFsIHBsb3QuDQoNCmBgYHtyfQ0KaSA8LSAwDQpwMiA8LSBwDQoNCmZvciAoaSBpbiAxOjQyKSB7DQogIHAyIDwtIGN1cnZlX3RleHQocDIsIGN1cnZlX3hbaV0sIGN1cnZlX3lbaV0sIGN1cnZlX2FuZ2xlW2ldLCBhX3NpemUsIGN1cnZlX2xhYmVsX2NoYXJzW2ldKQ0KfQ0KDQpwMg0KYGBgDQoNCiMjIyBTdW1tYXJ5DQoNClRoZSBmaW5hbCByZXN1bHQgd2FzIHNvbWV3aGF0IGNsb3NlIHRvIHRoZSBvcmlnaW5hbC4gSXQgd291bGQgaGF2ZSBiZWVuIG5pY2UgdG8gZG8gbW9yZSB3b3JrIHRvIG1ha2UgdGhlIHBvbHlnb25zIG1vcmUgcHJvcG9ydGlvbmFsIHRvIHRoZSBkYXRhLiBUaGUgeWVsbG93IHBvbHlnb24gaXMgY2xlYXJseSBzaG9ydGVyIHRoYW4gdGhlIG9yaWdpbmFsLiBUaGUgcmVzdWx0IGZyb20gdGhlIGN1cnZlX3RleHQgZnVuY3Rpb24gd2FzIGEgYml0IHdvbmt5LiBUaGUgc3BhY2luZyBkZWZpbmVkIGJ5IGV2ZXJ5IDd0aCBwb2ludCB3YXMgbm90IGlkZWFsIGFuZCBzb21lIHVuZXZlbm5lc3MgaXMgb2JzZXJ2ZWQuIE92ZXJhbGwsIEkgdGhpbmsgbm90IGEgYmFkIGF0dGVtcHQgZm9yIGEgY291cGxlIG9mIGhvdXJzIG9mIHdvcmsuDQoNCg==</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2021-02-16_tt_WEBDubois.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -7,6 +7,16 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: W.E.B. Du Bois Challenge**
+*Posted on February 16, 2021*
+
+Question addressed: Can I accurately reproduce a W.E.B Du Bois figure?  
+Visualization: Re-created a unique chart which included a spiral and custom font.  
+
+[Full post](2021-02-16_tt_WEBDubois.html)
+
+***
+
 ### **Tidy Tuesday: Student Loan Debt and Income by Race Dataset**
 *Posted on February 9, 2021*
 
