@@ -1,0 +1,103 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+## **TidyTuesday: Earnings and Employment**
+
+*Posted on February 23, 2021*
+
+A quick analysis of the weekly [\#TidyTuesday](http://github.com/rfordatascience/tidytuesday) dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.
+
+**What I learned this week about R and the Tidyverse**
+
+-   How to generate a "lollipop" chart
+-   Sizing the geom_point according to a numeric variable
+-   Dodging the position of the "lollipops" based on a categorical variable
+
+**Brief explanation of the dataset**
+
+This week's dataset came from the U.S. Bureau of Labor and Statistics and contained employment numbers for different industries and occupations from 2015-2020.  The total employment per category along with the break down by race and gender was available.  I focused on the change in employment numbers between 2019 and 2020 where there was a big change due to the coronavirus pandemic.  I was particularly interested in occupations within the manufacturing sector.
+
+```{r Load, include = FALSE}
+#Save needed data into rds for blog post
+employed <- readRDS("./data/tt_210223.rds")
+```
+
+### Wrangle
+
+Initial conclusions from exploring the dataset:
+
+* 330 NAs in industry which appeared to be a scraping artifact
+* Race and gender included in the industry column (66 rows each)
+* Issue with mining, quarrying label (two different labels, one with backslashes)
+
+Clean up dataset issues mentioned above.
+```{r Wrangle}
+non_industry_terms <- c("Asian", "Black or African American", "White", "Men", "Women")
+
+employed <- employed %>% 
+  mutate(industry = str_replace(industry, "\r\n", " ")) %>% 
+  filter(!is.na(industry)) %>%
+  filter(!(industry %in% non_industry_terms))
+
+employed %>% count(industry) %>% head()
+```
+
+Subset a dataset to include industries focused on the Manufacturing sector including Manufacturing (of course) along with Durable and Nondurable goods.  The percent change in employment from 2019 to 2020 was calculated for each major occupation category.
+```{r}
+mfg_durable <- employed %>%
+  filter(industry == "Durable goods" | industry == "Manufacturing" | industry == "Nondurable goods") %>%
+  filter(race_gender == "TOTAL") %>%
+  filter(year == 2019 | year == 2020) %>%
+  select(-minor_occupation) %>%
+  group_by(industry, major_occupation, year) %>%
+  summarize(employ_n = sum(employ_n), .groups = "keep") %>%
+  ungroup() %>%
+  group_by(industry, major_occupation) %>%
+  mutate(change = last(employ_n) / first(employ_n) - 1) %>%
+  ungroup() %>%
+  filter(year == 2019)
+```
+
+### Visualize
+
+Create a lollipop chart for the major occupations in the manufacturing sector.  Many interesting manipulations within ggplot to draw and adjust the position of the lollipops.
+
+```{r Visualize}
+mfg_durable %>%
+  mutate(major_occupation = fct_reorder(major_occupation, -change)) %>%
+  ggplot(aes(x = change, y = major_occupation, color = industry)) +
+  geom_point(aes(size = employ_n), position = position_dodge(width = 0.7)) +
+  geom_errorbarh(aes(xmin = 0, xmax = change), height = 0, position = position_dodge(width = 0.7)) +
+  scale_x_continuous(labels = scales::percent_format()) +
+  scale_y_discrete(labels = function(x) str_wrap(x, 25)) +
+  scale_size_continuous(labels = scales::comma_format(), guide = FALSE) +
+  ggthemes::scale_color_tableau() +
+  labs(title = "Impact on Manufacturing Sector Jobs in 2020",
+       subtitle = "Size of point is proportional to number employed in 2019",
+       x = "Employment Change vs. 2019",
+       y = NULL,
+       color = NULL,
+       size = "# of Jobs",
+       caption = "Visualization by @datadavidz | Data Courtesy of BLS | #TidyTuesday") +
+  ggthemes::theme_fivethirtyeight(base_size = 11)
+```
+
+### Summary
+
+Overall, the change in employment across the three industries in the Manufacturing sector decreased similarly across the major occupation categories.  Management and professional jobs took the least hit while service occupations saw the largest percent decline.  Interestingly, the manufacturing industry is always in the middle of the durable and nondurable goods.  In my view, a successful implementation and use of a lollipop chart.
+
