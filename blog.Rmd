@@ -7,6 +7,16 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: Employment and Earnings**
+*Posted on February 23, 2021*
+
+Question addressed: What occupations within the Manufacturing sector saw the largest employment decline in 2020?  
+Visualization: Create a lollipop chart for different industries and size them proportional to the employment numbers. 
+
+[Full post](2021-02-23_tt_Employment.html)
+
+***
+
 ### **Tidy Tuesday: W.E.B. Du Bois Challenge**
 *Posted on February 16, 2021*
 
