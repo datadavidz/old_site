@@ -7,6 +7,16 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: Superbowl Commercials**
+*Posted on March 2, 2021*
+
+Question addressed: What were the most common elements in Superbowl commercials for top 10 brands 2000-2020?  
+Visualization: Create an infographic-style figure combining doughnut-style charts and images. 
+
+[Full post](2021-03-02_tt_Superbowl.html)
+
+***
+
 ### **Tidy Tuesday: Employment and Earnings**
 *Posted on February 23, 2021*
 
