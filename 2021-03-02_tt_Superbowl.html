@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2021-03-02_tt_Superbowl.utf8</title>
+
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fas fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="tidytuesday-superbowl-commercials" class="section level2">
+<h2><strong>TidyTuesday: Superbowl Commercials</strong></h2>
+<p><em>Posted on March 2, 2021</em></p>
+<p>A quick analysis of the weekly <a href="http://github.com/rfordatascience/tidytuesday">#TidyTuesday</a> dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.</p>
+<p><strong>What I learned this week about R and the Tidyverse</strong></p>
+<ul>
+<li>Create a doughnut chart</li>
+<li>Add an image to the chart using cowplot and magick packages</li>
+<li>Combine several charts into one using patchwork package</li>
+<li>Add custom formatting in the subtitle using ggtext package and html formatting</li>
+</ul>
+<p><strong>Brief explanation of the dataset</strong></p>
+<p>This week’s dataset came from FiveThirtyEight and contained data on Superbowl commercials from 2000-2020. The commercials were analyzed according to seven different elements including things like whether they were funny, patriotic, contained animals, showed product quickly and so on. Data for the YouTube post of each commercial was also available including the total view counts, likes and dislikes as well as information on the date posted and hyperlink. I focused on the number of commercials containing for each element: funny, animals, patriotic, celebrity, danger and use sex.</p>
+<div id="wrangle" class="section level3">
+<h3>Wrangle</h3>
+<p>Initial conclusions from exploring the dataset:</p>
+<ul>
+<li>247 rows but only 233 commercials with complete data (16 missing view counts)</li>
+<li>Superbowl commercials from 2000 through 2020 from 10 different brands</li>
+</ul>
+<p>Figure out counts per category</p>
+<pre class="r"><code>ads_per_brand &lt;- youtube %&gt;% count(brand, sort = TRUE)
+
+ads_per_category &lt;- youtube %&gt;%
+  select(brand, funny:use_sex) %&gt;%
+  mutate(across(.cols = funny:use_sex, .fns = as.numeric)) %&gt;%
+  pivot_longer(funny:use_sex, names_to = &quot;category&quot;, values_to = &quot;count&quot;) %&gt;%
+  group_by(brand, category) %&gt;%
+  summarize(count = sum(count), .groups = &quot;drop&quot;) %&gt;%
+  left_join(ads_per_brand, by = &quot;brand&quot;) %&gt;%
+  mutate(prop = count / n) %&gt;%
+  rename(total = n)</code></pre>
+<p>Overall counts per category (247 ads total)</p>
+<pre class="r"><code>overall_data &lt;- youtube %&gt;%
+  select(funny:use_sex) %&gt;%
+  mutate(across(.cols = funny:use_sex, .fns = as.numeric)) %&gt;%
+  pivot_longer(funny:use_sex, names_to = &quot;category&quot;, values_to = &quot;count&quot;) %&gt;%
+  group_by(category) %&gt;%
+  count(count) %&gt;%
+  mutate(new_category = ifelse(count == 0, paste(&quot;Not&quot;, str_to_title(category)), str_to_title(category))) %&gt;%
+  arrange(desc(count), .by_group = TRUE) %&gt;%
+  ungroup()
+  
+overall_data</code></pre>
+<pre><code>## # A tibble: 14 x 4
+##    category             count     n new_category            
+##    &lt;chr&gt;                &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;                   
+##  1 animals                  1    92 Animals                 
+##  2 animals                  0   155 Not Animals             
+##  3 celebrity                1    71 Celebrity               
+##  4 celebrity                0   176 Not Celebrity           
+##  5 danger                   1    75 Danger                  
+##  6 danger                   0   172 Not Danger              
+##  7 funny                    1   171 Funny                   
+##  8 funny                    0    76 Not Funny               
+##  9 patriotic                1    41 Patriotic               
+## 10 patriotic                0   206 Not Patriotic           
+## 11 show_product_quickly     1   169 Show_product_quickly    
+## 12 show_product_quickly     0    78 Not Show_product_quickly
+## 13 use_sex                  1    66 Use_sex                 
+## 14 use_sex                  0   181 Not Use_sex</code></pre>
+<p>Create a function for selecting data, rename columns and convert to factors.</p>
+<pre class="r"><code>select_ad_element &lt;- function(overall_data, element) {
+  overall_data %&gt;% 
+    filter(category == element) %&gt;% 
+    select(category = new_category, count = n) %&gt;% 
+    mutate(category = factor(category, levels = category))
+}</code></pre>
+</div>
+<div id="visualize" class="section level3">
+<h3>Visualize</h3>
+<p>The first figure was constructed to look at the preferences for Superbowl commercial content by brand. This figure uses the tidytext package to reorder the columns by facet for easier interpretation.</p>
+<pre class="r"><code>library(tidytext)
+
+ads_per_category %&gt;%
+  mutate(brand = reorder_within(brand, prop, category)) %&gt;%
+  ggplot(aes(x = prop, y = brand)) +
+  facet_wrap(~category, scale = &quot;free_y&quot;) +
+  geom_col() +
+  scale_y_reordered() +
+  scale_x_continuous(labels = scales::percent) +
+  labs(title = &quot;Brand Preferences for Superbowl Commmercial Content&quot;,
+       y = NULL,
+       x = &quot;Percent of Commercials&quot;)</code></pre>
+<p><img src="2021-03-02_tt_Superbowl_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Create a doughnut chart example to see how it will look.</p>
+<pre class="r"><code>data &lt;- tibble(category = c(&quot;Funny&quot;, &quot;Not Funny&quot;),
+               count = c(75, 25))
+
+data$fraction &lt;- data$count / sum(data$count)
+
+data$ymax &lt;- cumsum(data$fraction)
+data$ymin &lt;- c(0, head(data$ymax, n=-1))
+
+p1 &lt;- ggplot(data, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=category)) +
+     geom_rect() +
+     coord_polar(theta=&quot;y&quot;) + # Try to remove that to understand how the chart is built initially
+     xlim(c(1, 4)) +
+     theme_void() +
+     theme(legend.position = &quot;none&quot;,
+           plot.background = element_rect(fill = &quot;black&quot;)) +
+     scale_fill_manual(values = c(&quot;#39FF14&quot;, &quot;#A9A9A9&quot;))
+
+p1</code></pre>
+<p><img src="2021-03-02_tt_Superbowl_files/figure-html/unnamed-chunk-6-1.png" width="384" /></p>
+<p>Add an image to the middle of the doughnut chart using the cowplot package to indicate the category analyzed.</p>
+<pre class="r"><code>ggdraw() +
+  draw_plot(p1) +
+  draw_image(&quot;./img/laugh_emoji.png&quot;, scale = 0.3)</code></pre>
+<p><img src="2021-03-02_tt_Superbowl_files/figure-html/unnamed-chunk-7-1.png" width="384" /></p>
+<p>Create a function for the doughnut chart as we want to create one for each category.</p>
+<pre class="r"><code>plot_doughnut &lt;- function(data) {
+  
+  data$fraction &lt;- data$count / sum(data$count)
+
+  data$ymax &lt;- cumsum(data$fraction)
+  data$ymin &lt;- c(0, head(data$ymax, n=-1))
+
+  p1 &lt;- ggplot(data, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=category)) +
+       geom_rect() +
+       coord_polar(theta=&quot;y&quot;) + # Try to remove that to understand how the chart is built initially
+       xlim(c(1, 4)) +
+       theme_void() +
+       theme(legend.position = &quot;none&quot;,
+             plot.background = element_rect(fill = &quot;black&quot;)) +
+       scale_fill_manual(values = c(&quot;#39FF14&quot;, &quot;#A9A9A9&quot;))
+
+  return(p1)
+}</code></pre>
+<p>Create all six plots using the functions to both select the ad element and plot the doughnut charts.</p>
+<pre class="r"><code>p1 &lt;- plot_doughnut(select_ad_element(overall_data, &quot;funny&quot;))
+p1_funny &lt;- ggdraw() +
+  draw_plot(p1) +
+  draw_image(&quot;./img/laugh_emoji.png&quot;, scale = 0.3)
+
+p2 &lt;- plot_doughnut(select_ad_element(overall_data, &quot;animals&quot;))
+p2_animals &lt;- ggdraw() +
+  draw_plot(p2) +
+  draw_image(&quot;./img/hedgehog.png&quot;, scale = 0.35)
+
+p3 &lt;- plot_doughnut(select_ad_element(overall_data, &quot;danger&quot;))
+p3_danger &lt;- ggdraw() +
+  draw_plot(p3) +
+  draw_image(&quot;./img/danger.png&quot;, scale = 0.35)
+
+p4 &lt;- plot_doughnut(select_ad_element(overall_data, &quot;celebrity&quot;))
+p4_celebrity &lt;- ggdraw() +
+  draw_plot(p4) +
+  draw_image(&quot;./img/hollywood.png&quot;, scale = 0.35)
+
+p5 &lt;- plot_doughnut(select_ad_element(overall_data, &quot;use_sex&quot;))
+p5_sexy &lt;- ggdraw() +
+  draw_plot(p5) +
+  draw_image(&quot;./img/lips.png&quot;, scale = 0.35)
+
+p6 &lt;- plot_doughnut(select_ad_element(overall_data, &quot;patriotic&quot;))
+p6_patriotic &lt;- ggdraw() +
+  draw_plot(p6) +
+  draw_image(&quot;./img/flag.png&quot;, scale = 0.3)</code></pre>
+<p>Add the six doughnut charts to one figure using the patchwork package. Adjust to a custom “dark” theme. Using the ggtext package, the font color is changed for different words to convey the meaning of the doughnut chart scale. The change of font color is done by passing html code in the subtitle definition.</p>
+<pre class="r"><code>(p1_funny + p2_animals + p3_danger) / (p4_celebrity + p5_sexy + p6_patriotic) +
+  plot_annotation(theme = theme(plot.background = element_rect(fill = &quot;black&quot;),
+                                plot.subtitle = element_markdown(color = &quot;white&quot;, hjust = 0.5, size = 16, face = &quot;bold&quot;),
+                                plot.caption = element_text(color = &quot;white&quot;, size = 10),
+                                #panel.background = element_blank(),
+                                plot.title = element_text(color = &quot;white&quot;, size = 24, family = &quot;sans&quot;, face = &quot;bold&quot;, hjust = 0.5)),
+                  title = &quot;Superbowl Commercials&quot;,
+                  subtitle = &quot;&lt;span style=&#39;color: white;&#39;&gt;Commercial&lt;/span&gt;&lt;span style=&#39;color:#39FF14;&#39;&gt; has&lt;/span&gt;
+                  or&lt;span style=&#39;color:#A9A9A9;&#39;&gt; does not have&lt;/span&gt; this element&quot;,
+                  caption = &quot;Viz by @datadavidz | Data Courtesy of FiveThirtyEight | #TidyTuesday&quot;)</code></pre>
+<p><img src="2021-03-02_tt_Superbowl_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<p>Overall, the high proportion of Superbowl commercials for these ten brands contained a funny element while the lowest proportion contained a patriotic element. An analysis of categories showed differences between brands. For example, Doritos strongly prefers funny Superbowl commercials while the NFL prefers commercials containing a celebrity. I tried a final figure which was intentionally light on textual elements and tried to convey the overall message with the plots and images. More of an “infographic” type of approach.</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCg0KPGJyPg0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmBgYA0KDQpgYGB7ciwgaW5jbHVkZT1GQUxTRX0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KDQpsaWJyYXJ5KGNvd3Bsb3QpDQpsaWJyYXJ5KG1hZ2ljaykNCmxpYnJhcnkocGF0Y2h3b3JrKQ0KbGlicmFyeShnZ3RleHQpDQpgYGANCg0KIyMgKipUaWR5VHVlc2RheTogU3VwZXJib3dsIENvbW1lcmNpYWxzKioNCg0KKlBvc3RlZCBvbiBNYXJjaCAyLCAyMDIxKg0KDQpBIHF1aWNrIGFuYWx5c2lzIG9mIHRoZSB3ZWVrbHkgW1wjVGlkeVR1ZXNkYXldKGh0dHA6Ly9naXRodWIuY29tL3Jmb3JkYXRhc2NpZW5jZS90aWR5dHVlc2RheSkgZGF0YXNldCBvcmdhbml6ZWQgYnkgdGhlIFI0RFMgT25saW5lIExlYXJuaW5nIENvbW11bml0eS4gTXkgYXBwcm9hY2ggaXMgdG8gYXBwbHkgbXkgZGF0YSBzY2llbmNlIHNraWxscyB0byBleHBsb3JlIG9uZSBxdWVzdGlvbiBJIGhhdmUgYWJvdXQgdGhlIGRhdGEgYW5kIGdlbmVyYXRlIGEgdmlzdWFsaXphdGlvbiB0aGF0IGFkZHJlc3NlcyB0aGlzIHF1ZXN0aW9uLiBUaGUgbWFpbiBwdXJwb3NlIGZvciBtZSBpcyB0byBwcmFjdGljZSBhbmQgdHJ5IG91dCBuZXcgdGhpbmdzLiBJIGFtIG5ldmVyIGNvbXBsZXRlbHkgc2F0aXNmaWVkIHdpdGggdGhlIGVuZCByZXN1bHQgYnV0IEkgZG8gdGhlIGJlc3QgSSBjYW4gaW4gYSBzaG9ydCBwZXJpb2Qgb2YgdGltZS4NCg0KKipXaGF0IEkgbGVhcm5lZCB0aGlzIHdlZWsgYWJvdXQgUiBhbmQgdGhlIFRpZHl2ZXJzZSoqDQoNCi0gICBDcmVhdGUgYSBkb3VnaG51dCBjaGFydA0KLSAgIEFkZCBhbiBpbWFnZSB0byB0aGUgY2hhcnQgdXNpbmcgY293cGxvdCBhbmQgbWFnaWNrIHBhY2thZ2VzDQotICAgQ29tYmluZSBzZXZlcmFsIGNoYXJ0cyBpbnRvIG9uZSB1c2luZyBwYXRjaHdvcmsgcGFja2FnZQ0KLSAgIEFkZCBjdXN0b20gZm9ybWF0dGluZyBpbiB0aGUgc3VidGl0bGUgdXNpbmcgZ2d0ZXh0IHBhY2thZ2UgYW5kIGh0bWwgZm9ybWF0dGluZw0KDQoqKkJyaWVmIGV4cGxhbmF0aW9uIG9mIHRoZSBkYXRhc2V0KioNCg0KVGhpcyB3ZWVrJ3MgZGF0YXNldCBjYW1lIGZyb20gRml2ZVRoaXJ0eUVpZ2h0IGFuZCBjb250YWluZWQgZGF0YSBvbiBTdXBlcmJvd2wgY29tbWVyY2lhbHMgZnJvbSAyMDAwLTIwMjAuICBUaGUgY29tbWVyY2lhbHMgd2VyZSBhbmFseXplZCBhY2NvcmRpbmcgdG8gc2V2ZW4gZGlmZmVyZW50IGVsZW1lbnRzIGluY2x1ZGluZyB0aGluZ3MgbGlrZSB3aGV0aGVyIHRoZXkgd2VyZSBmdW5ueSwgcGF0cmlvdGljLCBjb250YWluZWQgYW5pbWFscywgc2hvd2VkIHByb2R1Y3QgcXVpY2tseSBhbmQgc28gb24uICBEYXRhIGZvciB0aGUgWW91VHViZSBwb3N0IG9mIGVhY2ggY29tbWVyY2lhbCB3YXMgYWxzbyBhdmFpbGFibGUgaW5jbHVkaW5nIHRoZSB0b3RhbCB2aWV3IGNvdW50cywgbGlrZXMgYW5kIGRpc2xpa2VzIGFzIHdlbGwgYXMgaW5mb3JtYXRpb24gb24gdGhlIGRhdGUgcG9zdGVkIGFuZCBoeXBlcmxpbmsuICBJIGZvY3VzZWQgb24gdGhlIG51bWJlciBvZiBjb21tZXJjaWFscyBjb250YWluaW5nIGZvciBlYWNoIGVsZW1lbnQ6IGZ1bm55LCBhbmltYWxzLCBwYXRyaW90aWMsIGNlbGVicml0eSwgZGFuZ2VyIGFuZCB1c2Ugc2V4Lg0KDQpgYGB7ciBMb2FkLCBpbmNsdWRlID0gRkFMU0V9DQojU2F2ZSBuZWVkZWQgZGF0YSBpbnRvIHJkcyBmb3IgYmxvZyBwb3N0DQp5b3V0dWJlIDwtIHJlYWRSRFMoIi4vZGF0YS90dF8yMTAzMDIucmRzIikNCmBgYA0KDQojIyMgV3JhbmdsZQ0KDQpJbml0aWFsIGNvbmNsdXNpb25zIGZyb20gZXhwbG9yaW5nIHRoZSBkYXRhc2V0Og0KDQoqIDI0NyByb3dzIGJ1dCBvbmx5IDIzMyBjb21tZXJjaWFscyB3aXRoIGNvbXBsZXRlIGRhdGEgKDE2IG1pc3NpbmcgdmlldyBjb3VudHMpDQoqIFN1cGVyYm93bCBjb21tZXJjaWFscyBmcm9tIDIwMDAgdGhyb3VnaCAyMDIwIGZyb20gMTAgZGlmZmVyZW50IGJyYW5kcw0KDQpGaWd1cmUgb3V0IGNvdW50cyBwZXIgY2F0ZWdvcnkNCmBgYHtyfQ0KYWRzX3Blcl9icmFuZCA8LSB5b3V0dWJlICU+JSBjb3VudChicmFuZCwgc29ydCA9IFRSVUUpDQoNCmFkc19wZXJfY2F0ZWdvcnkgPC0geW91dHViZSAlPiUNCiAgc2VsZWN0KGJyYW5kLCBmdW5ueTp1c2Vfc2V4KSAlPiUNCiAgbXV0YXRlKGFjcm9zcyguY29scyA9IGZ1bm55OnVzZV9zZXgsIC5mbnMgPSBhcy5udW1lcmljKSkgJT4lDQogIHBpdm90X2xvbmdlcihmdW5ueTp1c2Vfc2V4LCBuYW1lc190byA9ICJjYXRlZ29yeSIsIHZhbHVlc190byA9ICJjb3VudCIpICU+JQ0KICBncm91cF9ieShicmFuZCwgY2F0ZWdvcnkpICU+JQ0KICBzdW1tYXJpemUoY291bnQgPSBzdW0oY291bnQpLCAuZ3JvdXBzID0gImRyb3AiKSAlPiUNCiAgbGVmdF9qb2luKGFkc19wZXJfYnJhbmQsIGJ5ID0gImJyYW5kIikgJT4lDQogIG11dGF0ZShwcm9wID0gY291bnQgLyBuKSAlPiUNCiAgcmVuYW1lKHRvdGFsID0gbikNCmBgYA0KDQpPdmVyYWxsIGNvdW50cyBwZXIgY2F0ZWdvcnkgKDI0NyBhZHMgdG90YWwpDQoNCmBgYHtyfQ0Kb3ZlcmFsbF9kYXRhIDwtIHlvdXR1YmUgJT4lDQogIHNlbGVjdChmdW5ueTp1c2Vfc2V4KSAlPiUNCiAgbXV0YXRlKGFjcm9zcyguY29scyA9IGZ1bm55OnVzZV9zZXgsIC5mbnMgPSBhcy5udW1lcmljKSkgJT4lDQogIHBpdm90X2xvbmdlcihmdW5ueTp1c2Vfc2V4LCBuYW1lc190byA9ICJjYXRlZ29yeSIsIHZhbHVlc190byA9ICJjb3VudCIpICU+JQ0KICBncm91cF9ieShjYXRlZ29yeSkgJT4lDQogIGNvdW50KGNvdW50KSAlPiUNCiAgbXV0YXRlKG5ld19jYXRlZ29yeSA9IGlmZWxzZShjb3VudCA9PSAwLCBwYXN0ZSgiTm90Iiwgc3RyX3RvX3RpdGxlKGNhdGVnb3J5KSksIHN0cl90b190aXRsZShjYXRlZ29yeSkpKSAlPiUNCiAgYXJyYW5nZShkZXNjKGNvdW50KSwgLmJ5X2dyb3VwID0gVFJVRSkgJT4lDQogIHVuZ3JvdXAoKQ0KICANCm92ZXJhbGxfZGF0YQ0KYGBgDQoNCkNyZWF0ZSBhIGZ1bmN0aW9uIGZvciBzZWxlY3RpbmcgZGF0YSwgcmVuYW1lIGNvbHVtbnMgYW5kIGNvbnZlcnQgdG8gZmFjdG9ycy4NCmBgYHtyfQ0Kc2VsZWN0X2FkX2VsZW1lbnQgPC0gZnVuY3Rpb24ob3ZlcmFsbF9kYXRhLCBlbGVtZW50KSB7DQogIG92ZXJhbGxfZGF0YSAlPiUgDQogICAgZmlsdGVyKGNhdGVnb3J5ID09IGVsZW1lbnQpICU+JSANCiAgICBzZWxlY3QoY2F0ZWdvcnkgPSBuZXdfY2F0ZWdvcnksIGNvdW50ID0gbikgJT4lIA0KICAgIG11dGF0ZShjYXRlZ29yeSA9IGZhY3RvcihjYXRlZ29yeSwgbGV2ZWxzID0gY2F0ZWdvcnkpKQ0KfQ0KYGBgDQoNCiMjIyBWaXN1YWxpemUNCg0KVGhlIGZpcnN0IGZpZ3VyZSB3YXMgY29uc3RydWN0ZWQgdG8gbG9vayBhdCB0aGUgcHJlZmVyZW5jZXMgZm9yIFN1cGVyYm93bCBjb21tZXJjaWFsIGNvbnRlbnQgYnkgYnJhbmQuICBUaGlzIGZpZ3VyZSB1c2VzIHRoZSB0aWR5dGV4dCBwYWNrYWdlIHRvIHJlb3JkZXIgdGhlIGNvbHVtbnMgYnkgZmFjZXQgZm9yIGVhc2llciBpbnRlcnByZXRhdGlvbi4NCmBgYHtyLCBmaWcud2lkdGggPSA3LCBmaWcuaGVpZ2h0ID0gN30NCmxpYnJhcnkodGlkeXRleHQpDQoNCmFkc19wZXJfY2F0ZWdvcnkgJT4lDQogIG11dGF0ZShicmFuZCA9IHJlb3JkZXJfd2l0aGluKGJyYW5kLCBwcm9wLCBjYXRlZ29yeSkpICU+JQ0KICBnZ3Bsb3QoYWVzKHggPSBwcm9wLCB5ID0gYnJhbmQpKSArDQogIGZhY2V0X3dyYXAofmNhdGVnb3J5LCBzY2FsZSA9ICJmcmVlX3kiKSArDQogIGdlb21fY29sKCkgKw0KICBzY2FsZV95X3Jlb3JkZXJlZCgpICsNCiAgc2NhbGVfeF9jb250aW51b3VzKGxhYmVscyA9IHNjYWxlczo6cGVyY2VudCkgKw0KICBsYWJzKHRpdGxlID0gIkJyYW5kIFByZWZlcmVuY2VzIGZvciBTdXBlcmJvd2wgQ29tbW1lcmNpYWwgQ29udGVudCIsDQogICAgICAgeSA9IE5VTEwsDQogICAgICAgeCA9ICJQZXJjZW50IG9mIENvbW1lcmNpYWxzIikNCmBgYA0KDQpDcmVhdGUgYSBkb3VnaG51dCBjaGFydCBleGFtcGxlIHRvIHNlZSBob3cgaXQgd2lsbCBsb29rLg0KYGBge3IsIGZpZy53aWR0aCA9IDQsIGZpZy5oZWlnaHQgPSA0fQ0KZGF0YSA8LSB0aWJibGUoY2F0ZWdvcnkgPSBjKCJGdW5ueSIsICJOb3QgRnVubnkiKSwNCiAgICAgICAgICAgICAgIGNvdW50ID0gYyg3NSwgMjUpKQ0KDQpkYXRhJGZyYWN0aW9uIDwtIGRhdGEkY291bnQgLyBzdW0oZGF0YSRjb3VudCkNCg0KZGF0YSR5bWF4IDwtIGN1bXN1bShkYXRhJGZyYWN0aW9uKQ0KZGF0YSR5bWluIDwtIGMoMCwgaGVhZChkYXRhJHltYXgsIG49LTEpKQ0KDQpwMSA8LSBnZ3Bsb3QoZGF0YSwgYWVzKHltYXg9eW1heCwgeW1pbj15bWluLCB4bWF4PTQsIHhtaW49MywgZmlsbD1jYXRlZ29yeSkpICsNCiAgICAgZ2VvbV9yZWN0KCkgKw0KICAgICBjb29yZF9wb2xhcih0aGV0YT0ieSIpICsgIyBUcnkgdG8gcmVtb3ZlIHRoYXQgdG8gdW5kZXJzdGFuZCBob3cgdGhlIGNoYXJ0IGlzIGJ1aWx0IGluaXRpYWxseQ0KICAgICB4bGltKGMoMSwgNCkpICsNCiAgICAgdGhlbWVfdm9pZCgpICsNCiAgICAgdGhlbWUobGVnZW5kLnBvc2l0aW9uID0gIm5vbmUiLA0KICAgICAgICAgICBwbG90LmJhY2tncm91bmQgPSBlbGVtZW50X3JlY3QoZmlsbCA9ICJibGFjayIpKSArDQogICAgIHNjYWxlX2ZpbGxfbWFudWFsKHZhbHVlcyA9IGMoIiMzOUZGMTQiLCAiI0E5QTlBOSIpKQ0KDQpwMQ0KYGBgDQoNCkFkZCBhbiBpbWFnZSB0byB0aGUgbWlkZGxlIG9mIHRoZSBkb3VnaG51dCBjaGFydCB1c2luZyB0aGUgY293cGxvdCBwYWNrYWdlIHRvIGluZGljYXRlIHRoZSBjYXRlZ29yeSBhbmFseXplZC4NCmBgYHtyLCBmaWcud2lkdGggPSA0LCBmaWcuaGVpZ2h0ID0gNH0NCmdnZHJhdygpICsNCiAgZHJhd19wbG90KHAxKSArDQogIGRyYXdfaW1hZ2UoIi4vaW1nL2xhdWdoX2Vtb2ppLnBuZyIsIHNjYWxlID0gMC4zKQ0KYGBgDQoNCkNyZWF0ZSBhIGZ1bmN0aW9uIGZvciB0aGUgZG91Z2hudXQgY2hhcnQgYXMgd2Ugd2FudCB0byBjcmVhdGUgb25lIGZvciBlYWNoIGNhdGVnb3J5Lg0KYGBge3J9DQpwbG90X2RvdWdobnV0IDwtIGZ1bmN0aW9uKGRhdGEpIHsNCiAgDQogIGRhdGEkZnJhY3Rpb24gPC0gZGF0YSRjb3VudCAvIHN1bShkYXRhJGNvdW50KQ0KDQogIGRhdGEkeW1heCA8LSBjdW1zdW0oZGF0YSRmcmFjdGlvbikNCiAgZGF0YSR5bWluIDwtIGMoMCwgaGVhZChkYXRhJHltYXgsIG49LTEpKQ0KDQogIHAxIDwtIGdncGxvdChkYXRhLCBhZXMoeW1heD15bWF4LCB5bWluPXltaW4sIHhtYXg9NCwgeG1pbj0zLCBmaWxsPWNhdGVnb3J5KSkgKw0KICAgICAgIGdlb21fcmVjdCgpICsNCiAgICAgICBjb29yZF9wb2xhcih0aGV0YT0ieSIpICsgIyBUcnkgdG8gcmVtb3ZlIHRoYXQgdG8gdW5kZXJzdGFuZCBob3cgdGhlIGNoYXJ0IGlzIGJ1aWx0IGluaXRpYWxseQ0KICAgICAgIHhsaW0oYygxLCA0KSkgKw0KICAgICAgIHRoZW1lX3ZvaWQoKSArDQogICAgICAgdGhlbWUobGVnZW5kLnBvc2l0aW9uID0gIm5vbmUiLA0KICAgICAgICAgICAgIHBsb3QuYmFja2dyb3VuZCA9IGVsZW1lbnRfcmVjdChmaWxsID0gImJsYWNrIikpICsNCiAgICAgICBzY2FsZV9maWxsX21hbnVhbCh2YWx1ZXMgPSBjKCIjMzlGRjE0IiwgIiNBOUE5QTkiKSkNCg0KICByZXR1cm4ocDEpDQp9DQpgYGANCg0KQ3JlYXRlIGFsbCBzaXggcGxvdHMgdXNpbmcgdGhlIGZ1bmN0aW9ucyB0byBib3RoIHNlbGVjdCB0aGUgYWQgZWxlbWVudCBhbmQgcGxvdCB0aGUgZG91Z2hudXQgY2hhcnRzLg0KDQpgYGB7ciwgZmlnLndpZHRoID0gNCwgZmlnLmhlaWdodCA9IDR9DQpwMSA8LSBwbG90X2RvdWdobnV0KHNlbGVjdF9hZF9lbGVtZW50KG92ZXJhbGxfZGF0YSwgImZ1bm55IikpDQpwMV9mdW5ueSA8LSBnZ2RyYXcoKSArDQogIGRyYXdfcGxvdChwMSkgKw0KICBkcmF3X2ltYWdlKCIuL2ltZy9sYXVnaF9lbW9qaS5wbmciLCBzY2FsZSA9IDAuMykNCg0KcDIgPC0gcGxvdF9kb3VnaG51dChzZWxlY3RfYWRfZWxlbWVudChvdmVyYWxsX2RhdGEsICJhbmltYWxzIikpDQpwMl9hbmltYWxzIDwtIGdnZHJhdygpICsNCiAgZHJhd19wbG90KHAyKSArDQogIGRyYXdfaW1hZ2UoIi4vaW1nL2hlZGdlaG9nLnBuZyIsIHNjYWxlID0gMC4zNSkNCg0KcDMgPC0gcGxvdF9kb3VnaG51dChzZWxlY3RfYWRfZWxlbWVudChvdmVyYWxsX2RhdGEsICJkYW5nZXIiKSkNCnAzX2RhbmdlciA8LSBnZ2RyYXcoKSArDQogIGRyYXdfcGxvdChwMykgKw0KICBkcmF3X2ltYWdlKCIuL2ltZy9kYW5nZXIucG5nIiwgc2NhbGUgPSAwLjM1KQ0KDQpwNCA8LSBwbG90X2RvdWdobnV0KHNlbGVjdF9hZF9lbGVtZW50KG92ZXJhbGxfZGF0YSwgImNlbGVicml0eSIpKQ0KcDRfY2VsZWJyaXR5IDwtIGdnZHJhdygpICsNCiAgZHJhd19wbG90KHA0KSArDQogIGRyYXdfaW1hZ2UoIi4vaW1nL2hvbGx5d29vZC5wbmciLCBzY2FsZSA9IDAuMzUpDQoNCnA1IDwtIHBsb3RfZG91Z2hudXQoc2VsZWN0X2FkX2VsZW1lbnQob3ZlcmFsbF9kYXRhLCAidXNlX3NleCIpKQ0KcDVfc2V4eSA8LSBnZ2RyYXcoKSArDQogIGRyYXdfcGxvdChwNSkgKw0KICBkcmF3X2ltYWdlKCIuL2ltZy9saXBzLnBuZyIsIHNjYWxlID0gMC4zNSkNCg0KcDYgPC0gcGxvdF9kb3VnaG51dChzZWxlY3RfYWRfZWxlbWVudChvdmVyYWxsX2RhdGEsICJwYXRyaW90aWMiKSkNCnA2X3BhdHJpb3RpYyA8LSBnZ2RyYXcoKSArDQogIGRyYXdfcGxvdChwNikgKw0KICBkcmF3X2ltYWdlKCIuL2ltZy9mbGFnLnBuZyIsIHNjYWxlID0gMC4zKQ0KYGBgDQoNCkFkZCB0aGUgc2l4IGRvdWdobnV0IGNoYXJ0cyB0byBvbmUgZmlndXJlIHVzaW5nIHRoZSBwYXRjaHdvcmsgcGFja2FnZS4gIEFkanVzdCB0byBhIGN1c3RvbSAiZGFyayIgdGhlbWUuICBVc2luZyB0aGUgZ2d0ZXh0IHBhY2thZ2UsIHRoZSBmb250IGNvbG9yIGlzIGNoYW5nZWQgZm9yIGRpZmZlcmVudCB3b3JkcyB0byBjb252ZXkgdGhlIG1lYW5pbmcgb2YgdGhlIGRvdWdobnV0IGNoYXJ0IHNjYWxlLiAgVGhlIGNoYW5nZSBvZiBmb250IGNvbG9yIGlzIGRvbmUgYnkgcGFzc2luZyBodG1sIGNvZGUgaW4gdGhlIHN1YnRpdGxlIGRlZmluaXRpb24uDQpgYGB7ciwgZmlnLndpZHRoID0gNywgZmlnLmhlaWdodCA9IDd9DQoocDFfZnVubnkgKyBwMl9hbmltYWxzICsgcDNfZGFuZ2VyKSAvIChwNF9jZWxlYnJpdHkgKyBwNV9zZXh5ICsgcDZfcGF0cmlvdGljKSArDQogIHBsb3RfYW5ub3RhdGlvbih0aGVtZSA9IHRoZW1lKHBsb3QuYmFja2dyb3VuZCA9IGVsZW1lbnRfcmVjdChmaWxsID0gImJsYWNrIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBsb3Quc3VidGl0bGUgPSBlbGVtZW50X21hcmtkb3duKGNvbG9yID0gIndoaXRlIiwgaGp1c3QgPSAwLjUsIHNpemUgPSAxNiwgZmFjZSA9ICJib2xkIiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBsb3QuY2FwdGlvbiA9IGVsZW1lbnRfdGV4dChjb2xvciA9ICJ3aGl0ZSIsIHNpemUgPSAxMCksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICNwYW5lbC5iYWNrZ3JvdW5kID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwbG90LnRpdGxlID0gZWxlbWVudF90ZXh0KGNvbG9yID0gIndoaXRlIiwgc2l6ZSA9IDI0LCBmYW1pbHkgPSAic2FucyIsIGZhY2UgPSAiYm9sZCIsIGhqdXN0ID0gMC41KSksDQogICAgICAgICAgICAgICAgICB0aXRsZSA9ICJTdXBlcmJvd2wgQ29tbWVyY2lhbHMiLA0KICAgICAgICAgICAgICAgICAgc3VidGl0bGUgPSAiPHNwYW4gc3R5bGU9J2NvbG9yOiB3aGl0ZTsnPkNvbW1lcmNpYWw8L3NwYW4+PHNwYW4gc3R5bGU9J2NvbG9yOiMzOUZGMTQ7Jz4gaGFzPC9zcGFuPg0KICAgICAgICAgICAgICAgICAgb3I8c3BhbiBzdHlsZT0nY29sb3I6I0E5QTlBOTsnPiBkb2VzIG5vdCBoYXZlPC9zcGFuPiB0aGlzIGVsZW1lbnQiLA0KICAgICAgICAgICAgICAgICAgY2FwdGlvbiA9ICJWaXogYnkgQGRhdGFkYXZpZHogfCBEYXRhIENvdXJ0ZXN5IG9mIEZpdmVUaGlydHlFaWdodCB8ICNUaWR5VHVlc2RheSIpDQpgYGANCg0KDQojIyMgU3VtbWFyeQ0KDQpPdmVyYWxsLCB0aGUgaGlnaCBwcm9wb3J0aW9uIG9mIFN1cGVyYm93bCBjb21tZXJjaWFscyBmb3IgdGhlc2UgdGVuIGJyYW5kcyBjb250YWluZWQgYSBmdW5ueSBlbGVtZW50IHdoaWxlIHRoZSBsb3dlc3QgcHJvcG9ydGlvbiBjb250YWluZWQgYSBwYXRyaW90aWMgZWxlbWVudC4gIEFuIGFuYWx5c2lzIG9mIGNhdGVnb3JpZXMgc2hvd2VkIGRpZmZlcmVuY2VzIGJldHdlZW4gYnJhbmRzLiAgRm9yIGV4YW1wbGUsIERvcml0b3Mgc3Ryb25nbHkgcHJlZmVycyBmdW5ueSBTdXBlcmJvd2wgY29tbWVyY2lhbHMgd2hpbGUgdGhlIE5GTCBwcmVmZXJzIGNvbW1lcmNpYWxzIGNvbnRhaW5pbmcgYSBjZWxlYnJpdHkuICBJIHRyaWVkIGEgZmluYWwgZmlndXJlIHdoaWNoIHdhcyBpbnRlbnRpb25hbGx5IGxpZ2h0IG9uIHRleHR1YWwgZWxlbWVudHMgYW5kIHRyaWVkIHRvIGNvbnZleSB0aGUgb3ZlcmFsbCBtZXNzYWdlIHdpdGggdGhlIHBsb3RzIGFuZCBpbWFnZXMuICBNb3JlIG9mIGFuICJpbmZvZ3JhcGhpYyIgdHlwZSBvZiBhcHByb2FjaC4=</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2021-03-02_tt_Superbowl.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
