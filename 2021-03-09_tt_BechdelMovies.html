@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2021-03-09_tt_BechdelMovies.utf8</title>
+
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fas fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="tidytuesday-bechdel-test-for-movies" class="section level2">
+<h2><strong>TidyTuesday: Bechdel Test for Movies</strong></h2>
+<p><em>Posted on March 9, 2021</em></p>
+<p>A quick analysis of the weekly <a href="http://github.com/rfordatascience/tidytuesday">#TidyTuesday</a> dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.</p>
+<p><strong>What I learned this week about R and the Tidyverse</strong></p>
+<ul>
+<li>Create a plot using a “curved lines” approach using ggbump package</li>
+<li>Arrange text using ggrepel and subsets of the data</li>
+</ul>
+<p><strong>Brief explanation of the dataset</strong></p>
+<p>This week’s dataset contains analysis of movies from 1970-2013 according to the Bechdel test. This test is a measure of gender bias in movies promoted by cartoonist Alison Bechdel. A movie passes the test if there are at least two named women in the picture, they have a conversation with each other at some point and that conversation isn’t about a man. Of course, a “pass” just indicates the female characters are allocated a bare minimum of depth. A good deal of information is available for each movie such as year released, budget, domestic gross, director, genre and the reason why it passed or failed the test.</p>
+<div id="wrangle" class="section level3">
+<h3>Wrangle</h3>
+<p>Initial conclusions from exploring the dataset:</p>
+<ul>
+<li>1794 total movies however 202 movies are missing much of the IMDB additional information</li>
+<li>Much fewer movies prior to 1990 and perhaps less representative of all movies in those time periods</li>
+<li>The apostrophe in movie titles has been encoded and needs to be fixed in final viz (e.g At World's End)</li>
+</ul>
+<p>Let’s just focus on the top budget movies each year from 2003 through 2013 that passed and failed the Bechdel test. The budget has been adjusted to 2013 dollars.</p>
+<pre class="r"><code>big_budget &lt;- movies %&gt;%
+  filter(year &gt; 2002) %&gt;%
+  group_by(year, binary) %&gt;%
+  filter(budget_2013 == max(budget_2013)) %&gt;%
+  ungroup() %&gt;%
+  mutate(title = str_replace(title, &quot;&amp;#39;&quot;, &quot;&#39;&quot;)) %&gt;%
+  mutate(profit = as.numeric(domgross_2013) / budget_2013)</code></pre>
+</div>
+<div id="visualize" class="section level3">
+<h3>Visualize</h3>
+<p>Let’s first look at the budget distribution for all movies in this time span.</p>
+<pre class="r"><code>movies %&gt;%
+  filter(year &gt; 2002) %&gt;%
+  filter(!is.na(budget_2013)) %&gt;%
+  ggplot(aes(x = as.factor(year), y = budget_2013, fill = as.factor(binary))) +
+    geom_boxplot() +
+    scale_y_continuous(labels = scales::dollar) +
+    labs(title = &quot;Movie Budgets by Year&quot;,
+         x = NULL,
+         y = &quot;Budget (Normalized to 2013 dollars)&quot;,
+         fill = &quot;Bechdel Test&quot;)</code></pre>
+<p><img src="2021-03-09_tt_BechdelMovies_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Overall, the movies failing the Bechdel test tended to have slightly higher budgets. Focusing on the big budget movies does not reflect the overall trend. Let’s also look at profitability of the movies by taking the ratio of domestic gross to budget with both normalized to 2013 $US.</p>
+<pre class="r"><code>movies %&gt;%
+  filter(year &gt; 2002) %&gt;%
+  filter(!is.na(budget_2013) &amp; !is.na(domgross_2013)) %&gt;%
+  mutate(domgross_2013 = as.numeric(domgross_2013)) %&gt;%
+  ggplot(aes(x = as.factor(year), y = domgross_2013 / budget_2013, fill = as.factor(binary))) +
+    geom_boxplot() +
+    scale_y_log10(labels = scales::label_number()) +
+    labs(title = &quot;Profitability Ratio by Year&quot;,
+         x = NULL,
+         y = &quot;Profitability (Domestic Gross / Budget in 2013 US$)&quot;,
+         fill = &quot;Bechdel Test&quot;)</code></pre>
+<p><img src="2021-03-09_tt_BechdelMovies_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Perhaps, a slight increase in profitability of movies passing the Bechdel test as compared to movies which failed in more recent years. Note that the profitability is plotted with a logarithmic scale in this figure. Now, let’s focus on the top budget movies for each year and their profitability for ones passing the Bechdel test and ones failing the Bechdel test.</p>
+<pre class="r"><code>big_budget %&gt;%
+  mutate(title = str_wrap(title, 20)) %&gt;%
+  ggplot(aes(x = year, y = profit, color = binary)) +
+  geom_point(aes(size = budget_2013)) +
+  geom_bump(size = 1) +
+  geom_text_repel(
+    data = . %&gt;% group_by(year) %&gt;% filter(profit == max(profit)),
+    aes(label = title),
+    size = 3,
+    direction = &quot;y&quot;,
+    min.segment.length = 1000,
+    nudge_y = 0.1) +
+  geom_text_repel(
+    data = . %&gt;% group_by(year) %&gt;% filter(profit == min(profit)),
+    aes(label = title),
+    size = 3,
+    direction = &quot;y&quot;,
+    min.segment.length = 1000,
+    nudge_y = -0.1) +
+  scale_x_continuous(breaks = 2003:2013) +
+  scale_size_continuous(guide = FALSE) +
+  expand_limits(x = c(2002, 2014), y = c(0, 2.25)) +
+  ggthemes::theme_fivethirtyeight() +
+  theme(axis.title.y = element_text(margin = margin(t = 0, r = 10, l = 0, b = 0)),
+        panel.grid.major.y = element_blank()) +
+  fishualize::scale_color_fish_d(option = &quot;Cirrhilabrus_tonozukai&quot;) +
+  labs(title = &quot;Bechdel Test and Film Profitability&quot;,
+       subtitle = &quot;Big Budget Films (2003-2013): Point size is proportional to budget&quot;,
+       y = &quot;Profitability (Domestic Gross / Budget)&quot;,
+       color = &quot;Bechdel Test&quot;,
+       caption = &quot;Viz by @datadavidz | Data source: FiveThirtyEight | #TidyTuesday&quot;)</code></pre>
+<p><img src="2021-03-09_tt_BechdelMovies_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Obviously, a lot is happening in the code to create the visualization above. The points are sized according to the movies budget (in 2013 dollars). The curved lines are created using the geom_bump function from the ggbump package. My main interest in creating this visualization was to show some of the movie names as I thought this is information people could connect with.</p>
+<p>There are several issues with showing the names 1) some of the names are rather long, 2) the labels overlap with each other and 3) the labels overlap with the points and lines. I used str_wrap to condense the length of the movie names a bit. I could have also recoded the movie names but decided against this because I wanted to stay connected to the original dataset. I used the geom_text_repel function from the ggrepel package to help avoid overlapping of the labels. The main issue after applying ggrepel however was that generally the labels were over top of the points (but not always) and there was a lot of intersections with the ggbump lines. To address this issue, I decided to subset the top points from the bottom points and handle them separately within geom_text_repel. The nudge_y parameter allowed me some control over the position of the labels while still using the functionality of ggrepel to avoid overlapping of labels. The overall effect was acceptable but still not optimal as there are issues with overlapping labels and lines.</p>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<p>The data visualization did not show a clear trend in the big budget movies passing vs. failing the Bechdel test. Big budget films such as Avatar and Spiderman 2 failed the Bechdel test but were incredibly profitable. Transformers: Dark of the Moon passed the test and was also very profitable. Both movies passing or failing the Bechdel test also had examples of low profitability. I had some reservations about posting this visualization on Twitter but it actually received the highest “likes” yet for one of my TidyTuesday posts. I attribute this result to people connecting with the listed movies in some way.</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCg0KPGJyPg0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCg0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KGdncmVwZWwpDQpsaWJyYXJ5KGdnYnVtcCkNCg0KdGhlbWVfc2V0KHRoZW1lX21pbmltYWwoKSkNCmBgYA0KDQojIyAqKlRpZHlUdWVzZGF5OiBCZWNoZGVsIFRlc3QgZm9yIE1vdmllcyoqDQoNCipQb3N0ZWQgb24gTWFyY2ggOSwgMjAyMSoNCg0KQSBxdWljayBhbmFseXNpcyBvZiB0aGUgd2Vla2x5IFtcI1RpZHlUdWVzZGF5XShodHRwOi8vZ2l0aHViLmNvbS9yZm9yZGF0YXNjaWVuY2UvdGlkeXR1ZXNkYXkpIGRhdGFzZXQgb3JnYW5pemVkIGJ5IHRoZSBSNERTIE9ubGluZSBMZWFybmluZyBDb21tdW5pdHkuIE15IGFwcHJvYWNoIGlzIHRvIGFwcGx5IG15IGRhdGEgc2NpZW5jZSBza2lsbHMgdG8gZXhwbG9yZSBvbmUgcXVlc3Rpb24gSSBoYXZlIGFib3V0IHRoZSBkYXRhIGFuZCBnZW5lcmF0ZSBhIHZpc3VhbGl6YXRpb24gdGhhdCBhZGRyZXNzZXMgdGhpcyBxdWVzdGlvbi4gVGhlIG1haW4gcHVycG9zZSBmb3IgbWUgaXMgdG8gcHJhY3RpY2UgYW5kIHRyeSBvdXQgbmV3IHRoaW5ncy4gSSBhbSBuZXZlciBjb21wbGV0ZWx5IHNhdGlzZmllZCB3aXRoIHRoZSBlbmQgcmVzdWx0IGJ1dCBJIGRvIHRoZSBiZXN0IEkgY2FuIGluIGEgc2hvcnQgcGVyaW9kIG9mIHRpbWUuDQoNCioqV2hhdCBJIGxlYXJuZWQgdGhpcyB3ZWVrIGFib3V0IFIgYW5kIHRoZSBUaWR5dmVyc2UqKg0KDQotICAgQ3JlYXRlIGEgcGxvdCB1c2luZyBhICJjdXJ2ZWQgbGluZXMiIGFwcHJvYWNoIHVzaW5nIGdnYnVtcCBwYWNrYWdlDQotICAgQXJyYW5nZSB0ZXh0IHVzaW5nIGdncmVwZWwgYW5kIHN1YnNldHMgb2YgdGhlIGRhdGENCg0KKipCcmllZiBleHBsYW5hdGlvbiBvZiB0aGUgZGF0YXNldCoqDQoNClRoaXMgd2VlaydzIGRhdGFzZXQgY29udGFpbnMgYW5hbHlzaXMgb2YgbW92aWVzIGZyb20gMTk3MC0yMDEzIGFjY29yZGluZyB0byB0aGUgQmVjaGRlbCB0ZXN0LiAgVGhpcyB0ZXN0IGlzIGEgbWVhc3VyZSBvZiBnZW5kZXIgYmlhcyBpbiBtb3ZpZXMgcHJvbW90ZWQgYnkgY2FydG9vbmlzdCBBbGlzb24gQmVjaGRlbC4gIEEgbW92aWUgcGFzc2VzIHRoZSB0ZXN0IGlmIHRoZXJlIGFyZSBhdCBsZWFzdCB0d28gbmFtZWQgd29tZW4gaW4gdGhlIHBpY3R1cmUsIHRoZXkgaGF2ZSBhIGNvbnZlcnNhdGlvbiB3aXRoIGVhY2ggb3RoZXIgYXQgc29tZSBwb2ludCBhbmQgdGhhdCBjb252ZXJzYXRpb24gaXNuJ3QgYWJvdXQgYSBtYW4uICBPZiBjb3Vyc2UsIGEgInBhc3MiIGp1c3QgaW5kaWNhdGVzIHRoZSBmZW1hbGUgY2hhcmFjdGVycyBhcmUgYWxsb2NhdGVkIGEgYmFyZSBtaW5pbXVtIG9mIGRlcHRoLiAgQSBnb29kIGRlYWwgb2YgaW5mb3JtYXRpb24gaXMgYXZhaWxhYmxlIGZvciBlYWNoIG1vdmllIHN1Y2ggYXMgeWVhciByZWxlYXNlZCwgYnVkZ2V0LCBkb21lc3RpYyBncm9zcywgZGlyZWN0b3IsIGdlbnJlIGFuZCB0aGUgcmVhc29uIHdoeSBpdCBwYXNzZWQgb3IgZmFpbGVkIHRoZSB0ZXN0Lg0KDQpgYGB7ciBMb2FkLCBpbmNsdWRlID0gRkFMU0V9DQojU2F2ZSBuZWVkZWQgZGF0YSBpbnRvIHJkcyBmb3IgYmxvZyBwb3N0DQptb3ZpZXMgPC0gcmVhZFJEUygiLi9kYXRhL3R0XzIxMDMwOS5yZHMiKQ0KYGBgDQoNCiMjIyBXcmFuZ2xlDQoNCkluaXRpYWwgY29uY2x1c2lvbnMgZnJvbSBleHBsb3JpbmcgdGhlIGRhdGFzZXQ6DQoNCiogMTc5NCB0b3RhbCBtb3ZpZXMgaG93ZXZlciAyMDIgbW92aWVzIGFyZSBtaXNzaW5nIG11Y2ggb2YgdGhlIElNREIgYWRkaXRpb25hbCBpbmZvcm1hdGlvbg0KKiBNdWNoIGZld2VyIG1vdmllcyBwcmlvciB0byAxOTkwIGFuZCBwZXJoYXBzIGxlc3MgcmVwcmVzZW50YXRpdmUgb2YgYWxsIG1vdmllcyBpbiB0aG9zZSB0aW1lIHBlcmlvZHMNCiogVGhlIGFwb3N0cm9waGUgaW4gbW92aWUgdGl0bGVzIGhhcyBiZWVuIGVuY29kZWQgYW5kIG5lZWRzIHRvIGJlIGZpeGVkIGluIGZpbmFsIHZpeiAoZS5nIEF0IFdvcmxkJiMzOTtzIEVuZCkNCg0KTGV0J3MganVzdCBmb2N1cyBvbiB0aGUgdG9wIGJ1ZGdldCBtb3ZpZXMgZWFjaCB5ZWFyIGZyb20gMjAwMyB0aHJvdWdoIDIwMTMgdGhhdCBwYXNzZWQgYW5kIGZhaWxlZCB0aGUgQmVjaGRlbCB0ZXN0LiAgVGhlIGJ1ZGdldCBoYXMgYmVlbiBhZGp1c3RlZCB0byAyMDEzIGRvbGxhcnMuDQpgYGB7cn0NCmJpZ19idWRnZXQgPC0gbW92aWVzICU+JQ0KICBmaWx0ZXIoeWVhciA+IDIwMDIpICU+JQ0KICBncm91cF9ieSh5ZWFyLCBiaW5hcnkpICU+JQ0KICBmaWx0ZXIoYnVkZ2V0XzIwMTMgPT0gbWF4KGJ1ZGdldF8yMDEzKSkgJT4lDQogIHVuZ3JvdXAoKSAlPiUNCiAgbXV0YXRlKHRpdGxlID0gc3RyX3JlcGxhY2UodGl0bGUsICImIzM5OyIsICInIikpICU+JQ0KICBtdXRhdGUocHJvZml0ID0gYXMubnVtZXJpYyhkb21ncm9zc18yMDEzKSAvIGJ1ZGdldF8yMDEzKQ0KYGBgDQoNCiMjIyBWaXN1YWxpemUNCg0KTGV0J3MgZmlyc3QgbG9vayBhdCB0aGUgYnVkZ2V0IGRpc3RyaWJ1dGlvbiBmb3IgYWxsIG1vdmllcyBpbiB0aGlzIHRpbWUgc3Bhbi4NCg0KYGBge3J9DQptb3ZpZXMgJT4lDQogIGZpbHRlcih5ZWFyID4gMjAwMikgJT4lDQogIGZpbHRlcighaXMubmEoYnVkZ2V0XzIwMTMpKSAlPiUNCiAgZ2dwbG90KGFlcyh4ID0gYXMuZmFjdG9yKHllYXIpLCB5ID0gYnVkZ2V0XzIwMTMsIGZpbGwgPSBhcy5mYWN0b3IoYmluYXJ5KSkpICsNCiAgICBnZW9tX2JveHBsb3QoKSArDQogICAgc2NhbGVfeV9jb250aW51b3VzKGxhYmVscyA9IHNjYWxlczo6ZG9sbGFyKSArDQogICAgbGFicyh0aXRsZSA9ICJNb3ZpZSBCdWRnZXRzIGJ5IFllYXIiLA0KICAgICAgICAgeCA9IE5VTEwsDQogICAgICAgICB5ID0gIkJ1ZGdldCAoTm9ybWFsaXplZCB0byAyMDEzIGRvbGxhcnMpIiwNCiAgICAgICAgIGZpbGwgPSAiQmVjaGRlbCBUZXN0IikNCmBgYA0KDQpPdmVyYWxsLCB0aGUgbW92aWVzIGZhaWxpbmcgdGhlIEJlY2hkZWwgdGVzdCB0ZW5kZWQgdG8gaGF2ZSBzbGlnaHRseSBoaWdoZXIgYnVkZ2V0cy4gRm9jdXNpbmcgb24gdGhlIGJpZyBidWRnZXQgbW92aWVzIGRvZXMgbm90IHJlZmxlY3QgdGhlIG92ZXJhbGwgdHJlbmQuICBMZXQncyBhbHNvIGxvb2sgYXQgcHJvZml0YWJpbGl0eSBvZiB0aGUgbW92aWVzIGJ5IHRha2luZyB0aGUgcmF0aW8gb2YgZG9tZXN0aWMgZ3Jvc3MgdG8gYnVkZ2V0IHdpdGggYm90aCBub3JtYWxpemVkIHRvIDIwMTMgJFVTLg0KDQpgYGB7ciwgd2FybmluZyA9IEZBTFNFfQ0KbW92aWVzICU+JQ0KICBmaWx0ZXIoeWVhciA+IDIwMDIpICU+JQ0KICBmaWx0ZXIoIWlzLm5hKGJ1ZGdldF8yMDEzKSAmICFpcy5uYShkb21ncm9zc18yMDEzKSkgJT4lDQogIG11dGF0ZShkb21ncm9zc18yMDEzID0gYXMubnVtZXJpYyhkb21ncm9zc18yMDEzKSkgJT4lDQogIGdncGxvdChhZXMoeCA9IGFzLmZhY3Rvcih5ZWFyKSwgeSA9IGRvbWdyb3NzXzIwMTMgLyBidWRnZXRfMjAxMywgZmlsbCA9IGFzLmZhY3RvcihiaW5hcnkpKSkgKw0KICAgIGdlb21fYm94cGxvdCgpICsNCiAgICBzY2FsZV95X2xvZzEwKGxhYmVscyA9IHNjYWxlczo6bGFiZWxfbnVtYmVyKCkpICsNCiAgICBsYWJzKHRpdGxlID0gIlByb2ZpdGFiaWxpdHkgUmF0aW8gYnkgWWVhciIsDQogICAgICAgICB4ID0gTlVMTCwNCiAgICAgICAgIHkgPSAiUHJvZml0YWJpbGl0eSAoRG9tZXN0aWMgR3Jvc3MgLyBCdWRnZXQgaW4gMjAxMyBVUyQpIiwNCiAgICAgICAgIGZpbGwgPSAiQmVjaGRlbCBUZXN0IikNCmBgYA0KDQpQZXJoYXBzLCBhIHNsaWdodCBpbmNyZWFzZSBpbiBwcm9maXRhYmlsaXR5IG9mIG1vdmllcyBwYXNzaW5nIHRoZSBCZWNoZGVsIHRlc3QgYXMgY29tcGFyZWQgdG8gbW92aWVzIHdoaWNoIGZhaWxlZCBpbiBtb3JlIHJlY2VudCB5ZWFycy4gTm90ZSB0aGF0IHRoZSBwcm9maXRhYmlsaXR5IGlzIHBsb3R0ZWQgd2l0aCBhIGxvZ2FyaXRobWljIHNjYWxlIGluIHRoaXMgZmlndXJlLiAgTm93LCBsZXQncyBmb2N1cyBvbiB0aGUgdG9wIGJ1ZGdldCBtb3ZpZXMgZm9yIGVhY2ggeWVhciBhbmQgdGhlaXIgcHJvZml0YWJpbGl0eSBmb3Igb25lcyBwYXNzaW5nIHRoZSBCZWNoZGVsIHRlc3QgYW5kIG9uZXMgZmFpbGluZyB0aGUgQmVjaGRlbCB0ZXN0Lg0KDQpgYGB7ciwgZmlnLndpZHRoID0gNywgZmlnLmhlaWdodCA9IDd9DQpiaWdfYnVkZ2V0ICU+JQ0KICBtdXRhdGUodGl0bGUgPSBzdHJfd3JhcCh0aXRsZSwgMjApKSAlPiUNCiAgZ2dwbG90KGFlcyh4ID0geWVhciwgeSA9IHByb2ZpdCwgY29sb3IgPSBiaW5hcnkpKSArDQogIGdlb21fcG9pbnQoYWVzKHNpemUgPSBidWRnZXRfMjAxMykpICsNCiAgZ2VvbV9idW1wKHNpemUgPSAxKSArDQogIGdlb21fdGV4dF9yZXBlbCgNCiAgICBkYXRhID0gLiAlPiUgZ3JvdXBfYnkoeWVhcikgJT4lIGZpbHRlcihwcm9maXQgPT0gbWF4KHByb2ZpdCkpLA0KICAgIGFlcyhsYWJlbCA9IHRpdGxlKSwNCiAgICBzaXplID0gMywNCiAgICBkaXJlY3Rpb24gPSAieSIsDQogICAgbWluLnNlZ21lbnQubGVuZ3RoID0gMTAwMCwNCiAgICBudWRnZV95ID0gMC4xKSArDQogIGdlb21fdGV4dF9yZXBlbCgNCiAgICBkYXRhID0gLiAlPiUgZ3JvdXBfYnkoeWVhcikgJT4lIGZpbHRlcihwcm9maXQgPT0gbWluKHByb2ZpdCkpLA0KICAgIGFlcyhsYWJlbCA9IHRpdGxlKSwNCiAgICBzaXplID0gMywNCiAgICBkaXJlY3Rpb24gPSAieSIsDQogICAgbWluLnNlZ21lbnQubGVuZ3RoID0gMTAwMCwNCiAgICBudWRnZV95ID0gLTAuMSkgKw0KICBzY2FsZV94X2NvbnRpbnVvdXMoYnJlYWtzID0gMjAwMzoyMDEzKSArDQogIHNjYWxlX3NpemVfY29udGludW91cyhndWlkZSA9IEZBTFNFKSArDQogIGV4cGFuZF9saW1pdHMoeCA9IGMoMjAwMiwgMjAxNCksIHkgPSBjKDAsIDIuMjUpKSArDQogIGdndGhlbWVzOjp0aGVtZV9maXZldGhpcnR5ZWlnaHQoKSArDQogIHRoZW1lKGF4aXMudGl0bGUueSA9IGVsZW1lbnRfdGV4dChtYXJnaW4gPSBtYXJnaW4odCA9IDAsIHIgPSAxMCwgbCA9IDAsIGIgPSAwKSksDQogICAgICAgIHBhbmVsLmdyaWQubWFqb3IueSA9IGVsZW1lbnRfYmxhbmsoKSkgKw0KICBmaXNodWFsaXplOjpzY2FsZV9jb2xvcl9maXNoX2Qob3B0aW9uID0gIkNpcnJoaWxhYnJ1c190b25venVrYWkiKSArDQogIGxhYnModGl0bGUgPSAiQmVjaGRlbCBUZXN0IGFuZCBGaWxtIFByb2ZpdGFiaWxpdHkiLA0KICAgICAgIHN1YnRpdGxlID0gIkJpZyBCdWRnZXQgRmlsbXMgKDIwMDMtMjAxMyk6IFBvaW50IHNpemUgaXMgcHJvcG9ydGlvbmFsIHRvIGJ1ZGdldCIsDQogICAgICAgeSA9ICJQcm9maXRhYmlsaXR5IChEb21lc3RpYyBHcm9zcyAvIEJ1ZGdldCkiLA0KICAgICAgIGNvbG9yID0gIkJlY2hkZWwgVGVzdCIsDQogICAgICAgY2FwdGlvbiA9ICJWaXogYnkgQGRhdGFkYXZpZHogfCBEYXRhIHNvdXJjZTogRml2ZVRoaXJ0eUVpZ2h0IHwgI1RpZHlUdWVzZGF5IikNCmBgYA0KDQpPYnZpb3VzbHksIGEgbG90IGlzIGhhcHBlbmluZyBpbiB0aGUgY29kZSB0byBjcmVhdGUgdGhlIHZpc3VhbGl6YXRpb24gYWJvdmUuICBUaGUgcG9pbnRzIGFyZSBzaXplZCBhY2NvcmRpbmcgdG8gdGhlIG1vdmllcyBidWRnZXQgKGluIDIwMTMgZG9sbGFycykuICBUaGUgY3VydmVkIGxpbmVzIGFyZSBjcmVhdGVkIHVzaW5nIHRoZSBnZW9tX2J1bXAgZnVuY3Rpb24gZnJvbSB0aGUgZ2didW1wIHBhY2thZ2UuICBNeSBtYWluIGludGVyZXN0IGluIGNyZWF0aW5nIHRoaXMgdmlzdWFsaXphdGlvbiB3YXMgdG8gc2hvdyBzb21lIG9mIHRoZSBtb3ZpZSBuYW1lcyBhcyBJIHRob3VnaHQgdGhpcyBpcyBpbmZvcm1hdGlvbiBwZW9wbGUgY291bGQgY29ubmVjdCB3aXRoLiAgDQoNClRoZXJlIGFyZSBzZXZlcmFsIGlzc3VlcyB3aXRoIHNob3dpbmcgdGhlIG5hbWVzIDEpIHNvbWUgb2YgdGhlIG5hbWVzIGFyZSByYXRoZXIgbG9uZywgMikgdGhlIGxhYmVscyBvdmVybGFwIHdpdGggZWFjaCBvdGhlciBhbmQgMykgdGhlIGxhYmVscyBvdmVybGFwIHdpdGggdGhlIHBvaW50cyBhbmQgbGluZXMuICBJIHVzZWQgc3RyX3dyYXAgdG8gY29uZGVuc2UgdGhlIGxlbmd0aCBvZiB0aGUgbW92aWUgbmFtZXMgYSBiaXQuICBJIGNvdWxkIGhhdmUgYWxzbyByZWNvZGVkIHRoZSBtb3ZpZSBuYW1lcyBidXQgZGVjaWRlZCBhZ2FpbnN0IHRoaXMgYmVjYXVzZSBJIHdhbnRlZCB0byBzdGF5IGNvbm5lY3RlZCB0byB0aGUgb3JpZ2luYWwgZGF0YXNldC4gIEkgdXNlZCB0aGUgZ2VvbV90ZXh0X3JlcGVsIGZ1bmN0aW9uIGZyb20gdGhlIGdncmVwZWwgcGFja2FnZSB0byBoZWxwIGF2b2lkIG92ZXJsYXBwaW5nIG9mIHRoZSBsYWJlbHMuICBUaGUgbWFpbiBpc3N1ZSBhZnRlciBhcHBseWluZyBnZ3JlcGVsIGhvd2V2ZXIgd2FzIHRoYXQgZ2VuZXJhbGx5IHRoZSBsYWJlbHMgd2VyZSBvdmVyIHRvcCBvZiB0aGUgcG9pbnRzIChidXQgbm90IGFsd2F5cykgYW5kIHRoZXJlIHdhcyBhIGxvdCBvZiBpbnRlcnNlY3Rpb25zIHdpdGggdGhlIGdnYnVtcCBsaW5lcy4gIFRvIGFkZHJlc3MgdGhpcyBpc3N1ZSwgSSBkZWNpZGVkIHRvIHN1YnNldCB0aGUgdG9wIHBvaW50cyBmcm9tIHRoZSBib3R0b20gcG9pbnRzIGFuZCBoYW5kbGUgdGhlbSBzZXBhcmF0ZWx5IHdpdGhpbiBnZW9tX3RleHRfcmVwZWwuICBUaGUgbnVkZ2VfeSBwYXJhbWV0ZXIgYWxsb3dlZCBtZSBzb21lIGNvbnRyb2wgb3ZlciB0aGUgcG9zaXRpb24gb2YgdGhlIGxhYmVscyB3aGlsZSBzdGlsbCB1c2luZyB0aGUgZnVuY3Rpb25hbGl0eSBvZiBnZ3JlcGVsIHRvIGF2b2lkIG92ZXJsYXBwaW5nIG9mIGxhYmVscy4gIFRoZSBvdmVyYWxsIGVmZmVjdCB3YXMgYWNjZXB0YWJsZSBidXQgc3RpbGwgbm90IG9wdGltYWwgYXMgdGhlcmUgYXJlIGlzc3VlcyB3aXRoIG92ZXJsYXBwaW5nIGxhYmVscyBhbmQgbGluZXMuDQoNCiMjIyBTdW1tYXJ5DQoNClRoZSBkYXRhIHZpc3VhbGl6YXRpb24gZGlkIG5vdCBzaG93IGEgY2xlYXIgdHJlbmQgaW4gdGhlIGJpZyBidWRnZXQgbW92aWVzIHBhc3NpbmcgdnMuIGZhaWxpbmcgdGhlIEJlY2hkZWwgdGVzdC4gIEJpZyBidWRnZXQgZmlsbXMgc3VjaCBhcyBBdmF0YXIgYW5kIFNwaWRlcm1hbiAyIGZhaWxlZCB0aGUgQmVjaGRlbCB0ZXN0IGJ1dCB3ZXJlIGluY3JlZGlibHkgcHJvZml0YWJsZS4gIFRyYW5zZm9ybWVyczogRGFyayBvZiB0aGUgTW9vbiBwYXNzZWQgdGhlIHRlc3QgYW5kIHdhcyBhbHNvIHZlcnkgcHJvZml0YWJsZS4gIEJvdGggbW92aWVzIHBhc3Npbmcgb3IgZmFpbGluZyB0aGUgQmVjaGRlbCB0ZXN0IGFsc28gaGFkIGV4YW1wbGVzIG9mIGxvdyBwcm9maXRhYmlsaXR5LiAgSSBoYWQgc29tZSByZXNlcnZhdGlvbnMgYWJvdXQgcG9zdGluZyB0aGlzIHZpc3VhbGl6YXRpb24gb24gVHdpdHRlciBidXQgaXQgYWN0dWFsbHkgcmVjZWl2ZWQgdGhlIGhpZ2hlc3QgImxpa2VzIiB5ZXQgZm9yIG9uZSBvZiBteSBUaWR5VHVlc2RheSBwb3N0cy4gIEkgYXR0cmlidXRlIHRoaXMgcmVzdWx0IHRvIHBlb3BsZSBjb25uZWN0aW5nIHdpdGggdGhlIGxpc3RlZCBtb3ZpZXMgaW4gc29tZSB3YXkuIA0K</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2021-03-09_tt_BechdelMovies.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
