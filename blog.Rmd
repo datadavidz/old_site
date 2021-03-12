@@ -7,6 +7,16 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: Bechdel Test for Movies**
+*Posted on March 9, 2021*
+
+Question addressed: Is there any correlation between Bechdel test result and profitability of big budget movies?  
+Visualization: A bump chart with labels indicating movie titles. 
+
+[Full post](2021-03-09_tt_BechdelMovies.html)
+
+***
+
 ### **Tidy Tuesday: Superbowl Commercials**
 *Posted on March 2, 2021*
 
