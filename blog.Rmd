@@ -13,7 +13,7 @@ output: html_document
 Question addressed: What was the impact of the US Covid-19 lockdown on the top Steam games?  
 Visualization: A stacked, ridgeline plot for the top 5 games with overlapping game titles. 
 
-[Full post](2021-03-16_tt_SteamGames.html)
+[Full post](2021-03-16_SteamGames.html)
 
 ***
 
