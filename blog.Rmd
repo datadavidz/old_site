@@ -7,6 +7,16 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: Steam Games**
+*Posted on March 16, 2021*
+
+Question addressed: What was the impact of the US Covid-19 lockdown on the top Steam games?  
+Visualization: A stacked, ridgeline plot for the top 5 games with overlapping game titles. 
+
+[Full post](2021-03-16_tt_SteamGames.html)
+
+***
+
 ### **Tidy Tuesday: Bechdel Test for Movies**
 *Posted on March 9, 2021*
 
