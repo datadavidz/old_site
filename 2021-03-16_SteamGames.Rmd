@@ -1,0 +1,155 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.showtext = TRUE)
+
+library(tidyverse)
+library(lubridate)
+library(ggridges)
+library(showtext)
+library(ggfx)
+
+font_add("Anton", "Anton-Regular.ttf")
+showtext_auto()
+
+theme_set(theme_light())
+```
+
+## **TidyTuesday: Steam Games**
+
+*Posted on March 16, 2021*
+
+A quick analysis of the weekly [\#TidyTuesday](http://github.com/rfordatascience/tidytuesday) dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.
+
+**What I learned this week about R and the Tidyverse**
+
+-   Creating a stacked ridgeline plot using the ggridges package
+-   Integrating text overlapping with the plot using the ggfx package
+
+**Brief explanation of the dataset**
+
+This dataset came from Steam which is an online gaming platform.  The dataset contains the game titles and average players by month during the time period from 2012-2021.  Additional information is available on the peak number of players, average as a percentage of the peak and gain in average players compared to the previous month.  Of course, data is only available following its release date on the platform.
+
+```{r Load, include = FALSE}
+#Save needed data into rds for blog post
+games <- readRDS("./data/tt_210316.rds")
+```
+
+### Wrangle
+
+Initial conclusions from exploring the dataset:
+
+* 1258 different game names  
+* Data available from 2012-2021 but amount of data is increasing over time except 2021 is partial  
+* Some of the game names have a different encoding and may require cleanup  
+* A surge in usage was noted in many of the games around March 2020 (US Covid-19 lockdown)  
+
+In the first analysis, I explored the games with the biggest gain in usage in March 2020.
+```{r}
+top_surge_games <- games %>%
+  filter(month == "March" & year == 2020) %>%
+  arrange(desc(gain)) %>%
+  slice(1:12) %>%
+  pull(gamename)
+
+top_surge_games
+```
+
+Next, I plot the average users for the top 3 games from 2012-2021.
+```{r}
+games %>%
+  filter(gamename %in% top_surge_games[1:3]) %>%
+  mutate(year_month = ymd(paste0(year,"/", month, "/", "1"))) %>%
+  ggplot(aes(x = year_month, y = 1)) +
+  geom_ridgeline(aes(height = avg, group = factor(gamename), fill = factor(gamename)), alpha = 0.2) +
+  labs(title = "Steam Games with the Largest Increase in Players in March 2020",
+       x = "Year",
+       y = "Average # of Players", 
+       fill = "Steam Game"
+       )
+  
+```
+
+The top two games, CS:GO and Dota 2, are dominant on this platform in more recent years and tends to hide the lower usage games when compared on the same plot.  I was interested in creating a stacked, ridgeline plot to avoid the overlap in colors as shown in the above figure for ARK: Survival Evolved.
+
+The top games in terms of average number of players on March 2020 were used for the stacked, ridgeline plot.
+```{r}
+top_games <- games %>%
+  mutate(gamename = str_to_title(gamename)) %>%
+  filter(month == "March" & year == 2020) %>%
+  filter(avg > 100000) %>%
+  pull(gamename)
+
+top_games
+```
+
+
+Create the dataset for the top games for the visualization.
+```{r}
+plot_data <- games %>%
+  mutate(gamename = str_to_title(gamename)) %>%
+  filter(gamename %in% top_games[1:5]) %>%
+  mutate(gamename = factor(gamename, rev(top_games[1:5]))) %>%
+  mutate(year_month = ymd(paste0(year,"/", month, "/", "1"))) %>%
+  filter(year_month <= ymd("2020-9-01") & year_month >= ymd("2019-09-01")) %>%
+  group_by(gamename) %>%
+  arrange(gamename, year_month) %>%
+  mutate(idx = row_number())
+```
+
+Create the game title text for the graphic and add the plot locations.
+```{r}
+plot_labels <- plot_data %>% 
+  group_by(gamename) %>% 
+  summarize(idx = 1,
+            avg = 0,
+            year_month = ymd("2019-06-01"),
+            .groups = "drop")
+```
+
+### Visualize
+
+The plot is created as different layers using the ggfx package.  The reference layer is the text graphic for the game titles.  The blended layer is for the ridgeline plots.  The geom_density_ridges element is used to create the stacked ridgeline plots.  The line marking the lockdown time was created by setting a gridline with specific break and label.
+
+```{r, fig.width = 7, fig.height = 7}
+p <- ggplot() +
+  as_reference(geom_text(data = plot_labels, aes(x = year_month, y = gamename, label = gamename),
+                vjust = -0.1, hjust = 0, family = "Anton", size = 8, color = "#37323e"), id = "text") +
+  with_blend(geom_density_ridges(data = plot_data, aes(y = gamename, x = year_month, height = avg, group = gamename, 
+                                          color = gamename, fill = gamename), stat = "identity", size = 0.1, alpha = 1, 
+                                          show.legend = FALSE, scale = 1), 
+                                          bg_layer = "text", blend_type = "xor") +
+  fishualize::scale_fill_fish_d(option = "Aulostomus_chinensis") +
+  fishualize::scale_color_fish_d(option = "Aulostomus_chinensis") +
+  scale_y_discrete(expand = c(0.01, 0)) +
+  scale_x_continuous(breaks = c(ymd("2020-03-01")), labels = "Lockdown") +
+  theme(axis.text.x = element_text(family = "Anton", size = 12),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        panel.grid.major.x = element_line(size = 3),
+        panel.grid.major.y = element_blank(),
+        panel.border = element_blank(),
+        plot.title = element_text(family = "Anton", size = 28),
+        plot.caption = element_text(hjust = 0.05)) +
+  labs(title = "Pandemic Plays on Steam",
+       subtitle = "Top Played Games 6 months before and after US Covid Lockdown",
+       x = NULL,
+       y = NULL,
+       caption = "Graphic: @datadavidz | Source: Steam | #TidyTuesday")
+
+
+p
+```
+
+### Summary
+
+The overall goal of creating a stacked ridgeline plot to show the change in number of players before and after lockdown was successful.  It was a challenging dataset to put on one plot because just a few games dominate the usage at Steam.  Another approach I saw used for this dataset was to take a game series such as NBA2K or Farming Simulator and analyze the popularity of different editions over time.
