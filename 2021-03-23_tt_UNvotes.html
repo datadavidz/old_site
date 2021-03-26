@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2021-03-23_tt_UNvotes.utf8</title>
+
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fas fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="tidytuesday-united-nations-votes" class="section level2">
+<h2><strong>TidyTuesday: United Nations Votes</strong></h2>
+<p><em>Posted on March 23, 2021</em></p>
+<p>A quick analysis of the weekly <a href="http://github.com/rfordatascience/tidytuesday">#TidyTuesday</a> dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.</p>
+<p><strong>What I learned this week about R and the Tidyverse</strong></p>
+<ul>
+<li>Creating a simple, world map using the maps package and geom_map</li>
+<li>Adding country codes to a country name using <code>maps::iso3166</code> and <code>fuzzyjoin</code></li>
+<li>Trick to slice top 10 and bottom 10 rows from a tibble for plotting</li>
+</ul>
+<p><strong>Brief explanation of the dataset</strong></p>
+<p>This dataset consists of votes from countries which are members of the United Nations. The unvotes dataset contains an ID for each vote and the vote result for each country (Yes, No, Abstain). The issues dataset contains the type of issue the vote pertains to. There are six different issues including Arms Control and Disarmament, Colonialism and Palestinian Conflict. A third dataset containing the date information for the votes was available but not used in this analysis. The dataset is also available in the <code>unvotes</code> R package.</p>
+<div id="wrangle" class="section level3">
+<h3>Wrangle</h3>
+<p>Initial conclusions from exploring the unvotes dataset:</p>
+<ul>
+<li>869,937 rows of voting data with minor number of missing country codes (~8000)<br />
+</li>
+<li>Three types of votes: yes, no and abstain and the dominant vote is yes (693K)<br />
+</li>
+<li>200 countries listed in the dataset<br />
+</li>
+<li>Namibia country code (NA) was assigned as NA rather than “NA”<br />
+</li>
+<li>Serbia country name was missing and was reassigned as Yugoslavia for purpose of plotting on world map</li>
+</ul>
+<p>Initial conclusions from exploring the issues dataset:</p>
+<ul>
+<li>Six different issue classifications: Arms Control and disarmament, Palestinian conflict, Human rights, Colonialism, Nuclear weapons and nuclear material and Economic development.<br />
+</li>
+<li>The distribution of votes between issues is fairly balanced with range of 765-1092.</li>
+</ul>
+<p>Let’s begin by adding the issue to the unvotes dataset and then calculate the percentage of “YES” votes for each country and issue.</p>
+<pre class="r"><code>by_issue &lt;- unvotes %&gt;%
+  left_join(issues %&gt;% select(rcid, issue), by = &quot;rcid&quot;) %&gt;%
+  filter(!is.na(issue)) %&gt;%
+  mutate(country_code = ifelse(country == &quot;Namibia&quot;, &quot;NA&quot;, country_code)) %&gt;% #correct for NA assignment
+  mutate(country_code = ifelse(country == &quot;Yugoslavia&quot;, &quot;RS&quot;, country_code)) %&gt;% #assign Yugoslavia to Serbia
+  group_by(country, country_code, issue) %&gt;%
+  summarize(n_votes = n(),
+            n_yes = sum(vote == &quot;yes&quot;),
+            pct_yes = n_yes / n_votes,
+            .groups = &quot;drop&quot;)</code></pre>
+</div>
+<div id="visualize" class="section level3">
+<h3>Visualize</h3>
+<p>Let’s focus on the Arms control and disarmament issue. Which countries have the highest and lowest percentage of “YES” votes on this issue? The top 10 and bottom 10 are subsetted from the data using the <code>slice</code> command as shown below.</p>
+<pre class="r"><code>by_issue %&gt;%
+  filter(issue == &quot;Arms control and disarmament&quot;) %&gt;%
+  filter(n_votes &gt;= 100) %&gt;%
+  arrange(desc(pct_yes)) %&gt;%
+  slice(c(1:10, (n()-10):n())) %&gt;%
+  mutate(country = fct_reorder(country, pct_yes)) %&gt;%
+  ggplot(aes(x = pct_yes, y = country)) +
+    geom_point(aes(size = n_votes)) +
+    scale_x_continuous(labels = scales::percent) +
+    theme_light() +
+    labs(title = &quot;Top and Bottom 10 Countries on Arms Control Votes&quot;,
+         x = &quot;% of YES Votes&quot;,
+         y = NULL,
+         size = &quot;# of Votes&quot;)</code></pre>
+<p><img src="2021-03-23_tt_UNvotes_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>The United States and Israel have the lowest percentage of “YES” votes at the U.N. on the issue of arms control while small countries vote almost always as “YES”. Presumably, these small countries have little or no military and, therefore, likely to favor restrictions on arms to reduce the global threat to their country.</p>
+<p>Next, we’ll create a world map using the <code>maps</code> package and the <code>geom_map</code> element for <code>ggplot2</code> using the default settings.</p>
+<pre class="r"><code>world_map &lt;- map_data(&quot;world&quot;)
+
+ggplot() +
+  geom_map(data = world_map, map = world_map,
+           aes(long, lat, map_id = region))</code></pre>
+<p><img src="2021-03-23_tt_UNvotes_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Let’s remove Antarctica from the map since it is not a country and clean up the plot using <code>theme_map</code> from the <code>ggthemes</code> package.</p>
+<pre class="r"><code>map_data(&quot;world&quot;) %&gt;%
+  filter(region != &quot;Antarctica&quot;) %&gt;%
+  ggplot(aes(long, lat, group = group)) +
+  geom_polygon() +
+  theme_map()</code></pre>
+<p><img src="2021-03-23_tt_UNvotes_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Now, I’d like to fill each country on a color scale correlating with the percentage of “YES” votes on the Arms Control and Disarmament issue. If I just join the unvotes data with the world map data, I get the following plot.</p>
+<pre class="r"><code>world_map %&gt;%
+  filter(region != &quot;Antarctica&quot;) %&gt;%
+  left_join(filter(by_issue, issue == &quot;Arms control and disarmament&quot;), by = c(&quot;region&quot; = &quot;country&quot;)) %&gt;%
+  ggplot(aes(x = long, y = lat, group = group, fill = pct_yes)) +
+    geom_polygon() +
+    theme_map() + 
+    scale_fill_gradient2(low = &quot;red&quot;, high = &quot;blue&quot;, midpoint = 0.7, labels = scales::percent) +
+    labs(title = &quot;United Nations: &lt;span style = &#39;color:red;&#39;&gt;Hawks&lt;/span&gt; vs. &lt;span style = &#39;color:purple;&#39;&gt;Doves&lt;/span&gt;&quot;,
+         subtitle = &quot;Percentage of YES votes on Arms Control and Disarmament Issues&quot;,
+         fill = &quot;% of YES votes&quot;,
+         caption = &quot;Graphic: @datadavidz | Source: Harvard&#39;s Dataverse | #TidyTuesday&quot;) +
+    theme(plot.title = element_markdown(face = &quot;bold&quot;, size = 24, hjust = 0.5),
+          plot.subtitle = element_text(face = &quot;bold&quot;, size = 12, hjust = 0.5),
+          legend.title = element_text(face = &quot;bold&quot;))</code></pre>
+<p><img src="2021-03-23_tt_UNvotes_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>As you can notice, several countries are shown in gray color meaning that the corresponding vote data was not found. We know, however, that data is present for the United States and United Kingdom based on previous analyses. The problem is that the country name on the issues dataset is not matching the region name in the world map dataset. To address this issue, we use data from the <code>iso3166</code> dataset in the <code>maps</code> R package. The <code>iso3166</code> data has a regex code in the <code>mapname</code> column to help with matching country names. The regex_left_join function comes from the <code>fuzzyjoin</code> package and applies the join using this regex code for each country.</p>
+<pre class="r"><code>world_data &lt;- map_data(&quot;world&quot;) %&gt;%
+  regex_left_join(maps::iso3166 %&gt;% 
+                    select(mapname, country_code = a2), c(region = &quot;mapname&quot;)) %&gt;%
+  filter(region != &quot;Antarctica&quot;)</code></pre>
+<p>Now, we can plot the world map after the fuzzy join to assign the 2-character country code to the world map data. I can then combine the world map data with the unvotes data using the 2-character country code. Note: I had to manually adjust Namibia and Serbia as discussed in the Wrangle section.</p>
+<pre class="r"><code>world_data %&gt;%
+  left_join(filter(by_issue, issue == &quot;Arms control and disarmament&quot;), by = &quot;country_code&quot;) %&gt;%
+  ggplot(aes(x = long, y = lat, group = group, fill = pct_yes)) +
+    geom_polygon() +
+    theme_map() + 
+    scale_fill_gradient2(low = &quot;red&quot;, high = &quot;blue&quot;, midpoint = 0.7, labels = scales::percent) +
+    labs(title = &quot;United Nations: &lt;span style = &#39;color:red;&#39;&gt;Hawks&lt;/span&gt; vs. &lt;span style = &#39;color:purple;&#39;&gt;Doves&lt;/span&gt;&quot;,
+         subtitle = &quot;Percentage of YES votes on Arms Control and Disarmament Issues&quot;,
+         fill = &quot;% of YES votes&quot;,
+         caption = &quot;Graphic: @datadavidz | Source: Harvard&#39;s Dataverse | #TidyTuesday&quot;) +
+    theme(plot.title = element_markdown(face = &quot;bold&quot;, size = 24, hjust = 0.5),
+          plot.subtitle = element_text(face = &quot;bold&quot;, size = 12, hjust = 0.5),
+          legend.title = element_text(face = &quot;bold&quot;))</code></pre>
+<p><img src="2021-03-23_tt_UNvotes_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Text in the title is colored using <code>ggtext</code> to help the reader interpret the map. “Hawks” refers to countries more aligned to use military force to address conflicts while “Doves” refers to countries that would prefer to exhaust all diplomatic options before considering military action. This description doesn’t perfectly align with the Arms control and disarmament issue as we don’t know the specifics of each resolution however we see that countries with more military tend to vote against arms control resolutions with a few exceptions such as Iran and China.</p>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<p>This simple, world map visualization is effective in summarizing the voting trend for countries around the global on Arms control and disarmament issues. The coverage of the map is pretty impressive and aided by the fuzzy join to connect country names in the unvotes dataset with country names in the <code>maps</code> package.</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCg0KPGJyPg0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCg0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KG1hcHMpDQpsaWJyYXJ5KGdndGhlbWVzKQ0KbGlicmFyeShmdXp6eWpvaW4pDQpsaWJyYXJ5KGdndGV4dCkNCmBgYA0KDQojIyAqKlRpZHlUdWVzZGF5OiBVbml0ZWQgTmF0aW9ucyBWb3RlcyoqDQoNCipQb3N0ZWQgb24gTWFyY2ggMjMsIDIwMjEqDQoNCkEgcXVpY2sgYW5hbHlzaXMgb2YgdGhlIHdlZWtseSBbXCNUaWR5VHVlc2RheV0oaHR0cDovL2dpdGh1Yi5jb20vcmZvcmRhdGFzY2llbmNlL3RpZHl0dWVzZGF5KSBkYXRhc2V0IG9yZ2FuaXplZCBieSB0aGUgUjREUyBPbmxpbmUgTGVhcm5pbmcgQ29tbXVuaXR5LiBNeSBhcHByb2FjaCBpcyB0byBhcHBseSBteSBkYXRhIHNjaWVuY2Ugc2tpbGxzIHRvIGV4cGxvcmUgb25lIHF1ZXN0aW9uIEkgaGF2ZSBhYm91dCB0aGUgZGF0YSBhbmQgZ2VuZXJhdGUgYSB2aXN1YWxpemF0aW9uIHRoYXQgYWRkcmVzc2VzIHRoaXMgcXVlc3Rpb24uIFRoZSBtYWluIHB1cnBvc2UgZm9yIG1lIGlzIHRvIHByYWN0aWNlIGFuZCB0cnkgb3V0IG5ldyB0aGluZ3MuIEkgYW0gbmV2ZXIgY29tcGxldGVseSBzYXRpc2ZpZWQgd2l0aCB0aGUgZW5kIHJlc3VsdCBidXQgSSBkbyB0aGUgYmVzdCBJIGNhbiBpbiBhIHNob3J0IHBlcmlvZCBvZiB0aW1lLg0KDQoqKldoYXQgSSBsZWFybmVkIHRoaXMgd2VlayBhYm91dCBSIGFuZCB0aGUgVGlkeXZlcnNlKioNCg0KLSAgIENyZWF0aW5nIGEgc2ltcGxlLCB3b3JsZCBtYXAgdXNpbmcgdGhlIG1hcHMgcGFja2FnZSBhbmQgZ2VvbV9tYXANCi0gICBBZGRpbmcgY291bnRyeSBjb2RlcyB0byBhIGNvdW50cnkgbmFtZSB1c2luZyBgYGBtYXBzOjppc28zMTY2YGBgIGFuZCBgYGBmdXp6eWpvaW5gYGANCi0gICBUcmljayB0byBzbGljZSB0b3AgMTAgYW5kIGJvdHRvbSAxMCByb3dzIGZyb20gYSB0aWJibGUgZm9yIHBsb3R0aW5nDQoNCioqQnJpZWYgZXhwbGFuYXRpb24gb2YgdGhlIGRhdGFzZXQqKg0KDQpUaGlzIGRhdGFzZXQgY29uc2lzdHMgb2Ygdm90ZXMgZnJvbSBjb3VudHJpZXMgd2hpY2ggYXJlIG1lbWJlcnMgb2YgdGhlIFVuaXRlZCBOYXRpb25zLiAgVGhlIHVudm90ZXMgZGF0YXNldCBjb250YWlucyBhbiBJRCBmb3IgZWFjaCB2b3RlIGFuZCB0aGUgdm90ZSByZXN1bHQgZm9yIGVhY2ggY291bnRyeSAoWWVzLCBObywgQWJzdGFpbikuICBUaGUgaXNzdWVzIGRhdGFzZXQgY29udGFpbnMgdGhlIHR5cGUgb2YgaXNzdWUgdGhlIHZvdGUgcGVydGFpbnMgdG8uICBUaGVyZSBhcmUgc2l4IGRpZmZlcmVudCBpc3N1ZXMgaW5jbHVkaW5nIEFybXMgQ29udHJvbCBhbmQgRGlzYXJtYW1lbnQsIENvbG9uaWFsaXNtIGFuZCBQYWxlc3RpbmlhbiBDb25mbGljdC4gIEEgdGhpcmQgZGF0YXNldCBjb250YWluaW5nIHRoZSBkYXRlIGluZm9ybWF0aW9uIGZvciB0aGUgdm90ZXMgd2FzIGF2YWlsYWJsZSBidXQgbm90IHVzZWQgaW4gdGhpcyBhbmFseXNpcy4gIFRoZSBkYXRhc2V0IGlzIGFsc28gYXZhaWxhYmxlIGluIHRoZSBgYGB1bnZvdGVzYGBgIFIgcGFja2FnZS4NCg0KYGBge3IgTG9hZCwgaW5jbHVkZSA9IEZBTFNFfQ0KI1NhdmUgbmVlZGVkIGRhdGEgaW50byByZHMgZm9yIGJsb2cgcG9zdA0KbG9hZCgiLi9kYXRhL3R0XzIxMDMyMy5SZGF0YSIpDQpgYGANCg0KIyMjIFdyYW5nbGUNCg0KSW5pdGlhbCBjb25jbHVzaW9ucyBmcm9tIGV4cGxvcmluZyB0aGUgdW52b3RlcyBkYXRhc2V0Og0KDQoqIDg2OSw5Mzcgcm93cyBvZiB2b3RpbmcgZGF0YSB3aXRoIG1pbm9yIG51bWJlciBvZiBtaXNzaW5nIGNvdW50cnkgY29kZXMgKH44MDAwKSAgDQoqIFRocmVlIHR5cGVzIG9mIHZvdGVzOiB5ZXMsIG5vIGFuZCBhYnN0YWluIGFuZCB0aGUgZG9taW5hbnQgdm90ZSBpcyB5ZXMgKDY5M0spICANCiogMjAwIGNvdW50cmllcyBsaXN0ZWQgaW4gdGhlIGRhdGFzZXQgIA0KKiBOYW1pYmlhIGNvdW50cnkgY29kZSAoTkEpIHdhcyBhc3NpZ25lZCBhcyBOQSByYXRoZXIgdGhhbiAiTkEiICANCiogU2VyYmlhIGNvdW50cnkgbmFtZSB3YXMgbWlzc2luZyBhbmQgd2FzIHJlYXNzaWduZWQgYXMgWXVnb3NsYXZpYSBmb3IgcHVycG9zZSBvZiBwbG90dGluZyBvbiB3b3JsZCBtYXAgIA0KDQpJbml0aWFsIGNvbmNsdXNpb25zIGZyb20gZXhwbG9yaW5nIHRoZSBpc3N1ZXMgZGF0YXNldDoNCg0KKiBTaXggZGlmZmVyZW50IGlzc3VlIGNsYXNzaWZpY2F0aW9uczogQXJtcyBDb250cm9sIGFuZCBkaXNhcm1hbWVudCwgUGFsZXN0aW5pYW4gY29uZmxpY3QsIEh1bWFuIHJpZ2h0cywgQ29sb25pYWxpc20sIE51Y2xlYXIgd2VhcG9ucyBhbmQgbnVjbGVhciBtYXRlcmlhbCBhbmQgRWNvbm9taWMgZGV2ZWxvcG1lbnQuICANCiogVGhlIGRpc3RyaWJ1dGlvbiBvZiB2b3RlcyBiZXR3ZWVuIGlzc3VlcyBpcyBmYWlybHkgYmFsYW5jZWQgd2l0aCByYW5nZSBvZiA3NjUtMTA5Mi4NCg0KTGV0J3MgYmVnaW4gYnkgYWRkaW5nIHRoZSBpc3N1ZSB0byB0aGUgdW52b3RlcyBkYXRhc2V0IGFuZCB0aGVuIGNhbGN1bGF0ZSB0aGUgcGVyY2VudGFnZSBvZiAiWUVTIiB2b3RlcyBmb3IgZWFjaCBjb3VudHJ5IGFuZCBpc3N1ZS4NCmBgYHtyfQ0KYnlfaXNzdWUgPC0gdW52b3RlcyAlPiUNCiAgbGVmdF9qb2luKGlzc3VlcyAlPiUgc2VsZWN0KHJjaWQsIGlzc3VlKSwgYnkgPSAicmNpZCIpICU+JQ0KICBmaWx0ZXIoIWlzLm5hKGlzc3VlKSkgJT4lDQogIG11dGF0ZShjb3VudHJ5X2NvZGUgPSBpZmVsc2UoY291bnRyeSA9PSAiTmFtaWJpYSIsICJOQSIsIGNvdW50cnlfY29kZSkpICU+JSAjY29ycmVjdCBmb3IgTkEgYXNzaWdubWVudA0KICBtdXRhdGUoY291bnRyeV9jb2RlID0gaWZlbHNlKGNvdW50cnkgPT0gIll1Z29zbGF2aWEiLCAiUlMiLCBjb3VudHJ5X2NvZGUpKSAlPiUgI2Fzc2lnbiBZdWdvc2xhdmlhIHRvIFNlcmJpYQ0KICBncm91cF9ieShjb3VudHJ5LCBjb3VudHJ5X2NvZGUsIGlzc3VlKSAlPiUNCiAgc3VtbWFyaXplKG5fdm90ZXMgPSBuKCksDQogICAgICAgICAgICBuX3llcyA9IHN1bSh2b3RlID09ICJ5ZXMiKSwNCiAgICAgICAgICAgIHBjdF95ZXMgPSBuX3llcyAvIG5fdm90ZXMsDQogICAgICAgICAgICAuZ3JvdXBzID0gImRyb3AiKQ0KYGBgDQoNCiMjIyBWaXN1YWxpemUNCg0KTGV0J3MgZm9jdXMgb24gdGhlIEFybXMgY29udHJvbCBhbmQgZGlzYXJtYW1lbnQgaXNzdWUuICBXaGljaCBjb3VudHJpZXMgaGF2ZSB0aGUgaGlnaGVzdCBhbmQgbG93ZXN0IHBlcmNlbnRhZ2Ugb2YgIllFUyIgdm90ZXMgb24gdGhpcyBpc3N1ZT8gIFRoZSB0b3AgMTAgYW5kIGJvdHRvbSAxMCBhcmUgc3Vic2V0dGVkIGZyb20gdGhlIGRhdGEgdXNpbmcgdGhlIGBgYHNsaWNlYGBgIGNvbW1hbmQgYXMgc2hvd24gYmVsb3cuDQpgYGB7cn0NCmJ5X2lzc3VlICU+JQ0KICBmaWx0ZXIoaXNzdWUgPT0gIkFybXMgY29udHJvbCBhbmQgZGlzYXJtYW1lbnQiKSAlPiUNCiAgZmlsdGVyKG5fdm90ZXMgPj0gMTAwKSAlPiUNCiAgYXJyYW5nZShkZXNjKHBjdF95ZXMpKSAlPiUNCiAgc2xpY2UoYygxOjEwLCAobigpLTEwKTpuKCkpKSAlPiUNCiAgbXV0YXRlKGNvdW50cnkgPSBmY3RfcmVvcmRlcihjb3VudHJ5LCBwY3RfeWVzKSkgJT4lDQogIGdncGxvdChhZXMoeCA9IHBjdF95ZXMsIHkgPSBjb3VudHJ5KSkgKw0KICAgIGdlb21fcG9pbnQoYWVzKHNpemUgPSBuX3ZvdGVzKSkgKw0KICAgIHNjYWxlX3hfY29udGludW91cyhsYWJlbHMgPSBzY2FsZXM6OnBlcmNlbnQpICsNCiAgICB0aGVtZV9saWdodCgpICsNCiAgICBsYWJzKHRpdGxlID0gIlRvcCBhbmQgQm90dG9tIDEwIENvdW50cmllcyBvbiBBcm1zIENvbnRyb2wgVm90ZXMiLA0KICAgICAgICAgeCA9ICIlIG9mIFlFUyBWb3RlcyIsDQogICAgICAgICB5ID0gTlVMTCwNCiAgICAgICAgIHNpemUgPSAiIyBvZiBWb3RlcyIpDQpgYGANCg0KVGhlIFVuaXRlZCBTdGF0ZXMgYW5kIElzcmFlbCBoYXZlIHRoZSBsb3dlc3QgcGVyY2VudGFnZSBvZiAiWUVTIiB2b3RlcyBhdCB0aGUgVS5OLiBvbiB0aGUgaXNzdWUgb2YgYXJtcyBjb250cm9sIHdoaWxlIHNtYWxsIGNvdW50cmllcyB2b3RlIGFsbW9zdCBhbHdheXMgYXMgIllFUyIuICBQcmVzdW1hYmx5LCB0aGVzZSBzbWFsbCBjb3VudHJpZXMgaGF2ZSBsaXR0bGUgb3Igbm8gbWlsaXRhcnkgYW5kLCB0aGVyZWZvcmUsIGxpa2VseSB0byBmYXZvciByZXN0cmljdGlvbnMgb24gYXJtcyB0byByZWR1Y2UgdGhlIGdsb2JhbCB0aHJlYXQgdG8gdGhlaXIgY291bnRyeS4NCg0KTmV4dCwgd2UnbGwgY3JlYXRlIGEgd29ybGQgbWFwIHVzaW5nIHRoZSBgYGBtYXBzYGBgIHBhY2thZ2UgYW5kIHRoZSBgYGBnZW9tX21hcGBgYCBlbGVtZW50IGZvciBgYGBnZ3Bsb3QyYGBgIHVzaW5nIHRoZSBkZWZhdWx0IHNldHRpbmdzLg0KYGBge3IsIHdhcm5pbmc9RkFMU0V9DQp3b3JsZF9tYXAgPC0gbWFwX2RhdGEoIndvcmxkIikNCg0KZ2dwbG90KCkgKw0KICBnZW9tX21hcChkYXRhID0gd29ybGRfbWFwLCBtYXAgPSB3b3JsZF9tYXAsDQogICAgICAgICAgIGFlcyhsb25nLCBsYXQsIG1hcF9pZCA9IHJlZ2lvbikpDQoNCmBgYA0KDQpMZXQncyByZW1vdmUgQW50YXJjdGljYSBmcm9tIHRoZSBtYXAgc2luY2UgaXQgaXMgbm90IGEgY291bnRyeSBhbmQgY2xlYW4gdXAgdGhlIHBsb3QgdXNpbmcgYGBgdGhlbWVfbWFwYGBgIGZyb20gdGhlIGBgYGdndGhlbWVzYGBgIHBhY2thZ2UuDQpgYGB7cn0NCm1hcF9kYXRhKCJ3b3JsZCIpICU+JQ0KICBmaWx0ZXIocmVnaW9uICE9ICJBbnRhcmN0aWNhIikgJT4lDQogIGdncGxvdChhZXMobG9uZywgbGF0LCBncm91cCA9IGdyb3VwKSkgKw0KICBnZW9tX3BvbHlnb24oKSArDQogIHRoZW1lX21hcCgpDQpgYGANCg0KTm93LCBJJ2QgbGlrZSB0byBmaWxsIGVhY2ggY291bnRyeSBvbiBhIGNvbG9yIHNjYWxlIGNvcnJlbGF0aW5nIHdpdGggdGhlIHBlcmNlbnRhZ2Ugb2YgIllFUyIgdm90ZXMgb24gdGhlIEFybXMgQ29udHJvbCBhbmQgRGlzYXJtYW1lbnQgaXNzdWUuIElmIEkganVzdCBqb2luIHRoZSB1bnZvdGVzIGRhdGEgd2l0aCB0aGUgd29ybGQgbWFwIGRhdGEsIEkgZ2V0IHRoZSBmb2xsb3dpbmcgcGxvdC4NCg0KYGBge3J9DQp3b3JsZF9tYXAgJT4lDQogIGZpbHRlcihyZWdpb24gIT0gIkFudGFyY3RpY2EiKSAlPiUNCiAgbGVmdF9qb2luKGZpbHRlcihieV9pc3N1ZSwgaXNzdWUgPT0gIkFybXMgY29udHJvbCBhbmQgZGlzYXJtYW1lbnQiKSwgYnkgPSBjKCJyZWdpb24iID0gImNvdW50cnkiKSkgJT4lDQogIGdncGxvdChhZXMoeCA9IGxvbmcsIHkgPSBsYXQsIGdyb3VwID0gZ3JvdXAsIGZpbGwgPSBwY3RfeWVzKSkgKw0KICAgIGdlb21fcG9seWdvbigpICsNCiAgICB0aGVtZV9tYXAoKSArIA0KICAgIHNjYWxlX2ZpbGxfZ3JhZGllbnQyKGxvdyA9ICJyZWQiLCBoaWdoID0gImJsdWUiLCBtaWRwb2ludCA9IDAuNywgbGFiZWxzID0gc2NhbGVzOjpwZXJjZW50KSArDQogICAgbGFicyh0aXRsZSA9ICJVbml0ZWQgTmF0aW9uczogPHNwYW4gc3R5bGUgPSAnY29sb3I6cmVkOyc+SGF3a3M8L3NwYW4+IHZzLiA8c3BhbiBzdHlsZSA9ICdjb2xvcjpwdXJwbGU7Jz5Eb3Zlczwvc3Bhbj4iLA0KICAgICAgICAgc3VidGl0bGUgPSAiUGVyY2VudGFnZSBvZiBZRVMgdm90ZXMgb24gQXJtcyBDb250cm9sIGFuZCBEaXNhcm1hbWVudCBJc3N1ZXMiLA0KICAgICAgICAgZmlsbCA9ICIlIG9mIFlFUyB2b3RlcyIsDQogICAgICAgICBjYXB0aW9uID0gIkdyYXBoaWM6IEBkYXRhZGF2aWR6IHwgU291cmNlOiBIYXJ2YXJkJ3MgRGF0YXZlcnNlIHwgI1RpZHlUdWVzZGF5IikgKw0KICAgIHRoZW1lKHBsb3QudGl0bGUgPSBlbGVtZW50X21hcmtkb3duKGZhY2UgPSAiYm9sZCIsIHNpemUgPSAyNCwgaGp1c3QgPSAwLjUpLA0KICAgICAgICAgIHBsb3Quc3VidGl0bGUgPSBlbGVtZW50X3RleHQoZmFjZSA9ICJib2xkIiwgc2l6ZSA9IDEyLCBoanVzdCA9IDAuNSksDQogICAgICAgICAgbGVnZW5kLnRpdGxlID0gZWxlbWVudF90ZXh0KGZhY2UgPSAiYm9sZCIpKQ0KYGBgDQoNCkFzIHlvdSBjYW4gbm90aWNlLCBzZXZlcmFsIGNvdW50cmllcyBhcmUgc2hvd24gaW4gZ3JheSBjb2xvciBtZWFuaW5nIHRoYXQgdGhlIGNvcnJlc3BvbmRpbmcgdm90ZSBkYXRhIHdhcyBub3QgZm91bmQuICBXZSBrbm93LCBob3dldmVyLCB0aGF0IGRhdGEgaXMgcHJlc2VudCBmb3IgdGhlIFVuaXRlZCBTdGF0ZXMgYW5kIFVuaXRlZCBLaW5nZG9tIGJhc2VkIG9uIHByZXZpb3VzIGFuYWx5c2VzLiAgVGhlIHByb2JsZW0gaXMgdGhhdCB0aGUgY291bnRyeSBuYW1lIG9uIHRoZSBpc3N1ZXMgZGF0YXNldCBpcyBub3QgbWF0Y2hpbmcgdGhlIHJlZ2lvbiBuYW1lIGluIHRoZSB3b3JsZCBtYXAgZGF0YXNldC4gIFRvIGFkZHJlc3MgdGhpcyBpc3N1ZSwgd2UgdXNlIGRhdGEgZnJvbSB0aGUgYGBgaXNvMzE2NmBgYCBkYXRhc2V0IGluIHRoZSBgYGBtYXBzYGBgIFIgcGFja2FnZS4gIFRoZSBgYGBpc28zMTY2YGBgIGRhdGEgaGFzIGEgcmVnZXggY29kZSBpbiB0aGUgYGBgbWFwbmFtZWBgYCBjb2x1bW4gdG8gaGVscCB3aXRoIG1hdGNoaW5nIGNvdW50cnkgbmFtZXMuICBUaGUgcmVnZXhfbGVmdF9qb2luIGZ1bmN0aW9uIGNvbWVzIGZyb20gdGhlIGBgYGZ1enp5am9pbmBgYCBwYWNrYWdlIGFuZCBhcHBsaWVzIHRoZSBqb2luIHVzaW5nIHRoaXMgcmVnZXggY29kZSBmb3IgZWFjaCBjb3VudHJ5Lg0KDQpgYGB7cn0NCndvcmxkX2RhdGEgPC0gbWFwX2RhdGEoIndvcmxkIikgJT4lDQogIHJlZ2V4X2xlZnRfam9pbihtYXBzOjppc28zMTY2ICU+JSANCiAgICAgICAgICAgICAgICAgICAgc2VsZWN0KG1hcG5hbWUsIGNvdW50cnlfY29kZSA9IGEyKSwgYyhyZWdpb24gPSAibWFwbmFtZSIpKSAlPiUNCiAgZmlsdGVyKHJlZ2lvbiAhPSAiQW50YXJjdGljYSIpDQpgYGANCg0KTm93LCB3ZSBjYW4gcGxvdCB0aGUgd29ybGQgbWFwIGFmdGVyIHRoZSBmdXp6eSBqb2luIHRvIGFzc2lnbiB0aGUgMi1jaGFyYWN0ZXIgY291bnRyeSBjb2RlIHRvIHRoZSB3b3JsZCBtYXAgZGF0YS4gIEkgY2FuIHRoZW4gY29tYmluZSB0aGUgd29ybGQgbWFwIGRhdGEgd2l0aCB0aGUgdW52b3RlcyBkYXRhIHVzaW5nIHRoZSAyLWNoYXJhY3RlciBjb3VudHJ5IGNvZGUuICBOb3RlOiBJIGhhZCB0byBtYW51YWxseSBhZGp1c3QgTmFtaWJpYSBhbmQgU2VyYmlhIGFzIGRpc2N1c3NlZCBpbiB0aGUgV3JhbmdsZSBzZWN0aW9uLg0KDQpgYGB7cn0NCndvcmxkX2RhdGEgJT4lDQogIGxlZnRfam9pbihmaWx0ZXIoYnlfaXNzdWUsIGlzc3VlID09ICJBcm1zIGNvbnRyb2wgYW5kIGRpc2FybWFtZW50IiksIGJ5ID0gImNvdW50cnlfY29kZSIpICU+JQ0KICBnZ3Bsb3QoYWVzKHggPSBsb25nLCB5ID0gbGF0LCBncm91cCA9IGdyb3VwLCBmaWxsID0gcGN0X3llcykpICsNCiAgICBnZW9tX3BvbHlnb24oKSArDQogICAgdGhlbWVfbWFwKCkgKyANCiAgICBzY2FsZV9maWxsX2dyYWRpZW50Mihsb3cgPSAicmVkIiwgaGlnaCA9ICJibHVlIiwgbWlkcG9pbnQgPSAwLjcsIGxhYmVscyA9IHNjYWxlczo6cGVyY2VudCkgKw0KICAgIGxhYnModGl0bGUgPSAiVW5pdGVkIE5hdGlvbnM6IDxzcGFuIHN0eWxlID0gJ2NvbG9yOnJlZDsnPkhhd2tzPC9zcGFuPiB2cy4gPHNwYW4gc3R5bGUgPSAnY29sb3I6cHVycGxlOyc+RG92ZXM8L3NwYW4+IiwNCiAgICAgICAgIHN1YnRpdGxlID0gIlBlcmNlbnRhZ2Ugb2YgWUVTIHZvdGVzIG9uIEFybXMgQ29udHJvbCBhbmQgRGlzYXJtYW1lbnQgSXNzdWVzIiwNCiAgICAgICAgIGZpbGwgPSAiJSBvZiBZRVMgdm90ZXMiLA0KICAgICAgICAgY2FwdGlvbiA9ICJHcmFwaGljOiBAZGF0YWRhdmlkeiB8IFNvdXJjZTogSGFydmFyZCdzIERhdGF2ZXJzZSB8ICNUaWR5VHVlc2RheSIpICsNCiAgICB0aGVtZShwbG90LnRpdGxlID0gZWxlbWVudF9tYXJrZG93bihmYWNlID0gImJvbGQiLCBzaXplID0gMjQsIGhqdXN0ID0gMC41KSwNCiAgICAgICAgICBwbG90LnN1YnRpdGxlID0gZWxlbWVudF90ZXh0KGZhY2UgPSAiYm9sZCIsIHNpemUgPSAxMiwgaGp1c3QgPSAwLjUpLA0KICAgICAgICAgIGxlZ2VuZC50aXRsZSA9IGVsZW1lbnRfdGV4dChmYWNlID0gImJvbGQiKSkNCmBgYA0KDQpUZXh0IGluIHRoZSB0aXRsZSBpcyBjb2xvcmVkIHVzaW5nIGBgYGdndGV4dGBgYCB0byBoZWxwIHRoZSByZWFkZXIgaW50ZXJwcmV0IHRoZSBtYXAuICAiSGF3a3MiIHJlZmVycyB0byBjb3VudHJpZXMgbW9yZSBhbGlnbmVkIHRvIHVzZSBtaWxpdGFyeSBmb3JjZSB0byBhZGRyZXNzIGNvbmZsaWN0cyB3aGlsZSAiRG92ZXMiIHJlZmVycyB0byBjb3VudHJpZXMgdGhhdCB3b3VsZCBwcmVmZXIgdG8gZXhoYXVzdCBhbGwgZGlwbG9tYXRpYyBvcHRpb25zIGJlZm9yZSBjb25zaWRlcmluZyBtaWxpdGFyeSBhY3Rpb24uICBUaGlzIGRlc2NyaXB0aW9uIGRvZXNuJ3QgcGVyZmVjdGx5IGFsaWduIHdpdGggdGhlIEFybXMgY29udHJvbCBhbmQgZGlzYXJtYW1lbnQgaXNzdWUgYXMgd2UgZG9uJ3Qga25vdyB0aGUgc3BlY2lmaWNzIG9mIGVhY2ggcmVzb2x1dGlvbiBob3dldmVyIHdlIHNlZSB0aGF0IGNvdW50cmllcyB3aXRoIG1vcmUgbWlsaXRhcnkgdGVuZCB0byB2b3RlIGFnYWluc3QgYXJtcyBjb250cm9sIHJlc29sdXRpb25zIHdpdGggYSBmZXcgZXhjZXB0aW9ucyBzdWNoIGFzIElyYW4gYW5kIENoaW5hLg0KDQojIyMgU3VtbWFyeQ0KDQpUaGlzIHNpbXBsZSwgd29ybGQgbWFwIHZpc3VhbGl6YXRpb24gaXMgZWZmZWN0aXZlIGluIHN1bW1hcml6aW5nIHRoZSB2b3RpbmcgdHJlbmQgZm9yIGNvdW50cmllcyBhcm91bmQgdGhlIGdsb2JhbCBvbiBBcm1zIGNvbnRyb2wgYW5kIGRpc2FybWFtZW50IGlzc3Vlcy4gIFRoZSBjb3ZlcmFnZSBvZiB0aGUgbWFwIGlzIHByZXR0eSBpbXByZXNzaXZlIGFuZCBhaWRlZCBieSB0aGUgZnV6enkgam9pbiB0byBjb25uZWN0IGNvdW50cnkgbmFtZXMgaW4gdGhlIHVudm90ZXMgZGF0YXNldCB3aXRoIGNvdW50cnkgbmFtZXMgaW4gdGhlIGBgYG1hcHNgYGAgcGFja2FnZS4NCg==</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2021-03-23_tt_UNvotes.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
