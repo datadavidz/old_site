@@ -7,6 +7,16 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: United Nations Votes**
+*Posted on March 23, 2021*
+
+Question addressed: Which countries vote for U.N. resolutions on the issue of Arms Control and Disarmament?  
+Visualization: A simple, world map with color scale according to percentage of "YES" votes. 
+
+[Full post](2021-03-23_tt_UNvotes.html)
+
+***
+
 ### **Tidy Tuesday: Steam Games**
 *Posted on March 16, 2021*
 
