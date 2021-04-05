@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2021-03-30_tt_MakeupShades.utf8</title>
+
+<script src="site_libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fas fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="tidytuesday-make-up-color-shades" class="section level2">
+<h2><strong>TidyTuesday: Make-up Color Shades</strong></h2>
+<p><em>Posted on March 30, 2021</em></p>
+<p>A quick analysis of the weekly <a href="http://github.com/rfordatascience/tidytuesday">#TidyTuesday</a> dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.</p>
+<p><strong>What I learned this week about R and the Tidyverse</strong></p>
+<ul>
+<li>Tokenizing a string column to be used as modeling variables using <code>textrecipes</code></li>
+<li>Using a sparse data matrix with tidymodels to improve speed and reduce memory allocation using <code>hardhat</code></li>
+<li>Converting between colorspaces using <code>hsl2col</code> function from <code>plotwidgets</code></li>
+</ul>
+<p><strong>Brief explanation of the dataset</strong></p>
+<p>This dataset comes from <a href="https://pudding.cool/2021/03/foundation-names/">The Pudding</a> and an accompanying article which explores the numbering system used by cosmetic brands. The observation was that most brands put their lighter shades at the top of the sequence. Several datasets were provided however I focused on the allShades dataset which contains the names and HSL (hue, saturation and lightness) values for each makeup shade. I was interested in creating random word pairings from the existing names and then predicting the color based on a model of the existing data. The idea was admittedly not a serious endeavor but led to some nice learnings for me.</p>
+<div id="wrangle" class="section level3">
+<h3>Wrangle</h3>
+<p>Initial conclusions from exploring the allShades dataset:</p>
+<ul>
+<li>6816 rows of data in the allShades dataset</li>
+<li>Name was missing from 1861 rows and 1219 unique names</li>
+<li>Hue values were mostly around ~25 with a blue shade outlier ~230.</li>
+<li>Initially, I performed some kmeans analysis but decided the clusters were not insightful</li>
+</ul>
+<p>The initial EDA was performed primarily by using the <code>skimr</code> package.</p>
+<pre class="r"><code>skimr::skim(allShades)</code></pre>
+<table>
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">allShades</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">6816</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">13</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">character</td>
+<td align="left">10</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">empty</th>
+<th align="right">n_unique</th>
+<th align="right">whitespace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">brand</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="right">27</td>
+<td align="right">0</td>
+<td align="right">107</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">product</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">13</td>
+<td align="right">84</td>
+<td align="right">0</td>
+<td align="right">328</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">url</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">63</td>
+<td align="right">170</td>
+<td align="right">0</td>
+<td align="right">328</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">description</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="right">112</td>
+<td align="right">0</td>
+<td align="right">5623</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">imgSrc</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">32</td>
+<td align="right">54</td>
+<td align="right">0</td>
+<td align="right">6816</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">imgAlt</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="right">125</td>
+<td align="right">0</td>
+<td align="right">5802</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">name</td>
+<td align="right">1861</td>
+<td align="right">0.73</td>
+<td align="right">1</td>
+<td align="right">64</td>
+<td align="right">0</td>
+<td align="right">1219</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">specific</td>
+<td align="right">1911</td>
+<td align="right">0.72</td>
+<td align="right">1</td>
+<td align="right">12</td>
+<td align="right">0</td>
+<td align="right">1723</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">colorspace</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">hex</td>
+<td align="right">0</td>
+<td align="right">1.00</td>
+<td align="right">7</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">6254</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">hue</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">24.86</td>
+<td align="right">6.05</td>
+<td align="right">0.00</td>
+<td align="right">21.82</td>
+<td align="right">25.33</td>
+<td align="right">28.39</td>
+<td align="right">230.4</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">sat</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.52</td>
+<td align="right">0.16</td>
+<td align="right">0.00</td>
+<td align="right">0.41</td>
+<td align="right">0.50</td>
+<td align="right">0.61</td>
+<td align="right">1.0</td>
+<td align="left">▁▃▇▃▁</td>
+</tr>
+<tr class="odd">
+<td align="left">lightness</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.63</td>
+<td align="right">0.16</td>
+<td align="right">0.15</td>
+<td align="right">0.52</td>
+<td align="right">0.66</td>
+<td align="right">0.76</td>
+<td align="right">1.0</td>
+<td align="left">▁▃▅▇▂</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>head(allShades, 5)</code></pre>
+<pre><code>## # A tibble: 5 x 13
+##   brand  product url   description imgSrc imgAlt name  specific colorspace hex  
+##   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;
+## 1 Anast~ Lumino~ http~ 355N (medi~ https~ 355N ~ &lt;NA&gt;  355N     RGB        #A06~
+## 2 Anast~ Lumino~ http~ 100N (very~ https~ 100N ~ &lt;NA&gt;  100N     RGB        #F1E~
+## 3 Anast~ Lumino~ http~ 110C (very~ https~ 110C ~ &lt;NA&gt;  110C     RGB        #F0E~
+## 4 Anast~ Lumino~ http~ 120W (very~ https~ 120W ~ &lt;NA&gt;  120W     RGB        #EFD~
+## 5 Anast~ Lumino~ http~ 130N (very~ https~ 130N ~ &lt;NA&gt;  130N     RGB        #D5C~
+## # ... with 3 more variables: hue &lt;dbl&gt;, sat &lt;dbl&gt;, lightness &lt;dbl&gt;</code></pre>
+</div>
+<div id="visualize" class="section level3">
+<h3>Visualize</h3>
+<p>A quick visualization of the makeup shades color distribution as a function of saturation and lightness. The colors were set from the hex code contained in the <code>hex</code> column and using the imgSrc as the unique identifier. Notice the blue shade outlier. Similar plots were created for hue vs. saturation and hue vs. lightness.</p>
+<pre class="r"><code>makeup_colors &lt;- allShades$hex
+names(makeup_colors) &lt;- allShades$imgSrc
+
+allShades %&gt;%
+  ggplot(aes(x = lightness, y = sat, color = imgSrc)) +
+    geom_point(size = 3) +
+    scale_color_manual(values = makeup_colors, guide = FALSE) +
+  labs(title = &quot;Makeup Shades in allShades Dataset&quot;,
+       x = &quot;Saturation&quot;,
+       y = &quot;Lightness&quot;) +
+  theme_gray() +
+  theme(panel.grid = element_blank())</code></pre>
+<p><img src="2021-03-30_tt_MakeupShades_files/figure-html/Visualize-1.png" width="672" /></p>
+</div>
+<div id="modeling" class="section level3">
+<h3>Modeling</h3>
+<p>A tidymodels approach was used for creating three separate models correlating term frequency for the makeup shade name to hue, saturation and lightness. The first step was to create recipes to prepare the data for modeling. The recipe contained steps from the <code>textrecipes</code> package to tokenize the name terms (step_tokenize) and also calculate the term frequency (step_tf). The term frequency step is required in order to create a linear regression model.</p>
+<p>Create the three, pre-processing recipes.</p>
+<pre class="r"><code>hue_rec &lt;- recipe(hue ~ name, data = allShades) %&gt;%
+  step_naomit(name) %&gt;%
+  step_tokenize(name) %&gt;%
+  step_tf(name)
+
+sat_rec &lt;- recipe(sat ~ name, data = allShades) %&gt;%
+  step_naomit(name) %&gt;%
+  step_tokenize(name) %&gt;%
+  step_tf(name)
+
+lightness_rec &lt;- recipe(lightness ~ name, data = allShades) %&gt;%
+  step_naomit(name) %&gt;%
+  step_tokenize(name) %&gt;%
+  step_tf(name)</code></pre>
+<p>The modeling specification is defined next. We will use a linear regression model from the <code>glmnet</code> package.</p>
+<pre class="r"><code>shades_spec &lt;- linear_reg(penalty = 0, mixture = NULL) %&gt;%
+  set_engine(&quot;glmnet&quot;)</code></pre>
+<p>Transforming the terms from the makeup shade name to a wide matrix for purpose of modeling creates a sparse table (most values are 0). The most efficient manner for working with this type of table is to convert to a sparse matrix. For the tidymodels approach, the <code>hardhat</code> package is required to define the sparse matrix (i.e. dgCMatrix) as the default blueprint.</p>
+<pre class="r"><code>sparse_bp &lt;- default_recipe_blueprint(composition = &quot;dgCMatrix&quot;)</code></pre>
+<p>Workflows are then established for each model to specify the recipe, sparse blueprint and model specification.</p>
+<pre class="r"><code>wf_hue &lt;- 
+  workflow() %&gt;%
+  add_recipe(hue_rec, blueprint = sparse_bp) %&gt;%
+  add_model(shades_spec)
+
+wf_sat &lt;- 
+  workflow() %&gt;%
+  add_recipe(sat_rec, blueprint = sparse_bp) %&gt;%
+  add_model(shades_spec)
+
+wf_lightness &lt;- 
+  workflow() %&gt;%
+  add_recipe(lightness_rec, blueprint = sparse_bp) %&gt;%
+  add_model(shades_spec)</code></pre>
+<p>The models are then fit on the whole dataset instead of splitting into training and testing. I am really just want to get an idea of the effect of different terms on the HSL color. Splitting would cause some issues with terms with low frequencies that I didn’t feel was worth the clean-up time for this rather silly purpose.</p>
+<pre class="r"><code>hue_results &lt;- fit(wf_hue, data = allShades)
+sat_results &lt;- fit(wf_sat, data = allShades)
+lightness_results &lt;- fit(wf_lightness, data = allShades)</code></pre>
+<p>The model coefficients were then gathered into a single tibble for subsequent calculations. Terms with 2 or fewer characters were dropped from the tibble because they didn’t make for interesting word pairings.</p>
+<pre class="r"><code>final_effect &lt;- tidy(hue_results, penalty = 0) %&gt;%
+  rename(hue = estimate) %&gt;%
+  select(term, hue) %&gt;%
+  left_join(tidy(sat_results) %&gt;% select(term, sat = estimate), by = &quot;term&quot;) %&gt;%
+  left_join(tidy(lightness_results) %&gt;% select(term, lightness = estimate), by = &quot;term&quot;) %&gt;%
+  mutate(term = str_replace(term, &quot;tf_name_&quot;, &quot;&quot;)) %&gt;%
+  filter(str_length(term) &gt; 2)
+
+final_effect</code></pre>
+<pre><code>## # A tibble: 625 x 4
+##    term           hue     sat lightness
+##    &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+##  1 (Intercept) 24.1    0.522     0.658 
+##  2 abundant    -4.01  -0.0783   -0.0789
+##  3 accra        0.893 -0.0116   -0.233 
+##  4 aglow        4.60  -0.0107    0.243 
+##  5 airflash     0      0         0.0374
+##  6 alabaster    0.457  0.125     0.160 
+##  7 alaska       5.80  -0.0503    0.139 
+##  8 alex         0.460 -0.150    -0.0423
+##  9 alexandria   4.72   0.0189    0.0394
+## 10 allie        1.65  -0.122     0.0198
+## # ... with 615 more rows</code></pre>
+<p>The model intercept terms were then collected as the base HSL color.</p>
+<pre class="r"><code>intercept &lt;- final_effect %&gt;% filter(term == &quot;(Intercept)&quot;) %&gt;% .[2:4] %&gt;% unlist</code></pre>
+<p>A palette of new shades was then created by randomly selecting 40 terms. The terms were joined with their HSL effects from the combined model effect tibble. The new makeup shade names were created by pairing two terms. The makeup shade HSL was calculated by adding the combined word-pair effect to the base color (intercept). Finally, the HSL values were converted to its corresponding hex code using hte <code>hsl2col</code> function from the <code>plotwidgets</code> package.</p>
+<pre class="r"><code>set.seed(345)
+
+unique_palette &lt;- tibble(term = sample(final_effect$term, 40), title = rep(c(1:20), each = 2)) %&gt;%
+  left_join(final_effect, by = &quot;term&quot;) %&gt;%
+  group_by(title) %&gt;%
+  mutate(title_name = str_to_title(paste(term, collapse = &quot; &quot;)),
+         across(.cols = c(hue, sat, lightness), sum)) %&gt;%
+  ungroup() %&gt;%
+  select(title = title_name, hue, sat, lightness) %&gt;%
+  distinct() %&gt;%
+  rowwise() %&gt;%
+  mutate(hue = hue + intercept[&quot;hue&quot;],
+         sat = sat + intercept[&quot;sat&quot;],
+         lightness = lightness + intercept[&quot;lightness&quot;]) %&gt;%
+  mutate(hex_color = hsl2col(as.matrix(c(hue, sat, lightness)))) %&gt;%
+  ungroup()
+
+unique_palette %&gt;% arrange(lightness)</code></pre>
+<pre><code>## # A tibble: 20 x 5
+##    title                   hue   sat lightness hex_color
+##    &lt;chr&gt;                 &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;    
+##  1 Tawnied Strong        14.2  0.647     0.255 #6B2B17  
+##  2 Orange Sports         23.5  0.583     0.375 #975428  
+##  3 Kamari Coccoa         16.9  0.358     0.389 #875440  
+##  4 Dore Trusted          -6.57 0.257     0.412 #4E4E4E  
+##  5 Xia Macadamia         20.6  0.427     0.426 #9B5E3E  
+##  6 Faith Dequan          19.5  0.410     0.450 #A26244  
+##  7 Warm Powerful         22.6  0.587     0.487 #C56A33  
+##  8 Vanilla Mocha         23.1  0.435     0.533 #BC7C54  
+##  9 Radiant Café          27.6  0.464     0.537 #C08552  
+## 10 Beach Terra           26.6  0.573     0.562 #CF884F  
+## 11 Rich Paloma           22.9  0.538     0.587 #CE885D  
+## 12 Angel Deep            25.1  0.495     0.602 #CC9167  
+## 13 Maricao Joy           27.4  0.549     0.671 #D9A77D  
+## 14 Sandstone Cheesecake  32.7  0.544     0.686 #DBB383  
+## 15 Fiji Valencia         33.6  0.781     0.734 #F0C286  
+## 16 Aruba Sateen          30.2  0.674     0.763 #EBC39A  
+## 17 Water Vanillé         29.9  0.735     0.771 #F0C49A  
+## 18 Puff Fauxfilter       24.2  0.659     0.810 #EEC8AE  
+## 19 Honey Yfair           33.8  0.399     0.846 #E7DAC8  
+## 20 Stefania Supernatural 19.6  0.552     0.906 #F4E2DA</code></pre>
+<p>The resulting palette could then be visualized using a bar chart.</p>
+<pre class="r"><code>unique_colors &lt;- unique_palette$hex_color
+names(unique_colors) &lt;- unique_palette$title
+
+unique_palette %&gt;%
+  mutate(title = fct_reorder(title, lightness)) %&gt;%
+  ggplot(aes(x = 10, y = title, fill = title)) +
+  geom_col() +
+  scale_fill_manual(values = unique_colors, guide = FALSE)</code></pre>
+<p><img src="2021-03-30_tt_MakeupShades_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>The final graphic was cleaned up by separating the makeup shades into two columns and reordering by lightness. The font used for the title and subtitle was changed to a more elegant style, background set to a faint pink and axis line formatting removed.</p>
+<p>First set of 10 shades.</p>
+<pre class="r"><code>p10 &lt;- unique_palette[1:10,] %&gt;%
+  mutate(title = fct_reorder(title, lightness)) %&gt;%
+  ggplot(aes(x = 10, y = title, fill = title)) +
+  geom_col() +
+  scale_fill_manual(values = unique_colors[1:10], guide = FALSE) +
+  theme(axis.line.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_text(family = &quot;sans&quot;, size =10))</code></pre>
+<p>Second set of 10 shades.</p>
+<pre class="r"><code>p11 &lt;- unique_palette[11:20,] %&gt;%
+  mutate(title = fct_reorder(title, lightness)) %&gt;%
+  ggplot(aes(x = 10, y = title, fill = title)) +
+  geom_col() +
+  scale_fill_manual(values = unique_colors[11:20], guide = FALSE) +
+  theme(axis.line.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_text(family = &quot;sans&quot;, size =10))</code></pre>
+<p>Combine with <code>patchwork</code> package and add additional text elements.</p>
+<pre class="r"><code>(p10 + p11) +
+  plot_annotation(theme = theme(plot.background = element_rect(fill = &quot;#fcebed&quot;),
+                                plot.title = element_text(family = &quot;Great Vibes&quot;, size = 24),
+                                plot.subtitle = element_text(family = &quot;Great Vibes&quot;, size = 16),
+                                plot.caption = element_text(size = 8)),
+    title = &quot;From the datadavidz beauty collection&quot;,
+    subtitle = &quot;20 Unique Shades Crafted from Random Word Pairings and Linear Model Coefficients&quot;,
+    caption = &quot;Graphic: @datadavidz | Source: The Pudding | #TidyTuesday&quot;)</code></pre>
+<p><img src="2021-03-30_tt_MakeupShades_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<p>The resulting graphic is a somewhat funny and informative look at the effect of certain terms on the resulting make-up color. I ran the random selection quite a few times and obtained many interesting insights. I did notice that certain word-pairs resulted in values that no longer were within the standard HSL range and therefore could not be displayed. This error could be addressed by including some checks to prevent the predicted HSL values from exceeding certain limits. Overall, a fun way to try out new tidymodel features.</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCg0KPGJyPg0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSwNCiAgICAgICAgICAgICAgICAgICAgICBmaWcuc2hvd3RleHQgPSBUUlVFKQ0KDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkodGlkeW1vZGVscykNCmxpYnJhcnkodGV4dHJlY2lwZXMpDQpsaWJyYXJ5KGhhcmRoYXQpDQpsaWJyYXJ5KHBsb3R3aWRnZXRzKQ0KbGlicmFyeShzaG93dGV4dCkNCmxpYnJhcnkocGF0Y2h3b3JrKQ0KDQp0aGVtZV9zZXQodGhlbWVfbWluaW1hbCgpKQ0KDQpmb250X2FkZF9nb29nbGUobmFtZSA9ICJHcmVhdCBWaWJlcyIsIGZhbWlseSA9ICJHcmVhdCBWaWJlcyIpDQpzaG93dGV4dF9hdXRvKCkNCmBgYA0KDQojIyAqKlRpZHlUdWVzZGF5OiBNYWtlLXVwIENvbG9yIFNoYWRlcyoqDQoNCipQb3N0ZWQgb24gTWFyY2ggMzAsIDIwMjEqDQoNCkEgcXVpY2sgYW5hbHlzaXMgb2YgdGhlIHdlZWtseSBbXCNUaWR5VHVlc2RheV0oaHR0cDovL2dpdGh1Yi5jb20vcmZvcmRhdGFzY2llbmNlL3RpZHl0dWVzZGF5KSBkYXRhc2V0IG9yZ2FuaXplZCBieSB0aGUgUjREUyBPbmxpbmUgTGVhcm5pbmcgQ29tbXVuaXR5LiBNeSBhcHByb2FjaCBpcyB0byBhcHBseSBteSBkYXRhIHNjaWVuY2Ugc2tpbGxzIHRvIGV4cGxvcmUgb25lIHF1ZXN0aW9uIEkgaGF2ZSBhYm91dCB0aGUgZGF0YSBhbmQgZ2VuZXJhdGUgYSB2aXN1YWxpemF0aW9uIHRoYXQgYWRkcmVzc2VzIHRoaXMgcXVlc3Rpb24uIFRoZSBtYWluIHB1cnBvc2UgZm9yIG1lIGlzIHRvIHByYWN0aWNlIGFuZCB0cnkgb3V0IG5ldyB0aGluZ3MuIEkgYW0gbmV2ZXIgY29tcGxldGVseSBzYXRpc2ZpZWQgd2l0aCB0aGUgZW5kIHJlc3VsdCBidXQgSSBkbyB0aGUgYmVzdCBJIGNhbiBpbiBhIHNob3J0IHBlcmlvZCBvZiB0aW1lLg0KDQoqKldoYXQgSSBsZWFybmVkIHRoaXMgd2VlayBhYm91dCBSIGFuZCB0aGUgVGlkeXZlcnNlKioNCg0KLSAgIFRva2VuaXppbmcgYSBzdHJpbmcgY29sdW1uIHRvIGJlIHVzZWQgYXMgbW9kZWxpbmcgdmFyaWFibGVzIHVzaW5nIGBgYHRleHRyZWNpcGVzYGBgDQotICAgVXNpbmcgYSBzcGFyc2UgZGF0YSBtYXRyaXggd2l0aCB0aWR5bW9kZWxzIHRvIGltcHJvdmUgc3BlZWQgYW5kIHJlZHVjZSBtZW1vcnkgYWxsb2NhdGlvbiB1c2luZyBgYGBoYXJkaGF0YGBgDQotICAgQ29udmVydGluZyBiZXR3ZWVuIGNvbG9yc3BhY2VzIHVzaW5nIGBgYGhzbDJjb2xgYGAgZnVuY3Rpb24gZnJvbSBgYGBwbG90d2lkZ2V0c2BgYA0KDQoqKkJyaWVmIGV4cGxhbmF0aW9uIG9mIHRoZSBkYXRhc2V0KioNCg0KVGhpcyBkYXRhc2V0IGNvbWVzIGZyb20gW1RoZSBQdWRkaW5nXShodHRwczovL3B1ZGRpbmcuY29vbC8yMDIxLzAzL2ZvdW5kYXRpb24tbmFtZXMvKSBhbmQgYW4gYWNjb21wYW55aW5nIGFydGljbGUgd2hpY2ggZXhwbG9yZXMgdGhlIG51bWJlcmluZyBzeXN0ZW0gdXNlZCBieSBjb3NtZXRpYyBicmFuZHMuICBUaGUgb2JzZXJ2YXRpb24gd2FzIHRoYXQgbW9zdCBicmFuZHMgcHV0IHRoZWlyIGxpZ2h0ZXIgc2hhZGVzIGF0IHRoZSB0b3Agb2YgdGhlIHNlcXVlbmNlLiAgU2V2ZXJhbCBkYXRhc2V0cyB3ZXJlIHByb3ZpZGVkIGhvd2V2ZXIgSSBmb2N1c2VkIG9uIHRoZSBhbGxTaGFkZXMgZGF0YXNldCB3aGljaCBjb250YWlucyB0aGUgbmFtZXMgYW5kIEhTTCAoaHVlLCBzYXR1cmF0aW9uIGFuZCBsaWdodG5lc3MpIHZhbHVlcyBmb3IgZWFjaCBtYWtldXAgc2hhZGUuICBJIHdhcyBpbnRlcmVzdGVkIGluIGNyZWF0aW5nIHJhbmRvbSB3b3JkIHBhaXJpbmdzIGZyb20gdGhlIGV4aXN0aW5nIG5hbWVzIGFuZCB0aGVuIHByZWRpY3RpbmcgdGhlIGNvbG9yIGJhc2VkIG9uIGEgbW9kZWwgb2YgdGhlIGV4aXN0aW5nIGRhdGEuICBUaGUgaWRlYSB3YXMgYWRtaXR0ZWRseSBub3QgYSBzZXJpb3VzIGVuZGVhdm9yIGJ1dCBsZWQgdG8gc29tZSBuaWNlIGxlYXJuaW5ncyBmb3IgbWUuDQoNCmBgYHtyIExvYWQsIGluY2x1ZGUgPSBGQUxTRX0NCiNTYXZlIG5lZWRlZCBkYXRhIGludG8gcmRzIGZvciBibG9nIHBvc3QNCmFsbFNoYWRlcyA8LSByZWFkUkRTKCIuL2RhdGEvdHRfMjEwMzMwLnJkcyIpDQpgYGANCg0KIyMjIFdyYW5nbGUNCg0KSW5pdGlhbCBjb25jbHVzaW9ucyBmcm9tIGV4cGxvcmluZyB0aGUgYWxsU2hhZGVzIGRhdGFzZXQ6ICANCg0KKiA2ODE2IHJvd3Mgb2YgZGF0YSBpbiB0aGUgYWxsU2hhZGVzIGRhdGFzZXQNCiogTmFtZSB3YXMgbWlzc2luZyBmcm9tIDE4NjEgcm93cyBhbmQgMTIxOSB1bmlxdWUgbmFtZXMNCiogSHVlIHZhbHVlcyB3ZXJlIG1vc3RseSBhcm91bmQgfjI1IHdpdGggYSBibHVlIHNoYWRlIG91dGxpZXIgfjIzMC4NCiogSW5pdGlhbGx5LCBJIHBlcmZvcm1lZCBzb21lIGttZWFucyBhbmFseXNpcyBidXQgZGVjaWRlZCB0aGUgY2x1c3RlcnMgd2VyZSBub3QgaW5zaWdodGZ1bA0KDQpUaGUgaW5pdGlhbCBFREEgd2FzIHBlcmZvcm1lZCBwcmltYXJpbHkgYnkgdXNpbmcgdGhlIGBgYHNraW1yYGBgIHBhY2thZ2UuDQpgYGB7cn0NCnNraW1yOjpza2ltKGFsbFNoYWRlcykNCmhlYWQoYWxsU2hhZGVzLCA1KQ0KYGBgDQoNCiMjIyBWaXN1YWxpemUNCg0KQSBxdWljayB2aXN1YWxpemF0aW9uIG9mIHRoZSBtYWtldXAgc2hhZGVzIGNvbG9yIGRpc3RyaWJ1dGlvbiBhcyBhIGZ1bmN0aW9uIG9mIHNhdHVyYXRpb24gYW5kIGxpZ2h0bmVzcy4gIFRoZSBjb2xvcnMgd2VyZSBzZXQgZnJvbSB0aGUgaGV4IGNvZGUgY29udGFpbmVkIGluIHRoZSBgYGBoZXhgYGAgY29sdW1uIGFuZCB1c2luZyB0aGUgaW1nU3JjIGFzIHRoZSB1bmlxdWUgaWRlbnRpZmllci4gIE5vdGljZSB0aGUgYmx1ZSBzaGFkZSBvdXRsaWVyLiAgU2ltaWxhciBwbG90cyB3ZXJlIGNyZWF0ZWQgZm9yIGh1ZSB2cy4gc2F0dXJhdGlvbiBhbmQgaHVlIHZzLiBsaWdodG5lc3MuDQoNCmBgYHtyIFZpc3VhbGl6ZX0NCm1ha2V1cF9jb2xvcnMgPC0gYWxsU2hhZGVzJGhleA0KbmFtZXMobWFrZXVwX2NvbG9ycykgPC0gYWxsU2hhZGVzJGltZ1NyYw0KDQphbGxTaGFkZXMgJT4lDQogIGdncGxvdChhZXMoeCA9IGxpZ2h0bmVzcywgeSA9IHNhdCwgY29sb3IgPSBpbWdTcmMpKSArDQogICAgZ2VvbV9wb2ludChzaXplID0gMykgKw0KICAgIHNjYWxlX2NvbG9yX21hbnVhbCh2YWx1ZXMgPSBtYWtldXBfY29sb3JzLCBndWlkZSA9IEZBTFNFKSArDQogIGxhYnModGl0bGUgPSAiTWFrZXVwIFNoYWRlcyBpbiBhbGxTaGFkZXMgRGF0YXNldCIsDQogICAgICAgeCA9ICJTYXR1cmF0aW9uIiwNCiAgICAgICB5ID0gIkxpZ2h0bmVzcyIpICsNCiAgdGhlbWVfZ3JheSgpICsNCiAgdGhlbWUocGFuZWwuZ3JpZCA9IGVsZW1lbnRfYmxhbmsoKSkNCmBgYA0KDQojIyMgTW9kZWxpbmcNCg0KQSB0aWR5bW9kZWxzIGFwcHJvYWNoIHdhcyB1c2VkIGZvciBjcmVhdGluZyB0aHJlZSBzZXBhcmF0ZSBtb2RlbHMgY29ycmVsYXRpbmcgdGVybSBmcmVxdWVuY3kgZm9yIHRoZSBtYWtldXAgc2hhZGUgbmFtZSB0byBodWUsIHNhdHVyYXRpb24gYW5kIGxpZ2h0bmVzcy4gIFRoZSBmaXJzdCBzdGVwIHdhcyB0byBjcmVhdGUgcmVjaXBlcyB0byBwcmVwYXJlIHRoZSBkYXRhIGZvciBtb2RlbGluZy4gIFRoZSByZWNpcGUgY29udGFpbmVkIHN0ZXBzIGZyb20gdGhlIGBgYHRleHRyZWNpcGVzYGBgIHBhY2thZ2UgdG8gdG9rZW5pemUgdGhlIG5hbWUgdGVybXMgKHN0ZXBfdG9rZW5pemUpIGFuZCBhbHNvIGNhbGN1bGF0ZSB0aGUgdGVybSBmcmVxdWVuY3kgKHN0ZXBfdGYpLiAgVGhlIHRlcm0gZnJlcXVlbmN5IHN0ZXAgaXMgcmVxdWlyZWQgaW4gb3JkZXIgdG8gY3JlYXRlIGEgbGluZWFyIHJlZ3Jlc3Npb24gbW9kZWwuDQoNCkNyZWF0ZSB0aGUgdGhyZWUsIHByZS1wcm9jZXNzaW5nIHJlY2lwZXMuDQpgYGB7cn0NCmh1ZV9yZWMgPC0gcmVjaXBlKGh1ZSB+IG5hbWUsIGRhdGEgPSBhbGxTaGFkZXMpICU+JQ0KICBzdGVwX25hb21pdChuYW1lKSAlPiUNCiAgc3RlcF90b2tlbml6ZShuYW1lKSAlPiUNCiAgc3RlcF90ZihuYW1lKQ0KDQpzYXRfcmVjIDwtIHJlY2lwZShzYXQgfiBuYW1lLCBkYXRhID0gYWxsU2hhZGVzKSAlPiUNCiAgc3RlcF9uYW9taXQobmFtZSkgJT4lDQogIHN0ZXBfdG9rZW5pemUobmFtZSkgJT4lDQogIHN0ZXBfdGYobmFtZSkNCg0KbGlnaHRuZXNzX3JlYyA8LSByZWNpcGUobGlnaHRuZXNzIH4gbmFtZSwgZGF0YSA9IGFsbFNoYWRlcykgJT4lDQogIHN0ZXBfbmFvbWl0KG5hbWUpICU+JQ0KICBzdGVwX3Rva2VuaXplKG5hbWUpICU+JQ0KICBzdGVwX3RmKG5hbWUpDQpgYGANCg0KVGhlIG1vZGVsaW5nIHNwZWNpZmljYXRpb24gaXMgZGVmaW5lZCBuZXh0LiAgV2Ugd2lsbCB1c2UgYSBsaW5lYXIgcmVncmVzc2lvbiBtb2RlbCBmcm9tIHRoZSBgYGBnbG1uZXRgYGAgcGFja2FnZS4NCmBgYHtyfQ0Kc2hhZGVzX3NwZWMgPC0gbGluZWFyX3JlZyhwZW5hbHR5ID0gMCwgbWl4dHVyZSA9IE5VTEwpICU+JQ0KICBzZXRfZW5naW5lKCJnbG1uZXQiKQ0KYGBgDQoNClRyYW5zZm9ybWluZyB0aGUgdGVybXMgZnJvbSB0aGUgbWFrZXVwIHNoYWRlIG5hbWUgdG8gYSB3aWRlIG1hdHJpeCBmb3IgcHVycG9zZSBvZiBtb2RlbGluZyBjcmVhdGVzIGEgc3BhcnNlIHRhYmxlIChtb3N0IHZhbHVlcyBhcmUgMCkuICBUaGUgbW9zdCBlZmZpY2llbnQgbWFubmVyIGZvciB3b3JraW5nIHdpdGggdGhpcyB0eXBlIG9mIHRhYmxlIGlzIHRvIGNvbnZlcnQgdG8gYSBzcGFyc2UgbWF0cml4LiAgRm9yIHRoZSB0aWR5bW9kZWxzIGFwcHJvYWNoLCB0aGUgYGBgaGFyZGhhdGBgYCBwYWNrYWdlIGlzIHJlcXVpcmVkIHRvIGRlZmluZSB0aGUgc3BhcnNlIG1hdHJpeCAoaS5lLiBkZ0NNYXRyaXgpIGFzIHRoZSBkZWZhdWx0IGJsdWVwcmludC4NCmBgYHtyfQ0Kc3BhcnNlX2JwIDwtIGRlZmF1bHRfcmVjaXBlX2JsdWVwcmludChjb21wb3NpdGlvbiA9ICJkZ0NNYXRyaXgiKQ0KYGBgDQoNCldvcmtmbG93cyBhcmUgdGhlbiBlc3RhYmxpc2hlZCBmb3IgZWFjaCBtb2RlbCB0byBzcGVjaWZ5IHRoZSByZWNpcGUsIHNwYXJzZSBibHVlcHJpbnQgYW5kIG1vZGVsIHNwZWNpZmljYXRpb24uDQpgYGB7cn0NCndmX2h1ZSA8LSANCiAgd29ya2Zsb3coKSAlPiUNCiAgYWRkX3JlY2lwZShodWVfcmVjLCBibHVlcHJpbnQgPSBzcGFyc2VfYnApICU+JQ0KICBhZGRfbW9kZWwoc2hhZGVzX3NwZWMpDQoNCndmX3NhdCA8LSANCiAgd29ya2Zsb3coKSAlPiUNCiAgYWRkX3JlY2lwZShzYXRfcmVjLCBibHVlcHJpbnQgPSBzcGFyc2VfYnApICU+JQ0KICBhZGRfbW9kZWwoc2hhZGVzX3NwZWMpDQoNCndmX2xpZ2h0bmVzcyA8LSANCiAgd29ya2Zsb3coKSAlPiUNCiAgYWRkX3JlY2lwZShsaWdodG5lc3NfcmVjLCBibHVlcHJpbnQgPSBzcGFyc2VfYnApICU+JQ0KICBhZGRfbW9kZWwoc2hhZGVzX3NwZWMpDQpgYGANCg0KVGhlIG1vZGVscyBhcmUgdGhlbiBmaXQgb24gdGhlIHdob2xlIGRhdGFzZXQgaW5zdGVhZCBvZiBzcGxpdHRpbmcgaW50byB0cmFpbmluZyBhbmQgdGVzdGluZy4gIEkgYW0gcmVhbGx5IGp1c3Qgd2FudCB0byBnZXQgYW4gaWRlYSBvZiB0aGUgZWZmZWN0IG9mIGRpZmZlcmVudCB0ZXJtcyBvbiB0aGUgSFNMIGNvbG9yLiAgU3BsaXR0aW5nIHdvdWxkIGNhdXNlIHNvbWUgaXNzdWVzIHdpdGggdGVybXMgd2l0aCBsb3cgZnJlcXVlbmNpZXMgdGhhdCBJIGRpZG4ndCBmZWVsIHdhcyB3b3J0aCB0aGUgY2xlYW4tdXAgdGltZSBmb3IgdGhpcyByYXRoZXIgc2lsbHkgcHVycG9zZS4NCmBgYHtyLCBtZXNzYWdlPUZBTFNFfQ0KaHVlX3Jlc3VsdHMgPC0gZml0KHdmX2h1ZSwgZGF0YSA9IGFsbFNoYWRlcykNCnNhdF9yZXN1bHRzIDwtIGZpdCh3Zl9zYXQsIGRhdGEgPSBhbGxTaGFkZXMpDQpsaWdodG5lc3NfcmVzdWx0cyA8LSBmaXQod2ZfbGlnaHRuZXNzLCBkYXRhID0gYWxsU2hhZGVzKQ0KYGBgDQoNClRoZSBtb2RlbCBjb2VmZmljaWVudHMgd2VyZSB0aGVuIGdhdGhlcmVkIGludG8gYSBzaW5nbGUgdGliYmxlIGZvciBzdWJzZXF1ZW50IGNhbGN1bGF0aW9ucy4gIFRlcm1zIHdpdGggMiBvciBmZXdlciBjaGFyYWN0ZXJzIHdlcmUgZHJvcHBlZCBmcm9tIHRoZSB0aWJibGUgYmVjYXVzZSB0aGV5IGRpZG4ndCBtYWtlIGZvciBpbnRlcmVzdGluZyB3b3JkIHBhaXJpbmdzLg0KYGBge3IsIG1lc3NhZ2U9RkFMU0V9DQpmaW5hbF9lZmZlY3QgPC0gdGlkeShodWVfcmVzdWx0cywgcGVuYWx0eSA9IDApICU+JQ0KICByZW5hbWUoaHVlID0gZXN0aW1hdGUpICU+JQ0KICBzZWxlY3QodGVybSwgaHVlKSAlPiUNCiAgbGVmdF9qb2luKHRpZHkoc2F0X3Jlc3VsdHMpICU+JSBzZWxlY3QodGVybSwgc2F0ID0gZXN0aW1hdGUpLCBieSA9ICJ0ZXJtIikgJT4lDQogIGxlZnRfam9pbih0aWR5KGxpZ2h0bmVzc19yZXN1bHRzKSAlPiUgc2VsZWN0KHRlcm0sIGxpZ2h0bmVzcyA9IGVzdGltYXRlKSwgYnkgPSAidGVybSIpICU+JQ0KICBtdXRhdGUodGVybSA9IHN0cl9yZXBsYWNlKHRlcm0sICJ0Zl9uYW1lXyIsICIiKSkgJT4lDQogIGZpbHRlcihzdHJfbGVuZ3RoKHRlcm0pID4gMikNCg0KZmluYWxfZWZmZWN0DQpgYGANCg0KVGhlIG1vZGVsIGludGVyY2VwdCB0ZXJtcyB3ZXJlIHRoZW4gY29sbGVjdGVkIGFzIHRoZSBiYXNlIEhTTCBjb2xvci4NCmBgYHtyfQ0KaW50ZXJjZXB0IDwtIGZpbmFsX2VmZmVjdCAlPiUgZmlsdGVyKHRlcm0gPT0gIihJbnRlcmNlcHQpIikgJT4lIC5bMjo0XSAlPiUgdW5saXN0DQpgYGANCg0KQSBwYWxldHRlIG9mIG5ldyBzaGFkZXMgd2FzIHRoZW4gY3JlYXRlZCBieSByYW5kb21seSBzZWxlY3RpbmcgNDAgdGVybXMuICBUaGUgdGVybXMgd2VyZSBqb2luZWQgd2l0aCB0aGVpciBIU0wgZWZmZWN0cyBmcm9tIHRoZSBjb21iaW5lZCBtb2RlbCBlZmZlY3QgdGliYmxlLiAgVGhlIG5ldyBtYWtldXAgc2hhZGUgbmFtZXMgd2VyZSBjcmVhdGVkIGJ5IHBhaXJpbmcgdHdvIHRlcm1zLiAgVGhlIG1ha2V1cCBzaGFkZSBIU0wgd2FzIGNhbGN1bGF0ZWQgYnkgYWRkaW5nIHRoZSBjb21iaW5lZCB3b3JkLXBhaXIgZWZmZWN0IHRvIHRoZSBiYXNlIGNvbG9yIChpbnRlcmNlcHQpLiAgRmluYWxseSwgdGhlIEhTTCB2YWx1ZXMgd2VyZSBjb252ZXJ0ZWQgdG8gaXRzIGNvcnJlc3BvbmRpbmcgaGV4IGNvZGUgdXNpbmcgaHRlIGBgYGhzbDJjb2xgYGAgZnVuY3Rpb24gZnJvbSB0aGUgYGBgcGxvdHdpZGdldHNgYGAgcGFja2FnZS4gDQpgYGB7cn0NCnNldC5zZWVkKDM0NSkNCg0KdW5pcXVlX3BhbGV0dGUgPC0gdGliYmxlKHRlcm0gPSBzYW1wbGUoZmluYWxfZWZmZWN0JHRlcm0sIDQwKSwgdGl0bGUgPSByZXAoYygxOjIwKSwgZWFjaCA9IDIpKSAlPiUNCiAgbGVmdF9qb2luKGZpbmFsX2VmZmVjdCwgYnkgPSAidGVybSIpICU+JQ0KICBncm91cF9ieSh0aXRsZSkgJT4lDQogIG11dGF0ZSh0aXRsZV9uYW1lID0gc3RyX3RvX3RpdGxlKHBhc3RlKHRlcm0sIGNvbGxhcHNlID0gIiAiKSksDQogICAgICAgICBhY3Jvc3MoLmNvbHMgPSBjKGh1ZSwgc2F0LCBsaWdodG5lc3MpLCBzdW0pKSAlPiUNCiAgdW5ncm91cCgpICU+JQ0KICBzZWxlY3QodGl0bGUgPSB0aXRsZV9uYW1lLCBodWUsIHNhdCwgbGlnaHRuZXNzKSAlPiUNCiAgZGlzdGluY3QoKSAlPiUNCiAgcm93d2lzZSgpICU+JQ0KICBtdXRhdGUoaHVlID0gaHVlICsgaW50ZXJjZXB0WyJodWUiXSwNCiAgICAgICAgIHNhdCA9IHNhdCArIGludGVyY2VwdFsic2F0Il0sDQogICAgICAgICBsaWdodG5lc3MgPSBsaWdodG5lc3MgKyBpbnRlcmNlcHRbImxpZ2h0bmVzcyJdKSAlPiUNCiAgbXV0YXRlKGhleF9jb2xvciA9IGhzbDJjb2woYXMubWF0cml4KGMoaHVlLCBzYXQsIGxpZ2h0bmVzcykpKSkgJT4lDQogIHVuZ3JvdXAoKQ0KDQp1bmlxdWVfcGFsZXR0ZSAlPiUgYXJyYW5nZShsaWdodG5lc3MpDQpgYGANCg0KVGhlIHJlc3VsdGluZyBwYWxldHRlIGNvdWxkIHRoZW4gYmUgdmlzdWFsaXplZCB1c2luZyBhIGJhciBjaGFydC4NCmBgYHtyfQ0KdW5pcXVlX2NvbG9ycyA8LSB1bmlxdWVfcGFsZXR0ZSRoZXhfY29sb3INCm5hbWVzKHVuaXF1ZV9jb2xvcnMpIDwtIHVuaXF1ZV9wYWxldHRlJHRpdGxlDQoNCnVuaXF1ZV9wYWxldHRlICU+JQ0KICBtdXRhdGUodGl0bGUgPSBmY3RfcmVvcmRlcih0aXRsZSwgbGlnaHRuZXNzKSkgJT4lDQogIGdncGxvdChhZXMoeCA9IDEwLCB5ID0gdGl0bGUsIGZpbGwgPSB0aXRsZSkpICsNCiAgZ2VvbV9jb2woKSArDQogIHNjYWxlX2ZpbGxfbWFudWFsKHZhbHVlcyA9IHVuaXF1ZV9jb2xvcnMsIGd1aWRlID0gRkFMU0UpDQpgYGANCg0KVGhlIGZpbmFsIGdyYXBoaWMgd2FzIGNsZWFuZWQgdXAgYnkgc2VwYXJhdGluZyB0aGUgbWFrZXVwIHNoYWRlcyBpbnRvIHR3byBjb2x1bW5zIGFuZCByZW9yZGVyaW5nIGJ5IGxpZ2h0bmVzcy4gIFRoZSBmb250IHVzZWQgZm9yIHRoZSB0aXRsZSBhbmQgc3VidGl0bGUgd2FzIGNoYW5nZWQgdG8gYSBtb3JlIGVsZWdhbnQgc3R5bGUsIGJhY2tncm91bmQgc2V0IHRvIGEgZmFpbnQgcGluayBhbmQgYXhpcyBsaW5lIGZvcm1hdHRpbmcgcmVtb3ZlZC4NCg0KRmlyc3Qgc2V0IG9mIDEwIHNoYWRlcy4NCmBgYHtyfQ0KcDEwIDwtIHVuaXF1ZV9wYWxldHRlWzE6MTAsXSAlPiUNCiAgbXV0YXRlKHRpdGxlID0gZmN0X3Jlb3JkZXIodGl0bGUsIGxpZ2h0bmVzcykpICU+JQ0KICBnZ3Bsb3QoYWVzKHggPSAxMCwgeSA9IHRpdGxlLCBmaWxsID0gdGl0bGUpKSArDQogIGdlb21fY29sKCkgKw0KICBzY2FsZV9maWxsX21hbnVhbCh2YWx1ZXMgPSB1bmlxdWVfY29sb3JzWzE6MTBdLCBndWlkZSA9IEZBTFNFKSArDQogIHRoZW1lKGF4aXMubGluZS54ID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBheGlzLnRleHQueCA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgYXhpcy50aXRsZS54ID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBheGlzLnRpdGxlLnkgPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIGF4aXMudGV4dC55ID0gZWxlbWVudF90ZXh0KGZhbWlseSA9ICJzYW5zIiwgc2l6ZSA9MTApKQ0KYGBgDQpTZWNvbmQgc2V0IG9mIDEwIHNoYWRlcy4NCmBgYHtyfQ0KcDExIDwtIHVuaXF1ZV9wYWxldHRlWzExOjIwLF0gJT4lDQogIG11dGF0ZSh0aXRsZSA9IGZjdF9yZW9yZGVyKHRpdGxlLCBsaWdodG5lc3MpKSAlPiUNCiAgZ2dwbG90KGFlcyh4ID0gMTAsIHkgPSB0aXRsZSwgZmlsbCA9IHRpdGxlKSkgKw0KICBnZW9tX2NvbCgpICsNCiAgc2NhbGVfZmlsbF9tYW51YWwodmFsdWVzID0gdW5pcXVlX2NvbG9yc1sxMToyMF0sIGd1aWRlID0gRkFMU0UpICsNCiAgdGhlbWUoYXhpcy5saW5lLnggPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIGF4aXMudGV4dC54ID0gZWxlbWVudF9ibGFuaygpLA0KICAgICAgICBheGlzLnRpdGxlLnggPSBlbGVtZW50X2JsYW5rKCksDQogICAgICAgIGF4aXMudGl0bGUueSA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICAgICAgYXhpcy50ZXh0LnkgPSBlbGVtZW50X3RleHQoZmFtaWx5ID0gInNhbnMiLCBzaXplID0xMCkpDQpgYGANCg0KQ29tYmluZSB3aXRoIGBgYHBhdGNod29ya2BgYCBwYWNrYWdlIGFuZCBhZGQgYWRkaXRpb25hbCB0ZXh0IGVsZW1lbnRzLg0KYGBge3J9DQoocDEwICsgcDExKSArDQogIHBsb3RfYW5ub3RhdGlvbih0aGVtZSA9IHRoZW1lKHBsb3QuYmFja2dyb3VuZCA9IGVsZW1lbnRfcmVjdChmaWxsID0gIiNmY2ViZWQiKSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGxvdC50aXRsZSA9IGVsZW1lbnRfdGV4dChmYW1pbHkgPSAiR3JlYXQgVmliZXMiLCBzaXplID0gMjQpLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwbG90LnN1YnRpdGxlID0gZWxlbWVudF90ZXh0KGZhbWlseSA9ICJHcmVhdCBWaWJlcyIsIHNpemUgPSAxNiksDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBsb3QuY2FwdGlvbiA9IGVsZW1lbnRfdGV4dChzaXplID0gOCkpLA0KICAgIHRpdGxlID0gIkZyb20gdGhlIGRhdGFkYXZpZHogYmVhdXR5IGNvbGxlY3Rpb24iLA0KICAgIHN1YnRpdGxlID0gIjIwIFVuaXF1ZSBTaGFkZXMgQ3JhZnRlZCBmcm9tIFJhbmRvbSBXb3JkIFBhaXJpbmdzIGFuZCBMaW5lYXIgTW9kZWwgQ29lZmZpY2llbnRzIiwNCiAgICBjYXB0aW9uID0gIkdyYXBoaWM6IEBkYXRhZGF2aWR6IHwgU291cmNlOiBUaGUgUHVkZGluZyB8ICNUaWR5VHVlc2RheSIpDQpgYGANCg0KIyMjIFN1bW1hcnkNClRoZSByZXN1bHRpbmcgZ3JhcGhpYyBpcyBhIHNvbWV3aGF0IGZ1bm55IGFuZCBpbmZvcm1hdGl2ZSBsb29rIGF0IHRoZSBlZmZlY3Qgb2YgY2VydGFpbiB0ZXJtcyBvbiB0aGUgcmVzdWx0aW5nIG1ha2UtdXAgY29sb3IuICBJIHJhbiB0aGUgcmFuZG9tIHNlbGVjdGlvbiBxdWl0ZSBhIGZldyB0aW1lcyBhbmQgb2J0YWluZWQgbWFueSBpbnRlcmVzdGluZyBpbnNpZ2h0cy4gIEkgZGlkIG5vdGljZSB0aGF0IGNlcnRhaW4gd29yZC1wYWlycyByZXN1bHRlZCBpbiB2YWx1ZXMgdGhhdCBubyBsb25nZXIgd2VyZSB3aXRoaW4gdGhlIHN0YW5kYXJkIEhTTCByYW5nZSBhbmQgdGhlcmVmb3JlIGNvdWxkIG5vdCBiZSBkaXNwbGF5ZWQuICBUaGlzIGVycm9yIGNvdWxkIGJlIGFkZHJlc3NlZCBieSBpbmNsdWRpbmcgc29tZSBjaGVja3MgdG8gcHJldmVudCB0aGUgcHJlZGljdGVkIEhTTCB2YWx1ZXMgZnJvbSBleGNlZWRpbmcgY2VydGFpbiBsaW1pdHMuICBPdmVyYWxsLCBhIGZ1biB3YXkgdG8gdHJ5IG91dCBuZXcgdGlkeW1vZGVsIGZlYXR1cmVzLg0KDQo=</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2021-03-30_tt_MakeupShades.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

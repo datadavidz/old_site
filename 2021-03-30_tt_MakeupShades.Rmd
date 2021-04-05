@@ -1,0 +1,237 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.showtext = TRUE)
+
+library(tidyverse)
+library(tidymodels)
+library(textrecipes)
+library(hardhat)
+library(plotwidgets)
+library(showtext)
+library(patchwork)
+
+theme_set(theme_minimal())
+
+font_add_google(name = "Great Vibes", family = "Great Vibes")
+showtext_auto()
+```
+
+## **TidyTuesday: Make-up Color Shades**
+
+*Posted on March 30, 2021*
+
+A quick analysis of the weekly [\#TidyTuesday](http://github.com/rfordatascience/tidytuesday) dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.
+
+**What I learned this week about R and the Tidyverse**
+
+-   Tokenizing a string column to be used as modeling variables using ```textrecipes```
+-   Using a sparse data matrix with tidymodels to improve speed and reduce memory allocation using ```hardhat```
+-   Converting between colorspaces using ```hsl2col``` function from ```plotwidgets```
+
+**Brief explanation of the dataset**
+
+This dataset comes from [The Pudding](https://pudding.cool/2021/03/foundation-names/) and an accompanying article which explores the numbering system used by cosmetic brands.  The observation was that most brands put their lighter shades at the top of the sequence.  Several datasets were provided however I focused on the allShades dataset which contains the names and HSL (hue, saturation and lightness) values for each makeup shade.  I was interested in creating random word pairings from the existing names and then predicting the color based on a model of the existing data.  The idea was admittedly not a serious endeavor but led to some nice learnings for me.
+
+```{r Load, include = FALSE}
+#Save needed data into rds for blog post
+allShades <- readRDS("./data/tt_210330.rds")
+```
+
+### Wrangle
+
+Initial conclusions from exploring the allShades dataset:  
+
+* 6816 rows of data in the allShades dataset
+* Name was missing from 1861 rows and 1219 unique names
+* Hue values were mostly around ~25 with a blue shade outlier ~230.
+* Initially, I performed some kmeans analysis but decided the clusters were not insightful
+
+The initial EDA was performed primarily by using the ```skimr``` package.
+```{r}
+skimr::skim(allShades)
+head(allShades, 5)
+```
+
+### Visualize
+
+A quick visualization of the makeup shades color distribution as a function of saturation and lightness.  The colors were set from the hex code contained in the ```hex``` column and using the imgSrc as the unique identifier.  Notice the blue shade outlier.  Similar plots were created for hue vs. saturation and hue vs. lightness.
+
+```{r Visualize}
+makeup_colors <- allShades$hex
+names(makeup_colors) <- allShades$imgSrc
+
+allShades %>%
+  ggplot(aes(x = lightness, y = sat, color = imgSrc)) +
+    geom_point(size = 3) +
+    scale_color_manual(values = makeup_colors, guide = FALSE) +
+  labs(title = "Makeup Shades in allShades Dataset",
+       x = "Saturation",
+       y = "Lightness") +
+  theme_gray() +
+  theme(panel.grid = element_blank())
+```
+
+### Modeling
+
+A tidymodels approach was used for creating three separate models correlating term frequency for the makeup shade name to hue, saturation and lightness.  The first step was to create recipes to prepare the data for modeling.  The recipe contained steps from the ```textrecipes``` package to tokenize the name terms (step_tokenize) and also calculate the term frequency (step_tf).  The term frequency step is required in order to create a linear regression model.
+
+Create the three, pre-processing recipes.
+```{r}
+hue_rec <- recipe(hue ~ name, data = allShades) %>%
+  step_naomit(name) %>%
+  step_tokenize(name) %>%
+  step_tf(name)
+
+sat_rec <- recipe(sat ~ name, data = allShades) %>%
+  step_naomit(name) %>%
+  step_tokenize(name) %>%
+  step_tf(name)
+
+lightness_rec <- recipe(lightness ~ name, data = allShades) %>%
+  step_naomit(name) %>%
+  step_tokenize(name) %>%
+  step_tf(name)
+```
+
+The modeling specification is defined next.  We will use a linear regression model from the ```glmnet``` package.
+```{r}
+shades_spec <- linear_reg(penalty = 0, mixture = NULL) %>%
+  set_engine("glmnet")
+```
+
+Transforming the terms from the makeup shade name to a wide matrix for purpose of modeling creates a sparse table (most values are 0).  The most efficient manner for working with this type of table is to convert to a sparse matrix.  For the tidymodels approach, the ```hardhat``` package is required to define the sparse matrix (i.e. dgCMatrix) as the default blueprint.
+```{r}
+sparse_bp <- default_recipe_blueprint(composition = "dgCMatrix")
+```
+
+Workflows are then established for each model to specify the recipe, sparse blueprint and model specification.
+```{r}
+wf_hue <- 
+  workflow() %>%
+  add_recipe(hue_rec, blueprint = sparse_bp) %>%
+  add_model(shades_spec)
+
+wf_sat <- 
+  workflow() %>%
+  add_recipe(sat_rec, blueprint = sparse_bp) %>%
+  add_model(shades_spec)
+
+wf_lightness <- 
+  workflow() %>%
+  add_recipe(lightness_rec, blueprint = sparse_bp) %>%
+  add_model(shades_spec)
+```
+
+The models are then fit on the whole dataset instead of splitting into training and testing.  I am really just want to get an idea of the effect of different terms on the HSL color.  Splitting would cause some issues with terms with low frequencies that I didn't feel was worth the clean-up time for this rather silly purpose.
+```{r, message=FALSE}
+hue_results <- fit(wf_hue, data = allShades)
+sat_results <- fit(wf_sat, data = allShades)
+lightness_results <- fit(wf_lightness, data = allShades)
+```
+
+The model coefficients were then gathered into a single tibble for subsequent calculations.  Terms with 2 or fewer characters were dropped from the tibble because they didn't make for interesting word pairings.
+```{r, message=FALSE}
+final_effect <- tidy(hue_results, penalty = 0) %>%
+  rename(hue = estimate) %>%
+  select(term, hue) %>%
+  left_join(tidy(sat_results) %>% select(term, sat = estimate), by = "term") %>%
+  left_join(tidy(lightness_results) %>% select(term, lightness = estimate), by = "term") %>%
+  mutate(term = str_replace(term, "tf_name_", "")) %>%
+  filter(str_length(term) > 2)
+
+final_effect
+```
+
+The model intercept terms were then collected as the base HSL color.
+```{r}
+intercept <- final_effect %>% filter(term == "(Intercept)") %>% .[2:4] %>% unlist
+```
+
+A palette of new shades was then created by randomly selecting 40 terms.  The terms were joined with their HSL effects from the combined model effect tibble.  The new makeup shade names were created by pairing two terms.  The makeup shade HSL was calculated by adding the combined word-pair effect to the base color (intercept).  Finally, the HSL values were converted to its corresponding hex code using hte ```hsl2col``` function from the ```plotwidgets``` package. 
+```{r}
+set.seed(345)
+
+unique_palette <- tibble(term = sample(final_effect$term, 40), title = rep(c(1:20), each = 2)) %>%
+  left_join(final_effect, by = "term") %>%
+  group_by(title) %>%
+  mutate(title_name = str_to_title(paste(term, collapse = " ")),
+         across(.cols = c(hue, sat, lightness), sum)) %>%
+  ungroup() %>%
+  select(title = title_name, hue, sat, lightness) %>%
+  distinct() %>%
+  rowwise() %>%
+  mutate(hue = hue + intercept["hue"],
+         sat = sat + intercept["sat"],
+         lightness = lightness + intercept["lightness"]) %>%
+  mutate(hex_color = hsl2col(as.matrix(c(hue, sat, lightness)))) %>%
+  ungroup()
+
+unique_palette %>% arrange(lightness)
+```
+
+The resulting palette could then be visualized using a bar chart.
+```{r}
+unique_colors <- unique_palette$hex_color
+names(unique_colors) <- unique_palette$title
+
+unique_palette %>%
+  mutate(title = fct_reorder(title, lightness)) %>%
+  ggplot(aes(x = 10, y = title, fill = title)) +
+  geom_col() +
+  scale_fill_manual(values = unique_colors, guide = FALSE)
+```
+
+The final graphic was cleaned up by separating the makeup shades into two columns and reordering by lightness.  The font used for the title and subtitle was changed to a more elegant style, background set to a faint pink and axis line formatting removed.
+
+First set of 10 shades.
+```{r}
+p10 <- unique_palette[1:10,] %>%
+  mutate(title = fct_reorder(title, lightness)) %>%
+  ggplot(aes(x = 10, y = title, fill = title)) +
+  geom_col() +
+  scale_fill_manual(values = unique_colors[1:10], guide = FALSE) +
+  theme(axis.line.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_text(family = "sans", size =10))
+```
+Second set of 10 shades.
+```{r}
+p11 <- unique_palette[11:20,] %>%
+  mutate(title = fct_reorder(title, lightness)) %>%
+  ggplot(aes(x = 10, y = title, fill = title)) +
+  geom_col() +
+  scale_fill_manual(values = unique_colors[11:20], guide = FALSE) +
+  theme(axis.line.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.y = element_text(family = "sans", size =10))
+```
+
+Combine with ```patchwork``` package and add additional text elements.
+```{r}
+(p10 + p11) +
+  plot_annotation(theme = theme(plot.background = element_rect(fill = "#fcebed"),
+                                plot.title = element_text(family = "Great Vibes", size = 24),
+                                plot.subtitle = element_text(family = "Great Vibes", size = 16),
+                                plot.caption = element_text(size = 8)),
+    title = "From the datadavidz beauty collection",
+    subtitle = "20 Unique Shades Crafted from Random Word Pairings and Linear Model Coefficients",
+    caption = "Graphic: @datadavidz | Source: The Pudding | #TidyTuesday")
+```
+
+### Summary
+The resulting graphic is a somewhat funny and informative look at the effect of certain terms on the resulting make-up color.  I ran the random selection quite a few times and obtained many interesting insights.  I did notice that certain word-pairs resulted in values that no longer were within the standard HSL range and therefore could not be displayed.  This error could be addressed by including some checks to prevent the predicted HSL values from exceeding certain limits.  Overall, a fun way to try out new tidymodel features.
+
