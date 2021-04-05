@@ -7,6 +7,16 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: Makeup Color Shades**
+*Posted on March 30, 2021*
+
+Question addressed: Can I predict the makeup color based on a random word pairing?  
+Visualization: A graphic containing a unique, color palette of 20 makeup shades. 
+
+[Full post](2021-03-30_tt_MakeupShades.html)
+
+***
+
 ### **Tidy Tuesday: United Nations Votes**
 *Posted on March 23, 2021*
 
