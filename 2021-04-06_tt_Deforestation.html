@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2021-04-06_tt_Deforestation.utf8</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fas fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="tidytuesday-global-deforestation" class="section level2">
+<h2><strong>TidyTuesday: Global Deforestation</strong></h2>
+<p><em>Posted on April 6, 2021</em></p>
+<p>A quick analysis of the weekly <a href="http://github.com/rfordatascience/tidytuesday">#TidyTuesday</a> dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.</p>
+<p><strong>What I learned this week about R and the Tidyverse</strong></p>
+<ul>
+<li>Using a highlight color in a bar chart to focus attention on certain effects</li>
+<li>Using a custom axis label using the <code>label_number</code> function from the <code>scales</code> package</li>
+</ul>
+<p><strong>Brief explanation of the dataset</strong></p>
+<p>For this #TidyTuesday, R4DS provided five datasets with two about forest area change by country, one about specific causes of forest loss in Brazil, one about soybean production and one about vegetable oil production. I was interested in the forest change by year and country but neither dataset gave me exacttly what I was looking for. I went back to the source from <a href="https://ourworldindata.org/forests-and-deforestation">OurWorldInData</a> to get the complete dataset by year and country. I then drilled down on by continent and by country. Finally, I analyzed the causes for deforestation in Brazil.</p>
+<div id="wrangle" class="section level3">
+<h3>Wrangle</h3>
+<p>Initial conclusions from exploring the forest_area_km dataset:</p>
+<ul>
+<li>The meaning of Northern America was not clear. Upon further investigation, the continent of North America included Northern America, Central America and Caribbean entities.<br />
+</li>
+<li>Forest area data was available from 1990 through 2020.<br />
+</li>
+<li>Causes for deforestation and forest area loss in Brazil were given from 2001 to 2013.</li>
+</ul>
+<p>Summarize the forest area change between 1990 and 2020 for each of the continents. As mentioned above, three entities need to be recoded for North America.</p>
+<pre class="r"><code>continents_plus &lt;- c(&quot;Africa&quot;, &quot;Asia&quot;, &quot;Europe&quot;, &quot;Northern America&quot;, &quot;South America&quot;, &quot;Oceania&quot;, &quot;Central America&quot;, &quot;Caribbean&quot;)
+
+forest_continent &lt;- forest_area_km %&gt;%
+  filter(entity %in% continents_plus) %&gt;%
+  mutate(entity = case_when(entity == &quot;Northern America&quot; ~ &quot;North America&quot;,
+                            entity == &quot;Central America&quot; ~ &quot;North America&quot;,
+                            entity == &quot;Caribbean&quot; ~ &quot;North America&quot;,
+                            TRUE ~ entity)) %&gt;%
+  group_by(entity, year) %&gt;%
+  summarize(forest_area = sum(forest_area), .groups = &quot;drop&quot;)
+
+forest_change &lt;- forest_continent %&gt;%
+  filter(year == 1990 | year == 2020) %&gt;%
+  pivot_wider(names_from = year, names_prefix = &quot;forest_area_&quot;, values_from = forest_area ) %&gt;%
+  mutate(forest_change = forest_area_2020 - forest_area_1990)</code></pre>
+</div>
+<div id="visualize" class="section level3">
+<h3>Visualize</h3>
+<p>First, let’s look at which continents are seeing the largest changes in forest area. A custom color palette is used to highlight the biggest contributor to deforestation: South America.</p>
+<pre class="r"><code>single_highlight_pal &lt;- c(&quot;Asia&quot; = &quot;#808080&quot;, &quot;Europe&quot; = &quot;#808080&quot;, &quot;North America&quot; = &quot;#808080&quot;, 
+                        &quot;Oceania&quot; = &quot;#808080&quot;, &quot;Africa&quot; = &quot;#808080&quot;, &quot;South America&quot; = &quot;#FFFF00&quot;)
+
+p1 &lt;- forest_change %&gt;%
+  mutate(entity = fct_reorder(entity, forest_change)) %&gt;%
+  ggplot(aes(x = forest_change, y = entity, fill = entity)) +
+  geom_col() +
+  geom_vline(xintercept = 0, lty = 2) +
+  scale_x_continuous(labels = scales::label_number(scale = 1/1e6, suffix = &quot; MM&quot;)) +
+  scale_fill_manual(values = single_highlight_pal) +
+  expand_limits(x = c(-150e6, 150e6)) +
+  labs(title = &quot;By Continent&quot;,
+       x = &quot;Forest Area (hectares)&quot;,
+       y = NULL) +
+  theme(legend.position = &quot;none&quot;,
+        plot.title = element_text(family = &quot;Oswald&quot;, size = 16, hjust = 0.5),
+        axis.title.x = element_text(size = 10))
+
+p1</code></pre>
+<p><img src="2021-04-06_tt_Deforestation_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>In the above figure, we see that South America has seen the biggest impact of deforestation with Africa being a relatively close second. I decided to drill down further on the impact on countries making up South America.</p>
+<pre class="r"><code>sa_countries &lt;- c(&quot;Argentina&quot;, &quot;Bolivia&quot;, &quot;Brazil&quot;, &quot;Chile&quot;, &quot;Colombia&quot;, &quot;Ecuador&quot;, &quot;Falkland Islands&quot;, &quot;French Guyana&quot;,
+                  &quot;Guyana&quot;, &quot;Paraguay&quot;, &quot;Peru&quot;, &quot;Suriname&quot;, &quot;Uruguay&quot;, &quot;Venezuela&quot;)
+
+forest_change_sa &lt;- forest_area_km %&gt;%
+  filter(entity %in% sa_countries) %&gt;%
+  filter(year == 1990 | year == 2020) %&gt;%
+  pivot_wider(names_from = year, names_prefix = &quot;forest_area_&quot;, values_from = forest_area ) %&gt;%
+  mutate(forest_change = forest_area_2020 - forest_area_1990)
+
+sa_highlight_pal &lt;- c(&quot;Venezuela&quot; = &quot;#808080&quot;, &quot;Colombia&quot; = &quot;#808080&quot;, &quot;Argentina&quot; = &quot;#808080&quot;, 
+                        &quot;Bolivia&quot; = &quot;#808080&quot;, &quot;Paraguay&quot; = &quot;#808080&quot;, &quot;Brazil&quot; = &quot;#FFFF00&quot;)
+
+p2 &lt;- forest_change_sa %&gt;%
+    mutate(entity = fct_lump(entity, n = 6, w = abs(forest_change)),
+           entity = fct_reorder(entity, forest_change)) %&gt;%
+  filter(entity != &quot;Other&quot;) %&gt;%
+  ggplot(aes(x = forest_change, y = entity, fill = entity)) +
+  geom_col() +
+  geom_vline(xintercept = 0, lty = 2) +
+  scale_x_continuous(labels = scales::label_number(scale = 1/1e6, suffix = &quot; MM&quot;)) +
+  scale_fill_manual(values = sa_highlight_pal) +
+  expand_limits(x = c(-100e6, 100e6)) +
+  labs(title = &quot;By Country (SA)&quot;,
+       x = &quot;Forest Area (hectares)&quot;,
+       y = NULL) +
+  theme(legend.position = &quot;none&quot;,
+        plot.title = element_text(family = &quot;Oswald&quot;, size = 16, hjust = 0.5),
+        axis.title.x = element_text(size = 10))
+
+p2</code></pre>
+<p><img src="2021-04-06_tt_Deforestation_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Brazil was, by far, the biggest contributor to deforestation in South America compared to the other countries. I suppose this result is not surprising given all of the media attention on loss of the Amazon rainforest. The next analysis looked at different causes of deforestation in Brazil.</p>
+<pre class="r"><code>brazil_cause &lt;- brazil_loss %&gt;%
+  pivot_longer(cols = commercial_crops:small_scale_clearing, names_to = &quot;cause&quot;, values_to = &quot;forest_area&quot;) %&gt;%
+  group_by(cause) %&gt;%
+  summarize(forest_area = sum(forest_area), .groups = &quot;drop&quot;) %&gt;%
+  mutate(total_forest = sum(forest_area)) %&gt;%
+  mutate(prop = forest_area / total_forest)
+
+brazil_highlight_pal &lt;- c(&quot;pasture&quot; = &quot;#FFFF00&quot;, &quot;small_scale_clearing&quot; = &quot;#808080&quot;, &quot;commercial_crops&quot; = &quot;#808080&quot;, 
+                        &quot;fire&quot; = &quot;#808080&quot;, &quot;selective_logging&quot; = &quot;#808080&quot;, &quot;tree_plantations_including_palm&quot; = &quot;#808080&quot;,
+                        &quot;natural_disturbances&quot; = &quot;#808080&quot;, &quot;Other&quot; = &quot;#808080&quot;)
+
+p3 &lt;- brazil_cause %&gt;%
+  mutate(cause = fct_lump(cause, n = 7, w = prop),
+         cause = fct_reorder(cause, prop, .desc = TRUE)) %&gt;%
+  ggplot(aes(x = cause, y = prop, fill = cause)) +
+  geom_bar(stat = &quot;identity&quot;, width = 0.5) + 
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_x_discrete(labels = function(x) str_wrap(
+                              str_to_title(
+                                str_replace_all(x, &quot;_&quot;, &quot; &quot;)
+                              ),10)
+                            ) +
+  scale_fill_manual(values = brazil_highlight_pal) +
+  labs(title = &quot;By Cause (Brazil)&quot;,
+       x = NULL,
+       y = NULL) +
+  theme(legend.position = &quot;none&quot;,
+        plot.title = element_text(family = &quot;Oswald&quot;, size = 16, hjust = 0.5)
+        )
+
+p3</code></pre>
+<p><img src="2021-04-06_tt_Deforestation_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>The main cause of deforestation in Brazil was found to be clearing land to create pasture for livestock grazing. Finally, we combine all three plots into a single visualization using <code>patchwork</code>.</p>
+<pre class="r"><code>(p1 + p2) / p3 +
+  plot_annotation(title = &quot;Global Deforestation (1990-2020)&quot;,
+                  caption = &quot;Graphic: @datadavidz | Source: Our World in Data | #TidyTuesday&quot;,
+                  theme = theme(
+                    plot.title = element_text(family = &quot;Oswald&quot;, size = 20),
+                    plot.caption = element_text(size = 8))
+                  )</code></pre>
+<p><img src="2021-04-06_tt_Deforestation_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<p>The main theme of this week’s effort was to play around with highlighting on bar charts to divert the viewer’s attention to certain data points. Overall, I felt it was an effective technique for communicating the main sources of global deforestation.</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCg0KPGJyPg0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSwNCiAgICAgICAgICAgICAgICAgICAgICBmaWcuc2hvd3RleHQgPSBUUlVFKQ0KDQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmxpYnJhcnkodGlkeXR1ZXNkYXlSKQ0KbGlicmFyeShwYXRjaHdvcmspDQpsaWJyYXJ5KHNob3d0ZXh0KQ0KDQpmb250X2FkZF9nb29nbGUobmFtZSA9ICJPc3dhbGQiKQ0KDQpzaG93dGV4dF9hdXRvKCkNCnRoZW1lX3NldCh0aGVtZV9taW5pbWFsKCkpDQpgYGANCg0KIyMgKipUaWR5VHVlc2RheTogR2xvYmFsIERlZm9yZXN0YXRpb24qKg0KDQoqUG9zdGVkIG9uIEFwcmlsIDYsIDIwMjEqDQoNCkEgcXVpY2sgYW5hbHlzaXMgb2YgdGhlIHdlZWtseSBbXCNUaWR5VHVlc2RheV0oaHR0cDovL2dpdGh1Yi5jb20vcmZvcmRhdGFzY2llbmNlL3RpZHl0dWVzZGF5KSBkYXRhc2V0IG9yZ2FuaXplZCBieSB0aGUgUjREUyBPbmxpbmUgTGVhcm5pbmcgQ29tbXVuaXR5LiBNeSBhcHByb2FjaCBpcyB0byBhcHBseSBteSBkYXRhIHNjaWVuY2Ugc2tpbGxzIHRvIGV4cGxvcmUgb25lIHF1ZXN0aW9uIEkgaGF2ZSBhYm91dCB0aGUgZGF0YSBhbmQgZ2VuZXJhdGUgYSB2aXN1YWxpemF0aW9uIHRoYXQgYWRkcmVzc2VzIHRoaXMgcXVlc3Rpb24uIFRoZSBtYWluIHB1cnBvc2UgZm9yIG1lIGlzIHRvIHByYWN0aWNlIGFuZCB0cnkgb3V0IG5ldyB0aGluZ3MuIEkgYW0gbmV2ZXIgY29tcGxldGVseSBzYXRpc2ZpZWQgd2l0aCB0aGUgZW5kIHJlc3VsdCBidXQgSSBkbyB0aGUgYmVzdCBJIGNhbiBpbiBhIHNob3J0IHBlcmlvZCBvZiB0aW1lLg0KDQoqKldoYXQgSSBsZWFybmVkIHRoaXMgd2VlayBhYm91dCBSIGFuZCB0aGUgVGlkeXZlcnNlKioNCg0KLSAgIFVzaW5nIGEgaGlnaGxpZ2h0IGNvbG9yIGluIGEgYmFyIGNoYXJ0IHRvIGZvY3VzIGF0dGVudGlvbiBvbiBjZXJ0YWluIGVmZmVjdHMNCi0gICBVc2luZyBhIGN1c3RvbSBheGlzIGxhYmVsIHVzaW5nIHRoZSBgYGBsYWJlbF9udW1iZXJgYGAgZnVuY3Rpb24gZnJvbSB0aGUgYGBgc2NhbGVzYGBgIHBhY2thZ2UNCg0KKipCcmllZiBleHBsYW5hdGlvbiBvZiB0aGUgZGF0YXNldCoqDQoNCkZvciB0aGlzICNUaWR5VHVlc2RheSwgUjREUyBwcm92aWRlZCBmaXZlIGRhdGFzZXRzIHdpdGggdHdvIGFib3V0IGZvcmVzdCBhcmVhIGNoYW5nZSBieSBjb3VudHJ5LCBvbmUgYWJvdXQgc3BlY2lmaWMgY2F1c2VzIG9mIGZvcmVzdCBsb3NzIGluIEJyYXppbCwgb25lIGFib3V0IHNveWJlYW4gcHJvZHVjdGlvbiBhbmQgb25lIGFib3V0IHZlZ2V0YWJsZSBvaWwgcHJvZHVjdGlvbi4gIEkgd2FzIGludGVyZXN0ZWQgaW4gdGhlIGZvcmVzdCBjaGFuZ2UgYnkgeWVhciBhbmQgY291bnRyeSBidXQgbmVpdGhlciBkYXRhc2V0IGdhdmUgbWUgZXhhY3R0bHkgd2hhdCBJIHdhcyBsb29raW5nIGZvci4gIEkgd2VudCBiYWNrIHRvIHRoZSBzb3VyY2UgZnJvbSBbT3VyV29ybGRJbkRhdGFdKGh0dHBzOi8vb3Vyd29ybGRpbmRhdGEub3JnL2ZvcmVzdHMtYW5kLWRlZm9yZXN0YXRpb24pIHRvIGdldCB0aGUgY29tcGxldGUgZGF0YXNldCBieSB5ZWFyIGFuZCBjb3VudHJ5LiAgSSB0aGVuIGRyaWxsZWQgZG93biBvbiBieSBjb250aW5lbnQgYW5kIGJ5IGNvdW50cnkuICBGaW5hbGx5LCBJIGFuYWx5emVkIHRoZSBjYXVzZXMgZm9yIGRlZm9yZXN0YXRpb24gaW4gQnJhemlsLg0KDQpgYGB7ciBMb2FkLCBpbmNsdWRlID0gRkFMU0V9DQojU2F2ZSBuZWVkZWQgZGF0YSBpbnRvIHJkcyBmb3IgYmxvZyBwb3N0DQpsb2FkKCIuL2RhdGEvdHRfMjEwNDA2LlJkYXRhIikNCmBgYA0KDQojIyMgV3JhbmdsZQ0KDQpJbml0aWFsIGNvbmNsdXNpb25zIGZyb20gZXhwbG9yaW5nIHRoZSBmb3Jlc3RfYXJlYV9rbSBkYXRhc2V0Og0KDQoqIFRoZSBtZWFuaW5nIG9mIE5vcnRoZXJuIEFtZXJpY2Egd2FzIG5vdCBjbGVhci4gIFVwb24gZnVydGhlciBpbnZlc3RpZ2F0aW9uLCB0aGUgY29udGluZW50IG9mIE5vcnRoIEFtZXJpY2EgaW5jbHVkZWQgTm9ydGhlcm4gQW1lcmljYSwgQ2VudHJhbCBBbWVyaWNhIGFuZCBDYXJpYmJlYW4gZW50aXRpZXMuICANCiogRm9yZXN0IGFyZWEgZGF0YSB3YXMgYXZhaWxhYmxlIGZyb20gMTk5MCB0aHJvdWdoIDIwMjAuICANCiogQ2F1c2VzIGZvciBkZWZvcmVzdGF0aW9uIGFuZCBmb3Jlc3QgYXJlYSBsb3NzIGluIEJyYXppbCB3ZXJlIGdpdmVuIGZyb20gMjAwMSB0byAyMDEzLiAgDQoNClN1bW1hcml6ZSB0aGUgZm9yZXN0IGFyZWEgY2hhbmdlIGJldHdlZW4gMTk5MCBhbmQgMjAyMCBmb3IgZWFjaCBvZiB0aGUgY29udGluZW50cy4gIEFzIG1lbnRpb25lZCBhYm92ZSwgdGhyZWUgZW50aXRpZXMgbmVlZCB0byBiZSByZWNvZGVkIGZvciBOb3J0aCBBbWVyaWNhLg0KYGBge3J9DQpjb250aW5lbnRzX3BsdXMgPC0gYygiQWZyaWNhIiwgIkFzaWEiLCAiRXVyb3BlIiwgIk5vcnRoZXJuIEFtZXJpY2EiLCAiU291dGggQW1lcmljYSIsICJPY2VhbmlhIiwgIkNlbnRyYWwgQW1lcmljYSIsICJDYXJpYmJlYW4iKQ0KDQpmb3Jlc3RfY29udGluZW50IDwtIGZvcmVzdF9hcmVhX2ttICU+JQ0KICBmaWx0ZXIoZW50aXR5ICVpbiUgY29udGluZW50c19wbHVzKSAlPiUNCiAgbXV0YXRlKGVudGl0eSA9IGNhc2Vfd2hlbihlbnRpdHkgPT0gIk5vcnRoZXJuIEFtZXJpY2EiIH4gIk5vcnRoIEFtZXJpY2EiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgIGVudGl0eSA9PSAiQ2VudHJhbCBBbWVyaWNhIiB+ICJOb3J0aCBBbWVyaWNhIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICBlbnRpdHkgPT0gIkNhcmliYmVhbiIgfiAiTm9ydGggQW1lcmljYSIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgVFJVRSB+IGVudGl0eSkpICU+JQ0KICBncm91cF9ieShlbnRpdHksIHllYXIpICU+JQ0KICBzdW1tYXJpemUoZm9yZXN0X2FyZWEgPSBzdW0oZm9yZXN0X2FyZWEpLCAuZ3JvdXBzID0gImRyb3AiKQ0KDQpmb3Jlc3RfY2hhbmdlIDwtIGZvcmVzdF9jb250aW5lbnQgJT4lDQogIGZpbHRlcih5ZWFyID09IDE5OTAgfCB5ZWFyID09IDIwMjApICU+JQ0KICBwaXZvdF93aWRlcihuYW1lc19mcm9tID0geWVhciwgbmFtZXNfcHJlZml4ID0gImZvcmVzdF9hcmVhXyIsIHZhbHVlc19mcm9tID0gZm9yZXN0X2FyZWEgKSAlPiUNCiAgbXV0YXRlKGZvcmVzdF9jaGFuZ2UgPSBmb3Jlc3RfYXJlYV8yMDIwIC0gZm9yZXN0X2FyZWFfMTk5MCkNCmBgYA0KDQojIyMgVmlzdWFsaXplDQoNCkZpcnN0LCBsZXQncyBsb29rIGF0IHdoaWNoIGNvbnRpbmVudHMgYXJlIHNlZWluZyB0aGUgbGFyZ2VzdCBjaGFuZ2VzIGluIGZvcmVzdCBhcmVhLiAgQSBjdXN0b20gY29sb3IgcGFsZXR0ZSBpcyB1c2VkIHRvIGhpZ2hsaWdodCB0aGUgYmlnZ2VzdCBjb250cmlidXRvciB0byBkZWZvcmVzdGF0aW9uOiBTb3V0aCBBbWVyaWNhLg0KYGBge3J9DQpzaW5nbGVfaGlnaGxpZ2h0X3BhbCA8LSBjKCJBc2lhIiA9ICIjODA4MDgwIiwgIkV1cm9wZSIgPSAiIzgwODA4MCIsICJOb3J0aCBBbWVyaWNhIiA9ICIjODA4MDgwIiwgDQogICAgICAgICAgICAgICAgICAgICAgICAiT2NlYW5pYSIgPSAiIzgwODA4MCIsICJBZnJpY2EiID0gIiM4MDgwODAiLCAiU291dGggQW1lcmljYSIgPSAiI0ZGRkYwMCIpDQoNCnAxIDwtIGZvcmVzdF9jaGFuZ2UgJT4lDQogIG11dGF0ZShlbnRpdHkgPSBmY3RfcmVvcmRlcihlbnRpdHksIGZvcmVzdF9jaGFuZ2UpKSAlPiUNCiAgZ2dwbG90KGFlcyh4ID0gZm9yZXN0X2NoYW5nZSwgeSA9IGVudGl0eSwgZmlsbCA9IGVudGl0eSkpICsNCiAgZ2VvbV9jb2woKSArDQogIGdlb21fdmxpbmUoeGludGVyY2VwdCA9IDAsIGx0eSA9IDIpICsNCiAgc2NhbGVfeF9jb250aW51b3VzKGxhYmVscyA9IHNjYWxlczo6bGFiZWxfbnVtYmVyKHNjYWxlID0gMS8xZTYsIHN1ZmZpeCA9ICIgTU0iKSkgKw0KICBzY2FsZV9maWxsX21hbnVhbCh2YWx1ZXMgPSBzaW5nbGVfaGlnaGxpZ2h0X3BhbCkgKw0KICBleHBhbmRfbGltaXRzKHggPSBjKC0xNTBlNiwgMTUwZTYpKSArDQogIGxhYnModGl0bGUgPSAiQnkgQ29udGluZW50IiwNCiAgICAgICB4ID0gIkZvcmVzdCBBcmVhIChoZWN0YXJlcykiLA0KICAgICAgIHkgPSBOVUxMKSArDQogIHRoZW1lKGxlZ2VuZC5wb3NpdGlvbiA9ICJub25lIiwNCiAgICAgICAgcGxvdC50aXRsZSA9IGVsZW1lbnRfdGV4dChmYW1pbHkgPSAiT3N3YWxkIiwgc2l6ZSA9IDE2LCBoanVzdCA9IDAuNSksDQogICAgICAgIGF4aXMudGl0bGUueCA9IGVsZW1lbnRfdGV4dChzaXplID0gMTApKQ0KDQpwMQ0KYGBgDQoNCkluIHRoZSBhYm92ZSBmaWd1cmUsIHdlIHNlZSB0aGF0IFNvdXRoIEFtZXJpY2EgaGFzIHNlZW4gdGhlIGJpZ2dlc3QgaW1wYWN0IG9mIGRlZm9yZXN0YXRpb24gd2l0aCBBZnJpY2EgYmVpbmcgYSByZWxhdGl2ZWx5IGNsb3NlIHNlY29uZC4gIEkgZGVjaWRlZCB0byBkcmlsbCBkb3duIGZ1cnRoZXIgb24gdGhlIGltcGFjdCBvbiBjb3VudHJpZXMgbWFraW5nIHVwIFNvdXRoIEFtZXJpY2EuDQoNCmBgYHtyfQ0Kc2FfY291bnRyaWVzIDwtIGMoIkFyZ2VudGluYSIsICJCb2xpdmlhIiwgIkJyYXppbCIsICJDaGlsZSIsICJDb2xvbWJpYSIsICJFY3VhZG9yIiwgIkZhbGtsYW5kIElzbGFuZHMiLCAiRnJlbmNoIEd1eWFuYSIsDQogICAgICAgICAgICAgICAgICAiR3V5YW5hIiwgIlBhcmFndWF5IiwgIlBlcnUiLCAiU3VyaW5hbWUiLCAiVXJ1Z3VheSIsICJWZW5lenVlbGEiKQ0KDQpmb3Jlc3RfY2hhbmdlX3NhIDwtIGZvcmVzdF9hcmVhX2ttICU+JQ0KICBmaWx0ZXIoZW50aXR5ICVpbiUgc2FfY291bnRyaWVzKSAlPiUNCiAgZmlsdGVyKHllYXIgPT0gMTk5MCB8IHllYXIgPT0gMjAyMCkgJT4lDQogIHBpdm90X3dpZGVyKG5hbWVzX2Zyb20gPSB5ZWFyLCBuYW1lc19wcmVmaXggPSAiZm9yZXN0X2FyZWFfIiwgdmFsdWVzX2Zyb20gPSBmb3Jlc3RfYXJlYSApICU+JQ0KICBtdXRhdGUoZm9yZXN0X2NoYW5nZSA9IGZvcmVzdF9hcmVhXzIwMjAgLSBmb3Jlc3RfYXJlYV8xOTkwKQ0KDQpzYV9oaWdobGlnaHRfcGFsIDwtIGMoIlZlbmV6dWVsYSIgPSAiIzgwODA4MCIsICJDb2xvbWJpYSIgPSAiIzgwODA4MCIsICJBcmdlbnRpbmEiID0gIiM4MDgwODAiLCANCiAgICAgICAgICAgICAgICAgICAgICAgICJCb2xpdmlhIiA9ICIjODA4MDgwIiwgIlBhcmFndWF5IiA9ICIjODA4MDgwIiwgIkJyYXppbCIgPSAiI0ZGRkYwMCIpDQoNCnAyIDwtIGZvcmVzdF9jaGFuZ2Vfc2EgJT4lDQogICAgbXV0YXRlKGVudGl0eSA9IGZjdF9sdW1wKGVudGl0eSwgbiA9IDYsIHcgPSBhYnMoZm9yZXN0X2NoYW5nZSkpLA0KICAgICAgICAgICBlbnRpdHkgPSBmY3RfcmVvcmRlcihlbnRpdHksIGZvcmVzdF9jaGFuZ2UpKSAlPiUNCiAgZmlsdGVyKGVudGl0eSAhPSAiT3RoZXIiKSAlPiUNCiAgZ2dwbG90KGFlcyh4ID0gZm9yZXN0X2NoYW5nZSwgeSA9IGVudGl0eSwgZmlsbCA9IGVudGl0eSkpICsNCiAgZ2VvbV9jb2woKSArDQogIGdlb21fdmxpbmUoeGludGVyY2VwdCA9IDAsIGx0eSA9IDIpICsNCiAgc2NhbGVfeF9jb250aW51b3VzKGxhYmVscyA9IHNjYWxlczo6bGFiZWxfbnVtYmVyKHNjYWxlID0gMS8xZTYsIHN1ZmZpeCA9ICIgTU0iKSkgKw0KICBzY2FsZV9maWxsX21hbnVhbCh2YWx1ZXMgPSBzYV9oaWdobGlnaHRfcGFsKSArDQogIGV4cGFuZF9saW1pdHMoeCA9IGMoLTEwMGU2LCAxMDBlNikpICsNCiAgbGFicyh0aXRsZSA9ICJCeSBDb3VudHJ5IChTQSkiLA0KICAgICAgIHggPSAiRm9yZXN0IEFyZWEgKGhlY3RhcmVzKSIsDQogICAgICAgeSA9IE5VTEwpICsNCiAgdGhlbWUobGVnZW5kLnBvc2l0aW9uID0gIm5vbmUiLA0KICAgICAgICBwbG90LnRpdGxlID0gZWxlbWVudF90ZXh0KGZhbWlseSA9ICJPc3dhbGQiLCBzaXplID0gMTYsIGhqdXN0ID0gMC41KSwNCiAgICAgICAgYXhpcy50aXRsZS54ID0gZWxlbWVudF90ZXh0KHNpemUgPSAxMCkpDQoNCnAyDQpgYGANCg0KQnJhemlsIHdhcywgYnkgZmFyLCB0aGUgYmlnZ2VzdCBjb250cmlidXRvciB0byBkZWZvcmVzdGF0aW9uIGluIFNvdXRoIEFtZXJpY2EgY29tcGFyZWQgdG8gdGhlIG90aGVyIGNvdW50cmllcy4gIEkgc3VwcG9zZSB0aGlzIHJlc3VsdCBpcyBub3Qgc3VycHJpc2luZyBnaXZlbiBhbGwgb2YgdGhlIG1lZGlhIGF0dGVudGlvbiBvbiBsb3NzIG9mIHRoZSBBbWF6b24gcmFpbmZvcmVzdC4gIFRoZSBuZXh0IGFuYWx5c2lzIGxvb2tlZCBhdCBkaWZmZXJlbnQgY2F1c2VzIG9mIGRlZm9yZXN0YXRpb24gaW4gQnJhemlsLg0KDQpgYGB7cn0NCmJyYXppbF9jYXVzZSA8LSBicmF6aWxfbG9zcyAlPiUNCiAgcGl2b3RfbG9uZ2VyKGNvbHMgPSBjb21tZXJjaWFsX2Nyb3BzOnNtYWxsX3NjYWxlX2NsZWFyaW5nLCBuYW1lc190byA9ICJjYXVzZSIsIHZhbHVlc190byA9ICJmb3Jlc3RfYXJlYSIpICU+JQ0KICBncm91cF9ieShjYXVzZSkgJT4lDQogIHN1bW1hcml6ZShmb3Jlc3RfYXJlYSA9IHN1bShmb3Jlc3RfYXJlYSksIC5ncm91cHMgPSAiZHJvcCIpICU+JQ0KICBtdXRhdGUodG90YWxfZm9yZXN0ID0gc3VtKGZvcmVzdF9hcmVhKSkgJT4lDQogIG11dGF0ZShwcm9wID0gZm9yZXN0X2FyZWEgLyB0b3RhbF9mb3Jlc3QpDQoNCmJyYXppbF9oaWdobGlnaHRfcGFsIDwtIGMoInBhc3R1cmUiID0gIiNGRkZGMDAiLCAic21hbGxfc2NhbGVfY2xlYXJpbmciID0gIiM4MDgwODAiLCAiY29tbWVyY2lhbF9jcm9wcyIgPSAiIzgwODA4MCIsIA0KICAgICAgICAgICAgICAgICAgICAgICAgImZpcmUiID0gIiM4MDgwODAiLCAic2VsZWN0aXZlX2xvZ2dpbmciID0gIiM4MDgwODAiLCAidHJlZV9wbGFudGF0aW9uc19pbmNsdWRpbmdfcGFsbSIgPSAiIzgwODA4MCIsDQogICAgICAgICAgICAgICAgICAgICAgICAibmF0dXJhbF9kaXN0dXJiYW5jZXMiID0gIiM4MDgwODAiLCAiT3RoZXIiID0gIiM4MDgwODAiKQ0KDQpwMyA8LSBicmF6aWxfY2F1c2UgJT4lDQogIG11dGF0ZShjYXVzZSA9IGZjdF9sdW1wKGNhdXNlLCBuID0gNywgdyA9IHByb3ApLA0KICAgICAgICAgY2F1c2UgPSBmY3RfcmVvcmRlcihjYXVzZSwgcHJvcCwgLmRlc2MgPSBUUlVFKSkgJT4lDQogIGdncGxvdChhZXMoeCA9IGNhdXNlLCB5ID0gcHJvcCwgZmlsbCA9IGNhdXNlKSkgKw0KICBnZW9tX2JhcihzdGF0ID0gImlkZW50aXR5Iiwgd2lkdGggPSAwLjUpICsgDQogIHNjYWxlX3lfY29udGludW91cyhsYWJlbHMgPSBzY2FsZXM6OnBlcmNlbnRfZm9ybWF0KCkpICsNCiAgc2NhbGVfeF9kaXNjcmV0ZShsYWJlbHMgPSBmdW5jdGlvbih4KSBzdHJfd3JhcCgNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cl90b190aXRsZSgNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RyX3JlcGxhY2VfYWxsKHgsICJfIiwgIiAiKQ0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKSwxMCkNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICApICsNCiAgc2NhbGVfZmlsbF9tYW51YWwodmFsdWVzID0gYnJhemlsX2hpZ2hsaWdodF9wYWwpICsNCiAgbGFicyh0aXRsZSA9ICJCeSBDYXVzZSAoQnJhemlsKSIsDQogICAgICAgeCA9IE5VTEwsDQogICAgICAgeSA9IE5VTEwpICsNCiAgdGhlbWUobGVnZW5kLnBvc2l0aW9uID0gIm5vbmUiLA0KICAgICAgICBwbG90LnRpdGxlID0gZWxlbWVudF90ZXh0KGZhbWlseSA9ICJPc3dhbGQiLCBzaXplID0gMTYsIGhqdXN0ID0gMC41KQ0KICAgICAgICApDQoNCnAzDQpgYGANCg0KVGhlIG1haW4gY2F1c2Ugb2YgZGVmb3Jlc3RhdGlvbiBpbiBCcmF6aWwgd2FzIGZvdW5kIHRvIGJlIGNsZWFyaW5nIGxhbmQgdG8gY3JlYXRlIHBhc3R1cmUgZm9yIGxpdmVzdG9jayBncmF6aW5nLiAgRmluYWxseSwgd2UgY29tYmluZSBhbGwgdGhyZWUgcGxvdHMgaW50byBhIHNpbmdsZSB2aXN1YWxpemF0aW9uIHVzaW5nIGBgYHBhdGNod29ya2BgYC4NCg0KYGBge3J9DQoocDEgKyBwMikgLyBwMyArDQogIHBsb3RfYW5ub3RhdGlvbih0aXRsZSA9ICJHbG9iYWwgRGVmb3Jlc3RhdGlvbiAoMTk5MC0yMDIwKSIsDQogICAgICAgICAgICAgICAgICBjYXB0aW9uID0gIkdyYXBoaWM6IEBkYXRhZGF2aWR6IHwgU291cmNlOiBPdXIgV29ybGQgaW4gRGF0YSB8ICNUaWR5VHVlc2RheSIsDQogICAgICAgICAgICAgICAgICB0aGVtZSA9IHRoZW1lKA0KICAgICAgICAgICAgICAgICAgICBwbG90LnRpdGxlID0gZWxlbWVudF90ZXh0KGZhbWlseSA9ICJPc3dhbGQiLCBzaXplID0gMjApLA0KICAgICAgICAgICAgICAgICAgICBwbG90LmNhcHRpb24gPSBlbGVtZW50X3RleHQoc2l6ZSA9IDgpKQ0KICAgICAgICAgICAgICAgICAgKQ0KYGBgDQoNCiMjIyBTdW1tYXJ5DQoNClRoZSBtYWluIHRoZW1lIG9mIHRoaXMgd2VlaydzIGVmZm9ydCB3YXMgdG8gcGxheSBhcm91bmQgd2l0aCBoaWdobGlnaHRpbmcgb24gYmFyIGNoYXJ0cyB0byBkaXZlcnQgdGhlIHZpZXdlcidzIGF0dGVudGlvbiB0byBjZXJ0YWluIGRhdGEgcG9pbnRzLiAgT3ZlcmFsbCwgSSBmZWx0IGl0IHdhcyBhbiBlZmZlY3RpdmUgdGVjaG5pcXVlIGZvciBjb21tdW5pY2F0aW5nIHRoZSBtYWluIHNvdXJjZXMgb2YgZ2xvYmFsIGRlZm9yZXN0YXRpb24uDQo=</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2021-04-06_tt_Deforestation.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
