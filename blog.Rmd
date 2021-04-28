@@ -7,6 +7,16 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: Global Deforestation**
+*Posted on April 6, 2021*
+
+Question addressed: What were the major sources of global deforestation from 1990 to 2020?  
+Visualization: A series of bar charts with highlighting to attract the viewer to the key data points. 
+
+[Full post](2021-04-06_tt_Deforestation.html)
+
+***
+
 ### **Tidy Tuesday: Makeup Color Shades**
 *Posted on March 30, 2021*
 
