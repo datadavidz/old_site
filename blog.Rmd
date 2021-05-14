@@ -7,6 +7,16 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: U.S Post Offices**
+*Posted on April 13, 2021*
+
+Question addressed: What is the average population served per post office in each state?  
+Visualization: A hexbin map in the shape of the United States. 
+
+[Full post](2021-04-13_tt_PostOffices.html)
+
+***
+
 ### **Tidy Tuesday: Global Deforestation**
 *Posted on April 6, 2021*
 
