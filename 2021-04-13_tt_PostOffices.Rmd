@@ -1,0 +1,177 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.showtext = TRUE)
+
+library(tidyverse)
+library(tidytuesdayR)
+
+library(geojsonio)
+library(rgdal)
+library(broom)
+library(rgeos)
+
+library(viridis)
+library(showtext)
+
+font_add_google(name = "Oswald")
+
+showtext_auto()
+theme_set(theme_minimal())
+```
+
+## **TidyTuesday: U.S. Post Offices**
+
+*Posted on April 13, 2021*
+
+A quick analysis of the weekly [\#TidyTuesday](http://github.com/rfordatascience/tidytuesday) dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.
+
+**What I learned this week about R and the Tidyverse**
+
+-   Process to reproduce a hexbin map as shown in the R Graph Gallery
+-   State names and abbreviations are built into base R (```state.names``` and ```state.abb```)
+
+**Brief explanation of the dataset**
+
+For this #TidyTuesday, I wanted to create a hexbin map similar to the example shown in the [R Graph Gallery](https://www.r-graph-gallery.com/328-hexbin-map-of-the-usa.html).  A lot of libraries and data formats were required that I had little knowledge of before attempting this visualization.  The post office dataset contained information on the years of operation for each post office along with a lot of information about the location of each post office within the United States.  The dataset covered a long time period from late 19th century up to 2000.  I decided to supplement this data with population data for each state to estimate the average population served by post offices in each state.
+
+```{r Load, include = FALSE}
+#Save needed data into rds for blog post
+load("./data/tt_210413.Rdata")
+```
+
+### Wrangle
+
+Initial conclusions from exploring the post_offices dataset.  
+
+* The established date for post offices ranged from 1877-2000.  
+* The discontinued date can be missing and would suggest the post office is still in operation as of 2000.  
+* The state and county is available for almost all of the post offices.
+* The GNIS information including latitude and longitude is present for about 2/3 of the data.  
+
+The assumption is that the missing (NA) discontinued year means the post office is still operating.  Based on this assumption, we calculate the number of post offices per state and as a ratio to the number of US House of Representatives for each state.
+
+```{r Wrangle}
+office_count <- post_offices %>%
+  select(id, name, state, established, discontinued) %>%
+  filter(is.na(discontinued)) %>%
+  group_by(state) %>%
+  summarize(offices = n(), .groups = "drop")
+
+office_ratio <- us_reps %>%
+  left_join(tibble(state = state.name, id = state.abb), by = "state") %>%
+  left_join(office_count, by = c("id" =  "state")) %>%
+  mutate(rep_ratio = offices / representatives_number,
+         pop_ratio = pop / offices) %>%
+  arrange(desc(pop_ratio))
+```
+
+### Visualize
+
+Let's first look at the states with the most number of post offices.
+```{r}
+office_count %>%
+  arrange(desc(offices)) %>%
+  slice(1:10) %>%
+  mutate(state = fct_reorder(state, offices)) %>%
+  ggplot(aes(x = offices, y = state)) +
+  geom_col(fill = "steelblue") +
+  labs(title = "Top 10 States with the Highest Number of Post Offices",
+       x = "# of Post Offices",
+       y = NULL)
+```
+
+Now let's look at the ratio of post offices per US representatives for each state.
+```{r}
+office_ratio %>%
+  arrange(desc(rep_ratio)) %>%
+  slice(1:10) %>%
+  mutate(state = fct_reorder(state, rep_ratio)) %>%
+  ggplot(aes(x = rep_ratio, y = state)) +
+  geom_col(fill = "midnightblue") +
+  labs(title = "Top 10 States with the Highest Number of Post Offices per US Rep",
+       x = "# of Post Offices",
+       y = NULL)
+```
+
+The most post offices per state generally includes the most populous states while the most post offices per US representatives includes some of the less populous states.  Kentucky and Iowa show up in both top ten lists.  I decided from here that I was most interested in the average population served by the post offices in each state.  I wanted to create a map but not using the US map but rather a hexbin representation I had come across previously.
+
+Creating the hexbin map was more complicated than I thought it would be when I began.  The first step was to download a geojson file which I found [here](https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map).  This file contained the boundaries for the hexagons for each state.  The file is read using the ```geojsonio``` package into a ```SpatialPolygonsDataFrame``` class.
+
+```{r Visualize}
+#geojsonio package
+spdf <- geojson_read("data/us_states_hexgrid.geojson",  what = "sp")
+
+#reformat the state name
+spdf@data = spdf@data %>%
+  mutate(google_name = gsub(" \\(United States\\)", "", google_name))
+
+# Show it (requires rgdal library)
+plot(spdf)
+```
+
+We can then reformat the spdf data into a standard data frame using the ```tidy``` function from the ```broom``` package.  Next, we need to calculate the center of each hexagon for adding the label with the state abbreviation.  The centroid is calculated from the spdf data using a function from the ```rgeos``` package.
+```{r}
+# reformat as data frame for ggplot
+spdf_fortified <- tidy(spdf, region = "iso3166_2")
+
+#calculate centroid of each hexagon for adding label
+centers <- cbind.data.frame(data.frame(gCentroid(spdf, byid=TRUE), id=spdf@data$iso3166_2))
+
+ggplot() +
+  geom_polygon(data = spdf_fortified, aes( x = long, y = lat, group = group), fill="skyblue", color="white") +
+  geom_text(data=centers, aes(x=x, y=y, label=id)) +
+  theme_void() +
+  coord_map()
+```
+
+Next, we add the ratio of state population to number of post offices and segregate into bins.
+```{r}
+spdf_fortified <- spdf_fortified %>%
+  left_join(select(office_ratio, id, pop_ratio), by = "id") %>%
+  filter(!is.na(pop_ratio))
+
+spdf_fortified$bin <- cut( spdf_fortified$pop_ratio , breaks=c(seq(0, 20000, 5000), Inf), 
+                           labels=c("< 5K", "5-10K", "10-15K", "15-20K", "20K+") , include.lowest = TRUE )
+```
+
+Finally, we create the hexbin map with the post office data.
+```{r}
+my_palette <- rev(magma(8))[c(-1,-8)]
+
+p1 <- ggplot() +
+  geom_polygon(data = spdf_fortified, aes(fill = bin, x = long, y = lat, group = group) , size=0, alpha=0.9) +
+  geom_text(data=centers, aes(x=x, y=y, label=id), color="white", size=3, alpha=0.6) +
+  theme_void() +
+  scale_fill_manual( 
+    values=my_palette, 
+    name="Average population served per post office", 
+    guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) 
+  ) +
+  labs( title = "Population Served per Post Office ca. 2000",
+        caption = "Graphic: @datadavidz | Source: Blevins and Helbock | #TidyTuesday") +
+  theme(
+    legend.position = c(0.5, 0.9),
+    text = element_text(color = "#22211d"),
+    plot.background = element_rect(fill = "#f5f5f2", color = NA), 
+    panel.background = element_rect(fill = "#f5f5f2", color = NA), 
+    legend.background = element_rect(fill = "#f5f5f2", color = NA),
+    plot.title = element_text(family = "Oswald", size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
+    plot.caption = element_text(hjust = 0.95, vjust = 1)
+  )
+
+p1
+```
+
+### Summary
+
+I felt this hexbin map was an effective and aesthetically-pleasing graphic for the analysis.  The construction of the hexbin map was more complex than I imagined requiring a website download, multiple packages I don't normally use and new data formats.  I have seen people make similar plots using the ```geofacet``` package and I am interested whether this could simplify the process.  However, this package doesn't appear to be able to easily make the hexagon shapes.
