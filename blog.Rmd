@@ -7,6 +7,16 @@ output: html_document
 
 <br><br>
 
+### **Tidy Tuesday: CEO Departures**
+*Posted on April 27, 2021*
+
+Question addressed: What are the main reasons for CEO departures and does it vary by year?  
+Visualization: A stacked area chart. 
+
+[Full post](2021-04-27_tt_CEODepartures.html)
+
+***
+
 ### **Tidy Tuesday: U.S Post Offices**
 *Posted on April 13, 2021*
 
