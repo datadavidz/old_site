@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>2021-04-27_tt_CEODepartures.utf8</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">[datadavidz]</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="blog.html">Blog</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="http://github.com/datadavidz">
+    <span class="fas fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<p><br></p>
+<div id="tidytuesday-ceo-departures" class="section level2">
+<h2><strong>TidyTuesday: CEO Departures</strong></h2>
+<p><em>Posted on April 27, 2021</em></p>
+<p>A quick analysis of the weekly <a href="http://github.com/rfordatascience/tidytuesday">#TidyTuesday</a> dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.</p>
+<p><strong>What I learned this week about R and the Tidyverse</strong></p>
+<ul>
+<li>Creating a stacked area chart using <code>geom_area</code> function in <code>ggplot2</code></li>
+<li>Slight adjustments in placing the axis title using the <code>margin</code> function in the plot theme</li>
+</ul>
+<p><strong>Brief explanation of the dataset</strong></p>
+<p>This dataset is from <a href="https://www.data-is-plural.com/archive/2021-04-21-edition/">DataIsPlural</a> and contains reasons for CEO departures from S&amp;P 1500 firms. Information is provided about the company name, CEO name and date of departure along with notes and links to articles which were used to assign the departure reason. Reasons were assigned to one of 9 different codes. Codes 1-4 were involuntary reasons such as CEO died or was ill and CEO was terminated for poor job performance or legal issues. Codes 5-6 were voluntary reasons such as the CEO retired or decided to leave for a new opportunity. Code 7 is mostly about a change following a merger or acquisition and in some cases the CEO stayed on with the new company. Code 8-9 are missing or data collection error.</p>
+<div id="wrangle" class="section level3">
+<h3>Wrangle</h3>
+<p>Initial conclusions from exploring the CEO departures dataset.</p>
+<ul>
+<li>CEO departures ranged from 1987 to 2020 in the dataset however not much data before 1995 and data after 2018 was mostly incomplete.</li>
+<li>Top reasons for departures were CEO retired, Other (mostly M&amp;A) and dismissed due to job performance.</li>
+<li><code>NA</code> in the departure code appears to be an entry where the CEO is still at the company upon last check.</li>
+</ul>
+<p>The following plot shows the breakdown of departure codes vs. fiscal year for the entire dataset.</p>
+<pre class="r"><code>departures %&gt;%
+  #filter(fyear &lt; 2019 &amp; fyear &gt; 1994) %&gt;%
+  #filter(!is.na(departure_code)) %&gt;%
+  mutate(departure_code = as.factor(departure_code)) %&gt;%
+  group_by(fyear, departure_code) %&gt;%
+  summarize(n = n(), .groups = &quot;drop&quot;) %&gt;%
+  ggplot(aes(x = fyear, y = n, fill = departure_code)) +
+    geom_area() +
+  labs(title = &quot;CEO Departures by Code&quot;,
+       x = &quot;Fiscal Year&quot;,
+       y = &quot;# of Departures&quot;)</code></pre>
+<p><img src="2021-04-27_tt_CEODepartures_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>As can be seen from this chart, the data after 2018 contains a great deal of NAs which appear to be just missing data. Also the data before 1995 is pretty lean. Another observation is that just a few codes tend to dominate the chart making the less frequent codes difficult to assess. Based on these observations, I decided to recode the data to capture 5 main categories for CEO departures: 1) Health, 2) Performance, 3) CEO choice, 4) Merger and 5) N/A (unknown).</p>
+<p>The code for cleaning and wrangling the dataset prior to plotting is given below.</p>
+<pre class="r"><code>departures_clean &lt;- departures %&gt;%
+  filter(fyear &lt; 2019 &amp; fyear &gt; 1994) %&gt;%
+  filter(!is.na(departure_code)) %&gt;%
+  mutate(departure_code = as.character(departure_code)) %&gt;%
+  mutate(departure_code = fct_recode(departure_code, Health = &quot;1&quot;,
+                                      Health = &quot;2&quot;,
+                                      Performance = &quot;3&quot;,
+                                      Performance = &quot;4&quot;,
+                                      `CEO Choice` = &quot;5&quot;,
+                                      `CEO Choice` = &quot;6&quot;,
+                                      Merger = &quot;7&quot;,
+                                      `N/A` = &quot;8&quot;,
+                                      `N/A` = &quot;9&quot;
+                                      )) %&gt;%
+  group_by(fyear, departure_code) %&gt;%
+  summarize(n = n(), .groups = &quot;drop&quot;)
+
+departures_clean</code></pre>
+<pre><code>## # A tibble: 120 x 3
+##    fyear departure_code     n
+##    &lt;dbl&gt; &lt;fct&gt;          &lt;int&gt;
+##  1  1995 Health             8
+##  2  1995 Performance       34
+##  3  1995 CEO Choice       129
+##  4  1995 Merger            48
+##  5  1995 N/A                2
+##  6  1996 Health             4
+##  7  1996 Performance       42
+##  8  1996 CEO Choice       130
+##  9  1996 Merger           139
+## 10  1996 N/A                2
+## # ... with 110 more rows</code></pre>
+</div>
+<div id="visualize" class="section level3">
+<h3>Visualize</h3>
+<p>The visualization of the tidied and recoded dataset was then performed using a stacked area chart. This type of plot is standard in <code>ggplot2</code> using <code>geom_area</code>.</p>
+<pre class="r"><code>departures_clean %&gt;%
+  ggplot(aes(x = fyear, y = n, fill = departure_code)) +
+  #geom_bar(stat = &quot;identity&quot;) +
+  geom_area() +
+  scale_fill_viridis_d(option = &quot;plasma&quot;, direction = -1) +
+  labs(title = &quot;Reasons for CEO Departures&quot;,
+       subtitle = &quot;S&amp;P 1500 Firms 1995-2018&quot;,
+       x = &quot;Fiscal Year of Event&quot;,
+       y = &quot;Number of Departures&quot;,
+       fill = NULL,
+       caption = &quot;Graphic: @datadavidz | Source: DataIsPlural | #TidyTuesday&quot;) +
+  theme(legend.position = &quot;top&quot;,
+        axis.title.x = element_text(margin = margin(t = 5, r = 0, b = 0, l = 0)),
+        axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 0)))</code></pre>
+<p><img src="2021-04-27_tt_CEODepartures_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>The default margin for the axis title labels for theme_minimal is just too close to the axis labels for my liking. The best way to adjust the spacing of these labels is to use the <code>margin</code> function within the theme <code>element_text</code> for <code>axis.title.x</code> or <code>axis.title.y</code>. The ordering of the elements is a bit weird (top, right, bottom, left) but I guess it goes clockwise from the top. Probably best to assign the labels to avoid confusion. I was a bit lazy with the font choosing the default “mono” font but it seemed like a good fit for a business-related dataset.</p>
+</div>
+<div id="summary" class="section level3">
+<h3>Summary</h3>
+<p>The stacked area chart for the CEO departure dataset was effective in communicating the main reasons CEOs left their company over the 1995-2018 timeframe. The viridis magma color palette produced a pleasing visualization. The number of departures varied from year-to-year however the ratio among the reasons was fairly consistent.</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQpvdXRwdXQ6IA0KICBodG1sX2RvY3VtZW50Og0KICAgIGNvZGVfZG93bmxvYWQ6IHRydWUNCiAgICBpbmNsdWRlczoNCiAgICAgIGFmdGVyX2JvZHk6IGZvb3Rlci5odG1sDQotLS0NCg0KPGJyPg0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCg0KbGlicmFyeSh0aWR5dmVyc2UpDQpsaWJyYXJ5KHRpZHl0dWVzZGF5UikNCmxpYnJhcnkoc2NhbGVzKQ0KbGlicmFyeSh2aXJpZGlzTGl0ZSkNCg0KdGhlbWVfc2V0KHRoZW1lX21pbmltYWwoYmFzZV9mYW1pbHkgPSAibW9ubyIpKQ0KYGBgDQoNCiMjICoqVGlkeVR1ZXNkYXk6IENFTyBEZXBhcnR1cmVzKioNCg0KKlBvc3RlZCBvbiBBcHJpbCAyNywgMjAyMSoNCg0KQSBxdWljayBhbmFseXNpcyBvZiB0aGUgd2Vla2x5IFtcI1RpZHlUdWVzZGF5XShodHRwOi8vZ2l0aHViLmNvbS9yZm9yZGF0YXNjaWVuY2UvdGlkeXR1ZXNkYXkpIGRhdGFzZXQgb3JnYW5pemVkIGJ5IHRoZSBSNERTIE9ubGluZSBMZWFybmluZyBDb21tdW5pdHkuIE15IGFwcHJvYWNoIGlzIHRvIGFwcGx5IG15IGRhdGEgc2NpZW5jZSBza2lsbHMgdG8gZXhwbG9yZSBvbmUgcXVlc3Rpb24gSSBoYXZlIGFib3V0IHRoZSBkYXRhIGFuZCBnZW5lcmF0ZSBhIHZpc3VhbGl6YXRpb24gdGhhdCBhZGRyZXNzZXMgdGhpcyBxdWVzdGlvbi4gVGhlIG1haW4gcHVycG9zZSBmb3IgbWUgaXMgdG8gcHJhY3RpY2UgYW5kIHRyeSBvdXQgbmV3IHRoaW5ncy4gSSBhbSBuZXZlciBjb21wbGV0ZWx5IHNhdGlzZmllZCB3aXRoIHRoZSBlbmQgcmVzdWx0IGJ1dCBJIGRvIHRoZSBiZXN0IEkgY2FuIGluIGEgc2hvcnQgcGVyaW9kIG9mIHRpbWUuDQoNCioqV2hhdCBJIGxlYXJuZWQgdGhpcyB3ZWVrIGFib3V0IFIgYW5kIHRoZSBUaWR5dmVyc2UqKg0KDQotICAgQ3JlYXRpbmcgYSBzdGFja2VkIGFyZWEgY2hhcnQgdXNpbmcgYGBgZ2VvbV9hcmVhYGBgIGZ1bmN0aW9uIGluIGBgYGdncGxvdDJgYGANCi0gICBTbGlnaHQgYWRqdXN0bWVudHMgaW4gcGxhY2luZyB0aGUgYXhpcyB0aXRsZSB1c2luZyB0aGUgYGBgbWFyZ2luYGBgIGZ1bmN0aW9uIGluIHRoZSBwbG90IHRoZW1lDQoNCioqQnJpZWYgZXhwbGFuYXRpb24gb2YgdGhlIGRhdGFzZXQqKg0KDQpUaGlzIGRhdGFzZXQgaXMgZnJvbSBbRGF0YUlzUGx1cmFsXShodHRwczovL3d3dy5kYXRhLWlzLXBsdXJhbC5jb20vYXJjaGl2ZS8yMDIxLTA0LTIxLWVkaXRpb24vKSBhbmQgY29udGFpbnMgcmVhc29ucyBmb3IgQ0VPIGRlcGFydHVyZXMgZnJvbSBTJlAgMTUwMCBmaXJtcy4gSW5mb3JtYXRpb24gaXMgcHJvdmlkZWQgYWJvdXQgdGhlIGNvbXBhbnkgbmFtZSwgQ0VPIG5hbWUgYW5kIGRhdGUgb2YgZGVwYXJ0dXJlIGFsb25nIHdpdGggbm90ZXMgYW5kIGxpbmtzIHRvIGFydGljbGVzIHdoaWNoIHdlcmUgdXNlZCB0byBhc3NpZ24gdGhlIGRlcGFydHVyZSByZWFzb24uICBSZWFzb25zIHdlcmUgYXNzaWduZWQgdG8gb25lIG9mIDkgZGlmZmVyZW50IGNvZGVzLiAgQ29kZXMgMS00IHdlcmUgaW52b2x1bnRhcnkgcmVhc29ucyBzdWNoIGFzIENFTyBkaWVkIG9yIHdhcyBpbGwgYW5kIENFTyB3YXMgdGVybWluYXRlZCBmb3IgcG9vciBqb2IgcGVyZm9ybWFuY2Ugb3IgbGVnYWwgaXNzdWVzLiBDb2RlcyA1LTYgd2VyZSB2b2x1bnRhcnkgcmVhc29ucyBzdWNoIGFzIHRoZSBDRU8gcmV0aXJlZCBvciBkZWNpZGVkIHRvIGxlYXZlIGZvciBhIG5ldyBvcHBvcnR1bml0eS4gIENvZGUgNyBpcyBtb3N0bHkgYWJvdXQgYSBjaGFuZ2UgZm9sbG93aW5nIGEgbWVyZ2VyIG9yIGFjcXVpc2l0aW9uIGFuZCBpbiBzb21lIGNhc2VzIHRoZSBDRU8gc3RheWVkIG9uIHdpdGggdGhlIG5ldyBjb21wYW55LiAgQ29kZSA4LTkgYXJlIG1pc3Npbmcgb3IgZGF0YSBjb2xsZWN0aW9uIGVycm9yLg0KDQpgYGB7ciBMb2FkLCBpbmNsdWRlID0gRkFMU0V9DQojU2F2ZSBuZWVkZWQgZGF0YSBpbnRvIHJkcyBmb3IgYmxvZyBwb3N0DQpkZXBhcnR1cmVzIDwtIHJlYWRSRFMoIi4vZGF0YS90dF8yMTA0MjcucmRzIikNCmBgYA0KDQojIyMgV3JhbmdsZQ0KDQpJbml0aWFsIGNvbmNsdXNpb25zIGZyb20gZXhwbG9yaW5nIHRoZSBDRU8gZGVwYXJ0dXJlcyBkYXRhc2V0LiAgDQoNCiogQ0VPIGRlcGFydHVyZXMgcmFuZ2VkIGZyb20gMTk4NyB0byAyMDIwIGluIHRoZSBkYXRhc2V0IGhvd2V2ZXIgbm90IG11Y2ggZGF0YSBiZWZvcmUgMTk5NSBhbmQgZGF0YSBhZnRlciAyMDE4IHdhcyBtb3N0bHkgaW5jb21wbGV0ZS4NCiogVG9wIHJlYXNvbnMgZm9yIGRlcGFydHVyZXMgd2VyZSBDRU8gcmV0aXJlZCwgT3RoZXIgKG1vc3RseSBNJkEpIGFuZCBkaXNtaXNzZWQgZHVlIHRvIGpvYiBwZXJmb3JtYW5jZS4NCiogYGBgTkFgYGAgaW4gdGhlIGRlcGFydHVyZSBjb2RlIGFwcGVhcnMgdG8gYmUgYW4gZW50cnkgd2hlcmUgdGhlIENFTyBpcyBzdGlsbCBhdCB0aGUgY29tcGFueSB1cG9uIGxhc3QgY2hlY2suDQoNClRoZSBmb2xsb3dpbmcgcGxvdCBzaG93cyB0aGUgYnJlYWtkb3duIG9mIGRlcGFydHVyZSBjb2RlcyB2cy4gZmlzY2FsIHllYXIgZm9yIHRoZSBlbnRpcmUgZGF0YXNldC4NCmBgYHtyfQ0KZGVwYXJ0dXJlcyAlPiUNCiAgI2ZpbHRlcihmeWVhciA8IDIwMTkgJiBmeWVhciA+IDE5OTQpICU+JQ0KICAjZmlsdGVyKCFpcy5uYShkZXBhcnR1cmVfY29kZSkpICU+JQ0KICBtdXRhdGUoZGVwYXJ0dXJlX2NvZGUgPSBhcy5mYWN0b3IoZGVwYXJ0dXJlX2NvZGUpKSAlPiUNCiAgZ3JvdXBfYnkoZnllYXIsIGRlcGFydHVyZV9jb2RlKSAlPiUNCiAgc3VtbWFyaXplKG4gPSBuKCksIC5ncm91cHMgPSAiZHJvcCIpICU+JQ0KICBnZ3Bsb3QoYWVzKHggPSBmeWVhciwgeSA9IG4sIGZpbGwgPSBkZXBhcnR1cmVfY29kZSkpICsNCiAgICBnZW9tX2FyZWEoKSArDQogIGxhYnModGl0bGUgPSAiQ0VPIERlcGFydHVyZXMgYnkgQ29kZSIsDQogICAgICAgeCA9ICJGaXNjYWwgWWVhciIsDQogICAgICAgeSA9ICIjIG9mIERlcGFydHVyZXMiKQ0KICAgICAgICAgICANCmBgYA0KDQpBcyBjYW4gYmUgc2VlbiBmcm9tIHRoaXMgY2hhcnQsIHRoZSBkYXRhIGFmdGVyIDIwMTggY29udGFpbnMgYSBncmVhdCBkZWFsIG9mIE5BcyB3aGljaCBhcHBlYXIgdG8gYmUganVzdCBtaXNzaW5nIGRhdGEuICBBbHNvIHRoZSBkYXRhIGJlZm9yZSAxOTk1IGlzIHByZXR0eSBsZWFuLiAgQW5vdGhlciBvYnNlcnZhdGlvbiBpcyB0aGF0IGp1c3QgYSBmZXcgY29kZXMgdGVuZCB0byBkb21pbmF0ZSB0aGUgY2hhcnQgbWFraW5nIHRoZSBsZXNzIGZyZXF1ZW50IGNvZGVzIGRpZmZpY3VsdCB0byBhc3Nlc3MuICBCYXNlZCBvbiB0aGVzZSBvYnNlcnZhdGlvbnMsIEkgZGVjaWRlZCB0byByZWNvZGUgdGhlIGRhdGEgdG8gY2FwdHVyZSA1IG1haW4gY2F0ZWdvcmllcyBmb3IgQ0VPIGRlcGFydHVyZXM6IDEpIEhlYWx0aCwgMikgUGVyZm9ybWFuY2UsIDMpIENFTyBjaG9pY2UsIDQpIE1lcmdlciBhbmQgNSkgTi9BICh1bmtub3duKS4NCg0KVGhlIGNvZGUgZm9yIGNsZWFuaW5nIGFuZCB3cmFuZ2xpbmcgdGhlIGRhdGFzZXQgcHJpb3IgdG8gcGxvdHRpbmcgaXMgZ2l2ZW4gYmVsb3cuDQpgYGB7cn0NCmRlcGFydHVyZXNfY2xlYW4gPC0gZGVwYXJ0dXJlcyAlPiUNCiAgZmlsdGVyKGZ5ZWFyIDwgMjAxOSAmIGZ5ZWFyID4gMTk5NCkgJT4lDQogIGZpbHRlcighaXMubmEoZGVwYXJ0dXJlX2NvZGUpKSAlPiUNCiAgbXV0YXRlKGRlcGFydHVyZV9jb2RlID0gYXMuY2hhcmFjdGVyKGRlcGFydHVyZV9jb2RlKSkgJT4lDQogIG11dGF0ZShkZXBhcnR1cmVfY29kZSA9IGZjdF9yZWNvZGUoZGVwYXJ0dXJlX2NvZGUsIEhlYWx0aCA9ICIxIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSGVhbHRoID0gIjIiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQZXJmb3JtYW5jZSA9ICIzIiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUGVyZm9ybWFuY2UgPSAiNCIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGBDRU8gQ2hvaWNlYCA9ICI1IiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYENFTyBDaG9pY2VgID0gIjYiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBNZXJnZXIgPSAiNyIsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGBOL0FgID0gIjgiLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBgTi9BYCA9ICI5Ig0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApKSAlPiUNCiAgZ3JvdXBfYnkoZnllYXIsIGRlcGFydHVyZV9jb2RlKSAlPiUNCiAgc3VtbWFyaXplKG4gPSBuKCksIC5ncm91cHMgPSAiZHJvcCIpDQoNCmRlcGFydHVyZXNfY2xlYW4NCmBgYA0KDQojIyMgVmlzdWFsaXplDQoNClRoZSB2aXN1YWxpemF0aW9uIG9mIHRoZSB0aWRpZWQgYW5kIHJlY29kZWQgZGF0YXNldCB3YXMgdGhlbiBwZXJmb3JtZWQgdXNpbmcgYSBzdGFja2VkIGFyZWEgY2hhcnQuICBUaGlzIHR5cGUgb2YgcGxvdCBpcyBzdGFuZGFyZCBpbiBgYGBnZ3Bsb3QyYGBgIHVzaW5nIGBgYGdlb21fYXJlYWBgYC4NCg0KYGBge3J9DQpkZXBhcnR1cmVzX2NsZWFuICU+JQ0KICBnZ3Bsb3QoYWVzKHggPSBmeWVhciwgeSA9IG4sIGZpbGwgPSBkZXBhcnR1cmVfY29kZSkpICsNCiAgI2dlb21fYmFyKHN0YXQgPSAiaWRlbnRpdHkiKSArDQogIGdlb21fYXJlYSgpICsNCiAgc2NhbGVfZmlsbF92aXJpZGlzX2Qob3B0aW9uID0gInBsYXNtYSIsIGRpcmVjdGlvbiA9IC0xKSArDQogIGxhYnModGl0bGUgPSAiUmVhc29ucyBmb3IgQ0VPIERlcGFydHVyZXMiLA0KICAgICAgIHN1YnRpdGxlID0gIlMmUCAxNTAwIEZpcm1zIDE5OTUtMjAxOCIsDQogICAgICAgeCA9ICJGaXNjYWwgWWVhciBvZiBFdmVudCIsDQogICAgICAgeSA9ICJOdW1iZXIgb2YgRGVwYXJ0dXJlcyIsDQogICAgICAgZmlsbCA9IE5VTEwsDQogICAgICAgY2FwdGlvbiA9ICJHcmFwaGljOiBAZGF0YWRhdmlkeiB8IFNvdXJjZTogRGF0YUlzUGx1cmFsIHwgI1RpZHlUdWVzZGF5IikgKw0KICB0aGVtZShsZWdlbmQucG9zaXRpb24gPSAidG9wIiwNCiAgICAgICAgYXhpcy50aXRsZS54ID0gZWxlbWVudF90ZXh0KG1hcmdpbiA9IG1hcmdpbih0ID0gNSwgciA9IDAsIGIgPSAwLCBsID0gMCkpLA0KICAgICAgICBheGlzLnRpdGxlLnkgPSBlbGVtZW50X3RleHQobWFyZ2luID0gbWFyZ2luKHQgPSAwLCByID0gMTAsIGIgPSAwLCBsID0gMCkpKQ0KYGBgDQoNClRoZSBkZWZhdWx0IG1hcmdpbiBmb3IgdGhlIGF4aXMgdGl0bGUgbGFiZWxzIGZvciB0aGVtZV9taW5pbWFsIGlzIGp1c3QgdG9vIGNsb3NlIHRvIHRoZSBheGlzIGxhYmVscyBmb3IgbXkgbGlraW5nLiAgVGhlIGJlc3Qgd2F5IHRvIGFkanVzdCB0aGUgc3BhY2luZyBvZiB0aGVzZSBsYWJlbHMgaXMgdG8gdXNlIHRoZSBgYGBtYXJnaW5gYGAgZnVuY3Rpb24gd2l0aGluIHRoZSB0aGVtZSBgYGBlbGVtZW50X3RleHRgYGAgZm9yIGBgYGF4aXMudGl0bGUueGBgYCBvciBgYGBheGlzLnRpdGxlLnlgYGAuICBUaGUgb3JkZXJpbmcgb2YgdGhlIGVsZW1lbnRzIGlzIGEgYml0IHdlaXJkICh0b3AsIHJpZ2h0LCBib3R0b20sIGxlZnQpIGJ1dCBJIGd1ZXNzIGl0IGdvZXMgY2xvY2t3aXNlIGZyb20gdGhlIHRvcC4gIFByb2JhYmx5IGJlc3QgdG8gYXNzaWduIHRoZSBsYWJlbHMgdG8gYXZvaWQgY29uZnVzaW9uLiAgSSB3YXMgYSBiaXQgbGF6eSB3aXRoIHRoZSBmb250IGNob29zaW5nIHRoZSBkZWZhdWx0ICJtb25vIiBmb250IGJ1dCBpdCBzZWVtZWQgbGlrZSBhIGdvb2QgZml0IGZvciBhIGJ1c2luZXNzLXJlbGF0ZWQgZGF0YXNldC4NCg0KIyMjIFN1bW1hcnkNCg0KVGhlIHN0YWNrZWQgYXJlYSBjaGFydCBmb3IgdGhlIENFTyBkZXBhcnR1cmUgZGF0YXNldCB3YXMgZWZmZWN0aXZlIGluIGNvbW11bmljYXRpbmcgdGhlIG1haW4gcmVhc29ucyBDRU9zIGxlZnQgdGhlaXIgY29tcGFueSBvdmVyIHRoZSAxOTk1LTIwMTggdGltZWZyYW1lLiAgVGhlIHZpcmlkaXMgbWFnbWEgY29sb3IgcGFsZXR0ZSBwcm9kdWNlZCBhIHBsZWFzaW5nIHZpc3VhbGl6YXRpb24uICBUaGUgbnVtYmVyIG9mIGRlcGFydHVyZXMgdmFyaWVkIGZyb20geWVhci10by15ZWFyIGhvd2V2ZXIgdGhlIHJhdGlvIGFtb25nIHRoZSByZWFzb25zIHdhcyBmYWlybHkgY29uc2lzdGVudC4NCg0K</div>
+&nbsp;
+<hr />
+<p style="text-align: center;"> A work by <a href="https://github.com/datadavidz/">datadavidz</a></p>
+&nbsp;
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://datadavidz.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("2021-04-27_tt_CEODepartures.Rmd");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
