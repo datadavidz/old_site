@@ -1,0 +1,28 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## **Python Setup in RStudio using reticulate package**
+
+*Posted on June 15, 2022*
+
+A summary of my exploration to set up Python to operate within RStudio.  I was mostly interested in being able to apply machine learning algorithms from sci-kit learn but through the RStudio IDE.  The possibility of switching between R and Python languages within an analysis was also intriguing.  I was somewhat surprised that there doesn't seem to be a consensus on how to set up Python with RStudio.  I found many different recommendations as far as how to install Python and how to configure RStudio.  I believe this lack of consensus is due to the feature being rather new and there are many possible configurations depending on your usage and preferences.
+
+I started with a fresh installation of Python and I chose to use the Miniconda installer for Windows 64-bit.  No problems here except the default installation directory contained my Windows user name which contained a space.  The installer gave a warning and I instead chose to install in folder in root directory called miniconda.  I then updated to the latest version of RStudio (2022.02.2) and installation of the ```reticulate``` package. The ```reticulate``` package is essential for using Python in the RStudio environment.
+
+
+
+A quick analysis of the weekly [\#TidyTuesday](http://github.com/rfordatascience/tidytuesday) dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
