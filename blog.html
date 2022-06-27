@@ -11,10 +11,10 @@
 
 
 
-<title>blog.utf8</title>
+<title>blog.knit</title>
 
-<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -62,6 +62,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -82,6 +83,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -234,7 +238,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -256,7 +260,7 @@ $(document).ready(function () {
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="http://github.com/datadavidz">
-    <span class="fas fa-github fa-lg"></span>
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -277,10 +281,19 @@ $(document).ready(function () {
 <div id="datadavidz-blog" class="section level2">
 <h2><strong>[datadavidz] blog</strong></h2>
 <p><br><br></p>
+<div id="r-and-python-reticulate-setup" class="section level3">
+<h3><strong>R and Python: Reticulate Setup</strong></h3>
+<p><em>Posted on June 15, 2022</em></p>
+<p>A quick review of my initial experience installing Python to work
+within RMarkdown and RStudio IDE.</p>
+<p><a href="2022-06-15_ReticulateSetup.html">Full post</a></p>
+<hr />
+</div>
 <div id="tidy-tuesday-ceo-departures" class="section level3">
 <h3><strong>Tidy Tuesday: CEO Departures</strong></h3>
 <p><em>Posted on April 27, 2021</em></p>
-<p>Question addressed: What are the main reasons for CEO departures and does it vary by year?<br />
+<p>Question addressed: What are the main reasons for CEO departures and
+does it vary by year?<br />
 Visualization: A stacked area chart.</p>
 <p><a href="2021-04-27_tt_CEODepartures.html">Full post</a></p>
 <hr />
@@ -288,7 +301,8 @@ Visualization: A stacked area chart.</p>
 <div id="tidy-tuesday-u.s-post-offices" class="section level3">
 <h3><strong>Tidy Tuesday: U.S Post Offices</strong></h3>
 <p><em>Posted on April 13, 2021</em></p>
-<p>Question addressed: What is the average population served per post office in each state?<br />
+<p>Question addressed: What is the average population served per post
+office in each state?<br />
 Visualization: A hexbin map in the shape of the United States.</p>
 <p><a href="2021-04-13_tt_PostOffices.html">Full post</a></p>
 <hr />
@@ -296,39 +310,48 @@ Visualization: A hexbin map in the shape of the United States.</p>
 <div id="tidy-tuesday-global-deforestation" class="section level3">
 <h3><strong>Tidy Tuesday: Global Deforestation</strong></h3>
 <p><em>Posted on April 6, 2021</em></p>
-<p>Question addressed: What were the major sources of global deforestation from 1990 to 2020?<br />
-Visualization: A series of bar charts with highlighting to attract the viewer to the key data points.</p>
+<p>Question addressed: What were the major sources of global
+deforestation from 1990 to 2020?<br />
+Visualization: A series of bar charts with highlighting to attract the
+viewer to the key data points.</p>
 <p><a href="2021-04-06_tt_Deforestation.html">Full post</a></p>
 <hr />
 </div>
 <div id="tidy-tuesday-makeup-color-shades" class="section level3">
 <h3><strong>Tidy Tuesday: Makeup Color Shades</strong></h3>
 <p><em>Posted on March 30, 2021</em></p>
-<p>Question addressed: Can I predict the makeup color based on a random word pairing?<br />
-Visualization: A graphic containing a unique, color palette of 20 makeup shades.</p>
+<p>Question addressed: Can I predict the makeup color based on a random
+word pairing?<br />
+Visualization: A graphic containing a unique, color palette of 20 makeup
+shades.</p>
 <p><a href="2021-03-30_tt_MakeupShades.html">Full post</a></p>
 <hr />
 </div>
 <div id="tidy-tuesday-united-nations-votes" class="section level3">
 <h3><strong>Tidy Tuesday: United Nations Votes</strong></h3>
 <p><em>Posted on March 23, 2021</em></p>
-<p>Question addressed: Which countries vote for U.N. resolutions on the issue of Arms Control and Disarmament?<br />
-Visualization: A simple, world map with color scale according to percentage of “YES” votes.</p>
+<p>Question addressed: Which countries vote for U.N. resolutions on the
+issue of Arms Control and Disarmament?<br />
+Visualization: A simple, world map with color scale according to
+percentage of “YES” votes.</p>
 <p><a href="2021-03-23_tt_UNvotes.html">Full post</a></p>
 <hr />
 </div>
 <div id="tidy-tuesday-steam-games" class="section level3">
 <h3><strong>Tidy Tuesday: Steam Games</strong></h3>
 <p><em>Posted on March 16, 2021</em></p>
-<p>Question addressed: What was the impact of the US Covid-19 lockdown on the top Steam games?<br />
-Visualization: A stacked, ridgeline plot for the top 5 games with overlapping game titles.</p>
+<p>Question addressed: What was the impact of the US Covid-19 lockdown
+on the top Steam games?<br />
+Visualization: A stacked, ridgeline plot for the top 5 games with
+overlapping game titles.</p>
 <p><a href="2021-03-16_SteamGames.html">Full post</a></p>
 <hr />
 </div>
 <div id="tidy-tuesday-bechdel-test-for-movies" class="section level3">
 <h3><strong>Tidy Tuesday: Bechdel Test for Movies</strong></h3>
 <p><em>Posted on March 9, 2021</em></p>
-<p>Question addressed: Is there any correlation between Bechdel test result and profitability of big budget movies?<br />
+<p>Question addressed: Is there any correlation between Bechdel test
+result and profitability of big budget movies?<br />
 Visualization: A bump chart with labels indicating movie titles.</p>
 <p><a href="2021-03-09_tt_BechdelMovies.html">Full post</a></p>
 <hr />
@@ -336,31 +359,40 @@ Visualization: A bump chart with labels indicating movie titles.</p>
 <div id="tidy-tuesday-superbowl-commercials" class="section level3">
 <h3><strong>Tidy Tuesday: Superbowl Commercials</strong></h3>
 <p><em>Posted on March 2, 2021</em></p>
-<p>Question addressed: What were the most common elements in Superbowl commercials for top 10 brands 2000-2020?<br />
-Visualization: Create an infographic-style figure combining doughnut-style charts and images.</p>
+<p>Question addressed: What were the most common elements in Superbowl
+commercials for top 10 brands 2000-2020?<br />
+Visualization: Create an infographic-style figure combining
+doughnut-style charts and images.</p>
 <p><a href="2021-03-02_tt_Superbowl.html">Full post</a></p>
 <hr />
 </div>
 <div id="tidy-tuesday-employment-and-earnings" class="section level3">
 <h3><strong>Tidy Tuesday: Employment and Earnings</strong></h3>
 <p><em>Posted on February 23, 2021</em></p>
-<p>Question addressed: What occupations within the Manufacturing sector saw the largest employment decline in 2020?<br />
-Visualization: Create a lollipop chart for different industries and size them proportional to the employment numbers.</p>
+<p>Question addressed: What occupations within the Manufacturing sector
+saw the largest employment decline in 2020?<br />
+Visualization: Create a lollipop chart for different industries and size
+them proportional to the employment numbers.</p>
 <p><a href="2021-02-23_tt_Employment.html">Full post</a></p>
 <hr />
 </div>
 <div id="tidy-tuesday-w.e.b.-du-bois-challenge" class="section level3">
 <h3><strong>Tidy Tuesday: W.E.B. Du Bois Challenge</strong></h3>
 <p><em>Posted on February 16, 2021</em></p>
-<p>Question addressed: Can I accurately reproduce a W.E.B Du Bois figure?<br />
-Visualization: Re-created a unique chart which included a spiral and custom font.</p>
+<p>Question addressed: Can I accurately reproduce a W.E.B Du Bois
+figure?<br />
+Visualization: Re-created a unique chart which included a spiral and
+custom font.</p>
 <p><a href="2021-02-16_tt_WEBDubois.html">Full post</a></p>
 <hr />
 </div>
-<div id="tidy-tuesday-student-loan-debt-and-income-by-race-dataset" class="section level3">
-<h3><strong>Tidy Tuesday: Student Loan Debt and Income by Race Dataset</strong></h3>
+<div id="tidy-tuesday-student-loan-debt-and-income-by-race-dataset"
+class="section level3">
+<h3><strong>Tidy Tuesday: Student Loan Debt and Income by Race
+Dataset</strong></h3>
 <p><em>Posted on February 9, 2021</em></p>
-<p>Question addressed: How did average student loan debt-to-income change over time by race?<br />
+<p>Question addressed: How did average student loan debt-to-income
+change over time by race?<br />
 Visualization: Created a clean and simple line chart.</p>
 <p><a href="2021-02-09_tt_LoanDebtIncome.html">Full post</a></p>
 <hr />
@@ -368,100 +400,160 @@ Visualization: Created a clean and simple line chart.</p>
 <div id="tidy-tuesday-hbcu-enrollments-dataset" class="section level3">
 <h3><strong>Tidy Tuesday: HBCU Enrollments Dataset</strong></h3>
 <p><em>Posted on February 2, 2021</em></p>
-<p>Question addressed: How did HBCU enrollments changes between 1990s and 2000s?<br />
-Visualization: Created a waffle plot visualization using waffle package.</p>
+<p>Question addressed: How did HBCU enrollments changes between 1990s
+and 2000s?<br />
+Visualization: Created a waffle plot visualization using waffle
+package.</p>
 <p><a href="2021-02-02_tt_HBCUWaffle.html">Full post</a></p>
 <hr />
 </div>
-<div id="tidy-tuesday-break-free-from-plastics-dataset" class="section level3">
+<div id="tidy-tuesday-break-free-from-plastics-dataset"
+class="section level3">
 <h3><strong>Tidy Tuesday: Break Free From Plastics Dataset</strong></h3>
 <p><em>Posted on January 26, 2021</em></p>
-<p>Question addressed: What were the top 10 countries participating in Break Free From Plastics events?<br />
-Visualization: Created a bar chart visualization using ggthemes package.</p>
+<p>Question addressed: What were the top 10 countries participating in
+Break Free From Plastics events?<br />
+Visualization: Created a bar chart visualization using ggthemes
+package.</p>
 <p><a href="2021-01-26_tt_PlasticWaste.html">Full post</a></p>
 <hr />
 </div>
-<div id="concrete-dataset-part-8-comparison-of-predictive-models-for-concrete-compressive-strength" class="section level3">
-<h3><strong>Concrete Dataset Part 8: Comparison of Predictive Models for Concrete Compressive Strength</strong></h3>
+<div
+id="concrete-dataset-part-8-comparison-of-predictive-models-for-concrete-compressive-strength"
+class="section level3">
+<h3><strong>Concrete Dataset Part 8: Comparison of Predictive Models for
+Concrete Compressive Strength</strong></h3>
 <p><em>Posted on December 4, 2020</em></p>
-<p>The predictive accuracy of the final models build on the Concrete dataset are compared. The random forest and xgboost models gave the best predictive performance. The prediction time for these two models was significantly longer than the conventional modeling approach but the difference was not of practical importance for this example. Over 10,000 predictions can be perfomed using the xgboost model in less than a second using a standard desktop computer.</p>
+<p>The predictive accuracy of the final models build on the Concrete
+dataset are compared. The random forest and xgboost models gave the best
+predictive performance. The prediction time for these two models was
+significantly longer than the conventional modeling approach but the
+difference was not of practical importance for this example. Over 10,000
+predictions can be perfomed using the xgboost model in less than a
+second using a standard desktop computer.</p>
 <p><a href="2020-12-04_ConcreteSummary.html">Full post</a></p>
 <hr />
 </div>
-<div id="concrete-dataset-part-7-random-forest-model-using-ranger" class="section level3">
-<h3><strong>Concrete Dataset Part 7: Random Forest Model using ranger</strong></h3>
+<div id="concrete-dataset-part-7-random-forest-model-using-ranger"
+class="section level3">
+<h3><strong>Concrete Dataset Part 7: Random Forest Model using
+ranger</strong></h3>
 <p><em>Posted on December 4, 2020</em></p>
-<p>A random forest model is fit to predict the compressive strength of concrete formulation using a tidymodels approach. The random forest model showed similar performance to the XGBoost model only slightly worse.</p>
+<p>A random forest model is fit to predict the compressive strength of
+concrete formulation using a tidymodels approach. The random forest
+model showed similar performance to the XGBoost model only slightly
+worse.</p>
 <p><a href="2020-12-04_ConcreteRF.html">Full post</a></p>
 <hr />
 </div>
-<div id="concrete-dataset-part-6-extreme-gradient-boosted-tree-model-using-xgboost" class="section level3">
-<h3><strong>Concrete Dataset Part 6: Extreme Gradient Boosted Tree Model using XGboost</strong></h3>
+<div
+id="concrete-dataset-part-6-extreme-gradient-boosted-tree-model-using-xgboost"
+class="section level3">
+<h3><strong>Concrete Dataset Part 6: Extreme Gradient Boosted Tree Model
+using XGboost</strong></h3>
 <p><em>Posted on December 3, 2020</em></p>
-<p>A boosted tree model is fit to predict the compressive strength of concrete formulation using a tidymodels approach. The XGBoost model showed the best performance of the predictive models so far.</p>
+<p>A boosted tree model is fit to predict the compressive strength of
+concrete formulation using a tidymodels approach. The XGBoost model
+showed the best performance of the predictive models so far.</p>
 <p><a href="2020-12-03_ConcreteXGB.html">Full post</a></p>
 <hr />
 </div>
-<div id="concrete-dataset-part-5-single-layer-neural-network-model-using-nnet" class="section level3">
-<h3><strong>Concrete Dataset Part 5: Single-Layer Neural Network Model using nnet</strong></h3>
+<div
+id="concrete-dataset-part-5-single-layer-neural-network-model-using-nnet"
+class="section level3">
+<h3><strong>Concrete Dataset Part 5: Single-Layer Neural Network Model
+using nnet</strong></h3>
 <p><em>Posted on December 2, 2020</em></p>
-<p>A simple neural network is fit to predict the compressive strength of concrete formulation using a tidymodels approach. This single-layer neural network showed significantly better performance than both the conventional model and the GLMnet model.</p>
+<p>A simple neural network is fit to predict the compressive strength of
+concrete formulation using a tidymodels approach. This single-layer
+neural network showed significantly better performance than both the
+conventional model and the GLMnet model.</p>
 <p><a href="2020-12-02_ConcreteMLP.html">Full post</a></p>
 <hr />
 </div>
-<div id="concrete-dataset-part-4-conventional-material-model-using-nls" class="section level3">
-<h3><strong>Concrete Dataset Part 4: Conventional Material Model using nls</strong></h3>
+<div id="concrete-dataset-part-4-conventional-material-model-using-nls"
+class="section level3">
+<h3><strong>Concrete Dataset Part 4: Conventional Material Model using
+nls</strong></h3>
 <p><em>Posted on June 16, 2020</em></p>
-<p>The performance of a conventional model is assessed by optimizing parameters for a given transfer function using the nls package.</p>
+<p>The performance of a conventional model is assessed by optimizing
+parameters for a given transfer function using the nls package.</p>
 <p><a href="2020-06-16_ConcreteNLS.html">Full post</a></p>
 <hr />
 </div>
-<div id="concrete-dataset-part-3-predictive-modeling-using-glmnet" class="section level3">
-<h3><strong>Concrete Dataset Part 3: Predictive Modeling using GLMnet</strong></h3>
+<div id="concrete-dataset-part-3-predictive-modeling-using-glmnet"
+class="section level3">
+<h3><strong>Concrete Dataset Part 3: Predictive Modeling using
+GLMnet</strong></h3>
 <p><em>Posted on March 26, 2020</em></p>
-<p>A model to predict the compressive strength of different concrete formulations is built using GLMnet. A tidymodels approach is used to build and analyze the predictive model.</p>
+<p>A model to predict the compressive strength of different concrete
+formulations is built using GLMnet. A tidymodels approach is used to
+build and analyze the predictive model.</p>
 <p><a href="2020-03-26_ConcreteGLM.html">Full post</a></p>
 <hr />
 </div>
-<div id="concrete-dataset-part-2-exploratory-data-analysis" class="section level3">
-<h3><strong>Concrete Dataset Part 2: Exploratory Data Analysis</strong></h3>
+<div id="concrete-dataset-part-2-exploratory-data-analysis"
+class="section level3">
+<h3><strong>Concrete Dataset Part 2: Exploratory Data
+Analysis</strong></h3>
 <p><em>Posted on March 17, 2020</em></p>
-<p>In this post, I use several EDA tools to analyze the Concrete dataset. More specifically, the distributions of the variables and correlations between the variables are explored using packages such as skimr, GGally and correlationfunnel.</p>
+<p>In this post, I use several EDA tools to analyze the Concrete
+dataset. More specifically, the distributions of the variables and
+correlations between the variables are explored using packages such as
+skimr, GGally and correlationfunnel.</p>
 <p><a href="2020-03-17_ConcreteEDA.html">Full post</a></p>
 <hr />
 </div>
 <div id="concrete-dataset-part-1-introduction" class="section level3">
 <h3><strong>Concrete Dataset Part 1: Introduction</strong></h3>
 <p><em>Posted on February 14, 2020</em></p>
-<p>A brief introduction to the Concrete dataset available on the UCI repository. This dataset is interesting for those persons interested in predicting material properties from formulations.</p>
+<p>A brief introduction to the Concrete dataset available on the UCI
+repository. This dataset is interesting for those persons interested in
+predicting material properties from formulations.</p>
 <p><a href="2020-02-14_ConcreteIntro.html">Full post</a></p>
 <hr />
 </div>
 <div id="monster-hunting-part-2-guild-gifts" class="section level3">
 <h3><strong>Monster Hunting Part 2: Guild Gifts</strong></h3>
 <p><em>Posted on March 27, 2019</em></p>
-<p>In this post, I examine the potential daily rewards obtained from guild gifts. As you will see, in a full and active guild, the rewards obtained from guild gifts can easily dwarf the rewards obtained from your personal monster hunting.</p>
+<p>In this post, I examine the potential daily rewards obtained from
+guild gifts. As you will see, in a full and active guild, the rewards
+obtained from guild gifts can easily dwarf the rewards obtained from
+your personal monster hunting.</p>
 <p><a href="2019-03-27_MhuntPart2.html">Full post</a></p>
 <hr />
 </div>
 <div id="monster-hunting-part-1-personal-loot" class="section level3">
 <h3><strong>Monster Hunting Part 1: Personal Loot</strong></h3>
 <p><em>Posted on March 13, 2019</em></p>
-<p>One of the long running debates in my Lords Mobile guild has been how to best benefit the entire guild when monster hunting. In this post, I look at the average personal loot you would expect from using all of your daily energy to hunt a specific level of monster.</p>
+<p>One of the long running debates in my Lords Mobile guild has been how
+to best benefit the entire guild when monster hunting. In this post, I
+look at the average personal loot you would expect from using all of
+your daily energy to hunt a specific level of monster.</p>
 <p><a href="2019-03-13_MhuntPart1.html">Full post</a></p>
 <hr />
 </div>
 <div id="was-i-fooled-by-the-trickstar" class="section level3">
 <h3><strong>Was I fooled by the Trickstar?</strong></h3>
 <p><em>Posted on February 27, 2019</em></p>
-<p>A recent event in Lords Mobile for Valentine’s day was a Trickstar monster kill. The Trickstar looks like an evil version of Cupid so I suppose it was an appropriate way to celebrate the holiday. This post calculates the drop rate for the different holy star rewards and analyzes whether there was any significant dependency between the previous and next reward.</p>
+<p>A recent event in Lords Mobile for Valentine’s day was a Trickstar
+monster kill. The Trickstar looks like an evil version of Cupid so I
+suppose it was an appropriate way to celebrate the holiday. This post
+calculates the drop rate for the different holy star rewards and
+analyzes whether there was any significant dependency between the
+previous and next reward.</p>
 <p><a href="2019-02-27_Trickstar.html">Full post</a></p>
 <hr />
 </div>
-<div id="whats-the-trouble-yo-its-a-troubledough" class="section level3">
+<div id="whats-the-trouble-yo-its-a-troubledough"
+class="section level3">
 <h3><strong>What’s the trouble, yo? It’s a troubledough!</strong></h3>
 <p><em>Posted on February 13, 2019</em></p>
-<p>A recent event in the Lords Mobile game was a monster hunting event with a new type of monster: the Troubledough. The event was concurrent with the release of new background music for the game. Slaying the troubledoughs rewards the player with a “Chest of Echoes”. This post analyzes the chest rewards. Were the rewards worth the effort?</p>
+<p>A recent event in the Lords Mobile game was a monster hunting event
+with a new type of monster: the Troubledough. The event was concurrent
+with the release of new background music for the game. Slaying the
+troubledoughs rewards the player with a “Chest of Echoes”. This post
+analyzes the chest rewards. Were the rewards worth the effort?</p>
 <p><a href="2019-02-13_Troubledough.html">Full post</a></p>
 <hr />
 <!--- put in r chunk to float an image to the right.
@@ -471,7 +563,11 @@ out.extra='style="float:right; padding:10px"'
 <div id="what-is-lords-mobile" class="section level3">
 <h3><strong>What is Lords Mobile?</strong></h3>
 <p><em>Posted on January 30, 2019</em></p>
-<p>In this post, I provide a brief introduction to Lords Mobile game. I take various aspects of the gameplay in Lords Mobile as a source for discussions in many of my posts. The purpose of this post is to give readers an overview for those who are unfamiliar with the game. Perhaps, you will want to join and build your own kingdom?</p>
+<p>In this post, I provide a brief introduction to Lords Mobile game. I
+take various aspects of the gameplay in Lords Mobile as a source for
+discussions in many of my posts. The purpose of this post is to give
+readers an overview for those who are unfamiliar with the game. Perhaps,
+you will want to join and build your own kingdom?</p>
 <p><a href="2019-01-30_LordsOverview.html">Full post</a></p>
 </div>
 </div>

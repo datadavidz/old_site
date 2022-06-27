@@ -7,6 +7,15 @@ output: html_document
 
 <br><br>
 
+### **R and Python: Reticulate Setup**
+*Posted on June 15, 2022*
+
+A quick review of my initial experience installing Python to work within RMarkdown and RStudio IDE.
+
+[Full post](2022-06-15_ReticulateSetup.html)
+
+***
+
 ### **Tidy Tuesday: CEO Departures**
 *Posted on April 27, 2021*
 
