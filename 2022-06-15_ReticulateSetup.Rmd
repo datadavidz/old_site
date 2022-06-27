@@ -13,16 +13,100 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```
 
-## **Python Setup in RStudio using reticulate package**
+## **Python Setup in RStudio using the reticulate package**
 
 *Posted on June 15, 2022*
 
-A summary of my exploration to set up Python to operate within RStudio.  I was mostly interested in being able to apply machine learning algorithms from sci-kit learn but through the RStudio IDE.  The possibility of switching between R and Python languages within an analysis was also intriguing.  I was somewhat surprised that there doesn't seem to be a consensus on how to set up Python with RStudio.  I found many different recommendations as far as how to install Python and how to configure RStudio.  I believe this lack of consensus is due to the feature being rather new and there are many possible configurations depending on your usage and preferences.
+This post is a summary of my initial exploration to set up Python to operate within RStudio.  I was mostly interested in being able to apply machine learning algorithms from Sci-kit Learn but through the RStudio IDE.  The possibility of switching between R and Python languages within an analysis was also intriguing to me.  I was somewhat surprised that there doesn't seem to be a consensus on how to set up Python with RStudio.  I found many different recommendations as far as how to install Python and how to configure RStudio.  I believe this lack of consensus is due to the feature being rather new and also there are many possible configurations depending on your usage and preferences.
 
 I started with a fresh installation of Python and I chose to use the Miniconda installer for Windows 64-bit.  No problems here except the default installation directory contained my Windows user name which contained a space.  The installer gave a warning and I instead chose to install in folder in root directory called miniconda.  I then updated to the latest version of RStudio (2022.02.2) and installation of the ```reticulate``` package. The ```reticulate``` package is essential for using Python in the RStudio environment.
 
+```{r load_libs, message=FALSE}
+library(tidyverse)
+library(reticulate)
+```
 
 
-A quick analysis of the weekly [\#TidyTuesday](http://github.com/rfordatascience/tidytuesday) dataset organized by the R4DS Online Learning Community. My approach is to apply my data science skills to explore one question I have about the data and generate a visualization that addresses this question. The main purpose for me is to practice and try out new things. I am never completely satisfied with the end result but I do the best I can in a short period of time.
+From here, I tried the setup recommended by Tiffany Timbers on her [Github](https://github.com/ttimbers/intro-to-reticulate) and further discussed in an R Ladies Baltimore [video](https://youtu.be/U3ByGh8RmSc).  This setup involved setting a system environment variable in the .Rprofile to specify which Python installation to use: ```Sys.setenv(RETICULATE_PYTHON = "path_to_miniconda's_python")```.  While this approach does in fact work, this system setting locks in the Python installation to use and you need to modify the .Rprofile in order to use a different conda python environment.  The setup also mentioned to make configuration changes to Git Bash and RStudio terminal settings that I found were not necessary.  The setup instructions were created in December 2020 so, perhaps, subsequent RStudio versions have made these terminal configurations obsolete.
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Next, I found the ```reticulate``` installation recommended by Matt Dancho on the [Business Science](https://www.business-science.io/learn-r/2020/04/20/setup-python-in-r-with-rmarkdown.html) website.  This setup recommended setting up a conda environment using the following command: ```conda create -n py3.8 python=3.8 scikit-learn pandas numpy matplotlib```.  This command creates a new environment "py3.8", installs Python 3.8 and installs the latest versions of ```scikit-learn```, ```pandas```, ```numpy``` and ```matplotlib```.
+
+### List the conda environments in RMarkdown
+```{r list_python_env}
+conda_list()
+```
+
+You can then set your conda environment using ```reticulate::use_condaenv```.
+
+```{r}
+use_condaenv("py3.8", required = TRUE)
+```
+
+The conda environment used by reticulate can then be checked.
+
+```{r}
+py_config()
+```
+The following tests are directly from the Matt Dancho Business Science website.
+
+### Test 1: Is Python Working?
+```{python}
+1 + 1
+```
+Note that here we are using a Python code block in Rmarkdown.
+
+### Test 2: Numpy and Pandas
+```{python}
+import numpy as np
+import pandas as pd
+```
+
+Use numpy to create a sequence of numbers in an array
+```{python}
+np.arange(1,10)
+```
+Use pandas to create a dataframe
+```{python}
+# Make a sequence in a data frame using dict format
+df = pd.DataFrame(data = {"sequence":np.arange(1,20,.01)})
+
+# Use assign (mutate) equivalent to calculate the np.sin() of the series
+df = df.assign(value=np.sin(df["sequence"]))
+
+df
+```
+### Test #3: Generate a plot using Matplotlib
+```{python}
+import matplotlib as plt
+
+df.plot(x="sequence", y = "value", title = "Matplotlib")
+```
+
+### Test #4: Build a model using Sci-kit Learn
+```{python}
+from sklearn.ensemble import RandomForestClassifier
+
+clf = RandomForestClassifier(random_state=0)
+
+X = [[ 1,  2,  3],  # 2 samples, 3 features
+     [11, 12, 13]]
+
+y = [0, 1]  # classes of each sample
+
+clf.fit(X, y)
+```
+```{python}
+clf.predict(X)  # predict classes of the training data
+```
+
+### Tip from Business Science post - 4 Conda Terminal Commands
+At some point you will need to create, modify, add more packages to your Conda Environment(s). Here are 4 useful commands:
+
+1. Run ```conda env list``` to list the available conda environments
+2. Run ```conda activate <env_name>``` to activate a conda environment
+3. Run ```conda update --all``` to update all python packages in a conda environment.
+4. Run ```conda install <package_name>``` to install a new package
+
+### Summary
+I found the approach recommended in the post by Matt Dancho was more straightforward and I haven't found any downside yet.  I like the flexibilty to change the conda environment for each analysis (Rmarkdown file) rather than adjusting the .Rprofile setting and rebooting R each time for the change to take effect.  I will continue to update this post as I learn more tips and tricks for mixing R and Python code in Rmarkdown using the RStudio IDE.
+
