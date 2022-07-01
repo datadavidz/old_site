@@ -1,0 +1,116 @@
+---
+output: 
+  html_document:
+    code_download: true
+    includes:
+      after_body: footer.html
+---
+<br>
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include = FALSE}
+library(tidyverse)
+library(readxl)
+library(reticulate)
+```
+
+## **First Foray into Gaussian Process Models**
+*Posted on July 1, 2022*
+
+This post shares my first analysis of the Concrete [dataset](http://archive.ics.uci.edu/ml/datasets/Concrete+Compressive+Strength) using a Gaussian Process modeling approach.  I was interested in Gaussian Process models due to the possibility of building a non-linear regression model which fits the dataset well and allows for predictions on new data along with the uncertainty in that prediction.  I have previously analyzed this dataset using a variety of machine learning approaches which allows for a good comparison in prediction performance.  I have read many articles on Gaussian Process prediction however I feel like I am not entirely grasping the concept quite yet.  The modeling applies a Bayesian approach which takes time to wrap my head around.
+
+The analysis combines R and Python as I wanted to reuse some of the data cleaning from the previous analyses written in R while the Gaussian Process model was built using Python.  The most relevant articles I could find on Gaussian Process modeling contained examples in Python so I decided to use a similar approach.  In this post, I am using the ```GaussianProcessRegressor``` model in the Sci-Kit Learn package to build the model.  An RStudio [blog](https://blogs.rstudio.com/ai/posts/2019-12-10-variational-gaussian-process/) was written in 2019 in R using ```tfprobability``` package on the same dataset but, honestly, I found it difficult to follow and the modeling results (MSE) was higher than my sklearn model.
+
+## Loading the data into R
+
+Here I am reusing the code from previous analyses on the Concrete dataset.  The column names needed to be renamed so that they are more manageable for further data manipulations.
+
+```{r}
+filename <- "Concrete_Data.xls"
+
+folder <- "./data/"
+numberCols <- 9 #total number of columns in spreadsheet
+
+colTypes <- rep("numeric", numberCols)
+concrete_tbl <- read_excel(path = paste0(folder, filename), col_types = colTypes)
+
+concrete_tbl <- concrete_tbl %>%
+  rename(cement = starts_with("Cement")) %>%
+  rename(blast_furnace_slag = starts_with("Blast")) %>%
+  rename(fly_ash = starts_with("Fly Ash")) %>%
+  rename(water = starts_with("Water")) %>%
+  rename(superplasticizer = starts_with("Super")) %>%
+  rename(coarse_aggregate = starts_with("Coarse")) %>%
+  rename(fine_aggregate = starts_with("Fine")) %>%
+  rename(age = starts_with("Age")) %>%
+  rename(compressive_strength = starts_with("Concrete"))
+```
+
+## Initialize Python environment
+
+The ```reticulate``` library has been already loaded (not shown).  We want to use Python packages next so the following code activates the correct Python environment.
+```{r}
+use_condaenv("py3.8", required = TRUE)
+py_config()
+```
+## Import Pandas and Numpy Python libraries
+```{python}
+import pandas as pd
+import numpy as np
+```
+
+To work with an R object in Python, you simply need to type "r.<R object name>".  For example, to print the first few lines of R object containing the concrete dataframe, you can run the following code:
+
+```{python}
+r.concrete_tbl.head()
+```
+
+In general, the Sci-kit learn models require the independent (a.k.a. predictor) variables and dependent (a.k.a. target) variables to be in separate dataframes.  By convention, the predictors are in X and the target is in y.
+
+```{python}
+X = r.concrete_tbl.drop(['compressive_strength'], axis=1)
+y = r.concrete_tbl['compressive_strength']
+```
+
+## Building the Gaussian Process Model
+
+The data was then split into training and testing datasets.  A 60/40 split was used in this case using an sklearn function.
+```{python}
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.4, random_state = 10)
+```
+
+The model and associated kernels were loaded from sklearn package.  There are many different options for selecting the kernels however I found that combining the radial basis function (RBF) kernel with a constant to account for mean offset and a white kernel to account for noisy data seemed to a successful approach for this type of dataset.  And by success, I mean a fit that converges to a GP model without further warnings with a respectable R-squared.
+
+```{python}
+from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import RBF, ConstantKernel, WhiteKernel
+import sklearn.metrics as metrics
+```
+
+```{python}
+kernel = ConstantKernel() * RBF() + WhiteKernel()
+
+gp_model = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer = 5)
+
+gp_model.fit(X_train, y_train)
+
+gp_model.kernel_
+```
+## Evaluation of the GP model predictions on the training data
+```{python}
+y_pred_tr, y_pred_tr_std = gp_model.predict(X_train, return_std=True)
+```
+
+Model evaluation and error calculations
+```{python}
+print('R^2 =',metrics.r2_score(y_train, y_pred_tr))
+print('Adjusted R^2 =',1 - (1-metrics.r2_score(y_train, y_pred_tr))*(len(y_train)-1)/(len(y_train)-X_train.shape[1]-1))
+print('MAE =',metrics.mean_absolute_error(y_train, y_pred_tr))
+print('MSE =',metrics.mean_squared_error(y_train, y_pred_tr))
+print('RMSE =',np.sqrt(metrics.mean_squared_error(y_train, y_pred_tr)))
+```
+
