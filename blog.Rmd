@@ -7,6 +7,15 @@ output: html_document
 
 <br><br>
 
+### **R and Python: First Foray into Gaussian Process Models**
+*Posted on July 1, 2022*
+
+My initial exploration of building a Gaussian Process model.  The UCI Concrete dataset was used and results compared with previous models built using other machine learning algorithms.  The analysis combined R and Python as to use the GaussianProcessRegressor from sklearn while reusing the R code from the previous ML models where applicable.
+
+[Full post](2022-07-01_ConcreteGP.html)
+
+***
+
 ### **R and Python: Reticulate Setup**
 *Posted on June 15, 2022*
 
