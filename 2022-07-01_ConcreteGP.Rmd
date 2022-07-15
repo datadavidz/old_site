@@ -83,7 +83,7 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.4, random_state = 10)
 ```
 
-The model and associated kernels were loaded from sklearn package.  There are many different options for selecting the kernels however I found that combining the radial basis function (RBF) kernel with a constant to account for mean offset and a white kernel to account for noisy data seemed to a successful approach for this type of dataset.  And by success, I mean a fit that converges to a GP model without further warnings with a respectable R-squared.
+The model and associated kernels were loaded from sklearn package.  There are many different options for selecting the kernels however I found that combining the radial basis function (RBF) kernel with a constant to account for mean offset and a white kernel to account for noisy data seemed to a successful approach for this type of dataset.  And by success, I mean a fit that converges to a GP model without further warnings and with a respectable R-squared.
 
 ```{python}
 from sklearn.gaussian_process import GaussianProcessRegressor
@@ -114,3 +114,63 @@ print('MSE =',metrics.mean_squared_error(y_train, y_pred_tr))
 print('RMSE =',np.sqrt(metrics.mean_squared_error(y_train, y_pred_tr)))
 ```
 
+We can visualize the predicted vs. actual (measured) compressive strengths in the figure below.
+
+```{r}
+pred_train <- tibble(y_train = py$y_train, y_pred_tr = py$y_pred_tr)
+
+ggplot(data = pred_train, aes(x = y_train, y = y_pred_tr)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Gaussian Process Model: Predicted vs. Measured for Training Data",
+       x = "Actual Compressive Strength (MPa)",
+       y = "Predicted Compressive Strength (MPa)") +
+  theme_light()
+```
+
+The distribution of model residuals should ideally be centered around 0 and normally distributed.  The residuals for the Gaussian Process Model are shown in the figure below.
+
+```{r}
+pred_train %>%
+  mutate(resid_tr = y_train - y_pred_tr) %>%
+  ggplot(aes(x = resid_tr)) +
+    geom_histogram(aes(y = ..density..), fill="lightblue") +
+    geom_density(color="darkblue") +
+    geom_vline(aes(xintercept = mean(resid_tr)), linetype = "dashed") +
+    labs(title = "Residual Error",
+         x = "Compressive Strength") +
+  theme_light()
+```
+The residuals are centered around zero and about evenly distributed between negative and positive deviations.  A few outliers are evident especially in the prediction beyond -20 MPa.  The model performance on the training data was deemed acceptable to proceed to evaluation of the test data.
+
+## Evaluation of the GP model predictions on the testing data
+
+```{python}
+y_pred_te, y_pred_te_std = gp_model.predict(X_test, return_std=True)
+
+tpred_gp = metrics.r2_score(y_test, y_pred_te)
+print('R^2:', tpred_gp)
+print('Adjusted R^2:',1 - (1-metrics.r2_score(y_test, y_pred_te))*(len(y_test)-1)/(len(y_test)-X_test.shape[1]-1))
+print('MAE:',metrics.mean_absolute_error(y_test, y_pred_te))
+print('MSE:',metrics.mean_squared_error(y_test, y_pred_te))
+print('RMSE:',np.sqrt(metrics.mean_squared_error(y_test, y_pred_te)))
+```
+The model performance was a bit worse for the testing data as compared to the training data.  One of the advantages of the Gaussian Process model is the estimation of uncertainty in the prediction.  In the figure below, the predicted vs. measured compressive strengths for the test dataset are displayed along with error bars for +/- 1 standard deviation.
+
+```{r}
+pred_test <- tibble(y_test = py$y_test, y_pred_te = py$y_pred_te, y_pred_te_std = py$y_pred_te_std)
+
+ggplot(data = pred_test, aes(x = y_test, y = y_pred_te)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = y_pred_te - y_pred_te_std, ymax = y_pred_te + y_pred_te_std)) +
+  geom_smooth(method = "lm") +
+  labs(title = "Gaussian Process Model: Predicted vs. Measured for Testing Data",
+       x = "Actual Compressive Strength (MPa)",
+       y = "Predicted Compressive Strength (MPa)") +
+  theme_light()
+```
+
+For the most part, the error bars are intersecting the trendline however there are a few exceptions.
+
+## Summary
+A Gaussian process model has been built for the concrete dataset.  The predictive performance of this model was lower than for random forest and xgboost models (GP R^2^ = 0.89 vs. RF R^2^ = 0.94).  The main advantage of the Gaussian Process model is the calculation of prediction error which can be very helpful in assessing confidence in future predictions.
