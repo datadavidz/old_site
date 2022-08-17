@@ -1,0 +1,21 @@
+project:
+  type: website
+
+website:
+  title: "[datadavidz]" 
+  site-url: https://datadavidz.github.io
+  description: "This is datadavidz's personal Blog."
+  navbar:
+    left:
+      - text: Index
+        href: index.html 
+      - text: Blog
+        href: blog.html
+      - text: About
+        href: about.html
+    right:  
+      - icon: github
+        href: http://github.com/datadavidz
+format:
+  html:
+    theme: cosmo
